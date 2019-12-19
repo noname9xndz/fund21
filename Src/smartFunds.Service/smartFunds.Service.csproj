@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>smartFunds.Service</AssemblyName>
+    <RootNamespace>smartFunds.Service</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="AWSSDK.CloudFront" Version="3.3.11.21" />
+    <PackageReference Include="Hangfire" Version="1.6.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\smartFunds.Business\smartFunds.Business.csproj" />
+    <ProjectReference Include="..\smartFunds.Common\smartFunds.Common.csproj" />
+    <ProjectReference Include="..\smartFunds.Data\smartFunds.Data.csproj" />
+    <ProjectReference Include="..\smartFunds.Model\smartFunds.Model.csproj" />
+  </ItemGroup>
+
+</Project>

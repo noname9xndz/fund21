@@ -1,0 +1,12 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: C:\inetpub\wwwroot\com.orbitteam.api
+hooks:
+  AfterInstall:
+    - location: \setup_iis.bat
+    - location: \setup-collector-sidecar-service.ps1
+  BeforeInstall:
+    - location: \codedeploy-before-install.bat
+      timeout: 900

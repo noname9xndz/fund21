@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>smartFunds.Business</AssemblyName>
+    <RootNamespace>smartFunds.Business</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Client\" />
+    <Folder Include="Admin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\smartFunds.Common\smartFunds.Common.csproj" />
+    <ProjectReference Include="..\smartFunds.Data\smartFunds.Data.csproj" />
+    <ProjectReference Include="..\smartFunds.Infrastructure\smartFunds.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

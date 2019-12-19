@@ -1,0 +1,139 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{47C10159-2330-49E0-A359-5C106C520D46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{BE3C60D0-8C97-4FA3-8A7B-6EB7915A5EF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Presentation", "Src\smartFunds.Presentation\smartFunds.Presentation.csproj", "{F5A6E314-7A41-4AD1-BF1F-64354C369FC1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Business", "Src\smartFunds.Business\smartFunds.Business.csproj", "{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Data", "Src\smartFunds.Data\smartFunds.Data.csproj", "{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Common", "Src\smartFunds.Common\smartFunds.Common.csproj", "{8A216797-1AD1-4922-916D-E3FBD911010A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Service", "Src\smartFunds.Service\smartFunds.Service.csproj", "{D0275A2F-ABD2-4D48-96DC-E921933B5C9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Caching", "Src\smartFunds.Caching\smartFunds.Caching.csproj", "{397CBBAA-65CD-40C6-BE5A-78007B63301B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{D348389B-3AA3-4DD5-BBC7-B58234688370}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Local\build-api.ps1 = Build\Local\build-api.ps1
+		Build\Local\migrate-database.ps1 = Build\Local\migrate-database.ps1
+		Build\Local\publish-api.ps1 = Build\Local\publish-api.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{77069D03-DC1D-42E6-8077-695C9C23E0DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Core", "Src\smartFunds.Core\smartFunds.Core.csproj", "{74A3884E-212C-4808-BB3D-52598D2A27B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "staging", "staging", "{F55BF46F-422A-4E0F-93BF-65C1C22212A5}"
+	ProjectSection(SolutionItems) = preProject
+		Build\CiCd\Staging\migrate-database.ps1 = Build\CiCd\Staging\migrate-database.ps1
+		Build\CiCd\Staging\notify-deployment-success.ps1 = Build\CiCd\Staging\notify-deployment-success.ps1
+		Build\CiCd\Staging\publish-api.ps1 = Build\CiCd\Staging\publish-api.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{89AF7571-5A89-4FD3-A794-B478C83823E9}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Tools\readme.md = Build\Tools\readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aws", "aws", "{67A90D2A-1874-4D16-8C20-D6736AB2333F}"
+	ProjectSection(SolutionItems) = preProject
+		Build\CiCd\Staging\Aws\appspec.yml = Build\CiCd\Staging\Aws\appspec.yml
+		Build\CiCd\Staging\Aws\codedeploy-before-install.bat = Build\CiCd\Staging\Aws\codedeploy-before-install.bat
+		Build\CiCd\Staging\Aws\collector_sidecar.yml = Build\CiCd\Staging\Aws\collector_sidecar.yml
+		Build\CiCd\Staging\Aws\setup-collector-sidecar-service.ps1 = Build\CiCd\Staging\Aws\setup-collector-sidecar-service.ps1
+		Build\CiCd\Staging\Aws\setup_iis.bat = Build\CiCd\Staging\Aws\setup_iis.bat
+		Build\CiCd\Staging\Aws\setup_iis.ps1 = Build\CiCd\Staging\Aws\setup_iis.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "smartosc", "smartosc", "{395F8675-98AB-49A7-9715-3817AA2F10B8}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Smartosc\migrate-database.ps1 = Build\Smartosc\migrate-database.ps1
+		Build\Smartosc\publish-api.ps1 = Build\Smartosc\publish-api.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BDE078BE-276B-47E2-9524-72D663393196}"
+	ProjectSection(SolutionItems) = preProject
+		Build\CiCd\Tests\appsettings.json = Build\CiCd\Tests\appsettings.json
+		Build\CiCd\Tests\run-integration-tests.ps1 = Build\CiCd\Tests\run-integration-tests.ps1
+		Build\CiCd\Tests\run-unit-tests.ps1 = Build\CiCd\Tests\run-unit-tests.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Infrastructure", "Src\smartFunds.Infrastructure\smartFunds.Infrastructure.csproj", "{B5DB014D-9B97-4342-B511-3B4166B4E2BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smartFunds.Model", "Src\smartFunds.Model\smartFunds.Model.csproj", "{3A422039-2284-4156-B21D-108B96572E6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5A6E314-7A41-4AD1-BF1F-64354C369FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A6E314-7A41-4AD1-BF1F-64354C369FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A6E314-7A41-4AD1-BF1F-64354C369FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A6E314-7A41-4AD1-BF1F-64354C369FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A216797-1AD1-4922-916D-E3FBD911010A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A216797-1AD1-4922-916D-E3FBD911010A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A216797-1AD1-4922-916D-E3FBD911010A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A216797-1AD1-4922-916D-E3FBD911010A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0275A2F-ABD2-4D48-96DC-E921933B5C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0275A2F-ABD2-4D48-96DC-E921933B5C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0275A2F-ABD2-4D48-96DC-E921933B5C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0275A2F-ABD2-4D48-96DC-E921933B5C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397CBBAA-65CD-40C6-BE5A-78007B63301B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397CBBAA-65CD-40C6-BE5A-78007B63301B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397CBBAA-65CD-40C6-BE5A-78007B63301B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397CBBAA-65CD-40C6-BE5A-78007B63301B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A3884E-212C-4808-BB3D-52598D2A27B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A3884E-212C-4808-BB3D-52598D2A27B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A3884E-212C-4808-BB3D-52598D2A27B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A3884E-212C-4808-BB3D-52598D2A27B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5DB014D-9B97-4342-B511-3B4166B4E2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5DB014D-9B97-4342-B511-3B4166B4E2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5DB014D-9B97-4342-B511-3B4166B4E2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DB014D-9B97-4342-B511-3B4166B4E2BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A422039-2284-4156-B21D-108B96572E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A422039-2284-4156-B21D-108B96572E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A422039-2284-4156-B21D-108B96572E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A422039-2284-4156-B21D-108B96572E6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5A6E314-7A41-4AD1-BF1F-64354C369FC1} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{CC0E78B8-3FEF-44E2-880C-BB039E7A3FD2} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{D0DD9A72-C4EA-49ED-9A80-CEE45E9C38B6} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{8A216797-1AD1-4922-916D-E3FBD911010A} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{D0275A2F-ABD2-4D48-96DC-E921933B5C9A} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{397CBBAA-65CD-40C6-BE5A-78007B63301B} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{D348389B-3AA3-4DD5-BBC7-B58234688370} = {BE3C60D0-8C97-4FA3-8A7B-6EB7915A5EF0}
+		{77069D03-DC1D-42E6-8077-695C9C23E0DE} = {BE3C60D0-8C97-4FA3-8A7B-6EB7915A5EF0}
+		{74A3884E-212C-4808-BB3D-52598D2A27B2} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{F55BF46F-422A-4E0F-93BF-65C1C22212A5} = {77069D03-DC1D-42E6-8077-695C9C23E0DE}
+		{89AF7571-5A89-4FD3-A794-B478C83823E9} = {BE3C60D0-8C97-4FA3-8A7B-6EB7915A5EF0}
+		{67A90D2A-1874-4D16-8C20-D6736AB2333F} = {F55BF46F-422A-4E0F-93BF-65C1C22212A5}
+		{395F8675-98AB-49A7-9715-3817AA2F10B8} = {BE3C60D0-8C97-4FA3-8A7B-6EB7915A5EF0}
+		{BDE078BE-276B-47E2-9524-72D663393196} = {77069D03-DC1D-42E6-8077-695C9C23E0DE}
+		{B5DB014D-9B97-4342-B511-3B4166B4E2BC} = {47C10159-2330-49E0-A359-5C106C520D46}
+		{3A422039-2284-4156-B21D-108B96572E6B} = {47C10159-2330-49E0-A359-5C106C520D46}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {473E1366-67A8-442C-80AB-87CCF4510E33}
+	EndGlobalSection
+EndGlobal

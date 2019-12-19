@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>smartFunds.Core</AssemblyName>
+    <RootNamespace>smartFunds.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Scrutor" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\smartFunds.Common\smartFunds.Common.csproj" />
+    <ProjectReference Include="..\smartFunds.Data\smartFunds.Data.csproj" />
+    <ProjectReference Include="..\smartFunds.Infrastructure\smartFunds.Infrastructure.csproj" />
+    <ProjectReference Include="..\smartFunds.Service\smartFunds.Service.csproj" />
+  </ItemGroup>
+
+</Project>
