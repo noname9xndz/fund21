@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using smartFunds.Business;
 using smartFunds.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using smartFunds.Data.Models;
+using smartFunds.Infrastructure.Services;
 
 namespace smartFunds.Core
 {
@@ -27,7 +30,8 @@ namespace smartFunds.Core
                 .FromAssemblyOf<IRedisCacheProvider>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
                 .FromAssemblyOf<ISettingService>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
                 .FromAssemblyOf<ITestManager>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
-                .FromAssemblyOf<ISMSGateway>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime());
+                .FromAssemblyOf<IEmailSender>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime());
+                
 
             // Context
             services.AddHttpContextAccessor();
@@ -44,6 +48,9 @@ namespace smartFunds.Core
             services.AddTransient<IRedisCacheProvider, RedisCacheProvider>();
             services.AddTransient<IRedisAutoComplete, RedisAutoComplete>();
             services.AddTransient<IRedisAutoCompleteProvider, RedisAutoCompleteProvider>();
+
+            //Identity
+            services.AddTransient<UserManager<User>>();
         }
     }
 }

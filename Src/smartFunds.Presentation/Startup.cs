@@ -16,6 +16,10 @@ using NLog.Extensions.Logging;
 using System.Reflection;
 using smartFunds.Core;
 using static smartFunds.Common.Constants;
+using Microsoft.AspNetCore.Identity;
+using System;
+using smartFunds.Data.Models;
+using smartFunds.Data;
 
 namespace smartFunds.Presentation
 {
@@ -31,6 +35,52 @@ namespace smartFunds.Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<smartFundsDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromDays(3);
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Admin/Login";
+                //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("OnlyAdminAccess", policy => policy.RequireRole(RoleName.Admin));
+            });
+
             services.AddAutoMapper(Assembly.GetAssembly(typeof(ServiceProfile)));
             services.AllowAllCors();
             services.AddMvc()
@@ -81,7 +131,7 @@ namespace smartFunds.Presentation
 
             app.UseHangfireServer();
             app.UseHangfireDashboard();
-
+            
         }
     }
 }

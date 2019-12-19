@@ -1,0 +1,49 @@
+﻿@model IEnumerable<smartFunds.Model.Common.KVRRQuestion>
+
+<label>Test page</label>
+
+<div class="defineKvrrQuestion">
+	@Html.ActionLink("+", "AddKVRRQuestion", "KVRR", new { @class = "btn btn-success btn-add", @title = "Thêm câu hỏi" })
+	<div class="kvrrQuestions">
+		<ul>
+			@{
+				var questionIndex = 1;
+				foreach (var question in @Model)
+				{
+					<li>
+						<div>
+							Câu hỏi số @questionIndex
+						</div>
+						<div class="kvrrQuestionAction">
+							<a href="javascript:void(0)">Detail</a>
+							<a href="javascript:void(0)">DeleteQuestion</a>
+						</div>
+					</li>
+					<li>
+						<strong>Nội dung câu hỏi</strong>
+						@question.Content
+					</li>
+
+					var answerIndex = 1;
+					foreach (var answer in question.Answers)
+					{
+						<li>Đáp án số @answerIndex</li>
+						<li>
+							@answer.Content
+						</li>
+						<li>
+							<div class="mark">Trọng số @answer.Mark</div>
+							<div class="answerAction">
+								<a href="javascript:void(0)">Select</a>
+								<a href="javascript:void(0)">DeleteAnswer</a>
+								<a title="DeleteAnswer" onclick="return confirm('Are you sure you want to delete this Answer?');" href="@Url.Action("DeleteAnswer", "KVRR", new {id = answer.Id})">Delete Answer</a>
+							</div>
+						</li>
+						answerIndex++;
+					}
+					questionIndex++;
+				}
+			}
+		</ul>
+	</div>
+</div>

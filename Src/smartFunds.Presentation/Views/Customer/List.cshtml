@@ -1,0 +1,37 @@
+﻿@model CustomersModel
+@{
+    ViewData["Title"] = "List Customer";
+}
+
+@if (Model != null && Model.Customers.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Common.ResourceManager.GetString("FullName")</th>
+                <th>@Common.ResourceManager.GetString("PhoneNumber")</th>
+                <th>@Common.ResourceManager.GetString("EmailAddress")</th>
+                <th>@Common.ResourceManager.GetString("NumberKVRR")</th>
+                <th>@Common.ResourceManager.GetString("InitialInvestmentAmount")</th>
+                <th>@Common.ResourceManager.GetString("CurrentAccountAmount")</th>
+                <th>@Common.ResourceManager.GetString("AccountCreated")</th>
+                <th>@Common.ResourceManager.GetString("ActiveStatus")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customers)
+            {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Email</td>
+                <td>0</td>
+                <td>@item.InitialInvestmentAmount.ToString("N2") đ</td>
+                <td>@item.CurrentAccountAmount.ToString("N2") đ</td>
+                <td>@item.Created.ToString("dd/MM/yyyy")</td>
+                <td>@item.IsActive</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

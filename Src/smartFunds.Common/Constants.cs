@@ -60,5 +60,12 @@ namespace smartFunds.Common
             public const string UpdateGuestToHostWarnming = "Entire Household will be assigned as Host. Do you wish to Continue?";
             public const string SCPMustBiggerThanCP = "Host SCP must always bigger then Host CP";
         }
+
+        public static class RoleName
+        {
+            public const string Admin = "admin";
+            public const string Manager = "manager";
+            public const string Customer = "customer";
+        }
     }
 }

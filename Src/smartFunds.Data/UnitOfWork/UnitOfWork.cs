@@ -32,6 +32,10 @@ namespace smartFunds.Data.UnitOfWork
         IEventHostRepository EventHostRepository { get; }
         IMealAllocationRepository MealAllocationRepository { get; }
         ITestRepository TestRepository { get; }
+        IKVRRQuestionRepository KVRRQuestionRepository { get; }
+        IKVRRAnswerRepository KVRRAnswerRepository { get; }
+        IUserRepository UserRepository { get; }
+        IFAQRepository FAQRepository { get; }
         Task<int> SaveChangesAsync();
         Task BuildCacheAsync();
     }
@@ -61,6 +65,10 @@ namespace smartFunds.Data.UnitOfWork
         private IEventHostRepository _eventHostRepository;
         private IMealAllocationRepository _mealAllocationRepository;
         private ITestRepository _testRepository;
+        private IKVRRQuestionRepository _kvrrQuestionRepository;
+        private IKVRRAnswerRepository _kvrrAnswerRepository;
+        private IUserRepository _userRepository;
+        private IFAQRepository _faqRepository;
 
         public UnitOfWork(IDbContextFactory<smartFundsDbContext> dbContextFactory, IOptions<smartFundsRedisOptions> redisConfigurationOptions
             , IRedisAutoCompleteProvider redisAutoCompleteProvider, IHttpContextAccessor httpContextAccessor)
@@ -144,6 +152,7 @@ namespace smartFunds.Data.UnitOfWork
             }
         }
 
+
         public ISublocalityRepository SublocalityRepository
         {
             get
@@ -189,6 +198,37 @@ namespace smartFunds.Data.UnitOfWork
             get
             {
                 return _testRepository = _testRepository ?? new TestRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IKVRRQuestionRepository KVRRQuestionRepository
+        {
+            get
+            {
+                return _kvrrQuestionRepository = _kvrrQuestionRepository ?? new KVRRQuestionRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+        public IKVRRAnswerRepository KVRRAnswerRepository
+        {
+            get
+            {
+                return _kvrrAnswerRepository = _kvrrAnswerRepository ?? new KVRRAnswerRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                return _userRepository = _userRepository ?? new UserRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IFAQRepository FAQRepository
+        {
+            get
+            {
+                return _faqRepository = _faqRepository ?? new FAQRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
             }
         }
 

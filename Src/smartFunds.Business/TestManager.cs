@@ -16,12 +16,10 @@ namespace smartFunds.Business
     public class TestManager : ITestManager
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ISMSGateway _smsGateway;
 
-        public TestManager(IUnitOfWork unitOfWork, ISMSGateway smsGateway)
+        public TestManager(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _smsGateway = smsGateway;
         }
         public async Task<string> GetTest(int? testId)
         {
@@ -41,9 +39,6 @@ namespace smartFunds.Business
         {
             var savedTest = _unitOfWork.TestRepository.Add(test);
             await _unitOfWork.SaveChangesAsync();
-
-            // send sms to notify
-            _smsGateway.Send("success");
 
             return savedTest;
         }

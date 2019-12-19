@@ -33,6 +33,24 @@ namespace smartFunds.Common
         ContactBaseCountry
     }
 
+    public enum LoginStatus
+    {
+        Succeeded,
+        RequiresTwoFactor,
+        IsLockedOut,
+        NotVerify,
+        Error,
+        None
+    }
+
+    public enum RegisterStatus
+    {
+        Succeeded,
+        ExistUser,
+        NotVerify,
+        None
+    }
+
     public static class EnumHelpers
     {
         public static T ToEnum<T>(this string value)
@@ -41,5 +59,11 @@ namespace smartFunds.Common
                 return default(T);
             return (T)Enum.Parse(typeof(T), value);
         }
+    }
+
+    public enum FormState
+    {
+        Edit,
+        Add
     }
 }

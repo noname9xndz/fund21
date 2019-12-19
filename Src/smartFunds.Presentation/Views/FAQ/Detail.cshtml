@@ -1,0 +1,31 @@
+﻿@using smartFunds.Model.Common;
+@model FAQModel
+@{
+    ViewData["Title"] = "FAQ Detail";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+
+            <h4>FAQ Detail</h4>
+
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Title)</td>
+                    <td>@Html.DisplayFor(model => model.Title)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Content)</td>
+                    <td>@Html.DisplayFor(model => model.Content)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DateLastUpdated)</td>
+                    <td>@Html.DisplayFor(model => model.DateLastUpdated)</td>
+                </tr>
+            </table>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+
+        </section>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+﻿@using smartFunds.Common
+@model smartFunds.Model.Common.KVRRQuestion
+
+<label>Test page</label>
+
+
+<div class="define-kvrr-question-detail">
+	<div class="kvrr-questions">
+		<ul>
+			@{
+				<li>
+					<div>
+						Câu hỏi số ?
+					</div>
+					<div class="kvrr-question-action">
+						<a href="javascript:void(0)" class="add-answer-button">Add Answer</a>
+						<a href="javascript:void(0)">Exit</a>
+					</div>
+				</li>
+				<li>
+					<textarea type="text" class="question-content">@Model.Content</textarea>
+				</li>
+
+				var answerIndex = 1;
+				<li class="container-answer">
+					@if (Model.EntityState == (int)FormState.Edit)
+					{
+						foreach (var item in Model.Answers)
+						{
+							<div class="answer-block'@answerIndex'">
+								<h4>Đáp án số @answerIndex</h4>
+								<textarea type="text" class="answer-content">@item.Content</textarea>
+								<div class="mark">
+									Trọng số
+									<input type="text" class="mark" value="@item.Mark" />
+								</div>
+								<div class="answer-action">
+									<a href="javascript:void(0)" class="delete-answer">DeleteAnswer</a>
+								</div>
+							</div>
+							answerIndex++;
+						}
+					}
+					else if (Model.EntityState == (int)FormState.Add)
+					{
+						<div class="answer-block'@answerIndex'">
+							<h4>Đáp án số @answerIndex</h4>
+							<textarea type="text" class="answer-content"></textarea>
+							<div class="mark">
+								Trọng số
+								<input type="text" class="mark" />
+							</div>
+							<div class="answer-action">
+								<a href="javascript:void(0)">DeleteAnswer</a>
+							</div>
+						</div>
+					}
+				</li>
+				<li>
+					<input type="submit" id="btnSubmit" value="Submit" class="btn btn-success" />
+				</li>
+			}
+		</ul>
+	</div>
+</div>
+
+<script>
+	$('.define-kvrr-question-detail .add-answer-button').on( "click", function() {
+		$('.container-answer').append(`<div class="answer-block'@answerIndex'">
+						<h4>Đáp án số @answerIndex</h4>
+						<textarea type="text" class="answer-content"></textarea>
+						<div class="mark">
+							Trọng số
+							<input type="text" class="mark" />
+						</div>
+						<div class="answer-action">
+							<a href="javascript:void(0)">DeleteAnswer</a>
+						</div>
+					</div>`);
+	});
+
+
+	$(".define-kvrr-question-detail #btnSubmit").on("click",
+		function () {
+			//get questions & answer list by jquery
+			var kvrrQuestion = null;
+
+			jQuery.ajax({
+				url: @Url.Action("SaveDefineKVRRQuestion", "KVRR"),
+				type: 'POST',
+				data: {
+					'kvrrQuestion': kvrrQuestion
+				},
+				success: function(data) {
+					console.log("success");
+				}
+			});
+		});
+
+	$(".define-kvrr-question-detail .delete-answer").on("click",
+		function () {
+			//delete block by jquery
+	});
+</script>

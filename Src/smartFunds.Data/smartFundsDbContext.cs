@@ -6,10 +6,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using smartFunds.Common.Data.Repositories;
 using smartFunds.Data.Models.Contactbase;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace smartFunds.Data
 {
-    public class smartFundsDbContext : DbContext
+    public class smartFundsDbContext : IdentityDbContext<User>
     {
         private static readonly MethodInfo _propertyMethod = typeof(EF).GetMethod(nameof(EF.Property), BindingFlags.Static | BindingFlags.Public).MakeGenericMethod(typeof(bool));
 
@@ -35,6 +36,9 @@ namespace smartFunds.Data
         public DbSet<MealAllocation> MealAllocations { get; set; }
 
         public DbSet<Test> Tests { get; set; }
+        public DbSet<KVRRQuestion> KvrrQuestion { get; set; }
+        public DbSet<KVRRAnswer> KvrrAnswer { get; set; }
+        public DbSet<FAQ> FAQs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

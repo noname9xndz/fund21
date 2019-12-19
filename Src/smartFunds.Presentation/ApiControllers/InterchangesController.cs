@@ -57,8 +57,8 @@ namespace smartFunds.Presentation.Controllers
         [Route("initData")]
         public async Task<IActionResult> InitMemberData()
         {
-            var result = await _interchangeService.GetMemberInterchangeData(_userService.GetCurrentUser());
-
+            //var result = await _interchangeService.GetMemberInterchangeData(_userService.GetCurrentUser());
+            var result = "";
             return Ok(result);
         }
     }

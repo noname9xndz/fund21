@@ -37,6 +37,10 @@ namespace smartFunds.Service.Mapper
                 .ForMember(x => x.Event, opt => opt.Ignore());
             CreateMap<Data.Models.Test, Model.Common.TestModel>();
             CreateMap<Model.Common.TestModel, Data.Models.Test>();
+            CreateMap<Data.Models.User, Model.Common.UserModel>();
+            CreateMap<Model.Common.UserModel, Data.Models.User>();
+            CreateMap<Data.Models.FAQ, Model.Common.FAQModel>();
+            CreateMap<Model.Common.FAQModel, Data.Models.FAQ>();
         }
     }
 }

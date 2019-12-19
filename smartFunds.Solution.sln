@@ -67,7 +67,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BDE078BE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Infrastructure", "Src\smartFunds.Infrastructure\smartFunds.Infrastructure.csproj", "{B5DB014D-9B97-4342-B511-3B4166B4E2BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smartFunds.Model", "Src\smartFunds.Model\smartFunds.Model.csproj", "{3A422039-2284-4156-B21D-108B96572E6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartFunds.Model", "Src\smartFunds.Model\smartFunds.Model.csproj", "{3A422039-2284-4156-B21D-108B96572E6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,38 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Customer Detail";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+
+            <h4>Customer Detail</h4>
+
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.FullName)</td>
+                    <td>@Html.DisplayFor(model => model.FullName)</td>
+                </tr>
+                <tr>
+                    <td>@Common.ResourceManager.GetString("PhoneNumber")</td>
+                    <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                </tr>
+                <tr>
+                    <td>@Common.ResourceManager.GetString("EmailAddress")</td>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>@Common.ResourceManager.GetString("NumberKVRR")</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>@Common.ResourceManager.GetString("AccountCreated")</td>
+                    <td>@Model.Created.ToString("dd/MM/yyyy")</td>
+                </tr>
+            </table>
+
+
+        </section>
+    </div>
+</div>
