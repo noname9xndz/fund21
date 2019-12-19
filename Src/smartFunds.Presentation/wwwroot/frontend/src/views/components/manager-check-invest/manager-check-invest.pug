@@ -1,0 +1,29 @@
+section.manager-check-invest
+  input(type="hidden" id="managerCheckInvestDataApiUrl" value="http://smartfunds-be-net.hn.smartosc.com/admin/check-fund/GetInvestmentFunds")    
+  .container-fluid
+    .content
+      h1.section-title Kiểm tra quỹ
+      .row.center-xs
+        .col-sm-6
+          form#form-question
+            .form-group.form-align-center
+              label Qũy
+              select.forn-control#amout(name="amout")
+                option(value="1") 1
+                option(value="2") 2
+                option(value="3") 3
+                option(value="4") 4
+                option(value="5") 5
+              button.btn.btn-action(href="/manager-risk__questions__data.html") Kiểm tra
+            p Số lượng khách hàng đầu tư vào quỹ: 
+              span 15
+            p Tổng số tiền đang đc đầu từ vào quỹ:
+              span 100000
+            .btns-wrapper-center
+              a.btn.btn-action Quay lại
+section.manager-check-invest__Chart
+  .container
+    .manager-check-invest__Chart--wrapper
+      .chart
+        canvas.chart-profile#chart-profile
+      #legend

@@ -1,0 +1,60 @@
+﻿@model PortfolioModel
+@{
+    ViewData["Title"] = @Common.AddPortfolio;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result;
+}
+
+@if (Model != null)
+{
+	<section class="investment-portfolio-add">
+		<div class="container-fluid">
+			<h1 class="section-title">@Common.AddPortfolio</h1>
+			<form asp-controller="Portfolio" asp-action="New" method="post">
+				<div class="row center-xs">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label asp-for="Title"></label>
+							<input asp-for="Title" class="form-control" />
+							<span asp-validation-for="Title" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="Content"></label>
+							<textarea asp-for="Content" class="form-control"></textarea>
+							<span asp-validation-for="Content" class="text-danger"></span>
+						</div>
+						<div class="tn-part text-center">
+                            <div class="btn-part text-center">
+                                <button class="btn btn-action @( checkRule ? "":"disabled-button" )" type="submit">@Common.Confirm</button>
+                                <a class="btn btn-action" data-micromodal-trigger='model-cancel' href="#">Hủy</a>
+                                <div class="manager-risk__questions__list-questions__item__title">
+                                    <div class="item-option">
+                                        <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                                            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                    <header class="modal__header">
+                                                        <h2 class="modal__title" id="manager-user-title">@Common.CancelMessage</h2>
+                                                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                    </header>
+                                                    <footer class="modal__footer">
+                                                        <a class="modal__btn modal__btn-primary" asp-action="List">
+                                                            Ok
+                                                        </a>
+                                                        <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                            Cancel
+                                                        </button>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				@Html.Hidden("initTitle", Model.Title)
+			</form>
+		</div>
+	</section>
+}

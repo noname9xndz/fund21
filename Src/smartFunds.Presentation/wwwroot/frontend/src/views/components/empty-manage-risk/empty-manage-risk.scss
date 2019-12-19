@@ -1,0 +1,95 @@
+.emptyManageRisk {
+  background: #f8f8f8;
+  @include flexbox();
+  @include align-items(center);
+
+  @include ie-only {
+    padding-top: 200px;
+  }
+
+  &__BigImage {
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+  &__Content {
+    text-align: center;
+    h4 {
+      font-size: 24px;
+      line-height: 28px;
+      color: #3d4359;
+      margin: 0;
+      font-weight: 400;
+    }
+    p {
+      padding-top: 7px;
+      padding-bottom: 60px;
+      margin: auto;
+      line-height: 1.5;
+      font-size: 14px;
+      font-weight: 400;
+      color: #535353;
+      max-width: 500px;
+    }
+    padding-bottom: 103px;
+  }
+  &__Button {
+    margin: auto;
+    position: relative;
+    width:100%;
+    @include min-sm {
+        width: 265px;
+
+    }
+    .btn-select {
+      display: block;
+      @include btn(100%, $bg-color-orange, #fff)
+      background: #263d60;
+    }
+    // .middle {
+    //   position: absolute;
+    //   top: 50%;
+    //   left: 50%;
+    //   transform: translate(-50%, -50%);
+    //   text-align: center;
+    // }
+    // .btn {
+    //   height: 50px;
+    //   font-size: 14px;
+    //   line-height: 16px;
+    //   background: #f77314;
+    //   color: #ffffff;
+    //   font-weight: bold;
+    //   padding: 16px 86px;
+    //   cursor: pointer;
+    //   border-radius: 3px;
+    //   border: none;
+    //   transition: color 0.4s linear;
+    //   position: relative;
+    //   z-index: 1;
+    // }
+    // .btn:hover {
+    //   color: #f77314;
+    // }
+    // .btn::before {
+    //   content: "";
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   border: 1px solid #f77314;
+    //   background: #fff;
+    //   z-index: -1;
+    //   transition: transform 0.5s;
+    //   transform-origin: 0 0;
+    //   transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    // }
+    // .btn1::before {
+    //   transform: scaleX(0);
+    // }
+    // .btn1:hover::before {
+    //   transform: scaleX(1);
+    // }
+  }
+}

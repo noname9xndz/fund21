@@ -1,0 +1,355 @@
+
+.header {
+  background-color: #3c8dbc;
+  display: flex;
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+
+  &__Left {
+    width: 25%;
+    text-align: center;
+    margin: 15px 0px;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include min-xl {
+      width: 15%;
+    }
+
+    h4 {
+      color: white;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
+  &__Right {
+    width: 75%;
+    margin: 15px 0px;
+    line-height: 1;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+
+    @include min-xl {
+      width: 85%;
+    }
+  }
+
+  &__toogleIcon {
+    width: 5%;
+    float: left;
+    text-align: center;
+
+    .fa-bars {
+      color: white;
+      font-size: 20px;
+    }
+  }
+
+  &__Notification {
+    width: 95%;
+    float: right;
+
+    ul {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    li {
+      width: unset;
+      float: left;
+      text-align: right;
+      @include min-xl {
+        padding-right: 60px;
+      }
+    }
+
+    .far {
+      color: white;
+      font-size: 20px;
+    }
+  }
+  &__Dropdown {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    button {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: white;
+      display: flex;
+      span {
+        padding-right: 5px;
+        line-height: 15px;
+        flex: 0 0 auto;
+      }
+    }
+    &__Content {
+      border-top: 6px solid #3c8dbc;
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 180px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      z-index: 1;
+    }
+    &:hover {
+      .header__Dropdown__Content {
+        display: block;
+      }
+    }
+    &:hover > .header__Dropdown__Content:hover {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+    }
+    &--Links {
+      text-align: left;
+    }
+    a {
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+      &:last-child {
+        color: red;
+      }
+    }
+  }
+}
+
+.sidebar {
+  background-color: #222d32;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  width: 25%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  z-index: 2;
+  @include min-xl {
+    width: 18%;
+  }
+  &.is-active {
+    display: block;
+    width: 8%;
+    position: absolute;
+    z-index: 2;
+
+    @include min-xl {
+      width: 5%;
+    }
+
+    @include min-xxl {
+      width: 3%;
+    }
+    .sidebar__Dropdown.is-active {
+      padding-bottom: 0;
+      .sidebar__Dropdown--Wrapper {
+        display: none;
+      }
+    }
+
+    .sidebar__items--Name {
+      color: #8aa4af;
+      &:hover {
+        color: white;
+      }
+    }
+
+    .sidebar__items {
+      position: relative;
+      color: #8aa4af;
+
+      &:hover {
+        color: white;
+        // .sidebar__items--Name {
+        //   min-width: 21vw;
+        //   display: block;
+        //   position: absolute;
+        //   height: auto;
+        //   background-color: #222d32;
+        //   top: 0;
+        //   left: 56px;
+        //   white-space: nowrap;
+        //   text-align: left;
+        //   padding-left: 10px;
+        //   padding-right: 10px;
+        //   @include min-xxl {
+        //     min-width: 9vw;
+        //   }
+        // }
+      }
+    }
+    .sidebar__Dropdown {
+      &:hover {
+        .sidebar__items--Name {
+          min-width: 21vw;
+          display: block;
+          position: absolute;
+          height: auto;
+          background-color: #222d32;
+          top: 0;
+          left: 56px;
+          white-space: nowrap;
+          text-align: left;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include min-xxl {
+            min-width: 9vw;
+          }
+        }
+      }
+    }
+    .fa-angle-down {
+      display: none;
+    }
+  }
+
+  ul {
+    padding-top: 53px;
+    background-color: #222d32;
+    li {
+      color: #b8c7ce;
+      cursor: pointer;
+
+      &.current {
+        color: white;
+        background: #1e282c;
+      }
+      &:hover {
+        color: white;
+        background: #1e282c;
+      }
+
+      a {
+        text-decoration: none;
+        line-height: 45px;
+        width: 100%;
+        display: block;
+        padding: 0 20px;
+        position: relative;
+      }
+
+      .far,
+      .fas {
+        margin-right: 10px;
+      }
+      .fa-angle-down {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -8px;
+        transition: transform 0.3s ease-in-out;
+      }
+    }
+  }
+  &__Dropdown {
+    &--Wrapper {
+      -webkit-animation: fadeInDown 0.3s ease-out;
+      -moz-animation: fadeInDown 0.3s ease-out;
+      animation: fadeInDown 0.3s ease-out;
+      display: none;
+    }
+  }
+  &__Dropdown.is-active {
+    .fa-angle-down {
+      transform: rotate(-180deg);
+    }
+    .sidebar__Dropdown--Wrapper {
+      -webkit-animation: fadeInDown 0.3s ease-out;
+      -moz-animation: fadeInDown 0.3s ease-out;
+      animation: fadeInDown 0.3s ease-out;
+      padding-top: 0px;
+      display: block;
+      li {
+        a {
+          background-color: #374850;
+        }
+      }
+    }
+  }
+  &__Submenu {
+    display: none;
+    a {
+      color: #8aa4af;
+      padding: 0px !important;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  // Side bar active
+}
+
+// Global
+
+.displayNone {
+  display: none;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+//Style Header Collapse
+
+.headerLeftCollapse {
+  width: 8%;
+
+  @include min-xl {
+    width: 5%;
+  }
+
+  @include min-xxl {
+    width: 3%;
+  }
+}
+
+.headerRightCollapse {
+  width: 92%;
+
+  @include min-xl {
+    width: 95%;
+  }
+
+  @include min-xxl {
+    width: 97%;
+  }
+}
+
+// Style Sidebar && Body
+
+.body-content {
+  width: 100%;
+  transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding-left: 24%;
+  padding-top: 50px;
+
+  @include min-xl {
+    padding-left: 18%;
+  }
+}
+
+.sidebar.is-active ~ .body-content {
+  transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding-left: 8%;
+
+  @include min-xl {
+    padding-left: 5%;
+  }
+
+  @include min-xxl {
+    padding-left: 3%;
+  }
+}

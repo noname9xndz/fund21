@@ -1,0 +1,38 @@
+section.user-wallet  
+    .user-wallet-title  
+        span.text-content Tài khoản
+    .user-wallet-content
+        .user-wallet-block.user-wallet-account-balance.money-record
+            .block-icon
+                img.icon-wallet(src="../../../assets/images/icons/wallet.png", alt="Account-balance")
+            .user-wallet-block-content.user-wallet-account-balance-inside.money-record__detail
+                .user-wallet-account-balance-content.money-record__info
+                    span.amount 310.550.000.000
+                    span.item-price VND
+        .user-wallet-block.user-wallet-growth-rate
+            .block-icon
+                img.icon-arrow-increase(src="../../../assets/images/icons/arrow-increase.png", alt="Account-balance")
+            .user-wallet-block-content.user-wallet-growth-rate-inside
+                .user-wallet-growth-rate-content
+                    span.amount 30%
+    .link-widget-wallet 
+        a.withdraw(href="#") Rút tiền
+        a(href="#").invest-more.link-show-popup
+            img(src="../../../assets/images/icons/payment-method.png", alt="Invest more")  
+            span Đầu tư 
+    .popup-modal
+        .modal.micromodal-slide#modal-general(aria-hidden="true")
+            .modal__overlay(tabindex="-1" data-micromodal-close)
+            .modal__container(role="dialog" aria-modal="true" aria-labelledby="modal-1-title")
+                header.modal__header 
+                    h2.modal__title#modal-1-title Xác nhận hơp đồng
+                    button.modal__close(aria-label="Close modal" data-micromodal-close)
+                .modal__content#modal-1-content
+                    .content-detail
+                        p Để có thể đầu tư, bạn cần phải đồng ý với
+                            a(href="#")  Điều khoản sử dụng và bảo mật
+                    .button
+                        a.btn.button-cancel(href="#") Hủy
+                        a.btn.button-accept(href="#") Đồng ý
+                        
+

@@ -1,0 +1,81 @@
+section.headerUser_login.headerUser
+    .container-fluid
+        .content-details
+            .show-desktop-header 
+                .desktop-header
+                    .logo
+                        a(href="/")
+                            img(src="../../../assets/images/logo_sn.png", alt="logo") 
+                    nav.main-menu
+                        ul
+                            li.menu-items#wallet
+                                a(href="#") Tài khoản 
+                            li.menu-items#investment_portfolio.current
+                                a(href="#") Danh Mục Đầu Tư
+                            li.menu-items#transaction_history
+                                a(href="#") Lịch Sử Giao Dịch
+                            li.menu-items#target
+                                a(href="#") Mục Tiêu
+                            li.menu-items.special
+                                .user-account
+                                    p Xin chào, 
+                                        span.username Tony
+                                    .icon-dropdown
+                                        img(src="../../../assets/images/icon-dropdown.png", alt="icon-dropdown")
+                                    .user-details
+                                        .my-account 
+                                            a(href="#") Thông tin cá nhân
+                                        .log-out 
+                                            a(href="#") 
+                                                img(src="../../../assets/images/log-out.png", alt="log-out")
+                                                span Đăng xuất
+            .show-mobile-header
+                .mobile-header
+                    .mobile-top-header 
+                        button.hamburger
+                            div.hamburger-box
+                                div.hamburger-inner
+                        .logo-mobile
+                            a(href="/")
+                                img(src="../../../assets/images/logo_sn.png", alt="logo") 
+                    .overlay
+                    .navbar-mobile
+                        .navbar-menu 
+                            ul
+                                li.menu-items.special
+                                    a(href="/user_resgister.html").register
+                                        .info
+                                            p Xin chào,
+                                            span.username Tony Smith
+                                li.menu-items
+                                    a(href="#") Ví tiền
+                                li.menu-items
+                                    a(href="#") Danh mục đầu tư
+                                li.menu-items
+                                    a.link-show-popup(href="#") Đầu tư
+                                li.menu-items
+                                    a(href="#") Mục tiêu
+                                li.menu-items
+                                    a(href="#") Lịch sử giao dịch
+                            .user-details
+                                .my-account 
+                                    a(href="#") Tài khoản của tôi
+                                .log-out 
+                                    a(href="#") 
+                                        img(src="../../../assets/images/log-out.png", alt="log-out")
+                                        span Đăng xuất
+    .popup-modal
+        .modal.micromodal-slide#modal-general(aria-hidden="true")
+            .modal__overlay(tabindex="-1" data-micromodal-close)
+            .modal__container(role="dialog" aria-modal="true" aria-labelledby="modal-1-title")
+                header.modal__header 
+                    h2.modal__title#modal-1-title Xác nhận hơp đồng
+                    button.modal__close(aria-label="Close modal" data-micromodal-close)
+                .modal__content#modal-1-content
+                    .content-detail
+                        p Để có thể đầu tư, bạn cần phải đồng ý với
+                            a(href="#")  Điều khoản sử dụng và bảo mật
+                    .button
+                        a.btn.button-cancel(href="#") Hủy
+                        a.btn.button-accept(href="#") Đồng ý
+                                

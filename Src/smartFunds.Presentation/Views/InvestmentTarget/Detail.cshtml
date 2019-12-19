@@ -1,0 +1,19 @@
+﻿@model InvestmentTargetModel
+@{
+    ViewData["Title"] = Common.InvestmentTarget;
+}
+
+<div class="body-content-endUser">
+    <div class="user-invesment-target is-active px-15">
+        <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
+        <div class="user-form-group p-15">
+            <div class="user-form-control"><span>@Common.ExpectedAmount</span><span>@Model.ExpectedAmount?.ToString("N0") đ</span></div>
+            <div class="user-form-control"><span>@Common.CurrentAcountAmount2</span><span>@Model.User.CurrentAccountAmount.ToString("N0") đ</span></div>
+            <div class="user-form-control"><span>@Common.Duration</span><span>@Model.Duration.GetDisplayName()</span></div>
+            <div class="user-form-control"><span>@Common.Frequency</span><span>@Model.Frequency.GetDisplayName()</span></div>
+            <div class="user-form-control"><span>@Common.OneTimeAmount</span><span>@Model.OneTimeAmount.ToString("N0") đ</span></div>
+            <div class="user-form-control"><span>@Common.InvestmentMethod</span><span>@Model.InvestmentMethod.GetDisplayName()</span></div>
+            <a class="btn btn-actions" asp-action="Update">Thay đổi mục tiêu</a>
+        </div>
+    </div>
+</div>

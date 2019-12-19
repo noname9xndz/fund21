@@ -1,28 +1,72 @@
 ﻿@using smartFunds.Model.Common;
+@using smartFunds.Common;
 @model FAQModel
 @{
-    ViewData["Title"] = "New FAQ";
+    ViewData["Title"] = "Thêm câu hỏi thường gặp";
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.InvestmentManager).Result;
 }
-
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-action="Save" asp-controller="FAQ" method="post">                
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" placeholder="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<section class="manager-frequent-question-add">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">Thêm câu hỏi</h1>
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <form method="post">
+                        <div class="form-group">
+                            <label>Câu hỏi</label>
+                            <textarea asp-for="Title" class="form-control" type="text"></textarea>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Đáp án</label>
+                            <textarea asp-for="Content" class="form-control" type="text" rows="10" cols="80"></textarea>
+                            <span class="text-danger field-validation-error"><span asp-validation-for="Content"></span></span>
+                            <script>
+                                CKEDITOR.replace('Content');
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Category"></label>
+                            <select class="form-control" asp-for="Category" asp-items="@Html.GetEnumSelectList<FAQCategory>().Where(x => x.Text != FAQCategory.All.GetDisplayName())">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                        <div class="btns-wrapper-center">
+                            <button class="btn btn-action @( checkRule ? "":"disabled-button" )" id="add-questions" type="submit">@Common.Confirm</button>
+                            <a class="btn btn-action" data-micromodal-trigger='model-cancel' href="#">Hủy</a>
+                            <div class="manager-risk__questions__list-questions__item__title">
+                                <div class="item-option">
+                                    <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="manager-user-title">@Common.CancelMessage</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <a class="modal__btn modal__btn-primary" asp-action="List">
+                                                        Ok
+                                                    </a>
+                                                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                        Cancel
+                                                    </button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Content"></label>
-                    <input asp-for="Content" placeholder="Content" class="form-control" />
-                    <span asp-validation-for="Content" class="text-danger"></span>
-                </div>               
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Add</button>
-                </div>                
-            </form>
-        </section>
-    </div>   
-</div>
+            </div>
+        </div>
+    </div>
+</section>
+<input id="required-mess" value="Không bỏ trống" type="hidden" />
+
+
+

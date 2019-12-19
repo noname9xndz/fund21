@@ -41,7 +41,7 @@ namespace smartFunds.Service.Services
                     buildInfo.Error = "";
                     buildInfo.EndTime = null;
                     await _redisCacheProvider.SetBuildCacheInfoAsync(buildInfo);
-                    await _unitOfWork.BuildCacheAsync();
+                    //await _unitOfWork.BuildCacheAsync();
                     buildInfo.Heartbeat = Constants.Cache.HeartbeatMessage.FinishsmartFunds;
                     await _redisCacheProvider.SetBuildCacheInfoAsync(buildInfo);
 

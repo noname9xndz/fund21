@@ -1,0 +1,67 @@
+﻿@model FundPurchaseFeeViewModel
+@{
+    ViewData["Title"] = Common.AddFundPurchaseFee;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="investment-portfolio__add">
+    <div class="container-fluid">
+        <h1 class="section-title">@Common.AddFundPurchaseFee</h1>
+        <form method="post" asp-controller="FundPurchaseFee" asp-action="Add">
+            <input asp-for="FundId" type="hidden" value="@Model.FundId" />
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <span class="error-messeage">@ViewData["Error"]</span>
+                    <div class="form-group">
+                        <label>Số tiền mua (Chú ý: Nhập -1 để thể hiện số lớn vô cùng)</label>
+                        <div class="form-in-line">
+                            <select asp-for="FromLabel" asp-items="Html.GetEnumSelectList<FromLabel>()" class="form-control"></select>
+                            <input asp-for="From" class="form-control" />
+                            <select asp-for="DecimalFromLabel" asp-items="Html.GetEnumSelectList<DecimalLabel>()" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-in-line">
+                            <select asp-for="ToLabel" asp-items="Html.GetEnumSelectList<ToLabel>()" class="form-control"></select>
+                            <input asp-for="To" class="form-control" />
+                            <select asp-for="DecimalToLabel" asp-items="Html.GetEnumSelectList<DecimalLabel>()" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fee"></label>
+                        <input asp-for="Fee" class="form-control form-control-float" />
+                    </div>
+
+                    <div class="tn-part text-center">
+                        <div class="btn-part text-center">
+                            <button class="btn btn-action" type="submit">@Common.Confirm</button>
+                            <a class="btn btn-action" data-micromodal-trigger='model-cancel' href="#">Hủy</a>
+                            <div class="manager-risk__questions__list-questions__item__title">
+                                <div class="item-option">
+                                    <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="manager-user-title">@Common.CancelMessage</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <a class="modal__btn modal__btn-primary" asp-controller="SettingsCMS" asp-action="Index">
+                                                        Ok
+                                                    </a>
+                                                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                        Cancel
+                                                    </button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

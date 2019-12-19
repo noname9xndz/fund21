@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\smartFunds.Common\smartFunds.Common.csproj" />
+    <ProjectReference Include="..\smartFunds.Model\smartFunds.Model.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,19 @@
+.user-not-found-section.user-error-section {
+    .user-not-found-content {
+        p {
+            font-size: 14px;
+            line-height: 150%;
+            color: #818D99;
+            margin: 10px auto 0;
+            @include min-sm {
+                width: 64%;
+            }
+            @include min-xl {
+                width: 30%;
+            }
+            a {
+                color: #F77314;
+            }
+        }
+    }
+}

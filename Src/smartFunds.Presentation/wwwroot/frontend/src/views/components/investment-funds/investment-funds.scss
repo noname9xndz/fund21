@@ -1,0 +1,45 @@
+#table-error {
+  margin-left: 10px;
+  color: red;
+  font-weight: normal;
+}
+.investment-funds {
+  &__table {
+    position: relative;
+    &_wrapper {
+      table {
+        &.display {
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+      z-index: 99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__spinner {
+        color: black;
+        font-size: 60px;
+
+        &:before {
+          content: "\f110";
+          font-family: $font-awesome;
+          z-index: 1;
+          animation: rotating 2s linear infinite;
+        }
+      }
+
+      &.hide {
+        display: none;
+      }
+    }
+  }
+}

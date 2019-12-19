@@ -6,8 +6,9 @@ using smartFunds.Common.Options;
 using smartFunds.Data.Models;
 using smartFunds.Data.Repositories.Generic;
 using System;
+using System.Linq;
+using smartFunds.Model.Client;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace smartFunds.Data.Repositories
@@ -31,9 +32,10 @@ namespace smartFunds.Data.Repositories
         {
             var newUser = user;
             newUser.InitialInvestmentAmount = 0;
+            newUser.CurrentInvestmentAmount = 0;
+            newUser.AdjustmentFactor = 1;
             newUser.CurrentAccountAmount = 0;
             newUser.Created = DateTime.Now;
-            newUser.IsActive = true;
             newUser.DateLastUpdated = DateTime.Now;
             newUser.LastUpdatedBy = CurrentUser;
             return newUser;

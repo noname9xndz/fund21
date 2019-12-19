@@ -2,8 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml.Linq;
+
 
 namespace smartFunds.Infrastructure.Services
 {
@@ -77,7 +80,20 @@ namespace smartFunds.Infrastructure.Services
                 // below steps remove unwanted data from response string
                 strResult = strResult.Replace("</string>", "");
 
-                return true;
+                var xDoc = XDocument.Parse(strResult);
+                var code = xDoc.Descendants("CodeResult").Single();
+                var errorMessage = xDoc.Descendants("ErrorMessage").Single();
+
+                if (code.Value == "100")
+                {
+                    return true;
+                }
+                else
+                {
+                    var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+                    logger.Error("Send SMS Error: Code: " + code.Value + ", Message: " + errorMessage.Value);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

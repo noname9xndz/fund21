@@ -1,0 +1,38 @@
+.manage-riskDetail {
+    background-color: #fff;
+    .title-info {
+        padding: 10px;
+        border-bottom: 1px solid #f4f4f4;
+        a {
+          float: right;
+          margin-left: 5px;
+        }
+        i {
+            float: right;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+    .info-detail {
+        padding: 10px;
+        label {
+          line-height: 40px;
+        }
+        .edit-input {
+          border: inherit;
+        }
+      }
+      img {
+          width:100px;
+          height:100px;
+          cursor: pointer;
+      }
+      .modal {
+        img {
+          width:100px;
+          height:100px;
+          cursor: pointer;
+
+        }
+      }
+}

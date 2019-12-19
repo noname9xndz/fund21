@@ -1,0 +1,91 @@
+.user-invesment-portfolio.container-fluid
+    form.invesment-main#user-invesment-portfolio-main
+        block modal-detail  
+            .modal.micromodal-slide.detail__subInvesment#modal-1(aria-hidden="true")
+                .modal__overlay(tabindex="-1" data-micromodal-close)
+                .modal__container.detail__subInvesment_container(role="dialog" aria-modal="true" aria-labelledby="modal-1-title")
+                    .detail__subInvesment_images
+                        img.detail__subInvesment_images_banner(src="../../assets/images/arrow-left.png", alt="img")
+                    .detail__subInvesment__main
+                        .detail__subInvesment__main__inside
+                            span.detail__subInvesment__main__title Danh mục đầu tư 4
+                            p.detail__subInvesment__main__content Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit.Lorem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit orem ipsum dolor sit amet, magna gravida consectetuer ligula, ornare elit mattis hymenaeos sit
+                    img.detail__subInvesment__main__close(src="../../assets/images/icon-close.png", alt="close", aria-label="Close modal" data-micromodal-close)
+        block invesment-suggetestion
+            .user-invesment-suggetestion
+                h4.user-invesment-suggetestion-title  Danh mục đầu tư khuyến nghị
+                .user-invesment-suggetestion-wrapper
+                    .user-invesment-suggetestion-main.is-active
+                        .user-invesment-suggetestion-images
+                            label
+                                img.sub-invesment-avatar-cover(src="../../../assets/images/a.png", alt="img-cover")
+                                input.inputuser-invesment-suggetestion#user-invesment-suggetestion(type="radio", value="6", name="invesment-choose" checked)
+                                span.checkmark
+                        .user-invesment-suggetestion-content.suggest-block
+                            h4.invesment-name.name-sub-invesment Danh mục đầu tư được khuyến nghị
+                            p.invesment-sort-description.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt donec vestibulum eget, lectus risus a phasellus velit. Etiam quam fusce tristique diam, eros suspendisse interdum aliquam nullam, dolor eget, sed donec. Dignissim duis ut quam suspendisse. Montes vel iaculis cursus dignissim tincidunt neque, condimentum eget in, tincidunt eros elit ipsum nibh facilisis. Lorem ipsum dolor sit amet, quam lorem, tincidunt donec vestibulum eget, lectus risus a phasellus velit. Etiam quam fusce tristique diam, eros suspendisse interdum aliquam nullam, dolor eget, sed donec. Dignissim duis ut quam suspendisse. Montes vel iaculis cursus dignissim tincidunt neque, condimentum eget in, tincidunt eros elit ipsum nibh facilisis. 
+                    .user-invesment-banner
+                        picture
+                            source(media="(max-width: 992px)" srcset="../../../assets/images/intro-small.png")
+                            img(src="../../../assets/images/intro.png")
+        block tittle
+            h4.list-invesment-title Chọn danh mục đầu tư khác
+        block list-invesment-main
+            .list-invesment
+                .list-invesment-main                 
+                    .sub-invesment
+                        .sub-invesment-content
+                            .sub-invesment-avatar
+                                label
+                                    img.sub-invesment-avatar-cover(src="../../../assets/images/a.png", alt="avatar-sub-invesment")
+                                    input.sub-innvesment-cheked(type="radio", name="invesment-choose", value="1")
+                                    span.checkmark
+                            .sub-invesment-main 
+                                h4.name-sub-invesment Danh mục đầu tư 1
+                                p.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  Lorem ipsum dolor sit amet, quam lorem, tincidunt Lorem ipsum dolor sit amet, quam lorem, tincidunt  
+                    .sub-invesment
+                        .sub-invesment-content
+                            .sub-invesment-avatar
+                                label
+                                    img.sub-invesment-avatar-cover(src="/aa", alt="avatar-sub-invesment")
+                                    input.sub-innvesment-cheked(type="radio", name="invesment-choose", value="2")
+                                    span.checkmark
+                            .sub-invesment-main 
+                                h4.name-sub-invesment Danh mục đầu tư 2
+                                p.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt
+                    .sub-invesment
+                        .sub-invesment-content
+                            .sub-invesment-avatar
+                               label
+                                    img.sub-invesment-avatar-cover(src="/s", alt="avatar-sub-invesment")
+                                    input.sub-innvesment-cheked(type="radio", name="invesment-choose", value="3")
+                                    span.checkmark
+                            .sub-invesment-main 
+                                h4.name-sub-invesment Danh mục đầu tư 3
+                                p.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt                                
+                    .sub-invesment
+                        .sub-invesment-content
+                            .sub-invesment-avatar
+                                label
+                                    img.sub-invesment-avatar-cover(src="/s", alt="avatar-sub-invesment")
+                                    input.sub-innvesment-cheked(type="radio", name="invesment-choose", value="4")
+                                    span.checkmark
+                            .sub-invesment-main 
+                                h4.name-sub-invesment Danh mục đầu tư 4
+                                p.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt                               
+                    //- .sub-invesment
+                    //-     .sub-invesment-content
+                    //-         .sub-invesment-avatar
+                    //-             label
+                    //-                 img.sub-invesment-avatar-cover(src="/ss", alt="avatar-sub-invesment")
+                    //-                 input.sub-innvesment-cheked(type="radio", name="invesment-choose", value="5")
+                    //-                 span.checkmark
+                    //-         .sub-invesment-main 
+                    //-             h4.name-sub-invesment Danh mục đầu tư 5
+                    //-             p.sub-invesment-sort-description Lorem ipsum dolor sit amet, quam lorem, tincidunt                              
+                .block-button
+                    button#btnAnswer(type="submit" disabled).btn.btn-submit Xác nhận danh mục đầu tư
+                    a.btn.back-question(href="/user-questions.html") Trả lời lại câu hỏi
+        
+
+        

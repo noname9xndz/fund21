@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = Common.TransactionHistory;
+}
+
+<div class="body-content-endUser">
+    <section class="user-transaction-history container-fluid">
+        <input id="usermanageTransactionInputHidden"
+               type="hidden" value="transaction-history/list">
+        <h1 class="section-title-endUser">@Common.TransactionHistory</h1>
+        <div class="user-transaction-history-filters p-15">
+            <div class="user-transaction-history-filters__items">
+                <span>@(Common.TimeAction)</span>
+                <div class="user-transaction-history-filters__items__input">
+                    <div class="date-form-group">
+                        <span>Từ ngày</span>
+                        <input class="input-form-control user-transaction-history-from" type="text" readonly="readonly" value="" name="date-range-form">
+                    </div>
+                    <div class="date-form-group">
+                        <span>Đến ngày</span>
+                        <input class="input-form-control user-transaction-history-to" type="text" readonly="readonly" value="" name="date-range-to">
+                    </div>
+                </div>
+            </div>
+            <div class="user-transaction-history-filters__items">
+                <span>@Common.Type</span>
+                <div class="user-transaction-history-filters__items__input">
+                    <select class="input-form-control user-transaction-history-type" name="typeTransaction" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+                </div>
+            </div>
+            <div class="user-transaction-history-filters__items">
+                <span>@Common.Status</span>
+                <div class="user-transaction-history-filters__items__input">
+                    <select class="input-form-control user-transaction-history-status" name="status" asp-items="Html.GetEnumSelectList<TransactionStatus>()"></select>
+                </div>
+            </div>
+            <div class="user-transaction-history-filters__items"><a class="btn">@Common.Search</a></div>
+        </div>
+        <div class="user-transaction-history-pagesize">
+            <span>Hiển thị</span><select class="table-filter-actions__pagesize__select" id="user-transaction-history-pagesize-select" name="pagesize">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="user-transaction-history-table">
+            <div class="user-transaction-history-table__overlay hide">
+                <div class="user-transaction-history-table__overlay__spinner rotating"></div>
+            </div>
+            <form id="user-transition-history-form" action="">
+                <div class="user-transition-history-form--wrapper"></div>
+            </form>
+        </div>
+    </section>
+</div>

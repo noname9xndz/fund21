@@ -1,0 +1,37 @@
+﻿@*This page is for end-user*@
+@model GenericIntroducingSettingModel
+@{
+    ViewData["Title"] = "Về Chúng Tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-content-endUser body-content-about-page">
+    <section class="about-us-section">
+        <div class="about-content">
+            <div class="about-content__breadcrumb">
+                <div class="about-content__breadcrumb__image">
+                    <picture>
+                        @if (Model.MobileBanner != null)
+                        {
+                            <source media="(max-width: 767px)" srcset="@IntroducingPageFolder.Path@(Model.MobileBanner)">
+                        }
+
+                        @if (Model.Banner != null)
+                        {
+                            <img src="@IntroducingPageFolder.Path@(Model.Banner)" alt="">
+                        }
+
+                    </picture>
+                </div>
+            </div>
+            <div class="about-content__human">
+                <div class="container-fluid">
+                    <div class="about-content__human__content">
+                        @Html.Raw(@Model.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

@@ -1,0 +1,135 @@
+﻿@model IntroducingGeneralViewModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<section class="manager-settings-introduce">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">Giới thiệu chung</h1>
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Banner Desktop</label>
+                            <div class="image-upload">
+                                <div class="image-upload__item upload-banner-image" data-title="desktop" data-button-upload="#btn-banner-1" data-input-file="#input-file-1" data-value-delete="#IsDeleteDesktopBanner">
+                                    @if (Model.Banner != null)
+                                    {
+                                        <div class="image-upload__item__image banner" data-id="1">
+                                            <img class="img-show" src="@IntroducingPageFolder.Path@Model.Banner">
+                                            <div class="actions">
+                                                <button class="btn-edit-image" type="button">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-desktop-1">
+                                                    <i class="fa fa-window-close"></i>
+                                                </a>
+                                                <div class="modal micromodal-slide" id="delete-desktop-1" aria-hidden="true">
+                                                    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-desktop-1-title">
+                                                            <header class="modal__header">
+                                                                <h2 class="modal__title" id="delete-desktop-1-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                                <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                            </header>
+                                                            <footer class="modal__footer">
+                                                                <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                                <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                            </footer>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input class="actions__input-image" type="file" asp-for="BannerFile" accept="image/*">
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <button class="image-upload__item__btn-upload" id="btn-banner-1" type="button" style="display:@(Model.Banner == null ? "flex" : "none");"><i class="fa fa-plus"></i></button>
+
+                                <input class="image-upload__item__input-image" id="input-file-1" name="BannerFile" type="file" accept="image/*" />
+                                <label id="imageIntroduceError">Chưa có ảnh</label>
+                            </div>
+                            <input asp-for="IsDeleteDesktopBanner" id="IsDeleteDesktopBanner" value="0" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label>Banner Mobile</label>
+                            <div class="image-upload">
+                                <div class="image-upload__item upload-banner-image" data-title="mobile" data-button-upload="#btn-banner-2"
+                                     data-input-file="#input-file-2" data-value-delete="#IsDeleteMobileBanner">
+                                    @if (Model.MobileBanner != null)
+                                    {
+                                        <div class="image-upload__item__image banner" data-id="1">
+                                            <img class="img-show" src="@IntroducingPageFolder.Path@Model.MobileBanner">
+                                            <div class="actions">
+                                                <button class="btn-edit-image" type="button">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <div>
+                                                    <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-mobile-1">
+                                                        <i class="fa fa-window-close"></i>
+                                                    </a>
+                                                    <div class="modal micromodal-slide" id="delete-mobile-1" aria-hidden="true">
+                                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-mobile-1-title">
+                                                                <header class="modal__header">
+                                                                    <h2 class="modal__title" id="delete-mobile-1-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                                </header>
+                                                                <footer class="modal__footer">
+                                                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window" type="button">Hủy bỏ</button>
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input asp-for="Id" value="@Model.Id" type="hidden" />
+                                                <input class="actions__input-image" asp-for="MobileBannerFile" type="file" accept="image/*">
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <button class="image-upload__item__btn-upload" id="btn-banner-2" type="button" style="display:@(Model.MobileBanner == null ? "flex" : "none");"><i class="fa fa-plus"></i></button>
+                                <input class="image-upload__item__input-image" id="input-file-2" asp-for="MobileBannerFile" type="file" accept="image/*" />
+                                <label id="imageIntroduceError">Chưa có ản</label>
+                            </div>
+                            <input asp-for="IsDeleteMobileBanner" value="0" type="hidden" id="IsDeleteMobileBanner">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <script>
+                                CKEDITOR.replace('Description');
+                            </script>
+                        </div>
+                        <div class="btns-wrapper-center">
+                            <button class="btn btn-action" type="submit">@Common.Confirm</button>
+                            <a class="btn btn-action" data-micromodal-trigger='model-cancel'>Hủy</a>
+                        </div>
+                        <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                            <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="model-cancel-title">
+                                    <header class="modal__header">
+                                        <h2 class="modal__title" id="delete-mobile-1-title">
+                                            Bạn có chắc chắn muốn hủy không?
+                                        </h2>
+                                        <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                    </header>
+                                    <footer class="modal__footer">
+                                        <a asp-controller="SettingsCMS" asp-action="Index" class="btn modal__btn modal__btn-primary">Tiếp tục</a>
+                                        <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window" type="button">Hủy bỏ</button>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<input id="required-mess" value="Không bỏ trống" type="hidden" />

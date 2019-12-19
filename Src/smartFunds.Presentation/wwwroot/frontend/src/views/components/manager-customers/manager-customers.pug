@@ -1,0 +1,63 @@
+section.manager-customers
+    .content
+        input(id="manageCustomersInputHidden", type="hidden", value="http://smartfunds-be-net.hn.smartosc.com/admin/customer/List")
+        h1.section-title Quản lý khách hàng
+        .table-filter-conditions.row
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | Họ và tên
+                .table-filter-conditions__item__input
+                    input.table-filter-conditions__item__input__type.table-filter-conditions__item__input__type--name(type="text", value="", placeholder="",alt="Họ và tên")
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | Số điện thoại
+                .table-filter-conditions__item__input
+                    input.table-filter-conditions__item__input__type.table-filter-conditions__item__input__type--phone(type="text", value="", placeholder="",alt="Số điện thoại")
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | Email
+                .table-filter-conditions__item__input
+                    input.table-filter-conditions__item__input__type.table-filter-conditions__item__input__type--email(type="text", value="", placeholder="",alt="Email")
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | Ngày lập tài khoản
+                .table-filter-conditions__item__input.table-filter-conditions__item__input--date
+                    input.table-filter-conditions__item__input__type.table-filter-conditions__item__input__type--date(type="text", value="", placeholder="",alt="Ngày lập tài khoản",  readonly='readonly')
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | Trạng thái hoạt động
+                .table-filter-conditions__item__input.table-filter-conditions__select--custom
+                    select.table-filter-conditions__item__input__type.table-filter-conditions__item__input__type--status(id="status" name="status")
+                        option(value="None") Tất cả
+                        option(value="Active") Đang hoạt động
+                        option(value="Inactive") Không hoạt động
+            .table-filter-conditions__item.col-xs-6.col-md-3
+                .table-filter-conditions__item__title
+                    | &nbsp;
+                .table-filter-conditions__item__input.dt-buttons
+                    a.buttons-search Tìm kiếm
+                .table-filter-conditions__item__input.dt-buttons
+                    a.buttons-search#test-btn Test
+        .table-filter-actions
+            .table-filter-actions__item.table-filter-actions__delete
+                a.fas.fa-trash-alt(href="#", data-micromodal-trigger="manage-customer-modal") 
+                    span Xóa
+            .table-filter-actions__item.table-filter-actions__pagesize
+                a() Hiển thị
+                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                    option(value="10") 10
+                    option(value="20") 20
+                    option(value="30") 30
+                span 1 trang
+            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                button.buttons-csv Xuất
+        .manager-customers__TotalCount 
+            span 8 
+            | Khách Hàng
+        .table-manage-customers
+            .table-manage-customers__overlay.hide
+                .table-manage-customers__overlay__spinner.rotating
+            form#manage-customer-form(action="")
+                +microModal("manage-customer-modal")
+                .table-manage-customers--wrapper
+                input#totalCustomer(value="1" type="hidden"  data-dt-idx="1")

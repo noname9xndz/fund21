@@ -10,34 +10,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using smartFunds.Data.Repositories.ContactBase;
 
 namespace smartFunds.Data.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
-    {
-        ISettingRepository SettingRepository { get; }
-        
-        IInterchangeRepository InterchangeRepository { get; }
-        IInterchangeLocalityRepository InterchangeLocalityRepository { get; }
+    {                
         IJobRepository JobRepository { get; }
-        IEventRepository EventRepository { get; }
-        IMemberRepository MemberRepository { get; }
-        IRegionRepository RegionRepository { get; }
-        ICountryRepository CountryRepository { get; }
-        ILocalityRepository LocalityRepository { get; }
-        ISublocalityRepository SublocalityRepository { get; }
-        IHostRepository HostRepository { get; }
-        IEventGuestRepository EventGuestRepository { get; }
-        IEventHostRepository EventHostRepository { get; }
-        IMealAllocationRepository MealAllocationRepository { get; }
         ITestRepository TestRepository { get; }
+        IFundPurchaseFeeRepository FundPurchaseFeeRepository { get; }
+        IFundSellFeeRepository FundSellFeeRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        IOrderRequestRepository OrderRequestRepository { get; }
         IKVRRQuestionRepository KVRRQuestionRepository { get; }
         IKVRRAnswerRepository KVRRAnswerRepository { get; }
+        IKVRRRepository KVRRRepository { get; }
+        IKVRRMarkRepository KVRRMarkRepository { get; }
         IUserRepository UserRepository { get; }
         IFAQRepository FAQRepository { get; }
+        IPortfolioRepository PortfolioRepository { get; }
+        IKVRRPortfolioRepository KVRRPortfolioRepository { get; }
+        ITransactionHistoryRepository TransactionHistoryRepository { get; }
+        IInvestmentTargetRepository InvestmentTargetRepository { get; }
+        IFundRepository FundRepository { get; }
+        IPortfolioFundRepository PortfolioFundRepository { get; }
+        ITaskRepository TaskRepository { get; }
+        IUserFundRepository UserFundRepository { get; }
+        IFundTransactionHistoryRepository FundTransactionHistoryRepository { get; }
+        IContactCMSRepository ContactCMSRepository { get; }
+        IHomepageCMSRepository HomepageCMSRepository { get; }
+        IIntroducingPageCMSRepository IntroducingPageCMSRepository { get; }
+        IInvestmentTargetCMSRepository InvestmentTargetCMSRepository { get; }
+        ICustomerLevelRepository CustomerLevelRepository { get; }
+        IMaintainingFeeRepository MaintainingFeeRepository { get; }
+        IInvestmentRepository InvestmentRepository { get; }
+        ITaskCompeletedRepository TaskCompeletedRepository { get; }
+        IWithdrawalFeeRepository WithdrawalFeeRepository { get; }
         Task<int> SaveChangesAsync();
-        Task BuildCacheAsync();
+        smartFundsDbContext GetCurrentContext();
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -48,27 +57,37 @@ namespace smartFunds.Data.UnitOfWork
         private readonly IHttpContextAccessor _httpContextAccessor;
         private bool disposed;        
 
-        //Repositories
-        private SettingRepository _settingRepository;
-        
-        private IJobRepository _jobRepository;
-        private IInterchangeRepository _interchangeRepository;
-        private IInterchangeLocalityRepository _interchangeLocalityRepository;
-        private IEventRepository _eventLocalityRepository;
-        private IMemberRepository _memberRepository;
-        private IRegionRepository _regionRepository;
-        private ICountryRepository _countryRepository;
-        private ILocalityRepository _localityRepository;
-        private ISublocalityRepository _sublocalityRepository;
-        private IHostRepository _hostRepository;
-        private IEventGuestRepository _eventGuestRepository;
-        private IEventHostRepository _eventHostRepository;
-        private IMealAllocationRepository _mealAllocationRepository;
+        //Repositories       
+        private IJobRepository _jobRepository;                       
         private ITestRepository _testRepository;
+        private IFundPurchaseFeeRepository _fundPurchaseFeeRepository;
+        private IFundSellFeeRepository _fundSellFeeRepository;
+        private IOrderRepository _orderRepository;
+        private IOrderRequestRepository _orderRequestRepository;
         private IKVRRQuestionRepository _kvrrQuestionRepository;
+        private IKVRRRepository _kvrrRepository;
+        private IKVRRMarkRepository _kvrrMarkRepository;
         private IKVRRAnswerRepository _kvrrAnswerRepository;
         private IUserRepository _userRepository;
         private IFAQRepository _faqRepository;
+        private IPortfolioRepository _portfolioRepository;
+        private IKVRRPortfolioRepository _kvrrPortfolioRepository;
+        private ITransactionHistoryRepository _transactionHistoryRepository;
+        private IInvestmentTargetRepository _investmentTargetRepository;
+        private IFundRepository _fundRepository;
+        private IPortfolioFundRepository _portfolioFundRepository;
+        private ITaskRepository _taskRepository;
+        private IUserFundRepository _userFundRepository;
+        private IFundTransactionHistoryRepository _fundTransactionHistoryRepository;
+        private IContactCMSRepository _contactCMSRepository;
+        private IHomepageCMSRepository _homepageCMSRepository;
+        private IIntroducingPageCMSRepository _introducingPageCMSRepository;
+        private IInvestmentTargetCMSRepository _investmentTargetCMSRepository;
+        private ICustomerLevelRepository _customerLevelRepository;
+        private IMaintainingFeeRepository _maintainingFeeRepository;
+        private IInvestmentRepository _investmentRepository;
+        private ITaskCompeletedRepository _taskCompeletedRepository;
+        private IWithdrawalFeeRepository _withdrawalFeeRepository;
 
         public UnitOfWork(IDbContextFactory<smartFundsDbContext> dbContextFactory, IOptions<smartFundsRedisOptions> redisConfigurationOptions
             , IRedisAutoCompleteProvider redisAutoCompleteProvider, IHttpContextAccessor httpContextAccessor)
@@ -78,14 +97,6 @@ namespace smartFunds.Data.UnitOfWork
             _redisAutoCompleteProvider = redisAutoCompleteProvider;           
             _httpContextAccessor = httpContextAccessor;
         }
-
-        public ISettingRepository SettingRepository
-        {
-            get
-            {
-                return _settingRepository = _settingRepository ?? new SettingRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
         
 
         public IJobRepository JobRepository
@@ -94,110 +105,45 @@ namespace smartFunds.Data.UnitOfWork
             {
                 return _jobRepository = _jobRepository ?? new JobRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
             }
-        }
-
-        public IInterchangeRepository InterchangeRepository
-        {
-            get
-            {
-                return _interchangeRepository = _interchangeRepository ?? new InterchangeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
-            }
-        }
-
-        public IInterchangeLocalityRepository InterchangeLocalityRepository
-        {
-            get
-            {
-                return _interchangeLocalityRepository = _interchangeLocalityRepository ?? new InterchangeLocalityRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public IEventRepository EventRepository
-        {
-            get
-            {
-                return _eventLocalityRepository = _eventLocalityRepository ?? new EventRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
-            }
-        }
-
-        public IMemberRepository MemberRepository
-        {
-            get
-            {
-                return _memberRepository = _memberRepository ?? new MemberRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public IRegionRepository RegionRepository
-        {
-            get
-            {
-                return _regionRepository = _regionRepository ?? new RegionRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public ICountryRepository CountryRepository
-        {
-            get
-            {
-                return _countryRepository = _countryRepository ?? new CountryRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public ILocalityRepository LocalityRepository
-        {
-            get
-            {
-                return _localityRepository = _localityRepository ?? new LocalityRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-
-        public ISublocalityRepository SublocalityRepository
-        {
-            get
-            {
-                return _sublocalityRepository = _sublocalityRepository ?? new SublocalityRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public IHostRepository HostRepository
-        {
-            get
-            {
-                return _hostRepository = _hostRepository ?? new HostRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
-            }
-        }
-
-        public IEventGuestRepository EventGuestRepository
-        {
-            get
-            {
-                return _eventGuestRepository = _eventGuestRepository ?? new EventGuestRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
-            }
-        }
-
-        public IEventHostRepository EventHostRepository
-        {
-            get
-            {
-                return _eventHostRepository = _eventHostRepository ?? new EventHostRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
-            }
-        }
-
-        public IMealAllocationRepository MealAllocationRepository
-        {
-            get
-            {
-                return _mealAllocationRepository = _mealAllocationRepository ?? new MealAllocationRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
-            }
-        }
-
+        }         
+     
         public ITestRepository TestRepository
         {
             get
             {
                 return _testRepository = _testRepository ?? new TestRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IFundPurchaseFeeRepository FundPurchaseFeeRepository
+        {
+            get
+            {
+                return _fundPurchaseFeeRepository = _fundPurchaseFeeRepository ?? new FundPurchaseFeeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IFundSellFeeRepository FundSellFeeRepository
+        {
+            get
+            {
+                return _fundSellFeeRepository = _fundSellFeeRepository ?? new FundSellFeeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IOrderRepository OrderRepository
+        {
+            get
+            {
+                return _orderRepository = _orderRepository ?? new OrderRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IOrderRequestRepository OrderRequestRepository
+        {
+            get
+            {
+                return _orderRequestRepository = _orderRequestRepository ?? new OrderRequestRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
             }
         }
 
@@ -216,6 +162,22 @@ namespace smartFunds.Data.UnitOfWork
             }
         }
 
+        public IKVRRRepository KVRRRepository
+        {
+            get
+            {
+                return _kvrrRepository = _kvrrRepository ?? new KVRRRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IKVRRMarkRepository KVRRMarkRepository
+        {
+            get
+            {
+                return _kvrrMarkRepository = _kvrrMarkRepository ?? new KVRRMarkRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
         public IUserRepository UserRepository
         {
             get
@@ -230,6 +192,154 @@ namespace smartFunds.Data.UnitOfWork
             {
                 return _faqRepository = _faqRepository ?? new FAQRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
             }
+        }
+
+        public IPortfolioRepository PortfolioRepository
+        {
+            get
+            {
+                return _portfolioRepository = _portfolioRepository ?? new PortfolioRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IKVRRPortfolioRepository KVRRPortfolioRepository
+        {
+            get
+            {
+                return _kvrrPortfolioRepository = _kvrrPortfolioRepository ?? new KVRRPortfolioRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public ITransactionHistoryRepository TransactionHistoryRepository
+        {
+            get
+            {
+                return _transactionHistoryRepository = _transactionHistoryRepository ?? new TransactionHistoryRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IInvestmentTargetRepository InvestmentTargetRepository
+        {
+            get
+            {
+                return _investmentTargetRepository = _investmentTargetRepository ?? new InvestmentTargetRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IFundRepository FundRepository
+        {
+            get
+            {
+                return _fundRepository = _fundRepository ?? new FundRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IPortfolioFundRepository PortfolioFundRepository
+        {
+            get
+            {
+                return _portfolioFundRepository = _portfolioFundRepository ?? new PortfolioFundRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public ITaskRepository TaskRepository
+        {
+            get
+            {
+                return _taskRepository = _taskRepository ?? new TaskRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public ITaskCompeletedRepository TaskCompeletedRepository
+        {
+            get
+            {
+                return _taskCompeletedRepository = _taskCompeletedRepository ?? new TaskCompeletedRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IUserFundRepository UserFundRepository
+        {
+            get
+            {
+                return _userFundRepository = _userFundRepository ?? new UserFundRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IContactCMSRepository ContactCMSRepository
+        {
+            get
+            {
+                return _contactCMSRepository = _contactCMSRepository ?? new ContactCMSRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IHomepageCMSRepository HomepageCMSRepository
+        {
+            get
+            {
+                return _homepageCMSRepository = _homepageCMSRepository ?? new HomepageCMSRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IFundTransactionHistoryRepository FundTransactionHistoryRepository
+        {
+            get
+            {
+                return _fundTransactionHistoryRepository = _fundTransactionHistoryRepository ?? new FundTransactionHistoryRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IIntroducingPageCMSRepository IntroducingPageCMSRepository
+        {
+            get
+            {
+                return _introducingPageCMSRepository = _introducingPageCMSRepository ?? new IntroducingPageCMSRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+        public IInvestmentTargetCMSRepository InvestmentTargetCMSRepository
+        {
+            get
+            {
+                return _investmentTargetCMSRepository = _investmentTargetCMSRepository ?? new InvestmentTargetCMSRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public ICustomerLevelRepository CustomerLevelRepository
+        {
+            get
+            {
+                return _customerLevelRepository = _customerLevelRepository ?? new CustomerLevelRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider, _httpContextAccessor);
+            }
+        }
+
+        public IMaintainingFeeRepository MaintainingFeeRepository
+        {
+            get
+            {
+                return _maintainingFeeRepository = _maintainingFeeRepository ?? new MaintainingFeeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IInvestmentRepository InvestmentRepository
+        {
+            get
+            {
+                return _investmentRepository = _investmentRepository ?? new InvestmentRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IWithdrawalFeeRepository WithdrawalFeeRepository
+        {
+            get
+            {
+                return _withdrawalFeeRepository = _withdrawalFeeRepository ?? new WithdrawalFeeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public smartFundsDbContext GetCurrentContext()
+        {
+            return _context;
         }
 
         public async Task<int> SaveChangesAsync()
@@ -291,16 +401,7 @@ namespace smartFunds.Data.UnitOfWork
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        public async Task BuildCacheAsync()
-        {
-            if (_redisConfigurationOptions.Value.EnableAutoComplete)
-            {
-               await SettingRepository.BuildCacheAsync();
-               //await UserQueuedJobRepository.BuildCacheAsync();
-            }
-        }
+        }    
 
     }
 }

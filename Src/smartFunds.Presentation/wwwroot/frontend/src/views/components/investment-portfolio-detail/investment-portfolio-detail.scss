@@ -1,0 +1,25 @@
+.investment-detail {
+  &__info-title {
+    background-color: #fff;
+    margin-bottom: 30px;
+    table {
+      td {
+        &.new-percent {
+          position: relative;
+          p {
+            position: absolute;
+            margin: 0;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100%;
+            span {
+              font-size: 14px;
+              color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

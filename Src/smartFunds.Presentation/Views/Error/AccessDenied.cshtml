@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Giới hạn truy cập";
+    if (UserService.IsSignedIn(User))
+    {
+        if (!UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Customer).Result)
+        {
+            Layout = "_AdminLayout";
+        }
+
+    }
+}
+<div class="body-content-endUser body-content-error-page">
+    <section class="user-not-found-section user-error-section">
+        <div class="user-not-found-content user-error-content">
+            <h1>Bạn không có quyền truy cập trang này</h1>
+            <a href="/">
+                <span>Quay lại</span>
+                <span>trang chủ</span>
+            </a>
+        </div>
+    </section>
+</div>

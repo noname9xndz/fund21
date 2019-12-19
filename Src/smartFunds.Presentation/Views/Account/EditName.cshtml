@@ -1,0 +1,38 @@
+﻿@model EditNameViewModel
+@{
+    ViewData["Title"] = Common.EditName;
+}
+
+<div class="resgiste-user submit-form-general">
+    <div class="banner-left">
+        @*<section class="rectangnle"></section>*@
+        <section class="banner"><img class="img-cover" src="/images/tyler-franta.jpg"></section>
+        @*<section class="text">
+            <p class="text-uppercase">@Common.Slogan</p>
+        </section>*@
+    </div>
+    <div class="form-resgister-right">
+        <div class="container-fluid form-resgister-right-content">
+            @*<div class="back-to-homepage">
+                <a class="back-to-homepage-link" href="/">
+                    <img src="/images/arrow-left.png" alt="images"><span class="back-to-homepage-content">@Common.BackToHome</span>
+                </a>
+            </div>*@
+            <form class="resgister" id="resgister-form" method="post">
+                <div class="resgiter-title">
+                    <div class="title-big">@Common.EditName</div>
+                    <div class="title-small">Bạn cần phải điền họ tên đúng với tài khoản ViettelPay để tiến hành các giao dịch</div>
+                </div>
+
+                <div class="resgister-form resgister-name">
+                    <input class="form-group" asp-for="FullName" required>
+                    <span class="text-placeholder">@Common.FullName</span>
+                    <span class="error-messeage" asp-validation-for="FullName"></span>
+                </div>
+                
+                <div class="btn-resgister button-submit-general"><button class="btnResgister" type="submit">Cập nhập</button></div>
+            </form>
+           
+        </div>
+    </div>
+</div>

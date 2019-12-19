@@ -1,0 +1,138 @@
+section.manage-InvestFund
+    .content
+        h1.section-title Quản Lý Quỹ Đầu Tư
+        .detail-block
+            a.btn.btn-action(href="#") Thêm Quỹ Đầu Tư
+            .dt-buttons
+                a.buttons-csv Xuất
+            .detail-block__title
+                h2 Quỹ đầu tư
+                .title-info__btn-wrapper
+                    a.fas.fa-trash-alt(href="#", data-micromodal-trigger="manage-invesfund-modal")
+        form#manage-invesfund-form(action="")
+            +microModal("manage-invesfund-modal")
+            table#invest-fund.display(style='width:100%')
+                thead
+                    tr
+                        th STT
+                        th 
+                            input.select-all-btn(type="checkbox")
+                        th Tên Quỹ
+                        th Mã Quỹ
+                        th Chi Tiết Quỹ
+                        th Đang được sử dụng bởi
+                tbody
+                    tr
+                        td
+                            a(href="/investment-portfolio-detail.html") 1
+                        td 
+                            input(type="checkbox")
+                        td Quỹ 1
+                        td 61
+                        td 2011/04/25
+                        td DMĐT1, DMĐT4
+                    tr
+                        td 2
+                        td 
+                            input(type="checkbox")
+                        td Tokyo
+                        td 63
+                        td 2011/07/25
+                        td DMĐT5, DMĐT2
+                    tr
+                        td 3
+                        td 
+                            input(type="checkbox")
+                        td San Francisco
+                        td 66
+                        td 2009/01/12
+                        td DMĐT1, DMĐT3
+                    tr
+                        td 4
+                        td 
+                            input(type="checkbox")
+                        td Edinburgh
+                        td 22
+                        td 2012/03/29
+                        td DMĐT1, DMĐT4
+                    tr
+                        td
+                        a(href="/investment-portfolio-detail.html") 5
+                        td 
+                            input(type="checkbox")
+                        td Tokyo
+                        td 33
+                        td 2008/11/28
+                        td DMĐT1, DMĐT5
+                    tr
+                        td 6
+                        td 
+                            input(type="checkbox")
+                        td New York
+                        td 61
+                        td 2012/12/02
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 7
+                        td 
+                            input(type="checkbox")
+                        td San Francisco
+                        td 59
+                        td 2012/08/06
+                        td DMĐT1, DMĐT6
+                    tr
+                        td 8
+                        td 
+                            input(type="checkbox")
+                        td Tokyo
+                        td 55
+                        td 2010/10/14
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 9
+                        td 
+                            input(type="checkbox")
+                        td San Francisco
+                        td 39
+                        td 2009/09/15
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 10
+                        td 
+                            input(type="checkbox")
+                        td Edinburgh
+                        td 23
+                        td 2008/12/13
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 11
+                        td 
+                            input(type="checkbox")
+                        td London
+                        td 30
+                        td 2008/12/19
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 12
+                        td 
+                            input(type="checkbox")
+                        td Edinburgh
+                        td 22
+                        td 2013/03/03
+                        td DMĐT1, DMĐT2
+                    tr
+                        td 13
+                        td 
+                            input(type="checkbox")
+                        td San Francisco
+                        td 36
+                        td 2008/10/16
+                        td DMĐT1, DMĐT3
+                    tr
+                        td 14
+                        td 
+                            input(type="checkbox")
+                        td London
+                        td 43
+                        td 2012/12/18
+                        td DMĐT1, DMĐT2

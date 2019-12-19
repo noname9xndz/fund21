@@ -1,0 +1,18 @@
+extends ../layouts/masterUser_login.pug
+
+block title
+  title My Page - profile
+
+block basicSeo
+  meta(name='description' content='profile page')
+  meta(name='keywords', content='profile, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    //- .body-content-endUser
+    include ../components/user-profile__info/user-profile__info.pug
+    include ../components/user-profile__chart/user-profile__chart.pug
+    include ../components/user-profile__investment/user-profile__investment.pug
+    include ../components/user-profile__data-management/user-profile__data-management.pug

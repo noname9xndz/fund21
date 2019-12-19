@@ -1,0 +1,86 @@
+﻿@model smartFunds.Model.Common.CustomerLevelsModel
+
+@{
+    ViewData["Title"] = @Common.ManageCustomerLevel;
+    Layout = "_AdminLayout";
+}
+
+<section>
+    <section class="client-distribution">
+        <div class="content">
+            <h1 class="section-title">@Common.ManageCustomerLevel</h1>
+            <a class="btn btn-action" asp-action="New">@Common.AddCustomerLevel</a>
+            <div class="table-filter-actions">
+                <div class="table-filter-actions__item table-filter-actions__delete">
+                    <a class="fas fa-trash-alt" href="#" data-micromodal-trigger="client-distribution-modal"><span>@Common.Delete</span></a>
+                </div>
+            </div>
+
+            <form asp-controller="CustomerLevel" asp-action="Delete" method="post" id="client-distribution-form">
+                <div class="modal micromodal-slide" id="client-distribution-modal" aria-hidden="true">
+                    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                        <div class="modal__container" role="dialog" aria-modal="true"
+                             aria-labelledby="client-distribution-modal-title">
+                            <header class="modal__header">
+                                <h2 class="modal__title" id="client-distribution-modal-title">
+                                    Bạn có chắc
+                                    chắn muốn xóa không?
+                                </h2>
+                                <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                            </header>
+                            <footer class="modal__footer">
+                                <button class="modal__btn modal__btn-primary">Tiếp tục</button>
+                                <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Hủy bỏ</button>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <table class="display" id="clientDistributionTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>@Common.STT</th>
+                                <th><input class="select-all-btn" type="checkbox"></th>
+                                <th>@Common.NameCustomerLevel</th>
+                                <th>@Common.SumMoneyInvested</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var index = 1; }
+                            @if (Model.CustomerLevels != null && Model.CustomerLevels.Any())
+                            {
+                                foreach (var customerLevel in Model.CustomerLevels)
+                                {
+                                    var checkboxName = "checkbox_customerLevel" + customerLevel.IDCustomerLevel;
+
+                                    var stringSumInvest = string.Empty;
+                                    @if (@customerLevel.MaxMoney == 0)
+                                    {
+                                        stringSumInvest = " > " + @String.Format("{0:0,0}", @customerLevel.MinMoney);
+                                    }
+                                    else if (@customerLevel.MinMoney == 0)
+                                    {
+                                        stringSumInvest = " < " + @String.Format("{0:0,0}", @customerLevel.MaxMoney);
+                                    }
+                                    else
+                                    {
+                                        stringSumInvest = @String.Format("{0:0,0}", @customerLevel.MinMoney) + " - " + @String.Format("{0:0,0}", @customerLevel.MaxMoney);
+                                    }
+
+                                    <tr>
+                                        <td>@index</td>
+                                        <td><input type="checkbox" name="@checkboxName" asp-route-id="@customerLevel.IDCustomerLevel" /></td>
+                                        <td><a asp-action="edit" asp-route-id="@customerLevel.IDCustomerLevel"> @customerLevel.NameCustomerLevel </a></td>
+                                        <td data-order="@customerLevel.MinMoney"> @stringSumInvest </td>
+                                    </tr>
+                                    index++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>

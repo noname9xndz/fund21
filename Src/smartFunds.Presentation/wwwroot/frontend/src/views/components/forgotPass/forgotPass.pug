@@ -1,0 +1,28 @@
+//- link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
+section.login#Pass
+  .container
+    .row
+      .col-md-12
+        .login__Form
+          .login__Form--Heading
+          .login__Body
+            .login__Title Forgot Password
+            #login-alert.alert.alert-danger.col-sm-12(style='display:none')
+            form#loginform.form-horizontal(role='form')
+              .login__Input__Title Phone or Email
+              .login__Input
+                i.fas.fa-user
+                input#login-username.form-control(type='text', name='username', value='', placeholder='Type your phone or email')
+              .severMessageWrapper 
+                span.severMessage abc
+              .col-sm-12.login__Button
+                button#btn-login.btn.btn-success(href='#') Resend Password
+                .severMessageWrapper  
+                  span.severMessage Your account has been temporarily locked for 60 seconds because there have been too many failed login attempts.
+              .login__ForgotPass
+                a(href="#") Return to the login screen?
+
+
+
+
+    

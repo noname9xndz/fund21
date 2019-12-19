@@ -1,0 +1,181 @@
+section.manager-risk__questions
+  .content
+    h1.section-title QUẢN LÝ CÂU HỎI THƯỜNG GẶP
+    .top-action-page
+      .top-action-page__part
+        a.btn.btn-action(href="/manager-frequent-question-add.html") Thêm câu hỏi
+      .top-action-page__part
+        .top-action-page__part__actions
+          form
+            span.name-file#file-name No file to import
+            input.input-file#input-file(type="file" accept="file_extension")
+            button.btn.btn-action#btn-add-file(type="button") Chọn file
+            button.btn.btn-action(type="submit") Import
+            a.btn.btn-action.buttons-csv Xuất
+    .manage-question
+      .manager-risk__questions__list-questions.flex-container
+        .manager-risk__questions__list-questions__item
+          form.collapse-part(style="width: 100%")
+            .manager-risk__questions__list-questions__item__title
+              span.collapse-btn 1. Bạn thích đầu tư vào loại hình nào?
+              .item-option
+                a(href="/manager-frequent-question-add.html")
+                  i.fa.fa-edit
+                a(href="#" data-micromodal-trigger='delete-item-3')
+                  i.fa.fa-window-close
+                +microModal('delete-item-3')
+                input.questionId(type="hidden" value="1")
+            .manager-risk__questions__list-questions__item__content.collapse-content
+              .form-group
+                .content-detail.style-text-editor Bla bla bla
+                  ol
+                    li line 1
+                    li line 2
+                  ul 
+                    li line 3
+                    li line 4
+                .category
+                  span Danh mục: danh mục 1
+      .manager-risk__questions__list-questions__item
+        form.collapse-part(style="width: 100%")
+          .manager-risk__questions__list-questions__item__title
+            span.collapse-btn 2. Bạn thích đầu tư vào loại hình nào?
+            .item-option
+              a(href="/manager-frequent-question-add.html")
+                i.fa.fa-edit
+              a(href="#" data-micromodal-trigger='delete-item-2')
+                i.fa.fa-window-close
+              +microModal('delete-item-2')
+              input.questionId(type="hidden" value="2")
+          .manager-risk__questions__list-questions__item__content.collapse-content
+            .form-group
+              .content-detail.style-text-editor Bla bla bla
+              .category
+                span Danh mục: danh mục 1
+    .manager-category
+      a.btn.btn-action(href="/manager-frequent-question-category.html") Thêm danh mục
+      .manager-risk__questions__list-questions.flex-container
+        .manager-risk__questions__list-questions__item
+          .collapse-part(style="width: 100%")
+            .manager-risk__questions__list-questions__item__title
+              span.collapse-btn 1. Bạn thích đầu tư vào loại hình nào?
+              .item-option
+                a(href="#" data-micromodal-trigger='delete-item-3')
+                  i.fa.fa-window-close
+                +microModal('delete-item-3')
+                input.questionId(type="hidden" value="1")
+            .manager-risk__questions__list-questions__item__content.collapse-content
+              table.table-list-category.display(style='width:100%')
+                  thead
+                    tr
+                      th stt
+                      th 
+                      th Danh mục
+                  tbody
+                    tr.text-center
+                      td 1
+                      td 
+                        input.checkbox-item(type="checkbox" value="checkbox-5")
+                      td Nội dung
+                    tr.text-center
+                      td 1
+                      td 
+                        input.checkbox-item(type="checkbox" value="checkbox-6")
+                      td Nội dung
+                    tr.text-center
+                      td 1
+                      td 
+                        input.checkbox-item(type="checkbox" value="checkbox-7")
+                      td Nội dung
+                    tr.text-center
+                      td 1
+                      td 
+                        input.checkbox-item(type="checkbox" value="checkbox-8")
+                      td Nội dung
+        .manager-risk__questions__list-questions__item
+          .collapse-part(style="width: 100%")
+            .manager-risk__questions__list-questions__item__title
+              span.collapse-btn 1. Bạn thích đầu tư vào loại hình nào?
+              .item-option
+                a(href="#" data-micromodal-trigger='delete-item-3')
+                  i.fa.fa-window-close
+                +microModal('delete-item-3')
+                input.questionId(type="hidden" value="1")
+            .manager-risk__questions__list-questions__item__content.collapse-content
+              table.table-list-category.display(style='width:100%')
+                thead
+                  tr
+                    th stt
+                    th 
+                    th Danh mục
+                tbody
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-5")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-6")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-7")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-8")
+                    td Nội dung
+        .manager-risk__questions__list-questions__item
+          .collapse-part(style="width: 100%")
+            .manager-risk__questions__list-questions__item__title
+              span.collapse-btn 1. Bạn thích đầu tư vào loại hình nào?
+              .item-option
+                a(href="#" data-micromodal-trigger='delete-item-3')
+                  i.fa.fa-window-close
+                +microModal('delete-item-3')
+                input.questionId(type="hidden" value="1")
+            .manager-risk__questions__list-questions__item__content.collapse-content
+              table.table-list-category.display(style='width:100%')
+                thead
+                  tr
+                    th stt
+                    th 
+                    th Danh mục
+                tbody
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-5")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-6")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-7")
+                    td Nội dung
+                  tr.text-center
+                    td 1
+                    td 
+                      input.checkbox-item(type="checkbox" value="checkbox-8")
+                    td Nội dung
+input#updateIndexQues(type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder")
+input#updateIndexQues(type="hidden" value="0")
+.modal.modal-top-up.modal-nomal#confirm-modal
+  a.btn-close-modal(href="#" rel="modal:close")
+      img(src="/assets/images/x-icon@2x.png")
+  .modal-title
+      span Xác nhận
+  .modal-body
+    .text-center
+      button.btn.btn-action(type="button") Đồng ý
+      button.btn.btn-action(type="button") Không
+a#btn-alert-mess(data-micromodal-trigger='alert-mess' href="#" style="display: none;") open
++microModal('alert-mess')

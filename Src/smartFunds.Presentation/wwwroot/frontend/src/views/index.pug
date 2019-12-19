@@ -1,0 +1,45 @@
+extends ./layouts/master.pug
+
+block title
+  title My Page - Index
+
+block content
+  - var AdminPages = { homePage: '/homepage.html', signIn: '/signIn.html', pass: '/pass.html', managerCustomers: '/manager-customers.html', managerCustomerDetail: '/manager-customer-detail.html', signIn: '/signIn.html', pass: '/pass.html', investmentPortfolio: '/investment-portfolio.html',investmentPortfolioAdd: '/investment-portfolio-add.html',investmentPortfolioDetail: '/investment-portfolio-detail.html', manageRisk: '/manage-risk.html', manaRiskDetail: '/manage-riskDetail.html', addManageRisk: '/add-manage-risk.html', managerRiskQuestions: '/manager-risk__questions.html',managerRiskQuestionsData: '/manager-risk__questions__data.html', investmentDetail: '/investment-portfolio-detail.html', transactionHistory: '/transaction-history.html', managerCustomerDetail: '/manager-customer-detail.html', managerRiskQuestions: '/manager-risk__questions.html',managerRiskQuestionsData: '/manager-risk__questions__data.html', investmentFunds: 'investment-funds.html',investmentFundsAdd: 'investment-funds-add.html', manageWeightRisk: '/manage-weightRisk.html', addWeightRisk: '/add-weightRisk.html', investmentFundsDetail: '/investment-funds-detail.html', manageUser: '/manage-user.html', manageUserAdd: '/manage-user__add.html', addInvesmentFund: '/add-invesment-fund.html', adminAddTermServices: '/admin-add-term-services.html', managerRiskQuestions2: '/manager-risk__questions2.html'  }
+  - var AdminPagePhrase2 = {managerCheckInvest: '/manager-check-invest.html' ,managerSettingsIntroduce:'/manager-settings-introduce.html', managerSettingsContact: '/manager-settings-contact.html',managerSetting: '/manager-settings.html',clientDistribution: '/client-distribution.html', addclientDistribution: '/add-client-distribution.html', myAccount: '/myAccount.html', myAccountEdit: '/myAccountEdit.html', myAccountEditPass: '/myAccountEditPass.html', resetPass: '/reset-pass.html', myMissionPopUp: '/myMission-PopUp.html', managerFrequentQuestionAdd: '/manager-frequent-question-add.html', managerFrequentQuestionCategory: '/manager-frequent-question-category.html', pushNotification: '/push-notification.html', myMissionAccountant: 'myMission-accountant.html'}
+  - var endUserPages = {resgisterOTP: '/user_resgister_otp.html', resgister: '/user_resgister.html', homepageUser: '/homepageUser.html', userWallet: '/user_wallet.html', user_login: '/user_login.html', headerUser_login: '/headerUser_login.html', userInvesmentPortfolio: '/user-investment-portfolio.html', userQuestions: '/user-questions.html', userInvestmentNoAnswers: '/user-investment-no-answers.html', userFund: '/user-fund.html', userTermService: '/user-term-service.html', emptyManageRisk: '/empty-manage-risk.html', invesmentsTarget: '/user_invesments_target_isActive.html',aboutUs: '/about-us.html', contact: '/contact.html'}
+  - var endUserPagesPhrase2 = {FAQ: '/user-faq.html', transactionHistory: '/user-transaction-history.html', invesmentsTargetNew: '/user-invesments-target-create.html', userProfile: '/user-profile.html', userAboutUs: '/user-about-us.html', userContact: '/user-contact.html', withDrawal: '/user-withdrawal.html', recharge: '/user-recharge.html', userError: '/user-error.html', userNotFound404: '/user-not-found.html', userNotFound500: '/user-not-found-500.html'}
+
+  //- Desktop page
+  section.page.home__page.body-content
+    .content
+      .row
+        .col-lg-3
+          h1.page__title Admin Page
+          
+          ul(style="padding-left:50px;")
+            each val, index in AdminPages
+              li
+                a(href=val)= index
+        .col-lg-3
+          h1 AdminPagePhrase2
+
+          ul(style="padding-left:50px;")
+            each val, index in AdminPagePhrase2
+              li
+                a(href=val)= index
+
+        .col-lg-3
+          h1 End-User Page
+
+          ul(style="padding-left:50px;")
+            each val, index in endUserPages
+              li
+                a(href=val)= index
+        .col-lg-3
+          h1 End-User Page
+
+          ul(style="padding-left:50px;")
+            each val, index in endUserPagesPhrase2
+              li
+                a(href=val)= index
+

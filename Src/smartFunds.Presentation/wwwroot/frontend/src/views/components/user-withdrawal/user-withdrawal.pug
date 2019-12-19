@@ -1,0 +1,25 @@
+.user-withdrawal-invest.user-withdrawal-general.px-15
+    input.get-cost-withdrawal(type="hidden", value="http://smartfunds-be-net.hn.smartosc.com/withdrawal/GetWithdrawalFee")
+    h1.section-title-endUser Rút tiền
+    form.user-form-group.p-15#user-withdrawal
+        .user-form-control.user-expected-money-amount
+            span.user-form-control__title Nhập số tiền muốn rút
+            input.input-form-control.form-control-number(type="text", name="amout", value="")
+            span.warning-message Lỗi
+            span.currency đ
+        .user-form-control
+            span.user-form-control__title Hình thức rút tiền
+            select.type-withdrawal(name="periodInvesment")
+                option(value="0") Rút nhanh
+                option(value="1") Rút chậm
+        .user-form-control 
+            span.user-form-control__title Phí rút tiền 
+            input.input-form-control.cost-withdrawal(type="text", name="fee", value="", placeholder="Tiền đầu tư" readonly)
+        span#message-withdrawal-fast.warning-message Khi sử dụng hình thức Rút nhanh, bạn chỉ có thể rút được tối đa 90% tài sản
+        span#message-withdrawal-slow.warning-message.d-none Bạn sẽ nhận được tiền trong vòng 1 tuần
+        .user-withdrawal-invest__action
+            a.btn.btn-actions.is-destroy(href="#") Hủy
+            button.btn.btn-actions(type="submit") Đồng ý
+    #pageloader
+        img(src="../../../assets/images/loader-large.gif", alt="processing...")
+

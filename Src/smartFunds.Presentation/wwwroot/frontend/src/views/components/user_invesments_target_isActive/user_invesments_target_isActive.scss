@@ -1,0 +1,37 @@
+.user-invesment-target {
+    &.is-active {
+        .user-form-group {
+            max-width: 434px;
+            a {
+                margin-top: 40px;
+            }
+        }
+    
+        .user-form-control {
+            margin-top: 30px;
+            &:first-child {
+                margin-top: 0px;
+            }
+            &:nth-of-type(2) {
+                margin-top: 30px;
+            }
+            & > span {
+                width: 50%;
+    
+                &:first-child {
+                    color: $text-color-purple;
+                    @include typography($font-main, 700, 14px, 16px);
+                }
+    
+                &:last-child {
+                    color: #0F0E30;
+                    padding-left: 10%;
+                    @include typography($font-main, 400, 14px, 150%);
+                }
+            }
+    
+    
+        }
+    }
+   
+}

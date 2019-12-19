@@ -1,13 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Resend Code";
+﻿
+@{
+    ViewData["Title"] = Common.ResendCode;
 }
-<h2>@ViewData["Title"]</h2>
-<div>
-    <form method="post">
-        <p>
-            Tài khoản đã được đăng ký, nhưng chưa được kích hoạt.
-            Hoac link kich hoat cua ban da het han.
-        </p>
-        <button type="submit" class="btn btn-default">Kích hoạt lại?</button>
-    </form>
+
+<div class="resgiste-user">
+    <div class="banner-left">
+        @*<section class="rectangnle"></section>*@
+        <section class="banner"><img class="img-cover" src="/images/tyler-franta.jpg"></section>
+        @*<section class="text">
+            <p class="text-uppercase">@Common.Slogan</p>
+        </section>*@
+    </div>
+    <div class="form-resgister-right">
+        <div class="container-fluid form-resgister-right-content">
+            <div class="back-to-homepage">
+                <span class="icon lnr lnr-arrow-left"></span><a class="text" href="/">
+                    @Common.BackToHome
+                </a>
+            </div>
+            <form class="resgister" method="post">
+                <div class="resgiter-title">
+                    <div class="title-big">@Common.ActiveAccount</div>
+
+                    @if ((ResendCodeType)TempData["ResendCodeType"] == ResendCodeType.NotVerify)
+                    {
+                        <div class="title-small">
+                            Tài khoản đã được đăng ký từ trước, nhưng chưa được kích hoạt.
+                            Bạn vui lòng kiểm tra email để kích hoạt tài khoản.
+                        </div>
+                    }
+                    else if ((ResendCodeType)TempData["ResendCodeType"] == ResendCodeType.NotVerify)
+                    {
+                        <div class="title-small">
+                            Liên kết kích hoạt của bạn đã hết hạn.
+                        </div>
+                    }
+
+                    <span class="error-messeage">@ViewData["Message"]</span>
+                </div>
+                <div class="resgister-form resgister-otp">
+                    <button class="btn-active">Gửi lại liên kết kích hoạt</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

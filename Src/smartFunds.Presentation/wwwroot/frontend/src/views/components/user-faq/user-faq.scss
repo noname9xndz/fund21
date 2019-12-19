@@ -1,0 +1,282 @@
+.user-faq {
+    max-width: 998px;
+    margin: 0 auto;
+
+    &-form {
+        background-color: #fff;
+        padding: 15px;
+        @include border-radius(3px);
+
+        @include min-sm {
+            padding: 0;
+            background-color: transparent;
+        }
+
+        &__search {
+            position: relative;
+            &-actions{
+                position: relative;
+                @include min-sm {
+                    width: calc(100% - 188px);
+                }
+                .input-form-control {
+                    width: 100%;
+                    position: relative;
+                    color: #0F0E30;
+                    font-weight: 500;
+                }
+                .input-form-control-reset {
+                    position: absolute;
+                    display: none;
+                    top: 50%;
+                    right: 135px;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    padding: 0;
+                    line-height: 20px;
+                    background: $bg-color-orange;
+                    color: #fff;
+                    box-shadow: none;
+                    outline: none;
+                    border: none;
+                    border-radius: 3px;
+                    // background-image: url('../../assets/images/icon-close.png');
+                    // background-size: cover;
+                    // background-repeat: no-repeat;
+                    // background-position: center;
+                    z-index: 99;
+                    cursor: pointer;
+                    @include translateY(-50%); 
+                    @include min-sm {
+                        right: 10px;
+                    }
+                }
+                &.is-reset {
+                    .input-form-control-reset {
+                        display: block;
+                    }
+                }
+            }
+            button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 126px;
+                min-height: 45px;
+                background: $bg-color-orange;
+                color: #fff;
+                @include flexbox();
+                @include align-items(center);
+                @include justify-content(center);
+                @include typography($font-main, 700, 14px, 16px) @include border-radius(0px 3px 3px 0px);
+
+                @include ie-only() {
+                    line-height: 30px;
+                }
+
+                @include min-sm {
+                    width: 182px;
+                    @include border-radius(3px);
+                }
+            }
+           
+        }
+    }
+
+    &-filter {
+        margin-top: 30px;
+        @include flexbox();
+        @include justify-content(space-between);
+        @include flex-direction(column);
+        @include flex-wrap(wrap);
+        @include min-md {
+            @include flex-direction(row);
+            @include align-items(flex-end);
+        }
+
+        &-category {
+            color: $text-color-purple;
+            @include typography($font-main, 700, 14px, 16px);
+            @include flexbox();
+            @include flex-direction(column);
+            @include min-sm {
+                @include flex-direction(row);
+                @include align-items(center);
+            }
+            span {
+                margin-top: 10px;
+                margin-right: 10px;
+                white-space: pre;
+            }
+
+            ul {
+                margin-top: 10px;
+                margin-left: -5px;
+                margin-right: -5px;
+                @include flexbox();
+                @include flex-wrap(wrap);
+                @include flex-direction(row);
+                @include min-sm {
+                    margin-top: 0;
+                    @include flex-direction(row);
+                    margin-top: 0;
+                }
+
+                li {
+                    min-width: 23%;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    margin-top: 10px;
+                    @include min-sm {
+                        margin-left: 10px;
+                        min-width: auto;
+                    }
+                    &:first-child {
+                        @include min-sm {
+                            margin-top: 10px;
+                        }
+                    }
+                    a {
+                        display: block;
+                        text-align: center;
+                        text-decoration: none;
+                        font-weight: 400;
+                        padding: 7px 10px;
+                        background: #FAFAFA;
+                        border: 1px solid #f2f2f2;
+                        @include border-radius(3px);
+
+                        @include min-sm {
+                            padding: 7px 10px;
+                        }
+                    }
+            
+                    &.is-active {
+                        a {
+                            background: #FFF0E4;
+                            border: 1px solid #FFF0E4;
+                            color: $text-color-orange;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-pagesize {
+            margin-top: 20px;
+            @include flexbox();
+            @include align-items(center);
+            @include justify-content(flex-end);
+
+            @include min-md {
+                margin-top: 0;
+            }
+
+            &>span:first-child {
+                color: $text-color-purple;
+                margin-right: 10px;
+                @include typography($font-main, 700, 12px, 16px);
+            }
+            
+            .ui-menu-item-wrapper {
+                padding: 7px 10px 7px 15px;
+            }
+    
+            .ui-selectmenu-button {
+                &.ui-button {
+                    &:active {
+                        background: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    &-view {
+        margin-top: 20px;
+
+        @include min-sm {
+            margin-top: 30px;
+        }
+
+        .dataTables_wrapper.no-footer {
+            .dataTable.display {
+                border: none;
+
+                &.no-footer {
+                    border-bottom: none;
+
+                    thead {
+                        display: none;
+                    }
+
+                    tbody {
+
+                        .odd,
+                        .even {
+                            @include flexbox();
+                            @include flex-direction(column);
+
+                            @include ie-only() {
+                                display: block;
+                            }
+
+                            td {
+                                background-color: #fff;
+                                padding: 15px;
+                                color: #0F0E30;
+                                text-align: justify;
+                                border: none;
+                                border-top: 1px solid #ededed;
+                                border-left: 1px solid #ededed;
+                                border-right: 1px solid #ededed;
+                                @include typography($font-main, 400, 14px, 150%);
+
+                                @include ie-only() {
+                                    display: block;
+                                }
+                            }
+
+                            .sorting_1 {
+                                background-color: #fff !important;
+                                background-image: url('../../assets/images/icon-dropdown2x.png');
+                                background-repeat: no-repeat;
+                                background-position: right 15px center;
+                                cursor: pointer;
+                                padding: 20px 35px 20px 15px;
+                                font-weight: 700;
+                                line-height: 16px;
+                            }
+
+                            &:last-child {
+                                td {
+                                    border-bottom: 1px solid #ededed;
+                                }
+                            }
+
+                            &.is-open {
+                                .sorting_1 {
+                                    background-image: url('../../assets/images/icon-up2x.png');
+                                }
+                            }
+                            &:last-child {
+                                td {
+                                    &:last-child {
+                                        border-top: none;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+            @include paginate();
+        }
+
+    }
+}

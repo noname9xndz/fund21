@@ -1,0 +1,30 @@
+﻿@model smartFunds.Model.Common.TaskApproveModel
+@{
+    ViewData["Title"] = "RejectedTask";
+    Layout = "_AdminLayout";
+}
+
+<section class="myMission-PopUp">
+    <div class="container-fluid">
+        <h1 class="section-title">Từ chối giao dịch</h1>
+        <form asp-controller="Task" asp-action="RejectedTasks" method="post">
+            <input asp-for="IdTask" type="hidden" class="form-control" />
+            <input asp-for="NameTask" type="hidden" class="form-control" />
+            <input asp-for="TaskType" type="hidden" class="form-control" />
+            <input asp-for="LastUpdatedBy" type="hidden" class="form-control" />
+
+            <div class="row center-sm">
+                <div class="col-sm-6">
+                    <h4>Bạn có chắc là bạn muốn Từ chối giao dịch này không? </h4><h4>Lý do:</h4>
+                    <textarea asp-for="ContentMessage" rows="10"></textarea>
+                    <span asp-validation-for="ContentMessage" class="text-danger"></span>
+                    <div class="myMission-PopUp__BTN">
+                        <button class="btn btn-action" type="submit">@Common.Confirm</button>
+                        <a class="btn btn-action" asp-controller="Task" asp-action="ApproveList">Quay Lại</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+

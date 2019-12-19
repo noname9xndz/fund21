@@ -15,8 +15,8 @@ namespace smartFunds.Data.Repositories
 {
     public interface IKVRRQuestionRepository : IRepository<KVRRQuestion>
     {
-        IEnumerable<KVRRQuestion> GetDefineKVRRQuestion();
-        
+        IEnumerable<KVRRQuestion> GetDefineKVRRQuestions();
+        KVRRQuestion GetKVRRQuestionById(int id);
     }
 
     public class KVRRQuestionRepository : GenericRepository<KVRRQuestion>, IKVRRQuestionRepository
@@ -29,11 +29,23 @@ namespace smartFunds.Data.Repositories
             _smartFundsDbContext = smartFundsDbContext;
         }
 
-        public IEnumerable<KVRRQuestion> GetDefineKVRRQuestion()
+        public IEnumerable<KVRRQuestion> GetDefineKVRRQuestions()
         {
             try
             {
                 return _smartFundsDbContext.KvrrQuestion?.Include(i => i.KVRRAnswers)?.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public KVRRQuestion GetKVRRQuestionById(int id)
+        {
+            try
+            {
+                return  _smartFundsDbContext.KvrrQuestion?.Include(i => i.KVRRAnswers)?.FirstOrDefault(q => q.Id == id);
             }
             catch (Exception ex)
             {

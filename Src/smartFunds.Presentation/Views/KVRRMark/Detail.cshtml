@@ -1,0 +1,34 @@
+﻿@model smartFunds.Model.Common.KVRRMarkModel
+
+
+<div class="row">
+	<div class="col-md-12">
+		<section>
+			<form method="post" enctype="multipart/form-data" asp-controller="KVRRMark" asp-action="Save" id="kvrrDetail">
+				<label class="error-message">@ViewBag.Message</label>
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input asp-for="Id" type="hidden" placeholder="Id" class="form-control" />
+				<div class="form-group">
+					<div class="col-md-12 control-label text-left">
+						<div class="form-group text-left">
+							<label asp-for="MarkFrom"></label>
+							<input asp-for="MarkFrom" placeholder="MarkFrom" class="form-control" />
+							<label asp-for="MarkTo"></label>
+							<input asp-for="MarkTo" placeholder="MarkTo" class="form-control" />
+							<span asp-validation-for="MarkFrom" class="text-danger"></span>
+							<span asp-validation-for="MarkTo" class="text-danger"></span>
+						</div>
+						<div class="form-group text-left">
+							<select asp-for="KVRRId" asp-items="@(new SelectList(@ViewBag.KVRRSelectList, "Id", "Name"))"></select>
+							<span asp-validation-for="KVRRId" class="text-danger"></span>
+						</div>
+						<div class="form-group text-left">
+							<input type="submit" id="btnSubmit" value="Submit" class="btn btn-success" />
+						</div>
+					</div>
+				</div>
+				@Html.Hidden("initialId", Model.KVRRId)
+			</form>
+		</section>
+	</div>
+</div>

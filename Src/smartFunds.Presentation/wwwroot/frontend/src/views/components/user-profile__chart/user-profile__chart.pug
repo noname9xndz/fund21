@@ -1,0 +1,21 @@
+section.user-chart-section
+    .container-fluid 
+        h2 Biến động tài sản
+        .user-chart-content
+            .user-chart-content__detail
+                .user-chart-content__detail_date-range
+                    h3 Thời gian thực hiện giao dịch
+                    .date-range-input
+                        .date-range-input__items
+                            span Từ ngày
+                            input.user_asset_from#user_asset_from(type="text", name="user_asset_from", placeholder="dd/MM/yyyy", autocomplete="off")
+                        .date-range-input__items
+                            span Đến ngày
+                            input.user_asset_to#user_asset_to(type="text", name="user_asset_to", placeholder="dd/MM/yyyy", autocomplete="off")
+                        button.btn-search
+                            img(src="../../../assets/images/icon-search.png", alt="")
+            .user-chart-content__container 
+                .chart               
+                    canvas.chart-profile#chart-profile
+                    span Không có dữ liệu
+    input(type="hidden" id="profileDataApiUrl" value="http://smartfunds-be-net.hn.smartosc.com/profile/PropertyFluctuations")    

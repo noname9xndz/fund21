@@ -1,0 +1,24 @@
+.weight-risk-add {
+  &__trongso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    span, select {
+      margin: 0 5px;
+    }
+
+    input {
+      width: 100px;
+    }
+  }
+
+  &__loai-kvrr {
+    margin-bottom: 20px;
+    select {
+      width: 100%;
+      height: 50px;
+    }
+  }
+}

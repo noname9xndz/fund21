@@ -1,0 +1,48 @@
+// breakpoints
+$grid-breakpoints: (
+    xs: 321px,
+    sm: 768px,
+    md: 992px,
+    lg: 1025px,
+    xl: 1200px,
+    xxl: 1600px
+);
+
+$fonts: (
+    main: ('Roboto', sans-serif),
+);
+
+
+$index: (
+    underGround: -1,
+    ground: 0,
+    aboveGround: 1,
+    header: 100,
+    overlay: 150,
+    lightbox: 200
+);
+
+$font-main: fonts(main);
+$font-awesome: 'FontAwesome';
+
+$fz-root: 62.5%; // root font-size, DO NOT CHANGE
+$gutter: 2rem;
+$gutter-xs: 1.5rem;
+$gutter-md: 2rem;
+
+// colors
+$colors: (
+    c-main-green: #009a46,
+    c-main-gradient: linear-gradient(90deg, rgb(65,182,73), rgb(0,154,70)),
+    c-gray: #7a7a7a,
+    c-purple: #3D4359,
+    c-orange: #F77314
+);
+
+
+$text-color-primary: color(c-gray);
+$text-color-purple: color(c-purple);
+$text-color-orange: color(c-orange);
+
+$bg-color-orange: color(c-orange);
+$bg-color-purple: color(c-purple);

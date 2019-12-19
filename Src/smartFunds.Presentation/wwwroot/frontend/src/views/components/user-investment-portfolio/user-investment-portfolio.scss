@@ -1,0 +1,536 @@
+.body-content-endUser-invesment {
+    padding-top: 30px;
+
+    @include min-md {
+        padding-top: 60px;
+    }
+}
+
+.user-invesment-portfolio {
+    padding: 0 20px;
+
+    &.container-fluid {
+        width: 100%;
+        max-width: 100%;
+
+        @include min-xl {
+            max-width: 117rem;
+            padding: 0px;
+        }
+    }
+
+    .invesment-main {
+        .user-invesment-suggetestion {
+            @include flexbox();
+            @include flex-wrap(wrap);
+            .user-invesment-suggetestion-title {
+                margin: 0;
+                font-size: 24px;
+                line-height: 28px;
+                color: $text-color-purple;
+                font-weight: 400;
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            &-wrapper {
+                width: 100%;
+                height: auto;
+                @include flexbox();
+                @include flex-direction(column);
+                @include min-sm {
+                    height: 320px;
+                    @include flex-direction(row);
+                }
+                @include min-md {
+                    height: 416px;
+                }
+            }
+            .user-invesment-suggetestion-main {
+                position: relative;
+                overflow: hidden;
+                border: 2px solid transparent;
+                border-radius: 3px;
+                -webkit-box-shadow: 0 0 0 3px transparent;
+                box-shadow: 0 0 0 3px transparent;
+                width: 100%;
+                @include flexbox();
+                @include  flex-direction(column);
+                @include min-sm {
+                    width: 40%;
+                }
+                .user-invesment-suggetestion-images {
+                    width: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    background: #fafafa;
+                    height: auto;
+                    padding: 30px 0px;
+                    @include flexbox();
+                    @include align-items(center);
+                    @include justify-content(center);
+                    @include min-sm {
+                        height: 75%;
+                    }
+                    label {
+                        display: inline-block;
+                        cursor: pointer;
+                    }
+
+                    input.inputuser-invesment-suggetestion[type="radio"] {
+                        position: absolute;
+                        opacity: 0;
+                        top: 0;
+                        left: 0;
+                        z-index: 2;
+
+                        &:checked~.checkmark {
+                            background-color: $bg-color-orange;
+                            border: 1px solid $bg-color-orange;
+                        }
+                    }
+
+                    .checkmark {
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        display: block;
+                        border: 1px solid #D8D8D8;
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            display: block;
+                            top: 6px;
+                            left: 6px;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 50%;
+                            background: #fff;
+                        }
+                    }
+                }
+
+                .user-invesment-suggetestion-content {
+                    padding: 30px 10px;
+                    background-color: #fff;
+                    border-radius: 0 0 3px 3px;
+                    width: 100%;
+                    text-align: center;
+                    flex: 1;
+                    @include flexbox();
+                    @include justify-content(center);
+                    @include align-items(center);
+                    .invesment-name {
+                        margin: 0px;
+                        font-size: 18px;
+                        line-height: 21px;
+                        color: $text-color-purple;
+                        cursor: pointer;
+                    }
+
+                    .invesment-sort-description {
+                        margin-top: 15px;
+                        font-size: 14px;
+                        line-height: 150%;
+                        color: $text-color-purple;
+                        overflow: hidden;
+                        display: block;
+                        display: -webkit-box;
+                        max-width: 100%;
+                        -webkit-line-clamp: 8;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        padding-right: 10px;
+                        display: none;
+
+                    }
+                }
+
+                &.is-active {
+                    border: 2px solid #F77314;
+                    border-radius: 3px;
+                    -webkit-box-shadow: 0 0 0 3px #FFE9DA;
+                    box-shadow: 0 0 0 3px #FFE9DA;
+                }
+            }
+            .user-invesment-banner {
+                width: 100%;
+                background: #fff;
+                border-radius: 3px;
+                overflow: hidden;
+                margin-left: 0;
+                padding: 30px 0px;
+                margin-top: 16px;
+                @include flexbox();
+                @include align-items(center);
+                @include justify-content(center);
+                @include min-sm {
+                    width: 60%;
+                    margin-top: 0;
+                    margin-left: 30px;
+                    padding: 0px;
+                }
+                img {
+                    @include min-sm {
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        }
+        .user-invesment-no-answers-banner {
+            margin-bottom: 60px;
+            background-color: #fff;
+            padding: 30px 0px;
+            border-radius: 3px;
+            overflow: hidden;
+            @include flexbox();
+            @include align-items(center);
+            @include justify-content(center);
+        }
+        .list-invesment-title {
+            font-size: 24px;
+            line-height: 28px;
+            margin-top: 60px;
+            margin-bottom: 0;
+            color: $text-color-purple;
+
+            &-no-answers {
+                margin-top: 0px;
+            }
+        }
+
+        .list-invesment {
+
+            @include min-md {
+                margin: 0;
+            }
+
+            .list-invesment-main {
+                margin-top: 20px;
+
+                @include min-md {
+                    margin: 0 -15px;
+                    @include flexbox();
+                    @include flex-wrap(wrap);
+                    @include justify-content(center);
+
+                }
+
+                .sub-invesment {
+                    display: block;
+
+                    @include min-md {
+                        width: 20%;
+                        padding: 0 5px;
+                        margin-top: 30px;
+                    }
+
+                    position: relative;
+
+                    .sub-invesment-content {
+                        border-radius: 5px;
+                        overflow: hidden;
+                        border: 2px solid transparent;
+                        position: relative;
+
+                        .sub-invesment-avatar {
+                            width: 100%;
+                            height: 180px;
+                            position: relative;
+
+                            background: #fff;
+                            overflow: hidden;
+                            @include flexbox();
+                            @include align-items(center);
+                            @include justify-content(center);
+                            @include min-md {
+                                height: 250px;
+                            }
+
+                            label {
+                                display: inline-block;
+                                cursor: pointer;
+                            }
+                            input.sub-innvesment-cheked[type="radio"] {
+                                position: absolute;
+                                opacity: 0;
+                                top: 0;
+                                left: 0;
+                                z-index: 2;
+
+                                &:checked~.checkmark {
+                                    background-color: $bg-color-orange;
+                                    border: 1px solid $bg-color-orange;
+                                }
+                            }
+
+                            .checkmark {
+                                position: absolute;
+                                top: 15px;
+                                right: 15px;
+                                width: 20px;
+                                height: 20px;
+                                background-color: #fff;
+                                border-radius: 50%;
+                                border: 1px solid #D8D8D8;
+                                display: block;
+
+                                &:after {
+                                    content: "";
+                                    position: absolute;
+                                    display: block;
+                                    top: 6px;
+                                    left: 6px;
+                                    width: 6px;
+                                    height: 6px;
+                                    border-radius: 50%;
+                                    background: #fff;
+                                }
+                            }
+                        }
+
+                        .sub-invesment-main {
+                            padding: 16px 12px 16px 16px;
+                            background-color: #fff;
+                            text-align: center;
+                            .name-sub-invesment {
+                                margin: 0;
+                                font-size: 14px;
+                                line-height: 150%;
+                                color: $text-color-purple;
+                                cursor: pointer;
+                                display: inline-block;
+                                width: auto;
+                                max-width: 100%;
+                                margin: 0 auto;
+                            }
+
+                            .sub-invesment-sort-description {
+                                margin-top: 5px;
+                                margin-bottom: 0px;
+                                font-size: 14px;
+                                line-height: 150%;
+                                color: $text-color-purple;
+                                height: 63px;
+                                display: block;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                padding-right: 20px;
+                                white-space: pre-wrap;
+                                font-family: $font-main;
+                                font-weight: 400;
+                                display: none;
+                                @include min-md {
+                                    height: 42px;
+                                    -webkit-line-clamp: 2;
+                                }
+
+                            }
+
+                            .sub-invesment-detail {
+                                display: inline-block;
+                                margin-top: 16px;
+                                font-size: 14px;
+                                line-height: 150%;
+                                color: $text-color-orange;
+                                cursor: pointer;
+                            }
+                        }
+
+                        &.is-active {
+                            border: 2px solid $bg-color-orange;
+                            box-shadow: 0 0 0 3px #FFE9DA;
+                        }
+                    }
+
+                }
+
+                .slick-list {
+                    overflow: visible;
+                    overflow-x: hidden;
+
+                    .slick-slide {
+                        width: 194px;
+                        margin: 0 6px;
+                        padding-top: 3px;
+                    }
+                }
+
+            }
+
+            .block-button {
+                padding-bottom: 60px;
+
+                @include min-md {
+                    @include flexbox();
+                    @include justify-content(center);
+                    margin-top: 60px;
+                }
+
+                #btnAnswer {
+                    background: $bg-color-orange;
+
+                    &:disabled {
+                        background: #CECECE;
+                        cursor: default;
+                    }
+                }
+
+                .btn-submit {
+                    display: block;
+                    margin-top: 60px;
+                    @include btn(100%, $text-color-orange, #fff);
+                    order: 2;
+
+                    @include min-md {
+                        width: 265px;
+                        min-width: 265px;
+                        margin: 0 10px;
+                    }
+                }
+
+                .back-question {
+                    display: block;
+                    margin-top: 16px;
+                    @include btn(100%, transparent, $text-color-orange);
+                    border: 1px solid $text-color-orange;
+                    order: 1;
+
+                    @include min-md {
+                        width: 265px;
+                        min-width: 265px;
+                        margin: 0 10px;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.modal {
+    &.detail__subInvesment {
+        box-shadow: none;
+        padding: 0;
+    }
+    &__overlay {
+        background: rgba(7,10,34,.8)
+    }
+}
+
+.modal__container {
+    @include border-radius(0);
+    &.detail__subInvesment {
+        &_container {
+            position: fixed;
+            width: 380px;
+            max-width: calc(100% - 32px);
+            height: 510px;
+            top: 50%;
+            left: 50%;
+            padding: 0;
+            transform: translate(-50%, -50%);
+
+            @include min-md {
+                @include flexbox();
+                height: 422px;
+                width: 970px;
+                max-width: 970px;
+                overflow: visible;
+            }
+
+            &::-webkit-scrollbar {
+                width: 6px;
+                background-color: #F5F5F5;
+            }
+        }
+    }
+
+    .detail__subInvesment {
+        &_images {
+            display: none;
+            background: linear-gradient(180deg, #AEC2D0 0%, #E2EEF1 52.08%, #FFFFFF 100%);
+            @include min-md {
+                display: block;
+                width: 416px;
+                position: relative;
+                overflow: hidden;
+                @include border-radius(0px 3px 3px 0px);
+                @include flexbox();
+                @include align-items(center);
+                @include justify-content(center);
+            }
+        }
+
+        &__main {
+            position: relative;
+            height: 100%;
+            padding: 16px;
+            padding-right: 0px;
+            @include min-md {
+                padding: 0px;
+            }
+
+            @include min-md {
+                width: calc(100% - 416px);
+                padding: 30px 0 39px 30px;
+            }
+
+            &__inside {
+                height: 100%;
+                position: relative;
+                @include min-md {
+                    padding: 0 16px 0 0;
+                }
+            }
+
+            &__title {
+                font-size: 18px;
+                line-height: 150%;
+                line-height: 150%;
+                font-weight: 700;
+                color: $text-color-purple;
+            }
+
+            &__content {
+                font-size: 14px;
+                margin-top: 15px;
+                line-height: 150%;
+                color: $text-color-purple;
+                padding-right: 30px;
+                white-space: pre-wrap;
+                font-family: $font-main;
+                font-weight: 400;
+                @include min-md {
+                    padding-right: 15px;
+                }
+            }
+
+            &__close {
+                position: absolute;
+                right: 16px;
+                top: 16px;
+                cursor: pointer;
+
+                @include min-md {
+                    top: 11px;
+                    right: 11px;
+                }
+            }
+
+            .ps__rail-y {
+                right: 11px;
+            }
+            .ps__thumb-y {
+                transition: none;
+            }
+        }
+    }
+}

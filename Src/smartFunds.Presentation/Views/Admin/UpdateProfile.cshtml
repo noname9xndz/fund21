@@ -1,0 +1,44 @@
+﻿@model UpdateProfileViewModel
+@{
+    ViewData["Title"] = Common.UpdateProfile;
+    Layout = "_AdminLayout";
+}
+
+<section class="myAccountEdit">
+    <div class="container-fluid">
+        <h1 class="section-title">@Common.UpdateProfile</h1>
+        <form method="post" asp-action="UpdateProfile" asp-controller="Admin">
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label asp-for="FullName" class="col-sm-3"></label>
+                        <div class="col-sm-6">
+                            <input asp-for="FullName" value="@Model?.FullName" class="form-control" />
+                            <div class="error-messeage"><span asp-validation-for="FullName"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label class="col-sm-3">@Common.EmailAddress</label>
+                        <div class="col-sm-6">
+                            <input asp-for="Email" value="@Model?.Email" disabled class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label class="col-sm-3">@Common.Role</label>
+                        <div class="col-sm-6">
+                            <input asp-for="RoleName" value="@Model?.RoleName" disabled class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-action" type="submit">@Common.Submit</button>
+                <a class="btn btn-action" asp-controller="Admin" asp-action="Profile">@Common.Back</a>
+            </div>
+        </form>
+    </div>
+</section>

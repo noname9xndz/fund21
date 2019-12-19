@@ -1,0 +1,22 @@
+section.manager-settings-contact
+  .container-fluid
+    .content
+      h1.section-title Liên hệ
+      .row.center-xs
+        .col-sm-6
+          form#form-contact
+            .form-group
+              label Đỉa chỉ email
+              input.form-control(type="text" name="email")
+            .form-group
+              label Số điện thoại nóng
+              input.form-control(type="text" name="phone")
+            .form-group
+              label Địa chỉ email nhận thông tin liên hệ
+              input.form-control(type="text" name="contactEmail")
+            .btns-wrapper-center
+              button.btn.btn-action#add-questions(type="submit") Xác nhận
+              a.btn.btn-action Quay lại
+input#required-mess(value="Không bỏ trống" type="hidden")
+input#newLetterEmailValidateMess(type="hidden", value="Please enter a valid email address")
+input#newLetterPhoneValidateMess(type="hidden", value="Please enter a valid phone number")

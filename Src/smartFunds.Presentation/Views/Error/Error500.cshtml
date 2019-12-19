@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Error 500";
+    if (UserService.IsSignedIn(User))
+    {
+        if (!UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Customer).Result)
+        {
+            Layout = "_AdminLayout";
+        }
+
+    }
+}
+
+<div class="body-content-endUser body-content-error-page">
+    <section class="user-not-found-section user-error-section">
+        <div class="user-not-found-content user-error-content">
+            <img src="@GeneralImageFolder.Path@("500.png")" alt="" />
+            <h1>Hiện tại máy chủ đang gặp sự cố</h1>
+            <p>
+                Chúng tôi sẽ cố gắng khắc phục sớm nhất cho sự cố không mong muốn này. Hoặc các bạn có
+                thể thử
+                <a href="/">tải lại trang</a>
+            </p>
+        </div>
+    </section>
+</div>

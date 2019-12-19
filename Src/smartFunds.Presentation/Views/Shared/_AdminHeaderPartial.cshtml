@@ -1,0 +1,32 @@
+﻿@if (UserService.IsSignedIn(User))
+{
+    var user = await UserService.GetUserByName(User.Identity.Name);
+    <section class="header">
+        <div class="header__Left" id="headerLeftArea">
+            <h4 id="companyFullName">SaveNow</h4>
+            <h4 class="displayNone" id="companyReduceName">SAN</h4>
+        </div>
+        <div class="header__Right">
+            <div class="header__toogleIcon" id="menuToogle"><i class="fas fa-bars"></i></div>
+            <div class="header__Notification">
+                <ul>
+                    <li>
+                        <div class="header__Dropdown">
+                            <button>
+                                <span class="far fa-user-circle"></span>
+                                <span>@*@Common.Hello*@</span>
+                                <span>@user.FullName</span>
+                            </button>
+                            <div class="header__Dropdown__Content">
+                                <div class="header__Dropdown--Links">
+                                    <a asp-action="Profile" asp-controller="Admin">Tài khoản của tôi</a>
+                                    <a asp-action="Logout" asp-controller="Admin">@Common.Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+}

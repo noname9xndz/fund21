@@ -1,0 +1,99 @@
+﻿@inject smartFunds.Service.Services.KVRRService KVRRService
+@model UserModel
+@{
+    ViewData["Title"] = Common.KVRRSelection;
+    var mobileImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && x.ImageName.Contains("mobile_")).FirstOrDefault();
+    var desktopImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && !x.ImageName.Contains("mobile_")).FirstOrDefault();
+}
+
+@if (Model != null)
+{
+    <div class="body-content-endUser body-content-endUser-invesment">
+        <div class="user-invesment-portfolio container-fluid">
+            <form method="post" asp-controller="Account" asp-action="ConfirmKVRR" class="invesment-main" id="user-invesment-portfolio-main">
+
+                <div class="modal micromodal-slide detail__subInvesment" id="modal-1" aria-hidden="true">
+                    <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
+                    <div class="modal__container detail__subInvesment_container" role="dialog" aria-modal="true"
+                         aria-labelledby="modal-1-title">
+                        <div class="detail__subInvesment_images">
+                            <img class="detail__subInvesment_images_banner"
+                                 src="/images/arrow-left.png" alt="img">
+                        </div>
+                        <div class="detail__subInvesment__main">
+                            <div class="detail__subInvesment__main__inside">
+                                <span class="detail__subInvesment__main__title"></span>
+                                <pre class="detail__subInvesment__main__content"></pre>
+                            </div>
+                        </div><img class="detail__subInvesment__main__close" src="/images/icon-close.png"
+                                   alt="close" aria-label="Close modal" data-micromodal-close>
+                    </div>
+                </div>
+
+                <div class="user-invesment-no-answers-banner">
+                    <picture>
+                        @if (mobileImage != null)
+                        {
+                            <source media="(max-width: 768px)"
+                                    srcset="@BannerHomepageFolder.Path@mobileImage.ImageName">
+                        }
+                        else
+                        {
+                            <source media="(max-width: 768px)"
+                                    srcset="/images/intro-small.png">
+                        }
+                        @if (desktopImage != null)
+                        {
+                            <img src="@BannerHomepageFolder.Path@desktopImage.ImageName">
+
+                        }
+                        else
+                        {
+                            <img src="/images/intro.png">
+
+                        }
+
+                    </picture>
+                </div>
+
+                <h4 class="list-invesment-title list-invesment-title-no-answers">@Common.KVRRSelection</h4>
+                <div class="list-invesment">
+                    <div class="list-invesment-main">
+                        @if (Model.KVRROthers != null && Model.KVRROthers.Any())
+                        {
+                            for (int i = 0; i < Model.KVRROthers.Count; i++)
+                            {
+                                <div class="sub-invesment">
+                                    <div class="sub-invesment-content">
+                                        <div class="sub-invesment-avatar">
+                                            <label>
+                                                <img class="sub-invesment-avatar-cover" src="@Constants.KVRRImageFolder.Path@Model.KVRROthers[i].KVRRImagePath">
+                                                <input class="sub-innvesment-cheked" type="radio" name="SelectedKVRRId" value="@Model.KVRROthers[i].Id"><span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="sub-invesment-main">
+                                            <h4 class="name-sub-invesment">@Model.KVRROthers[i].Name</h4>
+                                            <p class="sub-invesment-sort-description">@Model.KVRROthers[i].Detail</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                    <div class="block-button">
+                        <button class="btn btn-submit" id="btnAnswer" type="submit" disabled>
+                            @Common.ConfirmKVRR
+                        </button>
+                        <a asp-controller="Account" asp-action="DefindKVRR" class="btn back-question">@Common.AnswerAgain</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="pageloader">
+            <img src="/assets/images/loader-large.gif" alt="processing..." />
+        </div>
+    </div>
+}

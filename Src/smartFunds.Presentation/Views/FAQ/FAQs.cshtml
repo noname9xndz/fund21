@@ -1,0 +1,60 @@
+﻿@using smartFunds.Model.Common;
+@model FAQsModel
+@{
+    ViewData["Title"] = @Common.GeneralInformation;
+}
+
+<div class="body-content-endUser">
+    <section class="user-faq px-15">
+        <h1 class="section-title-endUser">Câu hỏi thường gặp</h1>
+        <form class="user-faq-form" id="user-faq-form" asp-controller="faqs" asp-action="list" method="get">
+            <input name="category" value="@FAQCategory.All" type="hidden"/>
+            <div class="user-faq-form__search">
+                <div class="user-faq-form__search-actions">
+                    <input class="input-form-control" id="faq-form-control" type="text" name="key" placeholder="Từ khóa tìm kiếm" value="@ViewBag.ValueSearch">
+                    <input class="input-form-control-reset" type="reset" value="x">
+                </div>
+                <button class="btn btn-search" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
+        <div class="user-faq-filter">
+            <div class="user-faq-filter-category">
+                <span>Danh mục:</span>
+                <ul>
+                    @{
+                        <li class="@(ViewBag.SetActive == "All" ? "is-active" : "")"><a asp-controller="faqs" asp-action="list" asp-route-category="@FAQCategory.All" asp-route-key="@ViewBag.ValueSearch">Tất cả</a></li>
+                        <li class="@(ViewBag.SetActive == "StartWithSaveNow" ? "is-active" : "")"><a asp-controller="faqs" asp-action="list" asp-route-category="@FAQCategory.StartWithSaveNow" asp-route-key="@ViewBag.ValueSearch">Bắt đầu với SaveNow</a></li>
+                        <li class="@(ViewBag.SetActive == "KVRR" ? "is-active" : "")"><a asp-controller="faqs" asp-action="list" asp-route-category="@FAQCategory.KVRR" asp-route-key="@ViewBag.ValueSearch">Khẩu vị rủi ro</a></li>
+                        <li class="@(ViewBag.SetActive == "PortfolioFund" ? "is-active" : "")"><a asp-controller="faqs" asp-action="list" asp-route-category="@FAQCategory.PortfolioFund" asp-route-key="@ViewBag.ValueSearch">Danh mục đầu tư</a></li>
+                        <li class="@(ViewBag.SetActive == "InvestAndWithdraw" ? "is-active" : "")"><a asp-controller="faqs" asp-action="list" asp-route-category="@FAQCategory.InvestAndWithdraw" asp-route-key="@ViewBag.ValueSearch">Đầu tư và rút tiền</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="user-faq-filter-pagesize">
+                <span>Hiển thị</span><select class="user-faq-filter-pagesize__select table-filter-actions__pagesize__select" id="faq-pagesize" name="faq-pagesize">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </div>
+        <div class="user-faq-view">
+            <table class="datatable--endUser display" id="user-faq-view__table" style="width:100%">
+                <tbody>
+                    @if (Model != null && Model.FAQs.Any())
+                    {
+                        @foreach (var item in Model.FAQs)
+                        {
+                            <tr>
+                                <td class="user-faq-name">@item.Title</td>
+                                <td class="user-faq-content style-text-editor">
+                                   @Html.Raw(@item.Content) 
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

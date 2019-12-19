@@ -1,0 +1,56 @@
+﻿@using smartFunds.Common
+@model smartFunds.Model.Common.KVRRModel
+
+@{
+	ViewData["Title"] = @Common.KVRRInformation;
+	Layout = "_AdminLayout";
+}
+
+<section class="manage-riskDetail">
+	<div class="detail-block">
+		<div class="detail-block__title">
+			<h2>@Common.KVRRInformation</h2>
+			<div class="title-info__btn-wrapper">
+				<a asp-action="Edit" asp-route-id="@Model.Id" class="edit-table-info @( UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result?"":"disabled" )"><i class="fa fa-edit"></i></a>
+			</div>
+		</div>
+		<div class="detail-block__content">
+			<div class="container-fluid">
+				<div class="row">
+					<strong class="col-sm-3">
+						@Common.KVRRName
+					</strong>
+					<p class="col-sm-6">@Model.Name</p>
+				</div>
+				<div class="row">
+					<strong class="col-sm-3">@Common.KVRRContent</strong>
+					<div class="col-sm-6"><pre>@Model.Detail</pre></div>
+				</div>
+				<div class="row">
+					<strong class="col-sm-3">@Common.Portfolio</strong>
+					<p class="col-sm-6">
+						@if (Model.KVRRPortfolios != null && Model.KVRRPortfolios.Any())
+						{
+							@Model.KVRRPortfolios.First().Portfolio.Title
+						}
+					</p>
+				</div>
+				<div class="row">
+					<strong class="col-sm-3">@Common.KVRRImage</strong>
+					<p class="col-sm-6">
+						@if (!String.IsNullOrEmpty(Model.KVRRImagePath))
+						{
+							<img src="@Constants.KVRRImageFolder.Path@Model.KVRRImagePath" height="200" width="100" />
+						}
+						else
+						{
+							<img src="/images/empty-photo.jpg" height="200" width="100" />
+						}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-6 btn-part text-center"><a asp-action="List" class="btn btn-action">@Common.Back</a></div>
+
+</section>

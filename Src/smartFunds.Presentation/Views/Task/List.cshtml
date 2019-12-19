@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+    Layout = "_AdminLayout";
+}
+
+<section class="my-mission">
+    <div class="modal micromodal-slide" id="my-mission__Modal--accountant" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true"
+                 aria-labelledby="my-mission__Modal--accountant-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="my-mission__Modal--accountant-title">
+                        Bạn có chắc chắn muốn cập nhật không?
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <footer class="modal__footer">
+                    <button class="modal__btn modal__btn-primary" data-micromodal-close type="button">Tiếp tục</button>
+                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Hủy bỏ</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <!--Quỹ-->
+    <section class="my-mission__item" data-api-link="/admin/task/pending-deal-fund-list">
+        <div class="content">
+            <h1 class="section-title">NHIỆM VỤ CỦA TÔI KẾ TOÁN</h1>
+            <div class="detail-block__title"><h2>Nhiệm vụ đang chờ xử lý</h2></div>
+            <h4 class="my-mission__item__subTitle">GIAO DỊCH VỚI QUỸ</h4>
+            <partial name="SearchPendingDealFundPartial.cshtml" model="@ViewBag.SearchBalanceFund" />
+            <div class="my-mission__item__table">
+                <div class="table__overlay hide">
+                    <div class="table__overlay__spinner rotating"></div>
+                </div>
+                <div class="table__wrapper">
+                    <partial name="ListPendingDealFundPartial.cshtml" model="@ViewBag.FundTransactionHistoryModel" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Khách hàng-->
+    <section class="my-mission__item" data-api-link="/admin/task/pending-deal-custom-list">
+        <div class="content">
+            <h4 class="my-mission__item__subTitle">GIAO DỊCH VỚI KHÁCH HÀNG</h4>
+            <partial name="SearchPendingDealCustomPartial.cshtml" model="@ViewBag.SearchTransactionHistoryViewModel" />
+            <div class="my-mission__item__table">
+                <div class="table__overlay hide">
+                    <div class="table__overlay__spinner rotating"></div>
+                </div>
+                <div class="table__wrapper">
+                    <partial name="ListPendingDealCustomPartial.cshtml" model="@ViewBag.TransactionHistoryModel" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Hoàn thành-->
+    <section class="my-mission__item" data-api-link="/admin/task/completed-list">
+        <div class="content">
+            <div class="detail-block__title"><h2>Nhiệm vụ đã hoàn thành</h2></div>
+            <partial name="SearchCompletedTasks.cshtml" model="@ViewBag.SearchTaskModel" />
+            <div class="my-mission__item__table">
+                <div class="table__overlay hide">
+                    <div class="table__overlay__spinner rotating"></div>
+                </div>
+                <div class="table__wrapper">
+                    <partial name="CompletedList.cshtml" model="@ViewBag.TaskModel" />
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(window).keydown(function (e) {
+                if (e.keyCode == 13) { e.preventDefault(); return false; }
+            });
+        })
+    </script>
+}

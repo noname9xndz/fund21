@@ -1,0 +1,21 @@
+section.login
+    .login__Wrapper
+        .container-fluid
+            h1.section-title Reset Mật Khẩu
+            form(action="/signIn.html")
+                .row.center-xs
+                    .col-sm-6
+                        .form-group
+                            label Mật Khẩu mới
+                            input(type='password').form-control
+                            i.fas.fa-eye.resetPass__showPassword
+                        .error-messeage Lỗi
+                        .form-group
+                            label Xin nhập lại mật khẩu mới
+                            input(type='password').form-control
+                            i.fas.fa-eye.resetPass__showPassword
+                        .error-messeage Lỗi
+                        .tn-part.btns-wrapper-center
+                            button.btn.btn-action(type="submit") Xác Nhận
+                            span.error-messeage Lỗi
+                        a(href="") Quay trở lại trang Đăng Nhập ?

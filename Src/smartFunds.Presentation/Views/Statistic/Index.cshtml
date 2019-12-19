@@ -1,0 +1,32 @@
+﻿@model StatisticModel
+@{
+    ViewData["Title"] = Common.Statistic;
+    Layout = "_AdminLayout";
+}
+
+<section class="manager-check-invest">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">@Common.Statistic</h1>
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <form id="form-question" asp-controller="Statistic" asp-action="Index" method="post">
+                        <div class="form-group form-align-center">
+                            <label>@(Common.TimeAction)</label>
+                            <div class="form-in-line">
+                                <input asp-for="TransactionDateFrom" readonly="readonly" class="form-control" placeholder="Từ" />
+                                <input asp-for="TransactionDateTo" readonly="readonly" class="form-control" placeholder="Đến" />
+                            </div>
+                            <button class="btn btn-action" type="submit">
+                                @Common.Statistic
+                            </button>
+                        </div>
+                        <p>Tổng số phí thu từ bảo trì tài khoản: <span>@Model.TotalAccountFee.ToString("N0") đ</span></p>
+                        <p>Tổng số phí thu từ rút tiền: <span>@Model.TotalWithdrawalFee.ToString("N0") đ</span></p>
+                        <p>Tổng số tiền tạm ứng: <span>@Model.TotalQuickWithdrawal.ToString("N0") đ</span></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

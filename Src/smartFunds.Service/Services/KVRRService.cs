@@ -7,18 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.Runtime.Internal.Auth;
 using smartFunds.Model.Common;
-using KVRRAnswer = smartFunds.Model.Common.KVRRAnswer;
-using KVRRQuestion = smartFunds.Model.Common.KVRRQuestion;
+using KVRR = smartFunds.Data.Models.KVRR;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace smartFunds.Service.Services
 {
     public interface IKVRRService
     {
-        IEnumerable<KVRRQuestion> GetKVRR();
-        bool SaveKvrrQuestion(KVRRQuestion question);
-        bool DeleteAnswer(int id);
-        bool DeleteQuestion(int id);
+        IEnumerable<smartFunds.Model.Common.KVRRModel> GetKVRRs(int pageSize, int pageIndex);
+        KVRRModel GetKVRRById(int id);
+        Task<IEnumerable<KVRRModel>> GetAllKVRR();
+        Task<KVRRModel> Save(KVRRModel kvrr);
+        Task Update(KVRRModel kvrr);
+        Task<KVRRModel> GetKVRRByMark(List<int> ids);
+        Task<ICollection<KVRRModel>> GetKVRRMarkUnUse();
+        Task<bool> IsDuplicateName(string Name, string initTitle);
+        List<SelectListItem> GetSelectListKVRR();
     }
     public class KVRRService : IKVRRService
     {
@@ -29,57 +35,96 @@ namespace smartFunds.Service.Services
             _mapper = mapper;
             _kvrrManager = kvrrManager;
         }
-        public IEnumerable<KVRRQuestion> GetKVRR()
+
+        public IEnumerable<KVRRModel> GetKVRRs(int pageSize, int pageIndex)
         {
-            var questions = _kvrrManager.GetKVRR();
-            return questions.Select(x => PopulateKVRR(x)).ToList();
+            var kvrrDto = _kvrrManager.GetKVRRs(pageSize, pageIndex);
+            if (kvrrDto == null) return null;
+            return _mapper.Map<IEnumerable<KVRR>, IEnumerable<KVRRModel>>(kvrrDto);
         }
 
-        public bool SaveKvrrQuestion(KVRRQuestion question)
+        public async Task<IEnumerable<KVRRModel>> GetAllKVRR()
         {
-            if (question.EntityState == (int) Common.FormState.Add)
+            var kvrrDto = await _kvrrManager.GetAllKVRR();
+            if (kvrrDto == null) return null;
+            return _mapper.Map<IEnumerable<KVRR>, IEnumerable<KVRRModel>>(kvrrDto);
+        }
+
+        public KVRRModel GetKVRRById(int id)
+        {
+            var kvrrDto = _kvrrManager.GetKVRRById(id);
+            return _mapper.Map<KVRR, KVRRModel>(kvrrDto);
+        }
+
+        public async Task<KVRRModel> Save(KVRRModel kvrr)
+        {
+            var kvrrDto = _mapper.Map<KVRRModel, KVRR>(kvrr);
+            var dto = await _kvrrManager.Save(kvrrDto);
+            var savedKVRRModel = _mapper.Map<KVRRModel>(dto);
+            return savedKVRRModel;
+        }
+
+        public async Task Update(KVRRModel kvrr)
+        {
+            try
             {
-                return _kvrrManager.AddKvrrQuestion(question).Result;
+                var kvrrDto = _mapper.Map<KVRRModel, KVRR>(kvrr);
+                await _kvrrManager.Update(kvrrDto);
             }
-            else if(question.EntityState == (int)Common.FormState.Edit)
+            catch (Exception ex)
             {
-                return _kvrrManager.UpdateKvrrQuestion(question).Result;
+                throw ex;
             }
-            return false;
         }
 
-        public bool DeleteAnswer(int id)
+        public async Task<KVRRModel> GetKVRRByMark(List<int> ids)
         {
-            return _kvrrManager.DeleteAnswer(id).Result;
-        }
-
-        public bool DeleteQuestion(int id)
-        {
-            return _kvrrManager.DeleteQuestion(id).Result;
-        }
-
-        #region Private method
-        private Model.Common.KVRRQuestion PopulateKVRR(Data.Models.KVRRQuestion question)
-        {
-            if (question == null) return null;
-            return new Model.Common.KVRRQuestion
+            try
             {
-                Id = question.Id,
-                Content = question.Content,
-                Answers = PopulateKVRRAnswer(question.KVRRAnswers),
-                No = question.No
-            };
+                var kvrr = await _kvrrManager.GetKVRRByMark(ids);
+                return _mapper.Map<KVRRModel>(kvrr);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        private List<Model.Common.KVRRAnswer> PopulateKVRRAnswer(ICollection<Data.Models.KVRRAnswer> answers)
+        public async Task<ICollection<KVRRModel>> GetKVRRMarkUnUse()
         {
-            return answers?.Select(x => new Model.Common.KVRRAnswer
+            try
             {
-                Id = x.Id,
-                Content = x.Content,
-                Mark = x.Mark
-            }).ToList();
-        } 
-        #endregion
+                var kvrr = await _kvrrManager.GetKVRRMarkUnUse();
+                return _mapper.Map<List<KVRRModel>>(kvrr);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> IsDuplicateName(string Name, string initTitle)
+        {
+            try
+            {
+                return await _kvrrManager.IsDuplicateName(Name, initTitle);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<SelectListItem> GetSelectListKVRR()
+        {
+            var selectListKVRR = new List<SelectListItem>();
+            var allKVRR = GetAllKVRR().Result;
+            foreach (var kvrr in allKVRR)
+            {
+                var selectItem = new SelectListItem { Value = kvrr.Id.ToString(), Text = kvrr.Name };
+                selectListKVRR.Add(selectItem);
+            }
+            return selectListKVRR;
+        }
     }
 }

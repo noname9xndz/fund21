@@ -21,34 +21,46 @@ namespace smartFunds.Data.SeedData
         {
             var adminUser = new User
             {
-                UserName = "admin",
-                NormalizedUserName = "admin",
+                UserName = "admin@savenow.vn",
+                NormalizedUserName = "admin@savenow.vn",
+                Email = "admin@savenow.vn",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
-                LockoutEnabled = false,
+                LockoutEnabled = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 FullName = "Administrator"
             };
 
-            var roleStore = new RoleStore<IdentityRole>(Context);
-
             if (!Context.Roles.Any(x => x.Name == RoleName.Admin))
             {
-                roleStore.CreateAsync(new IdentityRole { Name = RoleName.Admin, NormalizedName = RoleName.Admin });
+                Context.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole { Id = "78d2fb25-5142-45b9-92f0-34d165045d7a", Name = RoleName.Admin, NormalizedName = RoleName.Admin });
+                Context.SaveChanges();
             }
-            if (!Context.Roles.Any(x => x.Name == RoleName.Manager))
+            if (!Context.Roles.Any(x => x.Name == RoleName.CustomerManager))
             {
-                roleStore.CreateAsync(new IdentityRole { Name = RoleName.Manager, NormalizedName = "Manager" });
+                Context.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole { Id = "1779145a-8576-45b7-929c-f5fbead341a6", Name = RoleName.CustomerManager, NormalizedName = "Customer Manager" });
+                Context.SaveChanges();
+            }
+            if (!Context.Roles.Any(x => x.Name == RoleName.InvestmentManager))
+            {
+                Context.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole { Id = "2349145a-8576-45b7-929c-f5fbead34caa", Name = RoleName.InvestmentManager, NormalizedName = "Investment Manager" });
+                Context.SaveChanges();
+            }
+            if (!Context.Roles.Any(x => x.Name == RoleName.Accountant))
+            {
+                Context.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole { Id = "32c9145a-8576-45b7-929c-f5fbead34a4c", Name = RoleName.Accountant, NormalizedName = "Accountant" });
+                Context.SaveChanges();
             }
             if (!Context.Roles.Any(x => x.Name == RoleName.Customer))
             {
-                roleStore.CreateAsync(new IdentityRole { Name = RoleName.Customer, NormalizedName = "Customer" });
+                Context.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole { Id = "871090f7-67b5-48db-9908-1c984db06490", Name = RoleName.Customer, NormalizedName = "Customer" });
+                Context.SaveChanges();
             }
 
             if (!Context.Users.Any(x => x.UserName == adminUser.UserName))
             {
                 var password = new PasswordHasher<User>();
-                var hashed = password.HashPassword(adminUser, "admin");
+                var hashed = password.HashPassword(adminUser, "admin@1234");
                 adminUser.PasswordHash = hashed;
                 var userStore = new UserStore<User>(Context);
                 userStore.CreateAsync(adminUser);

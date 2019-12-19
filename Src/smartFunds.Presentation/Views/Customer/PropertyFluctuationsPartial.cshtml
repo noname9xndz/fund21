@@ -1,0 +1,8 @@
+﻿@model PropertyFluctuations
+
+<ul>
+    @foreach (var item in Model.ListProperty)
+    {
+        <li>@item.Date.ToString("dd/MM/yyyy") : @item.Amount.ToString("N0")</li>
+    }
+</ul>

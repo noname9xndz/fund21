@@ -1,0 +1,94 @@
+.body-content-endUser {
+    &.homepage-page {
+        padding: 0;
+    }
+}
+.user-hp-slide {
+    .slide-contents {
+        &.slick-dotted.slick-slider {
+            margin-bottom: -6px;
+        }
+        .slide-items {
+            position: relative;
+        }
+        .bg-images {
+            picture,
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .slide-details {
+            color: #fff;
+            text-align: center;
+            top: 24%;
+            margin: 0 auto;
+            width: 82%;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            @include transform(translateX(-50%));
+            @include min-xxl {
+                top: 36.5%;
+                width: 36%;
+            }
+            p {
+                font-size: 36px;
+                font-weight: 800;
+                line-height: 120%;
+                margin-bottom: 17px;
+                @include min-sm {
+                    margin-bottom: 5px;
+                }
+            }
+            span {
+                font-size: 16px;
+                font-weight: 200;
+                @include min-sm {
+                    line-height: 32px;
+                    font-size: 18px;
+                }
+            }
+        }
+        .slick-dots {
+            bottom: 80px;
+            @include min-sm {
+                bottom: 45px;
+            }
+            li {
+                width: 70px;
+                height: 2px;
+                margin: 0 3px;
+                button {
+                    width: 70px;
+                    height: 2px;
+                    padding: 0;
+                    background: #fff;
+                    opacity: 0.2;
+                    &:before {
+                        content: '';
+                        width: 70px;
+                        height: 2px;
+                        color: #fff;
+                    }
+                }
+                &.slick-active {
+                    button {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+    .slide-contents-mobile {
+        @include min-sm {
+            display: none;
+        }
+    }
+    .slide-contents-desktop {
+        display: none;
+        @include min-sm {
+            display: block;
+        }
+    }
+}

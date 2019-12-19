@@ -1,0 +1,266 @@
+.user_login {
+    .content-details {
+        @include flexbox();
+
+        @include min-sm {
+            height: auto;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+    }
+
+    .image-left {
+        display: none;
+        position: relative;
+
+        @include min-sm {
+            width: 50%;
+            height: auto;
+            min-height: 100vh;
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            min-height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+
+        .box {
+            width: 45px;
+            height: 45px;
+            background: #fff;
+            position: absolute;
+            top: 70px;
+            left: 70px;
+        }
+
+        .text {
+            font-size: 41px;
+            color: #fff;
+            position: absolute;
+            bottom: 160px;
+            left: 70px;
+            width: 70%;
+            line-height: 48px;
+            font-weight: 300;
+
+            @include min-md {
+                width: 45%;
+            }
+        }
+
+    }
+
+    .form-detail {
+        position: relative;
+        margin-bottom: 0;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        background: #fff;
+
+        @include min-sm {
+            width: 50%;
+            height: auto;
+            min-height: 100vh;
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+        @include min-lg {
+            padding-right: 12%;
+            padding-left: 60px;
+
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .back {
+            margin-top: 30px;
+            @include flexbox();
+            @include align-items(center);
+
+            @include min-sm {
+                margin-top: 50px;
+            }
+
+            img {
+                padding-top: 3px;
+            }
+
+            span {
+                font-size: 14px;
+                font-weight: 500;
+                color: #818D99;
+                margin-left: 8px;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: normal;
+            color: #3D4359;
+            margin: 60px 0 7px;
+
+            @include min-sm {
+                margin-top: 80px;
+            }
+        }
+
+        p.normal {
+            font-size: 14px;
+            color: #818D99;
+            margin-bottom: 31px;
+
+            @include min-sm {
+                margin-bottom: 51px;
+            }
+        }
+
+        .forget-pw {
+            text-align: right;
+            margin-top: 26px;
+
+            @include min-sm {
+                margin-top: -4px;
+            }
+
+            a {
+                color: #F77314;
+                font-size: 14px;
+            }
+        }
+
+        .register-button {
+            background: #F77314;
+            width: 100%;
+            margin: 28px 0 21px;
+            text-align: center;
+            @include border-radius(3px);
+
+            input {
+                font-weight: bold;
+                font-size: 14px;
+                color: #fff;
+                margin-bottom: 0;
+                background: #F77314;
+                border-color: #F77314;
+                padding: 17px 0 31px;
+                cursor: pointer;
+            }
+        }
+
+        .register {
+            text-align: center;
+            font-size: 14px;
+            color: #000;
+            padding-bottom: 61px;
+
+            a {
+                color: #F77314;
+            }
+        }
+
+        .form-row {
+            position: relative;
+            margin-bottom: 10px;
+            background: white;
+
+            @include min-sm {
+                margin-bottom: 15px;
+            }
+
+            span.text-danger.field-validation-error {
+                span {
+                    color: #E43C3D;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .show-pw {
+            cursor: pointer;
+            position: absolute;
+            z-index: 99;
+            right: 20px;
+            top: 13px;
+
+            img {
+                padding-right: 5px;
+                padding-top: 7px;
+                float: left;
+            }
+
+            span {
+                font-size: 12px;
+                font-weight: 500;
+                color: #BAC2CB;
+                display: none;
+            }
+        }
+    }
+}
+
+input.user-input,
+textarea.user-input {
+    position: relative;
+    z-index: 10;
+    color: #3D4359;
+    font-size: 14px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid #EDEDED;
+    @include box-sizing(border-box);
+    @include border-radius(3px);
+    height: 50px;
+    padding: 15px 15px 5px;
+
+    &::-ms-clear,
+    &::-ms-reveal {
+        display: none;
+    }
+
+    +.placeholder {
+        margin-bottom: 10px;
+
+        span {
+            font-weight: normal;
+            margin: 0;
+            position: absolute;
+            z-index: 9;
+            color: #9CA7B4;
+            font-size: 14px;
+            line-height: 1;
+            top: 17px;
+            left: 15px;
+            @include transition((top 0.2s ease, font-size 0.2s ease, color 0.2s ease));
+        }
+    }
+
+    &:focus {
+        border-color: #12BF43;
+    }
+
+    &:focus,
+    &:valid,
+    &.input-has-value {
+        +.placeholder {
+            span {
+                top: 8px;
+                font-size: 11px;
+                font-weight: 500;
+                z-index: 11;
+            }
+        }
+    }
+    &#Password {
+        padding-right: 3px;
+    }
+}

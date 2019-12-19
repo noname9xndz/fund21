@@ -1,0 +1,88 @@
+section.investment-funds
+    input#investment-funds__url(type="hidden" value="http://smartfunds-be-net.hn.smartosc.com/admin/kvrrquestionanswer/NewQuestionDefindKVRR")
+    .content
+        h1.section-title Quản lý quỹ đầu tư
+        a.btn.btn-action(href="/investment-funds-add.html" ) Thêm Quỹ Đầu Tư
+        .table-filter-actions
+            .table-filter-actions__item.table-filter-actions__delete
+                a.fas.fa-trash-alt(href="#", data-micromodal-trigger="manage-customer-modal") 
+                    span Xóa
+            .table-filter-actions__item.table-filter-actions__pagesize
+                a() Hiển thị
+                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                    option(value="10") 10
+                    option(value="20") 20
+                    option(value="30") 30
+                span 1 trang
+            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                button.buttons-csv Xuất
+        form.table-special-actions
+            .title Quỹ đầu tư
+                span#table-error.error 
+            .option-actions
+                button(type="button")
+                    i.fa.fa-window-close
+                button.edit-table-info.edit-directly(href="javascript:void(0)", data-table-id="investment-funds__table" type="button")
+                    i.fa.fa-edit
+                button(type="button").investment-funds--Save
+                    i.fa.fa-save
+        .investment-funds__table
+            .investment-funds__table__overlay.hide
+                .investment-funds__table__overlay__spinner.rotating
+            table#investment-funds__table.display.overlay(style='width:100%')
+                thead
+                    tr
+                        th STT
+                        th 
+                            input.select-all-btn(name="select_all", value="1", type="checkbox")
+                        th Mã quỹ
+                        th Tên quỹ
+                        th NAV
+                        th Nav mới
+                        th(style="width: 150px") Ti lệ NAV mới / Nav cũ
+                        th Chi tiết quỹ
+                        th Được sử dụng bởi
+                        th Thới gian
+                tbody
+                    tr.investment-funds__Row
+                        td 1
+                        td 
+                            input(name="select_all", value="2", type="checkbox")
+                        td.investment-funds__ID(data-id="1")  Q1
+                        td Quy 1
+                        td.current__NAV 11,900
+                        td
+                            input.editable-input.new__NAV.form-control-number--fund(value="12,000" type="text" readonly="readonly")
+                        td.proportion__NAV
+                        td 
+                            pre Quỹ 1 là quỹ dành cho...............................................
+                        td An toàn, DMDT 2, DMDT 3, DMDT 5, DMDT 6, DMDT 20, DMĐT New, Phương, Phương 004, Phương 005, Phương 006, phuong 007, phuong 008, DMTD Nhi check, DMDT1
+                        td 11/07/2019 10:27:22
+                    tr.investment-funds__Row
+                        td 1
+                        td 
+                            input(name="select_all", value="2", type="checkbox")
+                        td.investment-funds__ID(data-id="2")  Q1
+                        td Quỹ 1
+                        td.current__NAV  1,200
+                        td
+                            input.editable-input.new__NAV.form-control-number(value="2,400" type="text" readonly="readonly")
+                        td.proportion__NAV 
+                        td 
+                            pre Quỹ 1 là quỹ dành cho...............................................
+                        td An toàn, DMDT 2, DMDT 3, DMDT 5, DMDT 6, DMDT 20, DMĐT New, Phương, Phương 004, Phương 005, Phương 006, phuong 007, phuong 008, DMTD Nhi check, DMDT1
+                        td 11/07/2019 10:27:22
+                    tr.investment-funds__Row
+                        td 1
+                        td 
+                            input(name="select_all", value="2", type="checkbox")
+                        td.investment-funds__ID(data-id="3")  Q1
+                        td Quỹ 1
+                        td.current__NAV  2,400
+                        td
+                            input.editable-input.new__NAV.form-control-number(value="9,800" type="text" readonly="readonly")
+                        td.proportion__NAV 
+                        td 
+                            pre Quỹ 1 là quỹ dành cho...............................................
+                        td An toàn, DMDT 2, DMDT 3, DMDT 5, DMDT 6, DMDT 20, DMĐT New, Phương, Phương 004, Phương 005, Phương 006, phuong 007, phuong 008, DMTD Nhi check, DMDT1
+                        td 11/07/2019 10:27:22

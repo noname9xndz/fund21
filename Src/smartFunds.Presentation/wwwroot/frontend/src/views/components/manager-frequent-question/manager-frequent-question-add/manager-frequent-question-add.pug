@@ -1,0 +1,24 @@
+section.manager-frequent-question-add
+  .container-fluid
+    .content
+      h1.section-title Thêm câu hỏi
+      .row.center-xs
+        .col-sm-6
+          form#form-question
+            .form-group
+              label Câu hỏi
+              textarea.form-control(type="text" name="question")
+            .form-group
+              label Đáp án
+              textarea.form-control(type="text" name="answer")
+            .form-group
+              label Danh mục
+              select.form-control(type="text" name="category")
+                option(value="1") 1
+                option(value="1") 1
+                option(value="1") 1
+                option(value="1") 1
+            .btns-wrapper-center
+              button.btn.btn-action#add-questions(type="submit") Thêm câu hỏi
+              a.btn.btn-action Quay lại
+input#required-mess(value="Không bỏ trống" type="hidden")

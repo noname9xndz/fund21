@@ -1,0 +1,80 @@
+﻿@model SearchTransactionHistory
+@{ 
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+
+<form asp-controller="TransactionHistory" asp-action="Export" method="post">
+    <div class="transaction-history__sort-form">
+        <div id="transaction-history-form">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="CustomerName"></label>
+                        <input asp-for="CustomerName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" type="number" class="form-control"/>
+                    </div>
+                </div>
+                @*<div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="EmailAddress"></label>
+                        <input asp-for="EmailAddress" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="col-lg-3">
+                    <div class="form-group table-filter-conditions__select--custom">
+                        <label asp-for="TransactionType"></label>
+                        <select asp-for="TransactionType" asp-items="Html.GetEnumSelectList<TransactionType>()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group table-filter-conditions__select--custom">
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status" asp-items="Html.GetEnumSelectList<TransactionStatus>()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>@(Common.Amount)</label>
+                        <div class="form-in-line">
+                            <input asp-for="AmountFrom" type="text" class="form-control form-control-number" />
+                            <input asp-for="AmountTo" type="text" class="form-control form-control-number" />
+                        </div>
+                        <span>Số tiền giao dịch Từ phải nhỏ hơn hoặc bằng Số tiền giao dịch Đến</span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>@(Common.TimeAction)</label>
+                        <div class="form-in-line">
+                            <input asp-for="TransactionDateFrom" readonly="readonly" class="form-control" placeholder="Từ"/>
+                            <input asp-for="TransactionDateTo" readonly="readonly" class="form-control" placeholder="Đến"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="dt-buttons btn-part">
+                        <button type="button">@Common.Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="transaction-history__sort-form-actions">
+            <div class="transaction-history__sort-form-actions__pagesize">
+                <a>@Common.Display</a>
+                <select class="transaction-history__sort-form-actions__pagesize__select" id="pagesize" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select><span>1 trang</span>
+            </div>
+            <div class="transaction-history__sort-form-actions__export dt-buttons">
+                <button type="submit" class="buttons-csv @(checkNoRule ? "":"disabled")">@Common.Export</button>
+            </div>
+        </div>
+    </div>
+</form>

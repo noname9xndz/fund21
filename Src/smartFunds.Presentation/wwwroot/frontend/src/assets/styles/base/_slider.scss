@@ -1,0 +1,19 @@
+// slide component
+.glide {
+  &__bullets {
+    bottom: 1.6rem;
+  }
+  &__bullet {
+    width: 1.6rem;
+    height: 1.6rem;
+    background: none;
+    border: 0.1rem solid white;
+    margin: 0 0.4em;
+    &:hover,
+    &:focus,
+    &--active {
+      border: 0.1rem solid white;
+      background: white;
+    }
+  }
+}

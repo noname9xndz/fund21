@@ -1,0 +1,79 @@
+﻿@model smartFunds.Model.Common.TasksApproveModel
+@{
+    ViewData["Title"] = "ApproveList";
+    Layout = "_AdminLayout";
+}
+
+<section class="myMission__Admin">
+    <input id="missionAdminLink" type="hidden" value="list-admin-task" />
+    <div class="modal micromodal-slide" id="my-mission__Modal--admin" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true"
+                 aria-labelledby="my-mission__Modal--admin-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="my-mission__Modal--admin-title">
+                        Bạn có chắc chắn đồng ý phê duyệt không?
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <footer class="modal__footer">
+                    <button class="modal__btn modal__btn-primary" data-micromodal-close type="button">Tiếp tục</button>
+                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Hủy bỏ</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="section-title">NHIỆM VỤ CỦA TÔI</h1>
+        <div class="table-filter-actions">
+            <div class="table-filter-actions__item table-filter-actions__pagesize">
+                <a>Hiển thị</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select><span>1 trang</span>
+            </div>
+        </div>
+
+        <span style="color: green;">@TempData["Message"]</span>
+        <table class="display" id="myMissionAdminTable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Nhiệm vụ</th>
+                    <th>Phê Duyệt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 1; }
+                @if (Model != null && Model.Tasks.Any())
+                {
+                    foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            @if (task.TaskType == TaskApproveAdmin.Nav)
+                            {
+                                <td><a asp-controller="Fund" asp-action="List"> Thay đổi @task.NameTask </a></td>
+                            }
+                            else
+                            {
+                                <td><a asp-controller="Portfolio" asp-action="Detail" asp-route-id="@task.IdTask"> Thay đổi @task.NameTask </a></td>
+                            }
+
+                            <td>
+                                <a asp-controller="Task" asp-action="RejectedTask" asp-route-idTask="@task.IdTask" asp-route-typeTask="@task.TaskType">Từ chối </a>
+                                <span>| </span>
+                                <a href="javascript:void(0)" class="myMission__Admin--accept">Đồng ý</a>
+                                <input type="hidden" value="/admin/task/approved?idTask=@task.IdTask&typeTask=@task.TaskType" />
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

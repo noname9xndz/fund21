@@ -1,0 +1,41 @@
+﻿@model TasksModel
+@{
+    ViewData["Title"] = Common.PendingTasks;
+    Layout = "_AdminLayout";
+
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<partial name="SearchPendingTasks.cshtml" model="ViewBag.SearchModel" />
+
+<partial name="ExportPendingTasks.cshtml" model="ViewBag.SearchModel" />
+
+@if (Model != null && Model.Tasks.Any())
+{
+    var i = 1;
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>@Common.Type</th>
+                <th>@Common.Fund</th>
+                <th>@Common.Amount</th>
+                <th>@Common.Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Tasks)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.TransactionType.GetDisplayName()</td>                    
+                    <td>@item.Fund.Title</td>                    
+                    <td>@item.TransactionAmount.ToString("N0") đ</td>         
+                    <td><a asp-action="Update" asp-route-id="@item.Id">@Common.Update</a></td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}

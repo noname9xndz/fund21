@@ -9,16 +9,18 @@ namespace smartFunds.Presentation.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        public string EmailOrPhone { get; set; }
+        public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
+        [Required(ErrorMessageResourceName = "FieldEmpty", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$", ErrorMessageResourceName = "PasswordInvalid", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
         [DataType(DataType.Password)]
+        [Display(Name = "NewPassword", ResourceType = typeof(Model.Resources.Common))]
         public string Password { get; set; }
 
+        [Required(ErrorMessageResourceName = "FieldEmpty", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "NewPasswordConfirm", ResourceType = typeof(Model.Resources.Common))]
+        [Compare("Password", ErrorMessageResourceName = "ConfirmPasswordInvalid", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
         public string ConfirmPassword { get; set; }
 
         [Required]

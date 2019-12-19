@@ -1,0 +1,65 @@
+﻿@model List<FundTransactionHistoryModel>
+
+@{
+    ViewData["Title"] = Common.BalanceFund;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.Admin).Result;
+}
+
+<section class="investment-portfolio">
+    <div class="content">
+        <h1 class="section-title">@Common.BalanceFund</h1>
+        <div class="table-filter-actions">
+            <div class="table-filter-actions__item table-filter-actions__pagesize">
+                <a>@Common.Display</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select><span>1 trang</span>
+            </div>
+            <div class="table-filter-actions__item table-filter-actions__export dt-buttons">
+                <form asp-action="Export" method="post">
+                    <button type="submit" class="buttons-csv @( checkRule ? "":"disabled-button" )">
+                        @Common.Export
+                    </button>
+                </form>
+            </div>
+        </div>
+        <table class="display" id="trade-balance-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Common.STT</th>
+                    <th>@Common.FundCode</th>
+                    <th>@Common.FundName</th>
+                    <th>@Common.NoOfCertificateInvest</th>
+                    <th>@Common.TotalInvestAmount</th>
+                    <th>@Common.NoOfCertificateWithdrawn</th>
+                    <th>@Common.TotalWithdrawnAmount</th>
+                    <th>@Common.BalanceFundAmount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 1; }
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var fundTransactionHistory in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                <a asp-action="Detail" asp-route-id="@fundTransactionHistory.Fund.Id">@fundTransactionHistory.Fund.Code</a>
+                            </td>
+                            <td>@fundTransactionHistory.Fund.Title</td>
+                            <td>@fundTransactionHistory.TotalInvestNoOfCertificates.ToString("0.##")</td>
+                            <td>@((fundTransactionHistory.TotalInvestNoOfCertificates * fundTransactionHistory.Fund.NAV).ToString("N0"))</td>
+                            <td>@fundTransactionHistory.TotalWithdrawnNoOfCertificates.ToString("0.##")</td>
+                            <td>@((fundTransactionHistory.TotalWithdrawnNoOfCertificates * fundTransactionHistory.Fund.NAV).ToString("N0"))</td>
+                            <td>@(((fundTransactionHistory.TotalInvestNoOfCertificates - fundTransactionHistory.TotalWithdrawnNoOfCertificates) * fundTransactionHistory.Fund.NAV).ToString("N0"))</td>
+                        </tr>
+                        index++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

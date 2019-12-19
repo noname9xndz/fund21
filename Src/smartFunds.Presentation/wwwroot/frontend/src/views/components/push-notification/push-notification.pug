@@ -1,0 +1,27 @@
+section.push-notification
+  .container-fluid
+    h1.section-title Push Notification
+    .form-group
+        .row.center-sm
+            label.col-sm-3 Tiêu đề:
+            .col-sm-6
+                input.form-control(type="text") 
+                .error-messeage
+                    span Tiêu đề không được để trống
+    .form-group
+        .row.center-sm
+            label.col-sm-3 Nội dung:
+            .col-sm-6
+                textarea(rows="10")
+                .error-messeage
+                    span Nội dung không được để trống
+    .myMission-PopUp__BTN
+        .row.center-sm
+            .col-sm-3
+            .col-sm-9
+                button.btn.btn-action(type="submit") Push
+                .error-messeage
+                    span Nội dung đẩy lên thất bại
+                .success-message
+                    span Nội Dung đẩy lên thành công
+

@@ -1,0 +1,27 @@
+﻿@model SettingCMSModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<partial name="~/Views/SettingsCMS/FundPurchaseFee.cshtml" model="ViewBag.ListFund" />
+
+<section class="manager-settings">
+    <div class="content">
+        <h1 class="section-title">Cài đặt</h1>
+        <partial name="~/Views/MaintainingFee/Index.cshtml" model="Model.ListMaintainingFee" />
+        <partial name="~/Views/WithdrawFee/Index.cshtml" model="Model.ListWithdrawFee" />
+        <partial name="~/Views/InvestmentTargetCMS/Update.cshtml" model="Model.InvestmentTargetSettingModel" />
+        <partial name="~/Views/Portfolio/UpdateImage.cshtml" model="Model.HomepageCMSModel" />
+        <h1 class="section-title">
+            CÁC TRANG CMS
+        </h1>
+        <partial name="~/Views/HomepageCMS/Index.cshtml" model="Model.HomepageCMSModel" />
+        <partial name="~/Views/ContactCMS/DisplayContactCMS.cshtml" model="Model.ContactCMSModel" />
+        <partial name="~/Views/IntroducingPageCMS/Display.cshtml" model="Model.GenericIntroducingSettingModel" />
+    </div>
+</section>
+<input id="messRequired" type="hidden" value="Dữ liệu ko được để trống">
+<input id="apiSettingAddImage" type="hidden" value="/admin/homepagecms/addbanner" />
+<input id="apiSettingUpdateImage" type="hidden" value="/admin/homepagecms/updatebanner" />
+<input id="apiSettingDeleteImage" type="hidden" value="/admin/homepagecms/delete" />

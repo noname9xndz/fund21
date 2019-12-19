@@ -1,0 +1,15 @@
+extends ../layouts/masterUser.pug
+
+block title
+  title My Page - about
+
+block basicSeo
+  meta(name='description' content='about page')
+  meta(name='keywords', content='about, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    .body-content-endUser.body-content-about-page
+      include ../components/user-about-us/user-about-us.pug

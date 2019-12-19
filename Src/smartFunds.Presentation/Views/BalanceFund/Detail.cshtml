@@ -1,0 +1,56 @@
+﻿@model BalanceFundDetailModel
+
+@{
+    ViewData["Title"] = Common.BalanceFund;
+    Layout = "_AdminLayout";
+}
+
+<section class="investment-portfolio">
+    <div class="content">
+        <h1 class="section-title">Cân bằng giao dịch @(Model.FundTransactionHistory.Fund.Title)</h1>
+        <div class="table-filter-actions">
+            <div class="table-filter-actions__item table-filter-actions__info">
+                <span>
+                    Giá trị cân bằng giao dịch: <i>@(((Model.FundTransactionHistory.TotalInvestNoOfCertificates - Model.FundTransactionHistory.TotalWithdrawnNoOfCertificates)* Model.FundTransactionHistory.Fund.NAV).ToString("N0"))đ</i>
+                </span>
+            </div>
+            <div class="table-filter-actions__item table-filter-actions__pagesize">
+                <a>@Common.Display</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select><span>1 trang</span>
+            </div>
+        </div>
+        <table class="display" id="trade-balance-detail" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Common.STT</th>
+                    <th>@Common.Type</th>
+                    <th>@Common.NoOfCertificate</th>
+                    <th>@Common.TransactionValue</th>
+                    <th>@Common.Customer</th>
+                    <th>@Common.TimeAction</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 1; }
+                @if (Model.ListFundTransactionHistoryModel != null && Model.ListFundTransactionHistoryModel.Any())
+                {
+                    foreach (var fundTransactionHistory in Model.ListFundTransactionHistoryModel)
+                    {
+                <tr>
+                    <td>@index</td>
+                    <td>@(fundTransactionHistory.TransactionType == TransactionType.Investment?"Mua CCQ": "Bán CCQ")</td>
+                    <td>@fundTransactionHistory.NoOfCertificates.ToString("0.##")</td>
+                    <td>@((fundTransactionHistory.NoOfCertificates* Model.FundTransactionHistory.Fund.NAV).ToString("N0"))</td>
+                    <td>@fundTransactionHistory.User.FullName</td>
+                    <td>@fundTransactionHistory.TransactionDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                </tr>
+                        index++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

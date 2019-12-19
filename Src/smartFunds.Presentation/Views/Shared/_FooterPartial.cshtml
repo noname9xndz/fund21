@@ -1,0 +1,82 @@
+﻿<footer class="footerUser">
+    <div class="container-fluid">
+        <div class="content-details">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <div class="footer-items">
+                        <ul>
+                            <li class="drop">
+                                <a class="drop-link">Hỗ Trợ</a><img class="arrow-right"
+                                                                    src="/images/arrow-right.png" alt="arrow-right">
+                                <ul class="drop-items">
+                                    <li><a asp-area="Client" asp-controller="faqs" asp-action="list">Câu hỏi thường gặp</a></li>
+                                    <li><a asp-area="Client" asp-controller="contact" asp-action="Contact">Liên Hệ</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <div class="footer-items">
+                        <ul>
+                            <li class="drop">
+                                <a asp-controller="IntroducingPageCMS" asp-action="" class="drop-link">Về Chúng Tôi</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="footer-items">
+                        <div class="socials">
+                            <span class="icon">
+                                <a href="#">
+                                    <img src="/images/footer-fb.png"
+                                         alt="image-socials">
+                                </a>
+                            </span><span class="icon">
+                                <a href="#">
+                                    <img src="/images/footer-tw.png"
+                                         alt="image-socials">
+                                </a>
+                            </span><span class="icon">
+                                <a href="#">
+                                    <img src="/images/footer-in.png" alt="image-socials">
+                                </a>
+                            </span>
+                        </div>
+                        <p>© Copyright @DateTime.Now.Year <a href="/">savenow.vn</a><span>. All rights reserved.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="popup-modal">
+    <div class="modal micromodal-slide" id="modal-general" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+                <h2 class="modal__title" id="modal-1-title">Xác nhận hợp đồng</h2>
+                <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <div class="modal__content" id="modal-1-content">
+                <div class="content-detail">
+                    <p>
+                        Để có thể đầu tư, bạn cần phải đồng ý với
+                        <a href="/files/HĐ HTĐT.docx">
+                            Điều khoản sử dụng và bảo
+                            mật
+                        </a>
+                        của chúng tôi
+                    </p>
+                </div>
+                <div class="button">
+                    <a class="btn button-cancel" href="/">@Common.No</a>
+                    <a class="btn button-accept" asp-controller="Investment" asp-action="Invest">@Common.Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

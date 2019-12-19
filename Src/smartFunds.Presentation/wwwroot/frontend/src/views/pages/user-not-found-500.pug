@@ -1,0 +1,14 @@
+extends ../layouts/masterUser_login.pug
+
+block title
+  title My Page - not-found
+
+block basicSeo
+  meta(name='description' content='not-found page')
+  meta(name='keywords', content='not-found, page')
+  meta(name='author' content='')
+
+block content
+
+  .body-content-endUser.body-content-error-page
+    include ../components/user-not-found-500/user-not-found-500.pug

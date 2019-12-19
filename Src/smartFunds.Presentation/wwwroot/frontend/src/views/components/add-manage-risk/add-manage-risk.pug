@@ -1,0 +1,30 @@
+
+section.manage-risk-add
+    .container-fluid
+        h1.section-title THÊM / SỬA KVRR
+        form(action="")
+            .row.center-xs
+                .col-sm-6
+                    .form-group
+                        label Tên Khẩu Vị Rủi Ro
+                        input.form-control(type="text")
+                        span.error-messeage Lỗi
+                    .form-group
+                        label Nội dung
+                        textarea.form-control(type="text")
+                        span.error-messeage Lỗi
+                    .form-group
+                        label Danh Mục Đầu Tư
+                        select
+                            option DMĐT 1
+                            option DMĐT 2
+                            option DMĐT 3
+                    .form-group.form-group__up-image
+                        label Ảnh đại diện
+                        input.form-control(type="file", accept="image/*")
+                        span.error-messeage Lỗi
+                        .form-group__image-wrapper
+                            img(src="")
+                    .tn-part.btns-wrapper-center
+                        button.btn.btn-action(type="submit") Xác nhận
+                        a.btn.btn-action Quay lại

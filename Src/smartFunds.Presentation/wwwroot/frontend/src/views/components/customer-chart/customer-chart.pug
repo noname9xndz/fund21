@@ -1,0 +1,16 @@
+.detail-block__title
+    h2 Biểu đồ dữ liệu
+.container-fluid
+    .row.center-xs
+        .col-lg-8
+            .customer-chart__date-range
+                label Khoảng thời gian:
+                .customer-chart__date-range__inputs
+                    input.form-control.date-range-from(id="property-fluctuations-from" name="property-fluctuations-from" readonly="readonly")
+                    input.form-control.date-range-to(id="property-fluctuations-to" name="property-fluctuations-to" readonly="readonly")
+                .dt-buttons.btn-part.disabled
+                    button() Tìm
+.container-fluid
+    canvas.chart-customer#chart-customer
+    span#checkChartData Không có dữ liệu
+input(type="hidden" id="customerDataApiUrl" value="http://smartfunds-be-net.hn.smartosc.com/admin/customer/PropertyFluctuations")

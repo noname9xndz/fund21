@@ -1,0 +1,15 @@
+extends ../layouts/masterUser_login.pug
+
+block title
+  title My Page - contact
+
+block basicSeo
+  meta(name='description' content='contact page')
+  meta(name='keywords', content='contact, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    .body-content-endUser
+      include ../components/contact/contact.pug

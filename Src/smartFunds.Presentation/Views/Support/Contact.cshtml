@@ -1,0 +1,59 @@
+﻿@model smartFunds.Model.Common.ContactModel
+
+@{
+    ViewData["Title"] = @Common.GeneralInformation;
+}
+
+<div class="body-content-endUser">
+    <section class="contact-section submit-form-general">
+        <div class="container-fluid">
+            <div class="contact-content">
+                <div class="contact-content__left">
+                    <h2 class="contact-content__left__title">Liên hệ với chúng tôi</h2>
+                    <p class="contact-content__left__description">
+                    </p>
+                    <div class="contact-content__left__mail">
+                        <a href="mailto:@(ViewBag.Email)">
+                            <img src="/images/icon-email.png" alt="mail">
+                            <span>@ViewBag.Email</span>
+                        </a>
+                    </div>
+                    <div class="contact-content__left__phone">
+                        <a href="tel:@(ViewBag.Hotline)">
+                            <img src="/assets/images/icon-phone.png" alt="phone">
+                            <span>@ViewBag.Hotline</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-content__right">
+                    <form asp-controller="Contact" asp-action="Contact" class="form_contact" id="form_login" method="post">
+                        <div class="form-row">
+                            <input asp-for="FullName" class="user-input user-input--change form-control" type="text" required autocomplete="on" />
+                            <p class="placeholder"><span>Họ và Tên</span></p>
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-row">
+                            <input asp-for="PhoneNumber" class="form-control-number--phone user-input user-input--change user-input--change-1 form-control" type="text" />
+                            <p class="placeholder"><span>Số điện thoại (Không bắt buộc)</span></p>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-row">
+                            <input asp-for="Email" class="user-input user-input--change form-control" type="text" required autocomplete="on"/>
+                            <p class="placeholder"><span>Địa chỉ Email</span></p>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-row">
+                            <textarea asp-for="Content" class="user-input user-input--change user-textarea form-control" required></textarea>
+                            <p class="placeholder"><span>Nội dung tin nhắn</span></p>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="form-row">
+                            <div class="send-button button-submit-general"><input class="user-input" type="submit" value="Gửi đi" name="Gửi đi"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

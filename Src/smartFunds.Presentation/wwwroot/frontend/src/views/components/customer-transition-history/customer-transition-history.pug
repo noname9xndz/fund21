@@ -1,0 +1,38 @@
+.detail-block__title
+    h2 Lịch sử giao dịch
+section.transaction-history.transaction-history__customer-details
+    .content
+        input(id="manageTransactionInputHidden", type="hidden", value="http://smartfunds-be-net.hn.smartosc.com/admin/customer/SearchTransactionHistory")
+        h1.section-title Lịch sử giao dịch
+        .transaction-history__sort-form
+            #transaction-history-form
+                .row
+                    .col-lg-3
+                        .form-group.table-filter-conditions__select--custom
+                            label Loại hình giao dịch
+                            select.form-control(id="type" name="type")
+                                option(value="") 1
+                                option(value="") 2
+                                option(value="") 3
+                    .col-lg-3
+                        .form-group.table-filter-conditions__select--custom
+                            label Trạng thái
+                            select.form-control(id="status" name="status")
+                                option(value="None") Tất cả
+                                option(value="Active") Đang hoạt động
+                                option(value="Inactive") Không hoạt động
+                    .col-lg-3
+                        .form-group
+                            label Thời gian thực hiện giao dịch
+                            .form-in-line
+                                input.form-control(id="date-range-from" name="date-range-from" readonly='readonly')
+                                input.form-control(id="date-range-to" name="date-range-to" readonly='readonly')
+                    .col-lg-3
+                        .dt-buttons.btn-part
+                            button() Tìm
+        .transaction-history__table
+            .transaction-history__table__overlay.hide
+                .transaction-history__table__overlay__spinner.rotating
+            form#manage-customer-form(action="")
+                +microModal("manage-transaction-modal")
+                .transaction-history__table--wrapper

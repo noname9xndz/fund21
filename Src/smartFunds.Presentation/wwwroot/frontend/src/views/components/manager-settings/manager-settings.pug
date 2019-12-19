@@ -1,0 +1,286 @@
+section.manager-settings
+  .content
+    h1.section-title Cài đặt
+    form.submit-form(action="/admin/fee1", methed="post")
+      button(type="submit" style="display: none;") Submit
+      .manager-settings__item
+        .manager-settings__item__title
+          h1 Phí duy trì
+          .options
+            a.add-maintain-table(href="javascript:void(0)", data-table-id="maintaining-fee")
+              i.fa.fa-plus
+            #btn-delete-1.delete-fee-table(data-table-id="maintaining-fee", data-api-delete="http://smartfunds-be-net.hn.smartosc.com/admin/maintainingfee/delete")
+              a(href="javascript:void(0)", data-micromodal-trigger='delete-confirm-1')
+                i.fa.fa-window-close
+              +microModal('delete-confirm-1')
+            a.edit-directly(href="javascript:void(0)", data-table-id="maintaining-fee")
+              i.fa.fa-edit
+            .save-fee-table.save-table(data-table-id="maintaining-fee", data-api-save="http://smartfunds-be-net.hn.smartosc.com/admin/maintainingfee/edit")
+              a(href="javascript:void(0)", data-micromodal-trigger='save-confirm-1')
+                i.fa.fa-save
+              +microModal('save-confirm-1')
+        .manager-settings__item__content
+          .row
+            .col-lg-6
+              p#show-error-1.show-error 
+              table#maintaining-fee.settings-fee.display(style="width: 100%", data-btn-delete="#btn-delete-1", data-show-error="#show-error-1")
+                thead
+                  tr
+                    th
+                    th(colspan="2") Phí
+                    th Công thức
+                tbody
+                  tr
+                    td
+                    td Từ 
+                    td Đến
+                    td
+                  tr(data-tr-id="1")
+                    td
+                      input.checkbox-item(type="checkbox" value="checkbox-1")
+                    td 
+                      input.editable-input.form-control-number(value="61" type="text" readonly="readonly" name="ListFees[0].AmountFrom")
+                    td 
+                      input.editable-input.form-control-number(value="61" type="text" readonly="readonly" name="ListFees[0].AmountTo")
+                    td 
+                      input.editable-input.form-control-float(value="61" type="text" readonly="readonly" name="ListFees[0].Percentage")
+    form.submit-form(action="/admin/fee2", methed="post")
+      button(type="submit" style="display: none;") Submit 
+      .manager-settings__item
+        .manager-settings__item__title
+          h1 Phí rút tiền
+          .options
+            a.add-withdraw-table(href="javascript:void(0)", data-table-id="withdrawal-fee")
+              i.fa.fa-plus
+            #btn-delete-2.delete-fee-table(data-table-id="withdrawal-fee", data-api-delete="http://smartfunds-be-net.hn.smartosc.com/admin/withdrawfee/delete")
+              a(href="javascript:void(0)", data-micromodal-trigger='delete-confirm-2')
+                i.fa.fa-window-close
+              +microModal('delete-confirm-2')
+            a.edit-directly(href="javascript:void(0)", data-table-id="withdrawal-fee")
+              i.fa.fa-edit
+            .save-fee-table.save-table(data-table-id="withdrawal-fee", data-api-save="http://smartfunds-be-net.hn.smartosc.com/admin/withdrawfee/edit")
+              a(href="javascript:void(0)", data-micromodal-trigger='save-confirm-2')
+                i.fa.fa-save
+              +microModal('save-confirm-2')
+        .manager-settings__item__content
+          .row
+            .col-lg-6
+              p#show-error-2.show-error 
+              table#withdrawal-fee.settings-fee.display(style="width: 100%", data-btn-delete="#btn-delete-2", data-show-error="#show-error-2")
+                thead
+                  tr
+                    th
+                    th(colspan="2") Phí
+                    th Công thức
+                tbody
+                  tr
+                    td
+                    td Từ 
+                    td Đến
+                    td
+                  tr(data-tr-id="1")
+                    td
+                      input.checkbox-item(type="checkbox" value="checkbox-1")
+                    td 
+                      input.editable-input.form-control-number(value="61" type="text" readonly="readonly" name="ListFees[0].TimeInvestmentBegin")
+                    td 
+                      input.editable-input.form-control-number(value="61" type="text" readonly="readonly" name="ListFees[0].TimeInvestmentEnd")
+                    td 
+                      input.editable-input.form-control-float(value="61" type="text" readonly="readonly" name="ListFees[0].Percentage")
+              p.quick-fee Phí rút tiền nhanh (%/ngày):
+                input.form-control-number(value="0.0375")
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Mục tiêu kì vọng
+        .options
+          a.edit-directly(href="javascript:void(0)", data-table-id="expected-goals")
+            i.fa.fa-edit
+          .save-expected-table(data-table-id="expected-goals", data-api-save="http://smartfunds-be-net.hn.smartosc.com/admin/investmentsetting/save")
+            a(href="javascript:void(0)", data-micromodal-trigger='save-expected')
+              i.fa.fa-save
+            +microModal('save-expected')
+      .manager-settings__item__content
+        p.unit Đơn vị: %
+        table#expected-goals.goal-table.displa.settings-fee(style="width: 100%")
+          thead
+            tr
+              th Đơn vị %
+              th 3 tháng
+              th 6 tháng
+              th 12 tháng
+              th 2 năm
+              th 5 năm
+          tbody
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+            tr
+              th DMDT 1
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+              td(data-id="1") 
+                input.editable-input.form-control-float(value="61" type="text" readonly="readonly")
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Ảnh các DMĐT
+      .manager-settings__item__content
+        .row
+          .col-lg-6
+            .form-group
+              label Desktop
+                .image-upload
+                  .image-upload__item.upload-big-image(data-title="dmdt-desktop",data-button-upload="#btn-upload-1", data-input-file="#input-file-1", data-btn-submit="#btn-submit-1")
+                  form(action="https://www.youtube.com")
+                    button#btn-upload-1.image-upload__item__btn-upload(type="button", data-categoryId="3")
+                      i.fa.fa-plus
+                    input#input-file-1.image-upload__item__input-image(type="file" accept="image/*")
+                    button#btn-submit-1(type="submit" style="display: none;")
+          .col-lg-6
+            .form-group
+              label Mobile
+                .image-upload
+                  .image-upload__item.upload-big-image(data-title="dmdt-mobile",data-button-upload="#btn-upload-4", data-input-file="#input-file-4", data-btn-submit="#btn-submit-4")
+                  form(action="https://www.youtube.com")
+                    button#btn-upload-4.image-upload__item__btn-upload(type="button", data-categoryId="3")
+                      i.fa.fa-plus
+                    input#input-file-4.image-upload__item__input-image(type="file" accept="image/*")
+                    button#btn-submit-4(type="submit" style="display: none;")
+    h1.section-title Cài đặt
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Trang chủ
+      .manager-settings__item__content
+        .image-upload
+          .image-upload__item.upload-list-image(data-title="homepage",data-button-upload="#btn-upload-2", data-input-file="#input-file-2", data-btn-submit="#btn-submit-2")
+          form(action="https://www.youtube.com")
+            button#btn-upload-2.image-upload__item__btn-upload(type="button", data-categoryId="1")
+              i.fa.fa-plus
+            input#input-file-2.image-upload__item__input-image(type="file" accept="image/*")
+            button#btn-submit-2(type="submit" style="display: none;")
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Đối tác
+      .manager-settings__item__content
+          .image-upload
+            .image-upload__item.upload-list-image(data-title="partner",data-button-upload="#btn-upload-3", data-input-file="#input-file-3", data-btn-submit="#btn-submit-3")
+            form(action="https://www.youtube.com")
+              button#btn-upload-3.image-upload__item__btn-upload(type="button", data-categoryId="3")
+                i.fa.fa-plus
+              input#input-file-3.image-upload__item__input-image(type="file" accept="image/*")
+              button#btn-submit-3(type="submit" style="display: none;")
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Đối tác
+        .options
+          a(href="/manager-settings-contact.html")
+            i.fa.fa-edit
+      .manager-settings__item__content
+        .form-group
+          .row
+            .col-lg-3
+              label Địa chỉ email:
+            .col-lg-9
+              p abc@gmail.com
+        .form-group
+          .row
+            .col-lg-3
+              label Số điện thoại nóng:
+            .col-lg-9
+              p 094293432
+        .form-group
+          .row
+            .col-lg-3
+              label Địa chỉ email nhận thông tin liên hệ:
+            .col-lg-9
+              p abc@gmail.com
+    .manager-settings__item
+      .manager-settings__item__title
+        h1 Giới thiệu chung
+        .options
+          a(href="/manager-settings-introduce.html")
+            i.fa.fa-edit
+      .manager-settings__item__content
+        .form-group
+          .row
+            .col-lg-3
+              label Banner:
+            .col-lg-9
+              .image-upload
+                .image-upload__item.upload-banner-image
+                  .image-upload__item__image.banner
+                    img.img-show(src="https://images.pexels.com/photos/1386604/pexels-photo-1386604.jpeg?auto=compress&cs=tinysrgb&dpr=2")
+        .form-group
+          .row
+            .col-lg-3
+              label Mô tả:
+            .col-lg-9
+              p Mô tả...
+              
+input#apiSettingAddImage(type="hidden" value="http://smartfunds-be-net.hn.smartosc.com/admin/homepagecms/addbanner")
+input#apiSettingUpdateImage(type="hidden" value="http://smartfunds-be-net.hn.smartosc.com/admin/homepagecms/updatebanner")
+input#apiSettingDeleteImage(type="hidden" value="http://smartfunds-be-net.hn.smartosc.com/admin/homepagecms/delete")
+
+input#messRequired(type="hidden" value="Dữ liệu ko được để trống")

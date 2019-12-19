@@ -1,0 +1,52 @@
+section.investment-detail.content
+    form(action="")
+        .detail-block
+            .detail-block__title
+                h2 Thông tin chung
+                .title-info__btn-wrapper
+                    a.edit-table-info(href="/investment-portfolio-add.html")
+                        i.fa.fa-edit
+            .detail-block__content
+                .container-fluid
+                    .row
+                        strong.col-sm-3 Tên danh mục đầu tư
+                        p.col-sm-6 DMDT 1
+                    .row
+                        strong.col-sm-3 Nội Dung
+                        p.col-sm-6 Danh mục đầu tư 1 là ...
+                    .row
+                        strong.col-sm-3 KVRR
+                        p.col-sm-6 KVRR1
+    .investment-funds__table
+        .investment-funds__table__overlay.hide
+            .investment-funds__table__overlay__spinner.rotating
+        section.investment-detail__info-title
+            .detail-block
+                .detail-block__title
+                    h2 Thông tin quỹ đầu tư trực thuộc
+                    .title-info__btn-wrapper
+                        a.edit-table-info.edit-directly(href="javascript:void(0)", data-table-id="invesment-detail")
+                            i.fa.fa-edit
+                        button.btn.save-directly.investment-detail__Save--button(type="submit")
+                            i.fa.fa-save
+                p.text-center#table-mess-valid 
+                    span.text-danger.error-messeage.field-validation-error Tổng % phân bổ phải bằng 100
+                .detail-block__content
+                    table#invesment-detail.display(style='width:100%')
+                        thead
+                            tr
+                                th Stt
+                                th Tên quỹ
+                                th Chi tiết quỹ
+                                th % phân bổ
+                                th % phân bỏ mới
+                        tbody
+                            tr
+                                td 1
+                                td System Architect
+                                td Edinburgh
+                                td 10%
+                                td.new-percent
+                                    input.editable-input(value="61%" type="number" readonly="readonly")
+                                    p
+                                        span lalalalal

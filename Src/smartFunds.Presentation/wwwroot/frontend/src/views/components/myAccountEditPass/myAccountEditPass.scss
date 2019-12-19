@@ -1,0 +1,14 @@
+.myAccountEditPass {
+    &__Input {
+        position:relative;
+    }
+    &__showPassword {
+        position: absolute;
+        top: 11px;
+        right: 30px;
+        cursor: pointer;
+    }
+    .error-messeage {
+        margin-top: 10px;
+    }
+}

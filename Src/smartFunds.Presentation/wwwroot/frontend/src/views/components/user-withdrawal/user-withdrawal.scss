@@ -1,0 +1,105 @@
+.user-withdrawal-invest {
+    .user-form-control {
+        .input-form-control {
+            min-height: 50px;
+            font-size: 14px;
+            &.cost-withdrawal {
+                @include min-sm {
+                    width: 60%;
+                }
+            }
+            @include min-sm {
+                width: 60%;
+            }
+
+        }
+
+        .ui-selectmenu {
+            &-button {
+                &.input-form-control {
+                    width: 100%;
+
+                    @include min-sm {
+                        width: 60%;
+                    }
+                }
+            }
+
+        }
+
+        &__title {
+            // display: none;
+
+            @include min-sm {
+                display: inline-block;
+                width: 40%;
+                padding-right: 15px;
+            }
+        }
+
+        .warning-message {
+            margin-top: 5px;
+        }
+
+        &:nth-of-type(2) {
+            margin-top: 0px;
+        }
+    }
+
+    .warning-message {
+        margin-top: 30px;
+
+        &.d-none {
+            display: none;
+        }
+    }
+
+    &__action {
+        margin-top: 60px;
+        @include flexbox();
+        @include justify-content(space-between);
+
+        .btn-actions {
+            min-width: 48%;
+            width: 49%;
+            margin-top: 0;
+
+            &.is-destroy {
+                background: #fff;
+                text-decoration: none;
+                color: $text-color-orange;
+                border: 1px solid $text-color-orange
+            }
+        }
+        button:disabled {
+            background: #CECECE;
+            cursor: default;
+        }
+    }
+
+    #user-invest-money {
+        .user-withdrawal-invest__action {
+            margin-top: 40px;
+        }
+	}
+
+
+}
+
+#pageloader {
+    background: rgba(229, 229, 229, 0.6);
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%,-50%));
+    }
+} 
+

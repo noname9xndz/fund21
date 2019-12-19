@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountLockedOut" xml:space="preserve">
+    <value>Bạn đang cố gắng đăng nhập quá nhiều lần. Vui lòng thử lại trong {0} giây.</value>
+  </data>
+  <data name="CreateError" xml:space="preserve">
+    <value>Có lỗi trong quá trình tạo mới</value>
+  </data>
+  <data name="CustomerNotSelect" xml:space="preserve">
+    <value>Không có khách hàng nào được chọn</value>
+  </data>
+  <data name="DeleteCustomerError" xml:space="preserve">
+    <value>Có lỗi trong quá trình xóa khách hàng</value>
+  </data>
+  <data name="DeleteCustomerSuccess" xml:space="preserve">
+    <value>Xóa khách hàng thành công</value>
+  </data>
+  <data name="DeleteUserError" xml:space="preserve">
+    <value>Có lỗi trong quá trình xóa tài khoản</value>
+  </data>
+  <data name="DeleteUserSuccess" xml:space="preserve">
+    <value>Xóa tài khoản thành công</value>
+  </data>
+  <data name="DuplicateData" xml:space="preserve">
+    <value>Trùng dữ liệu</value>
+  </data>
+  <data name="EditCustomerError" xml:space="preserve">
+    <value>Có lỗi trong quá trình chỉnh sửa khách hàng</value>
+  </data>
+  <data name="FieldEmpty" xml:space="preserve">
+    <value>Dữ liệu trường {0} không được để trống</value>
+  </data>
+  <data name="FieldFormat" xml:space="preserve">
+    <value>Dữ liệu trường {0} không đúng định dạng</value>
+  </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Có lỗi trong quá trình đăng nhập. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Sai tài khoản hoặc mật khẩu</value>
+  </data>
+  <data name="KVRRExistMark" xml:space="preserve">
+    <value>Khẩu vị rủi ro này đã có trọng số</value>
+  </data>
+  <data name="NotFoundCustomer" xml:space="preserve">
+    <value>Không tìm thấy khách hàng</value>
+  </data>
+  <data name="PasswordInvalid" xml:space="preserve">
+    <value>Mật khẩu phải có ít nhất 1 chữ số, 1 ký tự đặc biệt và ít nhất 8 ký tự</value>
+  </data>
+  <data name="PeriodInvalid" xml:space="preserve">
+    <value>Khoảng thời gian không hợp lệ.</value>
+  </data>
+  <data name="TimeActionInvalid" xml:space="preserve">
+    <value>Thời gian thực hiện giao dịch không hợp lệ.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tiêu đề phải được nhập</value>
+  </data>
+  <data name="AccountNotRegister" xml:space="preserve">
+    <value>Tài khoản chưa đăng ký. Vui lòng nhập các thông tin bên dưới để đăng ký</value>
+  </data>
+  <data name="ConfirmPasswordInvalid" xml:space="preserve">
+    <value>Mật khẩu nhập lại không khớp</value>
+  </data>
+  <data name="InvestmentTargetAmountInvalid" xml:space="preserve">
+    <value>Số tiền kì vọng không được thấp hơn {0}</value>
+  </data>
+  <data name="NewInvestmentTargetError" xml:space="preserve">
+    <value>Có lỗi trong quá trình tạo mới mục tiêu đầu tư. Xin vui lòng thử lại sau</value>
+  </data>
+  <data name="ResetPasswordError" xml:space="preserve">
+    <value>Có lỗi trong quá trình tạo lại mật khẩu. Xin vui lòng thử lại sau</value>
+  </data>
+  <data name="SelectAnswer" xml:space="preserve">
+    <value>Câu hỏi {0} chưa chọn câu trả lời</value>
+  </data>
+  <data name="SelectKVRR" xml:space="preserve">
+    <value>Phải chọn 1 danh mục đầu tư</value>
+  </data>
+  <data name="ExistedKVRRPortfolio" xml:space="preserve">
+    <value>Khẩu vị rủi ro này đã được danh mục đầu tư khác sử dụng</value>
+  </data>
+  <data name="KVRRNameIsNotEmpty" xml:space="preserve">
+    <value>Tên khẩu vị rủi ro không được để trống</value>
+  </data>
+  <data name="ForgotPasswordConfirm" xml:space="preserve">
+    <value>Chúng tôi đã gửi cho bạn một email để thay đổi lại mật khẩu. Xin vui lòng kiểm tra email của bạn.</value>
+  </data>
+  <data name="SendMailError" xml:space="preserve">
+    <value>Hiện tại chúng tôi không thể gửi email ngay lúc này, vui lòng thử lại sau.</value>
+  </data>
+  <data name="UserNotSelect" xml:space="preserve">
+    <value>Không có user nào được chọn</value>
+  </data>
+  <data name="KVRRDetailIsNotEmpty" xml:space="preserve">
+    <value>Nội dung khẩu vị rủi ro không được để trống</value>
+  </data>
+  <data name="PortfolioIsNotAvailable" xml:space="preserve">
+    <value>Không có danh mục đầu tư khả dụng</value>
+  </data>
+  <data name="ExistedAccount" xml:space="preserve">
+    <value>Tài khoản này đã tồn tại</value>
+  </data>
+  <data name="RegisterError" xml:space="preserve">
+    <value>Quá trình đăng ký đã xảy ra lỗi. Xin vui lòng thử lại sau.</value>
+  </data>
+  <data name="SendSMSError" xml:space="preserve">
+    <value>Hiện tại chúng tôi không thể gửi SMS ngay lúc này, vui lòng thử lại sau.</value>
+  </data>
+  <data name="FundCodeIsNotEmpty" xml:space="preserve">
+    <value>Mã quỹ không được để trống</value>
+  </data>
+  <data name="FundNameIsNotEmpty" xml:space="preserve">
+    <value>Tên quỹ không được để trống</value>
+  </data>
+  <data name="PhoneNumberUsed" xml:space="preserve">
+    <value>Số điện thoại đã được sử dụng</value>
+  </data>
+  <data name="MarkExisted" xml:space="preserve">
+    <value>Giá trị trọng số không được nằm trong khoảng giá trị của các cấp trọng số khác</value>
+  </data>
+  <data name="MarkFromIsNotEmpty" xml:space="preserve">
+    <value>Trọng số từ không được để trống</value>
+  </data>
+  <data name="MarkFromRange" xml:space="preserve">
+    <value>Giá trị trọng số từ phải là số nguyên dương lớn hơn hoặc bằng {1}</value>
+  </data>
+  <data name="MarkToIsNotEmpty" xml:space="preserve">
+    <value>Trọng số đến không được để trống</value>
+  </data>
+  <data name="MarkToRange" xml:space="preserve">
+    <value>Giá trị trọng số đến phải là số nguyên dương lớn hơn hoặc bằng {1}</value>
+  </data>
+  <data name="ExistEmail" xml:space="preserve">
+    <value>Email đã được đăng ký</value>
+  </data>
+  <data name="IsPortfolioNameExists" xml:space="preserve">
+    <value>Tên danh mục đầu tư không được trùng</value>
+  </data>
+  <data name="KVRRIsNotEmpty" xml:space="preserve">
+    <value>Phải chọn khẩu vị rủi ro</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Trọng số đến phải lớn hơn trọng số từ</value>
+  </data>
+  <data name="CompareMarkFromMarkTo" xml:space="preserve">
+    <value>Trọng số từ phải nhỏ hơn trọng số đến</value>
+  </data>
+  <data name="WrongFileType" xml:space="preserve">
+    <value>Chỉ được chọn các file ảnh có đuôi sau đây: jpg,jpeg,png,gif</value>
+  </data>
+  <data name="FundPercent100" xml:space="preserve">
+    <value>Tổng % phân bổ phải bằng 100</value>
+  </data>
+  <data name="FundPercentMustBeNumber" xml:space="preserve">
+    <value>% phân bổ phải là kiểu số và lớn hơn 0</value>
+  </data>
+  <data name="MarkMustBeNumber" xml:space="preserve">
+    <value>Trọng số phải là số nguyên dương</value>
+  </data>
+  <data name="IsFundCodeExists" xml:space="preserve">
+    <value>Mã quỹ không được trùng</value>
+  </data>
+  <data name="IsFundNameExists" xml:space="preserve">
+    <value>Tên quỹ không được trùng</value>
+  </data>
+  <data name="IsKVRRNameExists" xml:space="preserve">
+    <value>Tên khẩu vị rủi ro không được trùng</value>
+  </data>
+  <data name="SendMailSucess" xml:space="preserve">
+    <value>Thông tin của bạn đã được gửi đi. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.</value>
+  </data>
+  <data name="CurrentPasswordError" xml:space="preserve">
+    <value>Mật khẩu hiện tại không đúng</value>
+  </data>
+  <data name="EmailUsed" xml:space="preserve">
+    <value>Địa chỉ email đã được sử dụng</value>
+  </data>
+  <data name="OTPFailed" xml:space="preserve">
+    <value>Sai mã OTP hoặc mã đã hết hạn</value>
+  </data>
+  <data name="WrongExcelFile" xml:space="preserve">
+    <value>Chỉ được chọn file có đuôi .xlsx</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>File không có dữ liệu</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>Chưa có File</value>
+  </data>
+  <data name="SelectFundEmpty" xml:space="preserve">
+    <value>Chưa chọn quỹ</value>
+  </data>
+  <data name="InvestInvalid" xml:space="preserve">
+    <value>Số tiền đầu tư phải lớn hơn 0</value>
+  </data>
+  <data name="InvestmentTargetAmountInvalid2" xml:space="preserve">
+    <value>Số tiền kì vọng không được thấp hơn số tiền đang có trong tài khoản</value>
+  </data>
+  <data name="NewPasswordError" xml:space="preserve">
+    <value>Mật khẩu mới không được giống mật khẩu cũ</value>
+  </data>
+  <data name="WithdrawalInvalid" xml:space="preserve">
+    <value>Số tiền muốn rút không được nhỏ hơn {0}</value>
+  </data>
+  <data name="WithdrawalInvalid2" xml:space="preserve">
+    <value>Số tiền muốn rút (tính cả phí) không được lớn hơn số tiền trong tài khoản</value>
+  </data>
+  <data name="WithdrawalInvalid3" xml:space="preserve">
+    <value>Số tiền muốn rút không được vượt quá 90% số tiền trong tài khoản</value>
+  </data>
+  <data name="AmountFromIsNotEmpty" xml:space="preserve">
+    <value>Giá trị tài sản từ chưa điền</value>
+  </data>
+  <data name="AmountToIsNotEmpty" xml:space="preserve">
+    <value>Giá trị tài sản đến chưa điền</value>
+  </data>
+  <data name="CompareAmountFromAmountTo" xml:space="preserve">
+    <value>Giá trị Tổng Tài Sản Từ phải nhỏ hơn giá trị Tổng Tài Sản Đến</value>
+  </data>
+  <data name="OnlyPoitiveNumber" xml:space="preserve">
+    <value>Chỉ chấp nhận số nguyên dương</value>
+  </data>
+  <data name="RangeAmountExisted" xml:space="preserve">
+    <value>Khoảng giá trị không được nằm trong khoảng giá trị khác</value>
+  </data>
+  <data name="CategoryIsNotExisted" xml:space="preserve">
+    <value>Danh mục {0} không tồn tại</value>
+  </data>
+  <data name="LessThan2Answers" xml:space="preserve">
+    <value>Câu hỏi ít hơn 2 câu trả lời</value>
+  </data>
+  <data name="MarkOrAnswerIsNull" xml:space="preserve">
+    <value>Trọng số hoặc câu trả lời chưa có dữ liệu</value>
+  </data>
+  <data name="IsCustomerLevelNameExists" xml:space="preserve">
+    <value>Tên phân cấp khách hàng không được trùng</value>
+  </data>
+  <data name="MinNAV" xml:space="preserve">
+    <value>Giá trị NAV phải &gt; 0</value>
+  </data>
+  <data name="CompareMonthFromMonthTo" xml:space="preserve">
+    <value>Tháng Bắt Đầu phải nhỏ hơn Tháng Kết Thúc</value>
+  </data>
+  <data name="RangeMonthExisted" xml:space="preserve">
+    <value>Khoảng thời gian không được nằm trong khoảng thời gian trước đó</value>
+  </data>
+  <data name="ApprovedError" xml:space="preserve">
+    <value>Phê duyệt thất bại !</value>
+  </data>
+  <data name="ApprovedSuccess" xml:space="preserve">
+    <value>Đã phê duyệt thành công !</value>
+  </data>
+  <data name="IsQuestionExisted" xml:space="preserve">
+    <value>Câu hỏi không được trùng với câu hỏi đã có</value>
+  </data>
+  <data name="ImportSuccessful" xml:space="preserve">
+    <value>Import dữ liệu thành công</value>
+  </data>
+  <data name="DataIsEmpty" xml:space="preserve">
+    <value>Dữ liệu đang để trống</value>
+  </data>
+  <data name="QuickWithdrawalIsEmpty" xml:space="preserve">
+    <value>Phí rút tiền nhanh không để trống</value>
+  </data>
+  <data name="DuplicatedQuestionImport" xml:space="preserve">
+    <value>Câu hỏi trong danh sách import trùng nhau</value>
+  </data>
+  <data name="AnswerContentIsEmpty" xml:space="preserve">
+    <value>Nội dung câu trả lời đang để trống</value>
+  </data>
+  <data name="FileIsWrongType" xml:space="preserve">
+    <value>File được chọn đang không đúng định dạng</value>
+  </data>
+  <data name="QuestionTitleIsEmpty" xml:space="preserve">
+    <value>Nội dung câu hỏi đang để trống</value>
+  </data>
+  <data name="CategoryIsEmpty" xml:space="preserve">
+    <value>Danh mục đang để trống</value>
+  </data>
+  <data name="InvestmentTargetAmountInvalid3" xml:space="preserve">
+    <value>Số tiền kì vọng quá thấp so với số tiền đang có trong tài khoản</value>
+  </data>
+  <data name="ConnectVTPError" xml:space="preserve">
+    <value>Hiện tại không thể kết nối đến cổng thanh toán của ViettelPay, xin vui lòng thử lại sau</value>
+  </data>
+  <data name="FromInvalid" xml:space="preserve">
+    <value>Số bắt đầu không được nhỏ hơn 0</value>
+  </data>
+  <data name="ToInvalid" xml:space="preserve">
+    <value>Số kết thúc phải lớn hơn 0 hoặc bằng -1</value>
+  </data>
+  <data name="VTPError" xml:space="preserve">
+    <value>Có lỗi trong quá trình kết nối đến tài khoản ViettelPay, hãy thử lại sau</value>
+  </data>
+  <data name="VTPInvalidAccount" xml:space="preserve">
+    <value>Số điện thoại của bạn chưa đăng ký ViettelPay hoặc tên đầy đủ không đúng với tài khoản ViettelPay.</value>
+  </data>
+  <data name="VTPInvalidAccount2" xml:space="preserve">
+    <value>Số điện thoại chưa đăng ký ViettelPay hoặc tên đầy đủ không đúng với tài khoản ViettelPay.</value>
+  </data>
+  <data name="WithdrawalError" xml:space="preserve">
+    <value>Tài khoản của bạn đang trong quá trình rút tiền. Xin vui lòng đợi khi giao dịch hoàn tất.</value>
+  </data>
+</root>

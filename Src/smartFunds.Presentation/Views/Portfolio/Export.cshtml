@@ -1,0 +1,10 @@
+﻿@model SearchPortfolio
+
+<form asp-controller="Portfolio" asp-action="Export" method="post">
+    <input asp-for="PortfolioName" type="hidden" />
+    <input asp-for="PortfolioContent" type="hidden" />
+    <input asp-for="KVRRName" type="hidden" />
+	<div class="dt-buttons">
+		<button type="submit" class="buttons-csv">@Common.Export</button>
+	</div>
+</form>

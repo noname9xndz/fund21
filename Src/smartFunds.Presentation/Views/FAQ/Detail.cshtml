@@ -2,13 +2,14 @@
 @model FAQModel
 @{
     ViewData["Title"] = "FAQ Detail";
+    Layout = "_AdminLayout";
 }
 
 <div class="row">
     <div class="col-md-4">
         <section>
 
-            <h4>FAQ Detail</h4>
+            <h4>@ViewData["Title"]</h4>
 
             <table class="table">
                 <tr>
@@ -17,7 +18,11 @@
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.Content)</td>
-                    <td>@Html.DisplayFor(model => model.Content)</td>
+                    <td>@Html.Raw(Model.Content)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Category)</td>
+                    <td>@Html.DisplayFor(model => model.Category)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.DateLastUpdated)</td>
@@ -25,7 +30,7 @@
                 </tr>
             </table>
             <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-
+            <a asp-action="List">List</a>
         </section>
     </div>
 </div>

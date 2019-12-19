@@ -1,0 +1,171 @@
+﻿@{
+    var user = await UserService.GetCurrentUser();
+}
+
+<section class="@(UserService.IsSignedIn(User)?"headerUser_login":string.Empty) headerUser">
+    <div class="container-fluid">
+        <div class="content-details">
+            <div class="show-desktop-header">
+                <div class="desktop-header">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/images/logo_sn.png" alt="logo">
+                        </a>
+                    </div>
+                    <nav class="main-menu">
+                        <ul>
+                            @if (!UserService.IsSignedIn(User))
+                            {
+                                <li class="menu-items">
+                                    <a asp-controller="IntroducingPageCMS" asp-action="Index">Về Chúng Tôi</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a asp-area="Client" asp-controller="contact" asp-action="Contact">Hỗ Trợ</a>
+                                </li>
+                                @*<li class="menu-items">
+                                    <a asp-controller="Account" asp-action="Login">@Common.Login</a>
+                                </li>
+                                <li class="menu-items">
+                                    <a class="special" asp-controller="Account" asp-action="Register">@Common.Register</a>
+                                </li>*@
+                            }
+                            else
+                            {
+                                <li class="menu-items @Html.IsActived("Account","MyWallet")" id="MyWallet">
+                                    <a asp-controller="Account" asp-action="MyWallet">@Common.Account</a>
+                                </li>
+                                <li class="menu-items @Html.IsActived("Account","MyPortfolio") @Html.IsActived("Account","DefindKVRR") @Html.IsActived("Account","KVRRSelection") @Html.IsActived("Account","KVRRRecommendation")" id="investment_portfolio">
+                                    <a asp-controller="Account" asp-action="MyPortfolio">Danh Mục Đầu Tư</a>
+                                </li>
+                                if (user.CurrentAccountAmount > 0)
+                                {
+                                    <li class="menu-items @Html.IsActived("Investment","Invest")">
+                                        <a asp-controller="Investment" asp-action="Invest">@Common.Investment</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="menu-items @Html.IsActived("Investment","Invest")">
+                                        <a class="link-show-popup" href="javascript:void(0)">@Common.Investment</a>
+                                    </li>
+                                }
+
+                                <li class="menu-items @Html.IsActived("InvestmentTarget","Detail") @Html.IsActived("InvestmentTarget","New") @Html.IsActived("InvestmentTarget","Update")">
+                                    <a asp-controller="InvestmentTarget" asp-action="Detail">@Common.Target</a>
+                                </li>
+                                <li class="menu-items @Html.IsActived("ClientTransactionHistory","Index")" id="transaction_history">
+                                    <a asp-controller="ClientTransactionHistory" asp-action="Index">@Common.TransactionHistory</a>
+                                </li>
+
+                                <li class="menu-items special">
+
+                                    <div class="user-account">
+                                        @*<div class="user-images">
+                        <img src="/images/user.jpg" alt="user">
+                    </div>*@
+                                        <p>@Common.Hello, <span class="username">@user.FullName</span></p>
+                                        <div class="icon-dropdown">
+                                            <img src="/images/icon-dropdown.png"
+                                                 alt="icon-dropdown">
+                                        </div>
+                                        <div class="user-details">
+                                            <div class="my-account"> <a asp-controller="Profile" asp-action="Detail">Thông tin cá nhân</a></div>
+                                            <div class="log-out">
+                                                <a asp-controller="Account" asp-action="Logout">
+                                                    <img src="/images/log-out.png"
+                                                         alt="log-out"><span>@Common.Logout</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="show-mobile-header">
+                <div class="mobile-header">
+                    <div class="mobile-top-header">
+                        @if (UserService.IsSignedIn(User))
+                        {
+                            <button class="hamburger">
+                                <div class="hamburger-box">
+                                    <div class="hamburger-inner"></div>
+                                </div>
+                            </button>
+                        }
+                        <div class="logo-mobile">
+                            <a href="/">
+                                <img src="/images/logo_sn.png" alt="logo">
+                            </a>
+                        </div>
+                        @if (!UserService.IsSignedIn(User))
+                        {
+                            @*<div class="login-button">
+                                <a asp-controller="Account" asp-action="Login">
+                                    <span>Đăng nhập</span>
+                                    <img src="../../assets/images/user-login.png" alt="">
+                                </a>
+                            </div>*@
+                        }
+                    </div>
+                    @if (UserService.IsSignedIn(User))
+                    {
+                        <div class="overlay"></div>
+                        <div class="navbar-mobile">
+                            <div class="navbar-menu">
+                                <ul>
+                                    <li class="menu-items special">
+                                        <a class="register" href="javascript:void(0)">
+                                            @*<div class="user-images">
+                    <img src="/images/user.jpg" alt="user-images">
+                </div>*@
+                                            <div class="info">
+                                                <p>@Common.Hello,</p><span class="username">@user.FullName</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-items @Html.IsActived("Account","MyWallet")">
+                                        <a asp-controller="Account" asp-action="MyWallet">@Common.Account</a>
+                                    </li>
+                                    <li class="menu-items @Html.IsActived("Account","MyPortfolio") @Html.IsActived("Account","DefindKVRR") @Html.IsActived("Account","KVRRSelection") @Html.IsActived("Account","KVRRRecommendation")">
+                                        <a asp-controller="Account" asp-action="MyPortfolio">Danh Mục Đầu Tư</a>
+                                    </li>
+                                    @if (user.CurrentAccountAmount > 0)
+                                    {
+                                    <li class="menu-items @Html.IsActived("Investment","Invest")">
+                                        <a asp-controller="Investment" asp-action="Invest">@Common.Investment</a>
+                                    </li>
+                                    }
+                                    else
+                                    {
+                                    <li class="menu-items @Html.IsActived("Investment","Invest")">
+                                        <a class="link-show-popup" href="javascript:void(0)">@Common.Investment</a>
+                                    </li>
+                                    }
+                                    <li class="menu-items @Html.IsActived("InvestmentTarget","Detail") @Html.IsActived("InvestmentTarget","New") @Html.IsActived("InvestmentTarget","Update")">
+                                        <a asp-controller="InvestmentTarget" asp-action="Detail">@Common.Target</a>
+                                    </li>
+                                    <li class="menu-items @Html.IsActived("ClientTransactionHistory","Index")">
+                                        <a asp-controller="ClientTransactionHistory" asp-action="Index">@Common.TransactionHistory</a>
+                                    </li>
+                                </ul>
+                                <div class="user-details">
+                                    <div class="my-account"> <a asp-controller="Profile" asp-action="Detail">Thông tin cá nhân</a></div>
+                                    <div class="log-out">
+                                        <a asp-controller="Account" asp-action="Logout">
+                                            <img src="/images/log-out.png" alt="log-out"><span>@Common.Logout</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

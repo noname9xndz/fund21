@@ -1,0 +1,16 @@
+// functions
+@function breakpoints($breakpoint) {
+    @return map-get($grid-breakpoints, $breakpoint);
+}
+
+@function color($color-name) {
+    @return map-get($colors, $color-name);
+}
+
+@function fonts($font-family) {
+    @return map-get($fonts, $font-family);
+}
+
+@function index($el_Index) {
+    @return map-get($index, $el_Index);
+}

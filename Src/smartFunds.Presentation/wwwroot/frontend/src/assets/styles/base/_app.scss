@@ -1,0 +1,68 @@
+/*
+  EN font
+*/
+@import "./base/_functions";
+@import "./base/_multi-lang-using";
+@import "./base/_fonts";
+@import "./base/_datatables";
+@import "./base/animation";
+@import "chart.js/dist/Chart.min.css";
+@import "./base/micromodal";
+@import "./base/_jquerysteps";
+
+// Components - DO NOT IMPORT COMPONENTS HERE, IMPORT YOUR COMPONENTS INTO ./base/_components.scss
+@import "./base/_components";
+@import "../js/jquery-ui/jquery-ui.css";
+
+@import "../../views/components/signin/signin.scss";
+@import "../../views/components/investment-portfolio/investment-portfolio.scss";
+@import "../../views/components/investment-portfolio-detail/investment-portfolio-detail.scss";
+@import "../../views/components/manage-risk/manage-risk.scss";
+@import "../../views/components/manage-risk/manage-riskDetail/manage-riskDetail.scss";
+@import "../../views/components/transaction-history/transaction-history.scss";
+@import "../../views/components/resgisterUser/resgisterUser.scss";
+@import "../../views/components/headerUser/headerUser.scss";
+@import "../../views/components/footerUser/footerUser.scss";
+@import "../../views/components/user-resgister-otp/user-resgister-otp.scss";
+@import "../../views/components/manage-InvestFund/manage-InvestFund.scss";
+@import "../../views/components/user_login/user_login.scss";
+@import "../../views/components/customer-chart/customer-chart.scss";
+@import "../../views/components/manager-customers__detail-info__edit/manager-customers__detail-info__edit.scss";
+@import "../../views/components/user-wallet/user-wallet.scss";
+@import "../../views/components/manager-risk__questions/manager-risk__questions.scss";
+@import "../../views/components/headerUser_login/headerUser_login.scss";
+// @import "../../views/components/manager-risk__questions__add/manager-risk__questions__add.scss";
+// @import "../../views/components/manager-risk__questions__add/manager-risk__questions__add.scss";
+@import "../../views/components/manager-risk__questions__data/manager-risk__questions__data.scss";
+@import "../../views/components/manage-weightRisk/manage-weightRisk.scss";
+@import "../../views/components/manager-customer-target/manager-customer-target.scss";
+@import "../../views/components/manage-user__add/manage-user__add.scss";
+@import "../../views/components/user-questions/user-questions.scss";
+@import "../../views/components/manager-customers/manager-customers.scss";
+@import "../../views/components/customer-transition-history/customer-transition-history.scss";
+@import "../../views/components/user-hp-slide/user-hp-slide.scss";
+@import "../../views/components/user-hp-partner/user-hp-partner.scss";
+@import "../../views/components/user-investment-portfolio/user-investment-portfolio.scss";
+@import "../../views/components/user-term-service/user-term-service.scss";
+@import "../../views/components/user-questions/user-questions.scss";
+@import "../../views/components/user-fund/user-fund.scss";
+@import "../../views/components/admin-add-term-services/admin-add-term-services.scss";
+@import "../../views/components/empty-manage-risk/empty-manage-risk.scss";
+@import "../../views/components/sidebar/sidebar.scss";
+@import "../../views/components/manager-frequent-question/manager-frequent-question.scss";
+@import "../../views/components/manager-settings/manager-settings.scss";
+@import "../../views/components/about-us/about-us.scss";
+@import "../../views/components/contact/contact.scss";
+
+//Admin Phrase 2
+
+@import "../../views/components/client-distribution/client-distribution.scss";
+@import "../../views/components/add-client-distribution/add-client-distribution.scss";
+@import "../../views/components/myAccount/myAccount.scss";
+@import "../../views/components/myAccountEdit/myAccountEdit.scss";
+@import "../../views/components/myAccountEditPass/myAccountEditPass.scss";
+@import "../../views/components/myMission-admin/myMission-admin.scss";
+@import "../../views/components/user_invesments_target_isActive/user_invesments_target_isActive.scss";
+@import "../../views/components/user-faq/user-faq.scss";
+
+@import "../../views/components/trade-balance/trade-balance.scss";

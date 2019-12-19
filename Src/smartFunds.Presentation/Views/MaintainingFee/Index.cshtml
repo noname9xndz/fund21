@@ -1,0 +1,110 @@
+﻿@model ListMaintainingFee
+<form asp-action="Edit" class="submit-form" asp-controller="MaintainingFee" method="post">
+    <button type="submit" style="display: none;">Submit</button>
+    <div class="manager-settings__item">
+        <div class="manager-settings__item__title">
+            <h1>Phí duy trì</h1>
+            <div class="options">
+                <a class="add-maintain-table" href="javascript:void(0)" data-table-id="maintaining-fee"><i class="fa fa-plus"></i></a>
+                <div class="delete-fee-table" id="btn-delete-1" data-table-id="maintaining-fee"
+                     data-api-delete="/admin/maintainingfee/delete">
+                    <a href="javascript:void(0)" data-micromodal-trigger="delete-confirm-1"><i class="fa fa-window-close"></i></a>
+                    <div class="modal micromodal-slide" id="delete-confirm-1" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-1-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="delete-confirm-1-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" type="button">
+                                        Tiếp
+                                        tục
+                                    </button>
+                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                        Hủy
+                                        bỏ
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="edit-directly" href="javascript:void(0)" data-table-id="maintaining-fee"><i class="fa fa-edit"></i></a>
+                <div class="save-fee-table save-table" data-table-id="maintaining-fee">
+                    <a href="javascript:void(0)" data-micromodal-trigger="save-confirm-1"><i class="fa fa-save"></i></a>
+                    <div class="modal micromodal-slide" id="save-confirm-1" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="save-confirm-1-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="save-confirm-1-title">Bạn có chắc chắn muốn lưu thay đổi không?</h2>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" type="button">
+                                        Tiếp
+                                        tục
+                                    </button>
+                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                        Hủy
+                                        bỏ
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="manager-settings__item__content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="show-error" id="show-error-1"> </p>
+                    @if (TempData["Error"] != null)
+                    {
+                        <span class="text-danger field-validation-error"><span>@TempData["Error"]</span></span>
+                    }
+                    <table class="settings-fee display" id="maintaining-fee" style="width: 100%" data-btn-delete="#btn-delete-1" data-show-error="#show-error-1">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="2">
+                                    Tổng tài sản hiện có (đ)
+                                </th>
+                                <th>
+                                    Phần trăm (%)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Từ</td>
+                                <td>Đến</td>
+                                <td></td>
+                            </tr>
+                            @for (int i = 0; i < Model.ListFees.Count; i++)
+                            {
+                                <tr data-tr-id="@Model.ListFees[i].Id">
+                                    <input type="hidden" asp-for="ListFees[i].Id" />
+                                    <td>
+                                        <input class="checkbox-item" type="checkbox" value="checkbox-1" />
+                                    </td>
+                                    <td>
+                                        <input class="editable-input form-control-number" name="ListFees[@i].AmountFrom" value="@String.Format("{0:0,0}",  @Model.ListFees[i].AmountFrom)" type="text" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input class="editable-input form-control-number" name="ListFees[@i].AmountTo" value="@String.Format("{0:0,0}",  @Model.ListFees[i].AmountTo)" type="text" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input class="editable-input form-control-float" name="ListFees[@i].Percentage" value="@Model.ListFees[i].Percentage" type="text" readonly="readonly" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

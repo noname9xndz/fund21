@@ -1,0 +1,151 @@
+.manager-settings {
+  &__item {
+    background-color: #fff;
+    margin-bottom: 20px;
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #f4f4f4;
+      margin-bottom: 10px;
+
+      h1 {
+        font-size: 25px;
+        margin: 0px;
+        color: #000;
+      }
+
+      .options {
+        display: flex;
+        align-items: center;
+
+        .delete-fee-table {
+          a {
+            pointer-events: none;
+
+            &.active {
+              pointer-events: inherit;
+
+              i {
+                color: red;
+              }
+            }
+          }
+        }
+
+        .save-directly {
+          background-color: transparent;
+          border: 0;
+          padding: 0;
+        }
+
+        i {
+          transition: all 400ms linear;
+          font-size: 15px;
+          margin-left: 10px;
+          color: #000;
+        }
+      }
+    }
+
+    &__content {
+      padding: 10px;
+
+      .show-error {
+        font-size: 16px;
+        color: red;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        font-weight: normal;
+      }
+
+      table {
+        &.settings-fee {
+          tr {
+            &:hover {
+              background-color: #f1f1f1;
+            }
+
+            &:nth-child(even) {
+              background-color: #f1f1f1;
+            }
+          }
+
+          th {
+            background-color: #3c8dbc;
+            padding: 10px 18px;
+            color: #fff;
+          }
+
+          td {
+            padding: 8px 10px;
+          }
+        }
+
+        margin-bottom: 0px !important;
+      }
+
+      label {
+        color: #000;
+        font-size: 16px;
+      }
+
+      p {
+        margin: 0;
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+
+        &.unit {
+          color: red;
+          margin-bottom: 15px;
+        }
+
+        &.quick-fee {
+          margin-top: 15px;
+
+          input {
+            border: 1px solid transparent;
+            transition: all 400ms linear;
+            padding: 0 10px;
+            height: 30px;
+
+            &:hover,
+            &:focus {
+              border: 1px solid #111;
+            }
+          }
+        }
+      }
+
+      ol {
+        list-style-type: decimal;
+        padding-left: 22px;
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .form-group {
+        &:last-child {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+}
+@-moz-document url-prefix() {
+  .manager-settings {
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  }
+}

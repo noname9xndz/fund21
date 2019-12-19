@@ -1,0 +1,41 @@
+﻿@model PushNotificationViewModel
+@{
+    ViewData["Title"] = "Push Notification";
+    Layout = "_AdminLayout";
+}
+
+<section class="push-notification">
+    <div class="container-fluid">
+        <h1 class="section-title">Push Notification</h1>
+        <form method="post">
+            <div class="form-group">
+                <div class="row center-sm">
+                    <label class="col-sm-3" asp-for="Title"></label>
+                    <div class="col-sm-6">
+                        <input asp-for="Title" class="form-control" type="text">
+                        <div class="error-messeage"><span asp-validation-for="Title"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row center-sm">
+                    <label asp-for="Content" class="col-sm-3"></label>
+                    <div class="col-sm-6">
+                        <textarea asp-for="Content" rows="10"></textarea>
+                        <div class="error-messeage"><span asp-validation-for="Content"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="myMission-PopUp__BTN">
+                <div class="row center-sm">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                        <button class="btn btn-action" type="submit">Push</button>
+                        <div class="error-messeage"><span>@ViewData["ErrorMessage"]</span></div>
+                        <div class="success-message"><span>@ViewData["SuccessMessage"]</span></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20190327041050_faqUpdate.cs" />
+    <Compile Remove="Migrations\20190502043330_userfund.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\smartFunds.Caching\smartFunds.Caching.csproj" />
     <ProjectReference Include="..\smartFunds.Common\smartFunds.Common.csproj" />
+    <ProjectReference Include="..\smartFunds.Model\smartFunds.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

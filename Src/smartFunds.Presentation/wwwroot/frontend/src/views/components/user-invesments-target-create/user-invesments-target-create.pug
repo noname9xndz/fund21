@@ -1,0 +1,40 @@
+.user-invesment-target.px-15
+    input#user-expected-amount(type="hidden", value="http://smartfunds-be-net.hn.smartosc.com/investment-target/GetOneTimeAmount")
+    h1.section-title-endUser Mục tiêu đầu tư
+    form.user-form-group.p-15#user-invesment-target-content
+        .user-form-control.user-expected-money-amount
+            span.user-form-control__title Số tiền mục tiêu đầu tư
+            input.input-form-control.form-control-number(type="text", name="amoutInvesment", required)
+            span.warning-message Lỗi
+        .user-form-control.user-form-control--existing-asset
+            span.user-form-control__title Tài sản hiện có
+            input.input-form-control.existing-assets(type="text", value="12.000.000", readonly)
+            span.currency đ
+        .user-form-control
+            span.user-form-control__title Thời hạn đầu tư
+            select.user-period-invesment(name="periodInvesment")
+                option(value="6", selected) 6 Tháng
+                option(value="12", selected="selected") 12 Tháng
+                option(value="24") 2 Năm
+                option(value="60") 5 Năm
+        .user-form-control 
+            span.user-form-control__title Tần suất đầu tư
+            select.user-frequency-invesment(name="frequencyInvesment")
+                option(value="4",selected="selected" ) 1 Tuần / Lần
+                option(value="1") 1 Tháng / Lần
+                option(value="2") 2 Tuần / Lần
+        .user-form-control 
+            span.user-form-control__title Số tiền trong 1 lần đầu tư
+            input#user-expected-amount-one.input-form-control(type="text", name="amoutInvesmentOfOne", readonly, placeholder="Tiền đầu tư")
+        .user-form-control 
+            span.user-form-control__title Hình thức đầu tư 
+            select(name="formInvesment")
+                option(value="Tự đầu tư") Tự đầu tư
+                option(value="Trừ tiền tự động") Trừ tiền tự động
+        span.warning-message 
+            span Lưu ý: 
+            | Mục tiêu đầu tư bạn đang thực hiện sẽ bị hủy bỏ. Bạn sẽ phải thực hiện mục tiêu đầu tư mới lại từ đầu.
+        button.btn.btn-actions(type="submit") Đồng ý
+    #pageloader
+        img(src="../../../assets/images/loader-large.gif", alt="processing...")
+

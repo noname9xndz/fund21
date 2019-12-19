@@ -1,0 +1,190 @@
+﻿@model smartFunds.Model.Common.HomepageCMSModel
+@{
+    ViewData["Title"] = "Index";
+    var mobileImage = @HomepageCMSService.GetAll().Where(x => x.Category == "1" && x.ImageName.Contains("mobile_")).ToList();
+}
+<div class="manager-settings__item">
+    <div class="manager-settings__item__title">
+        <h1>@Common.NameFirstBanner</h1>
+    </div>
+    <div class="manager-settings__item__content">
+        
+        <div class="image-upload">
+            <div class="image-upload__item upload-list-image" data-title="homepage" data-button-upload="#btn-upload-2"
+                 data-input-file="#input-file-2" data-btn-submit="#btn-submit-2">
+                @{ var listImg = Model.HomepageModels.Where(x => Int32.Parse(x.Category) == 1 && !x.ImageName.Contains("mobile_"));
+                    @foreach (var record in listImg)
+                    {
+                        <div class="image-upload__item__image list" data-id="@record.Id">
+                            <img class="img-show" src="@BannerHomepageFolder.Path@record.ImageName" />
+                            <div class="actions">
+                                <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                                    <button type="submit" style="display:none;" data-edit="">submit</button>
+                                    <button class="btn-edit-image" type="button"><i class="fa fa-edit"></i></button>
+                                    <input class="actions__input-image" type="file" name="image" accept="image/*">
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                    <input name="category" value="1" type="hidden" />
+                                </form>
+                                <form action="/admin/homepagecms/delete" method="get">
+                                    <button type="submit" style="display:none;" data-delete="">submit</button>
+                                    <input type="hidden" value="" style=" display:none;">
+                                    <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-homepage-@record.Id">
+                                        <i class="fa fa-window-close"></i>
+                                    </a>
+                                    <div class="modal micromodal-slide" id="delete-homepage-@record.Id" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-@record.Id" data-micromodal-close="">
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-homepage-@record.Id-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="delete-homepage-@record.Id-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                </form>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                <button id="btn-submit-2" type="submit" style="display: none;"></button>
+                <button class="image-upload__item__btn-upload" id="btn-upload-2" type="button" data-categoryid="1"><i class="fa fa-plus"></i></button>
+                <input class="image-upload__item__input-image" id="input-file-2" name="image" type="file" accept="image/*" />
+                <input name="category" value="1" type="hidden" accept="image/*" />
+                <input name="isAdd" value="1" type="hidden" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="manager-settings__item">
+    <div class="manager-settings__item__title">
+        <h1>@Common.NameFirstBanner Mobile</h1>
+    </div>
+    <div class="manager-settings__item__content">
+        <div class="image-upload">
+            <div class="image-upload__item upload-list-image" data-title="homepage" data-button-upload="#btn-upload-mobile-2"
+                 data-input-file="#input-mobile-file-2" data-btn-submit="#btn-submit-mobile-2">
+                @if (mobileImage != null)
+                {
+                    @foreach (var record in mobileImage)
+                    {
+                        <div class="image-upload__item__image list" data-id="@record.Id">
+                            <img class="img-show" src="@BannerHomepageFolder.Path@record.ImageName" />
+                            <div class="actions">
+                                <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                                    <button type="submit" style="display:none;" data-edit="">submit</button>
+                                    <button class="btn-edit-image" type="button">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <input class="actions__input-image" type="file" name="image" accept="image/*">
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                    <input value="mobileImage" name="typeUpload" type="hidden" />
+                                    <input name="category" value="1" type="hidden" />
+                                </form>
+                                <form action="/admin/homepagecms/delete" method="get">
+                                    <button type="submit" style="display:none;" data-delete="">submit</button>
+                                    <input type="hidden" value="" style=" display:none;">
+                                    <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-homepage-@record.Id">
+                                        <i class="fa fa-window-close"></i>
+                                    </a>
+                                    <div class="modal micromodal-slide" id="delete-homepage-@record.Id" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-@record.Id" data-micromodal-close="">
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-homepage-@record.Id-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="delete-homepage-@record.Id-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                </form>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                <button id="btn-submit-mobile-2" type="submit" style="display: none;"></button>
+                <button class="image-upload__item__btn-upload" id="btn-upload-mobile-2" type="button" data-categoryid="1"><i class="fa fa-plus"></i></button>
+                <input class="image-upload__item__input-image" id="input-mobile-file-2" name="image" type="file" accept="image/*" />
+                <input name="category" value="1" type="hidden" />
+                <input name="isAdd" value="1" type="hidden" />
+                <input value="mobileImage" name="typeUpload" type="hidden" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="manager-settings__item">
+    <div class="manager-settings__item__title">
+        <h1>@Common.NamePartnerBanner</h1>
+    </div>
+    <div class="manager-settings__item__content">
+        <div class="image-upload">
+            <div class="image-upload__item upload-list-image" data-title="partner" data-button-upload="#btn-uploader-3"
+                 data-input-file="#inputer-file-3" data-btn-submit="#btn-submiter-3">
+                @{
+                    var listHomepageModels = Model.HomepageModels.Where(x => x.Category.Equals("3")).ToList();
+                    foreach (var record in listHomepageModels)
+                    {
+                        <div class="image-upload__item__image single" data-id="1">
+                            <img class="img-show" src="@BannerHomepageFolder.Path@record.ImageName" />
+                            <div class="actions">
+                                <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                                    <button type="submit" style="display:none;" data-edit="">submit</button>
+                                    <button class="btn-edit-image" type="button">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <input class="actions__input-image" type="file" name="image" accept="image/*">
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                    <input value="3" type="hidden" name="category" />
+                                </form>
+                                <form action="/admin/homepagecms/delete" method="get">
+                                    <button type="submit" style="display:none;" data-delete="">submit</button>
+                                    <input type="hidden" value="" style=" display:none;">
+                                    <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-homepage-@record.Id">
+                                        <i class="fa fa-window-close"></i>
+                                    </a>
+                                    <div class="modal micromodal-slide" id="delete-homepage-@record.Id" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-@record.Id" data-micromodal-close="">
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-homepage-@record.Id-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="delete-homepage-@record.Id-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="Id" value="@record.Id" />
+                                </form>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <form action="/admin/homepagecms/save" method="post" enctype="multipart/form-data">
+                <button class="image-upload__item__btn-upload" id="btn-uploader-3" type="button" data-categoryid="3"><i class="fa fa-plus"></i></button>
+                <input class="image-upload__item__input-image" id="inputer-file-3" type="file" name="image" accept="image/*" />
+                <button id="btn-submiter-3" type="submit" style="display: none;"></button>
+                <input value="3" type="hidden" name="category" />
+                <input name="isAdd" value="1" type="hidden" />
+            </form>
+
+        </div>
+    </div>
+</div>
+

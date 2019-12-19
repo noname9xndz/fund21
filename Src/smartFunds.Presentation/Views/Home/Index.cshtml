@@ -1,4 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Trang chủ";
+    var mobileImages = @HomepageCMSService.GetAll().Where(x => x.Category == "1" && x.ImageName.Contains("mobile_"));
+    var desktopImages = @HomepageCMSService.GetAll().Where(x => Int32.Parse(x.Category) == 1 && !x.ImageName.Contains("mobile_"));
 }
-<label>Home page</label>
+
+<div class="body-content-endUser homepage-page">
+    <section class="user-hp-slide">
+        <div class="slide-contents slide-contents-mobile">
+            @foreach (var item in mobileImages)
+            {
+                <div class="slide-items">
+                    <div class="bg-images">
+                        <img src="@BannerHomepageFolder.Path@item.ImageName" alt="" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="slide-contents slide-contents-desktop">
+            @foreach (var item in desktopImages)
+            {
+                <div class="slide-items">
+                    <div class="bg-images">
+                        <img src="@BannerHomepageFolder.Path@item.ImageName" alt="" />
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </section>
+    <section class="user-hp-partner">
+        <div class="container-fluid">
+            <div class="content-details">
+                <div class="title">
+                    <p>Đối tác của chúng tôi</p>
+                </div>
+                <div class="slide-contents">
+                    @{
+                        var listHomepageModels = @HomepageCMSService.GetAll().Where(x => x.Category.Equals("3")).ToList();
+                        foreach (var record in listHomepageModels)
+                        {
+                            <div class="slide-items">
+                                <div class="icon-desktop">
+                                    <img src="@BannerHomepageFolder.Path@record.ImageName"
+                                         alt="user-hp-partner">
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

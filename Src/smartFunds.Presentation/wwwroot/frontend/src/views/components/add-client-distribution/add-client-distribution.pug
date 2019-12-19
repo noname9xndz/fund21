@@ -1,0 +1,26 @@
+section.add-client-distribution
+    .container-fluid
+        h1.section-title Thêm Cấp Khách Hàng   
+        form(action="")
+            .box-body
+                .form-group
+                    .row
+                        strong.col-sm-3 Cấp khách hàng:
+                        .col-sm-6 
+                            input.form-control(type="text")
+                            .error-messeage
+                                span Trường cấp khách hàng không được để trống
+                .form-group
+                    .row
+                        strong.col-sm-3 Tổng số tiền đầu tư
+                        .col-sm-6 
+                            .weight-risk-add__trongso
+                                span Từ
+                                input.form-control.form-control-number(type="text")
+                                span Đến
+                                input.form-control.form-control-number(type="text")
+                            .error-messeage
+                                span Giá trị đã tồn tại                              
+            .box-footer
+                button.btn.btn-action(type="submit") Xác Nhận
+                a.btn.btn-action(href="") Quay Lại

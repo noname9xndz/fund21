@@ -1,37 +1,61 @@
 ﻿@model CustomersModel
 @{
-    ViewData["Title"] = "List Customer";
+    ViewData["Title"] = Common.CustomerManager;
+    Layout = "_AdminLayout";
 }
+<section>
+    <section class="manager-customers">
+        <div class="content">
+            <input id="manageCustomersInputHidden" type="hidden" value="List">
+            <h1 class="section-title">@Common.CustomerManager</h1>
 
-@if (Model != null && Model.Customers.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Common.ResourceManager.GetString("FullName")</th>
-                <th>@Common.ResourceManager.GetString("PhoneNumber")</th>
-                <th>@Common.ResourceManager.GetString("EmailAddress")</th>
-                <th>@Common.ResourceManager.GetString("NumberKVRR")</th>
-                <th>@Common.ResourceManager.GetString("InitialInvestmentAmount")</th>
-                <th>@Common.ResourceManager.GetString("CurrentAccountAmount")</th>
-                <th>@Common.ResourceManager.GetString("AccountCreated")</th>
-                <th>@Common.ResourceManager.GetString("ActiveStatus")</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Customers)
-            {
-            <tr>
-                <td>@item.FullName</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.Email</td>
-                <td>0</td>
-                <td>@item.InitialInvestmentAmount.ToString("N2") đ</td>
-                <td>@item.CurrentAccountAmount.ToString("N2") đ</td>
-                <td>@item.Created.ToString("dd/MM/yyyy")</td>
-                <td>@item.IsActive</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+            <partial name="SearchCustomerPartial.cshtml" model="ViewBag.SearchCustomerViewModel" />
+
+            <div class='manager-customers__TotalCount'>
+                <span>@Model.TotalCount</span> @Common.Customer
+            </div>
+            <div class="table-manage-customers">
+                <div class="table-manage-customers__overlay hide">
+                    <div class="table-manage-customers__overlay__spinner rotating"></div>
+                </div>
+                <form id="manage-customer-form" asp-controller="Customer" asp-action="Delete" method="post">
+                    <div class="modal micromodal-slide" id="manage-customer-modal" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal__container" role="dialog" aria-modal="true"
+                                 aria-labelledby="manage-customer-modal-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="manage-customer-modal-title">
+                                        @Common.DeleteMessage
+                                    </h2><button class="modal__close" aria-label="Close modal"
+                                                 data-micromodal-close></button>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button type="submit" class="modal__btn modal__btn-primary">
+                                        @Common.Yes
+                                    </button>
+                                    <button class="modal__btn" data-micromodal-close
+                                            aria-label="Close this dialog window">
+                                        @Common.No
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="error-messeage">@TempData["Message"]</span>
+                    <div class="table-manage-customers--wrapper">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(window).keydown(function (e) {
+                if (e.keyCode == 13) { e.preventDefault(); return false; }
+            });
+        })
+    </script>
 }

@@ -1,0 +1,34 @@
+﻿@model ListTransactionHistoryModel
+@{
+    ViewData["Title"] = Common.TransactionHistory;
+    Layout = "_AdminLayout";
+}
+
+<section class="transaction-history">
+    <div class="content">
+        <input id="manageTransactionInputHidden" type="hidden" value="List">
+        <h1 class="section-title">@Common.TransactionHistory</h1>
+
+        <partial name="SearchTransactionHistoryPartial.cshtml" model="ViewBag.SearchTransactionHistoryViewModel" />
+
+        <div class="transaction-history__table">
+            <div class="transaction-history__table__overlay hide">
+                <div class="transaction-history__table__overlay__spinner rotating"></div>
+            </div>
+
+            <form id="manage-customer-form">
+                <div class="transaction-history__table--wrapper"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(window).keydown(function (e) {
+                if (e.keyCode == 13) { e.preventDefault(); return false; }
+            });
+        })
+    </script>
+}

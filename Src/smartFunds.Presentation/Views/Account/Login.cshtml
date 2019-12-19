@@ -1,44 +1,33 @@
 ﻿@model LoginViewModel
 
 @{
-    ViewData["Title"] = "Sign In";
+    ViewData["Title"] = Common.LoginAccount;
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-route-returnurl="@ViewData["ReturnUrl"]" asp-action="Login" asp-controller="Account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <input asp-for="UserName" placeholder="Số điện thoại hoặc địa chỉ Email *" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input asp-for="Password" placeholder="Mật khẩu *" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="RememberMe">
-                            <input type="checkbox" asp-for="RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a asp-action="ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+<section class="user_login submit-form-general">
+    <div class="content-details">
+        <div class="image-left">
+            <img src="/images/tyler-franta.jpg" alt="images">
+            @*<div class="box"></div>*@
+            @*<div class="text">@Common.Slogan</div>*@
+        </div>
+        <form class="form-detail" id="form_login" asp-route-returnurl="@ViewData["ReturnUrl"]" asp-action="Login" asp-controller="Account" method="post">
+            <a class="back" href="/">
+                <img src="/images/arrow-left.png" alt="images"><span>@Common.BackToHome</span>
+            </a>
+            <h2>@Common.LoginAccount</h2>
+            <p class="normal">@Common.WelcomeLogin</p>
+            <div class="error-messeage">@ViewData["Message"]</div>
+            <div class="form-row">
+                <input class="user-input form-control-number--phone" asp-for="UserName" type="text" required autocomplete="on">
+                <p class="placeholder"><span>@Common.PhoneNumber</span></p>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="register-button button-submit-general">
+                <input class="user-input" type="submit" value="@Common.Login">
+            </div>
+            <p class="register">Chưa có tài khoản? <a asp-action="Register">Đăng ký tại đây.</a></p>
+        </form>
     </div>
-</div>
+</section>

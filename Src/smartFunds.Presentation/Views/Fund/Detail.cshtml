@@ -1,0 +1,54 @@
+﻿@model smartFunds.Model.Common.FundModel
+
+@{
+    ViewData["Title"] = @Common.GeneralInformation;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result;
+}
+
+@if (Model != null)
+{
+	<section class="invesment-funds__detail">
+		<div class="detail-block">
+			<div class="detail-block__title">
+				<h2>@Common.GeneralInformation</h2>
+				<div class="title-info__btn-wrapper">
+					<a asp-action="Edit" asp-route-id="@Model.Id" class="edit-table-info @( checkRule ? "":"disabled-icon" )"><i class="fa fa-edit"></i></a>
+				</div>
+			</div>
+			<div class="detail-block__content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <strong class="col-xs-3">@Html.DisplayNameFor(model => model.Code)</strong>
+                        <p class="col-xs-6">@Html.DisplayFor(model => model.Code)</p>
+                    </div>
+                    <div class="row">
+                        <strong class="col-xs-3">@Html.DisplayNameFor(model => model.Title)</strong>
+                        <p class="col-xs-6">@Html.DisplayFor(model => model.Title)</p>
+                    </div>
+                    <div class="row">
+                        <strong class="col-xs-3">@Html.DisplayNameFor(model => model.NAV)</strong>
+                        <p class="col-xs-6">@Html.DisplayFor(model => model.NAV)</p>
+                    </div>
+                    <div class="row">
+                        <strong class="col-xs-3">@Html.DisplayNameFor(model => model.Content)</strong>
+                        <div class="col-xs-6"><pre>@Html.DisplayFor(model => model.Content)</pre></div>
+                    </div>
+                    <div class="row">
+                        <strong class="col-xs-3">
+                            @Html.DisplayNameFor(model => model.Link)
+                        </strong>
+                        <p class="col-xs-6">
+                            @{
+                                var link = !string.IsNullOrEmpty(Model.Link) && !Model.Link.StartsWith("http") ? ($"http://{Model.Link}") : Model.Link;
+                            }
+                            <a href="@link">@link</a>
+                        </p>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<div class=" col-xs-6 btn-part text-center"><a asp-action="List" class="btn btn-action">@Common.Back</a></div>
+
+	</section>
+}

@@ -1,0 +1,206 @@
+﻿@model List<smartFunds.Model.Common.KVRRQuestion>
+
+@{
+    ViewData["Title"] = Common.ManageDefinedKVRR;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin, RoleName.InvestmentManager).Result;
+
+    
+}
+
+<section class="manager-risk__questions">
+    <div class="content">
+        <input id="questionOrder" type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder">
+        <h1 class="section-title">@Common.ManageDefinedKVRR</h1>
+        <div class="top-action-page">
+            <div class="top-action-page__part">
+                <a asp-action="New" class="btn btn-action @(checkRule ? "":"disabled-button" )">@Common.AddQuestion</a>
+            </div>
+            <div class="top-action-page__part">
+                <div class="top-action-page__part__actions">
+                    <form asp-controller="KVRRQuestionAnswer" asp-action="ImportList" enctype="multipart/form-data" method="post">
+                        @if (TempData["Error"] != null)
+                        {
+                            <span class="text-danger field-validation-error"><span>@TempData["Error"]</span></span>
+                        }
+                            <span class="name-file" id="file-name">
+                                @if (TempData["Error"] == null)
+                                {
+                                    if (TempData["import_ok"] != null)
+                                    {
+                                        <span style="color: green;">@ValidationMessages.ImportSuccessful</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@ValidationMessages.NoFile</span>
+                                    }
+                                }
+
+                            </span>
+                        <input class="input-file" id="input-file" name="file" type="file" accept="file_extension" />
+                        <button class="btn btn-action @( checkRule ? "":"disabled-button" )" id="btn-add-file" type="button">@Common.SelectFile</button>
+                        <button class="btn btn-action @( checkRule ? "":"disabled-button" )" type="submit">Import</button>
+                        <a class="btn btn-action @(checkRule ? "":"disabled-button")" asp-action="ExportExampleFile">@Common.DownloadExampleFile</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+            <div class="manager-risk__questions__list-questions flex-container">
+                @{
+                    var questionIndex = 1;
+                }
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    string categoryName = "";
+                    var index = 1;
+                    <div class="manager-risk__questions__list-questions__item" data-index="@Model[i].No" style="order: @Model[i].No;">
+                        <form asp-controller="KVRRQuestionAnswer" asp-action="DeleteAnswer" method="post" style="width: 100%" class="collapse-part">
+                            <div class="manager-risk__questions__list-questions__item__title">
+                                <span class="truncate-line collapse-btn">@questionIndex. @Model[i].Content</span>
+                                @foreach (KVRRQuestionCategories cate in Enum.GetValues(typeof(KVRRQuestionCategories)))
+                                {
+                                    @if (@Model[i].KVRRQuestionCategories == cate)
+                                    {
+                                        categoryName = cate.GetDisplayName();
+                                    }
+                                }
+                                <div class="item-option">
+                                    <i class="fa fa-chevron-down click-go-down @( checkRule ? "":"disabled-icon" )"></i>
+                                    <i class="fa fa-chevron-up click-go-up @( checkRule ? "":"disabled-icon" )"></i>
+                                    <a asp-action="Edit" asp-route-id="@Model[i].Id" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-edit"></i></a>
+                                    <a data-micromodal-trigger='delete-question-@questionIndex' href="#" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-window-close"></i></a>
+                                    <div class="modal micromodal-slide" id="delete-question-@questionIndex" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <a class="modal__btn modal__btn-primary" asp-action="DeleteQuestion" asp-route-id="@Model[i].Id">
+                                                        @Common.Yes
+                                                    </a>
+                                                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                        @Common.No
+                                                    </button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input class="questionId" type="hidden" value="@Model[i].Id">
+                                </div>
+                            </div>
+
+                            <div class="manager-risk__questions__list-questions__item__content collapse-content">
+                                <div class="modal micromodal-slide" id="delete-answers-@questionIndex" aria-hidden="true">
+                                    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                            <header class="modal__header">
+                                                <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                                <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                            </header>
+                                            <footer class="modal__footer">
+                                                <button class="modal__btn modal__btn-primary" type="submit">
+                                                    @Common.Yes
+                                                </button>
+                                                <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                    @Common.No
+                                                </button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="show-more-question">
+                                    <span class="question-content">@Model[i].Content</span>
+                                    <a class="question-button">Hiện câu hỏi</a>
+                                </div>
+                                <label class="category-name">Danh mục: <span>@categoryName</span></label>
+                                <div class="title-table">
+                                    <span>Đáp án</span>
+                                    <div class="table-option">
+                                        <a href="#" data-micromodal-trigger="delete-answers-@questionIndex"><i class="fa fa-window-close delete-confirm"></i></a>
+                                        <div class="modal micromodal-slide" id="delete-answers-@questionIndex" aria-hidden="true">
+                                            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                    <header class="modal__header">
+                                                        <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                    </header>
+                                                    <footer class="modal__footer">
+                                                        <button class="modal__btn modal__btn-primary" type="submit">
+                                                            @Common.Yes
+                                                        </button>
+                                                        <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                            @Common.No
+                                                        </button>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a asp-action="Edit" asp-route-id="@Model[i].Id" class="active"><i class="fa fa-plus-square"></i></a>
+                                        @*<button type="submit" class="btn btn-default" onclick="return validDeleteAnswer(this);">Delete</button>*@
+                                    </div>
+                                </div>
+                                <table class="table-list-questions display" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>@Common.STT</th>
+                                            <th>@*<input class="select-all-btn" type="checkbox" />*@</th>
+                                            <th>@Common.Content</th>
+                                            <th>@Common.Mark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model[i].KVRRAnswers != null && Model[i].KVRRAnswers.Any())
+                                        {
+                                            for (int j = 0; j < Model[i].KVRRAnswers.Count; j++)
+                                            {
+                                                var checkboxName = "defind-anwser" + Model[i].KVRRAnswers[j].Id;
+                                                <tr class="text-center">
+                                                    <td>@index</td>
+                                                    <td><input type="checkbox" class="defind-anwser" name="@checkboxName" asp-route-id="@Model[i].KVRRAnswers[j].Id" /></td>
+                                                    <td><pre>@Model[i].KVRRAnswers[j].Content</pre></td>
+                                                    <td>@Model[i].KVRRAnswers[j].Mark</td>
+                                                </tr>
+                                                index++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    questionIndex++;
+                }
+            </div>
+            <input id="updateIndexQues" type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder">
+
+            @*<div class="modal modal-top-up modal-nomal" id="confirm-modal">
+            <a class="btn-close-modal" href="#" rel="modal:close"><img src="/assets/images/x-icon@2x.png"></a>
+            <div class="modal-title"><span>@Common.Confirm</span></div>
+            <div class="modal-body">
+                <div class="text-center"><button class="btn btn-action">@Common.Yes</button><button class="btn btn-action" type="button">@Common.No</button></div>
+            </div>
+        </div>*@
+            <a id="btn-alert-mess" data-micromodal-trigger='alert-mess' href="#" style="display: none;">open</a>
+            <div class="modal micromodal-slide" id="alert-mess" aria-hidden="true">
+                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                        <header class="modal__header">
+                            <h2 class="modal__title" id="manager-user-title">Thông báo</h2>
+                            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                        </header>
+                        <footer class="modal__footer">
+                            <p>
+                                Tồn tại ít nhất 2 câu trả lời
+                            </p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</section>
+
+

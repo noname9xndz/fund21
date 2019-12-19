@@ -1,0 +1,11 @@
+﻿@model SearchFund
+
+<form asp-controller="Fund" asp-action="Export" method="post">
+	<input asp-for="FundName" type="hidden" />
+	<input asp-for="FundCode" type="hidden" />
+	<input asp-for="FundContent" type="hidden" />
+	<input asp-for="PortfolioName" type="hidden" />
+	<div class="dt-buttons">
+		<button type="submit" class="buttons-csv">@Common.Export</button>
+	</div>
+</form>

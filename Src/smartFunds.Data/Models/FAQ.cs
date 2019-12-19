@@ -1,8 +1,8 @@
 ﻿using smartFunds.Common.Data.Repositories;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using smartFunds.Common;
 
 namespace smartFunds.Data.Models
 {
@@ -11,10 +11,10 @@ namespace smartFunds.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Title { get; set; }        
-        public string Content { get; set; }       
+        public string Title { get; set; }
+        public string Content { get; set; }
         public DateTime DateLastUpdated { get; set; }
         public string LastUpdatedBy { get; set; }
-        public ICollection<FAQ> RelatedFAQs { get; set; }
+        public FAQCategory Category { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace smartFunds.Data.Repositories.Generic
         {
             _context = smartFundsDbContext;
             _redisConfigurationOptions = redisConfigurationOptions;
-            _redisAutoCompleteProvider = redisAutoCompleteProvider;         
+            _redisAutoCompleteProvider = redisAutoCompleteProvider;
         }
 
         public virtual T Add(T entity)
@@ -66,7 +66,7 @@ namespace smartFunds.Data.Repositories.Generic
             if (_context.Entry(entity).State == EntityState.Detached)
             {
                 _context.Set<T>().Attach(entity);
-                _context.Set<T>().Remove(entity);              
+                _context.Set<T>().Remove(entity);
             }
         }
 
@@ -74,15 +74,7 @@ namespace smartFunds.Data.Repositories.Generic
         {
             if (items == null || !items.Any())
                 return;
-
-            foreach (var entity in items)
-            {
-                if (_context.Entry(entity).State == EntityState.Detached)
-                {
-                    _context.Set<T>().Attach(entity);
-                    _context.Set<T>().Remove(entity);
-                }
-            }
+            _context.Set<T>().RemoveRange(items);                      
         }
 
         public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate, string include = "")

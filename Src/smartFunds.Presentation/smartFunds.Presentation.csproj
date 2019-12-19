@@ -10,12 +10,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\RTE\**" />
+    <Content Remove="wwwroot\lib\RTE\**" />
+    <EmbeddedResource Remove="wwwroot\lib\RTE\**" />
+    <None Remove="wwwroot\lib\RTE\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\TestControlle2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\KVRR\DefineKVRRDetail.cshtml" />
+    <Content Remove="Views\KVRR\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="Hangfire" Version="1.6.21" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.0" />
     <PackageReference Include="Scrutor" Version="3.0.2" />
   </ItemGroup>
@@ -30,7 +47,37 @@
     <Content Update="Views\Account\Active.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Account\KVRRSelection.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Account\Login.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Account\PaymentResult.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Account\MyPortfolio.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Account\EditName.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Error\Error500.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\FundSellFee\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\FundSellFee\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\FundPurchaseFee\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\FundPurchaseFee\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Investment\Invest.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Account\ResendCode.cshtml">
@@ -42,10 +89,49 @@
     <Content Update="Views\Account\Register.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Account\MyWallet.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Account\ResetPasswordByVerifyCode.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Admin\ChangePassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\PageNotFound.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\UpdateProfile.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\ForgotPassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\ForgotPasswordConfirmation.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\ResetPassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\Profile.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\Task.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Admin\Login.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\BalanceFund\Detail.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\BalanceFund\List.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ClientTransactionHistory\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ClientTransactionHistory\TransactionHistoryPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Customer\Detail.cshtml">
@@ -54,23 +140,161 @@
     <Content Update="Views\Customer\List.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Customer\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Customer\ListCustomerPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Customer\TransactionHistoryPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Customer\PropertyFluctuationsPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Customer\SearchCustomerPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\FAQ\Detail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\FAQ\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\KVRR\DefineKVRRDetail.cshtml">
+    <Content Update="Views\Fund\Detail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\_LoginPartial.cshtml">
+    <Content Update="Views\Fund\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\KVRR\Index.cshtml">
+    <Content Update="Views\Fund\Export.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Fund\List.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Fund\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\InvestmentTarget\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\InvestmentTarget\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\InvestmentTarget\Detail.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRRMark\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRRMark\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRRQuestionAnswer\DefineKVRRDetail.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRRQuestionAnswer\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRR\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\KVRR\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Portfolio\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Portfolio\Export.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Portfolio\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Profile\Detail.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\PushNotification\SendNotification.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\SettingsCMS\FundPurchaseFee.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AdminLoginLayout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AdminSidebarPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AdminLayout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AdminHeaderPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_FooterPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_HeaderPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\FAQ\FAQs.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Statistic\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Support\Contact.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\CompletedList.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\ListPendingDealFundPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\ListPendingDealCustomPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\PendingList.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\SearchCompletedTasks.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\SearchPendingDealFundPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Task\SearchPendingDealCustomPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Test\Detail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\TransactionHistory\List.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\TransactionHistory\ListTransactionHistoryPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\TransactionHistory\SearchTransactionHistoryPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\User\List.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\User\New.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Withdrawal\Withdrawal.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="wwwroot\app.bundle.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\BannerHomepageCMS\favicon.ico">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 
@@ -82,6 +306,77 @@
     <ProjectReference Include="..\smartFunds.Data\smartFunds.Data.csproj" />
     <ProjectReference Include="..\smartFunds.Model\smartFunds.Model.csproj" />
     <ProjectReference Include="..\smartFunds.Service\smartFunds.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\images\kvrr\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\IntroducingPageCMS\Add.cshtml" />
+    <None Include="Views\IntroducingPageCMS\Display.cshtml" />
+    <None Include="wwwroot\assets\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\assets\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\assets\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\assets\images\arrow-down.svg" />
+    <None Include="wwwroot\assets\images\arrow-right.svg" />
+    <None Include="wwwroot\assets\images\arrow.svg" />
+    <None Include="wwwroot\assets\images\autocomplete-location_2.svg" />
+    <None Include="wwwroot\assets\images\autocomplete-station_2.svg" />
+    <None Include="wwwroot\assets\images\autocomplete-train_2.svg" />
+    <None Include="wwwroot\assets\images\calendar.png.webp" />
+    <None Include="wwwroot\assets\images\car.svg" />
+    <None Include="wwwroot\assets\images\chat.svg" />
+    <None Include="wwwroot\assets\images\check.svg" />
+    <None Include="wwwroot\assets\images\clock.svg" />
+    <None Include="wwwroot\assets\images\close.svg" />
+    <None Include="wwwroot\assets\images\comingsoon.svg" />
+    <None Include="wwwroot\assets\images\elevator.svg" />
+    <None Include="wwwroot\assets\images\email.svg" />
+    <None Include="wwwroot\assets\images\fa-brands-400.svg" />
+    <None Include="wwwroot\assets\images\fa-regular-400.svg" />
+    <None Include="wwwroot\assets\images\fa-solid-900.svg" />
+    <None Include="wwwroot\assets\images\facebook.svg" />
+    <None Include="wwwroot\assets\images\filter.svg" />
+    <None Include="wwwroot\assets\images\floorplan.svg" />
+    <None Include="wwwroot\assets\images\hamburger.svg" />
+    <None Include="wwwroot\assets\images\handicap.svg" />
+    <None Include="wwwroot\assets\images\heart-selected.svg" />
+    <None Include="wwwroot\assets\images\heart.svg" />
+    <None Include="wwwroot\assets\images\human.svg" />
+    <None Include="wwwroot\assets\images\icomoon.svg" />
+    <None Include="wwwroot\assets\images\icon-calendar.png.webp" />
+    <None Include="wwwroot\assets\images\icon-dropdown.png.webp" />
+    <None Include="wwwroot\assets\images\icon-dropdown2x.png.webp" />
+    <None Include="wwwroot\assets\images\icon-next-disable.png.webp" />
+    <None Include="wwwroot\assets\images\icon-next.png.webp" />
+    <None Include="wwwroot\assets\images\icon-prev-disable.png.webp" />
+    <None Include="wwwroot\assets\images\icon-prev.png.webp" />
+    <None Include="wwwroot\assets\images\icon-up2x.png.webp" />
+    <None Include="wwwroot\assets\images\is-active.png.webp" />
+    <None Include="wwwroot\assets\images\location.svg" />
+    <None Include="wwwroot\assets\images\map.svg" />
+    <None Include="wwwroot\assets\images\none-active.png.webp" />
+    <None Include="wwwroot\assets\images\payment-method-2.svg" />
+    <None Include="wwwroot\assets\images\payment-method.svg" />
+    <None Include="wwwroot\assets\images\phone.svg" />
+    <None Include="wwwroot\assets\images\photos.svg" />
+    <None Include="wwwroot\assets\images\quote-icon.svg" />
+    <None Include="wwwroot\assets\images\search.svg" />
+    <None Include="wwwroot\assets\images\shortlist-heart-selected.svg" />
+    <None Include="wwwroot\assets\images\shortlist-heart.svg" />
+    <None Include="wwwroot\assets\images\slide-arrow-down.svg" />
+    <None Include="wwwroot\assets\images\slider-arrow-left.svg" />
+    <None Include="wwwroot\assets\images\slider-arrow-right-hover.svg" />
+    <None Include="wwwroot\assets\images\sort_asc.png.webp" />
+    <None Include="wwwroot\assets\images\sort_asc_disabled.png.webp" />
+    <None Include="wwwroot\assets\images\sort_both.png.webp" />
+    <None Include="wwwroot\assets\images\sort_desc.png.webp" />
+    <None Include="wwwroot\assets\images\sort_desc_disabled.png.webp" />
+    <None Include="wwwroot\assets\images\three-dots.svg" />
+    <None Include="wwwroot\assets\images\trainline.svg" />
+    <None Include="wwwroot\assets\images\twitter.svg" />
   </ItemGroup>
 
 </Project>

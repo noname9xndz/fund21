@@ -1,0 +1,40 @@
+﻿@model CheckFundViewModel
+@{
+    ViewData["Title"] = Common.CheckFund;
+    Layout = "_AdminLayout";
+}
+
+<section class="manager-check-invest">
+    <input type="hidden" id="managerCheckInvestDataApiUrl" value="/admin/check-fund/GetInvestmentFunds">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">@Common.CheckFund</h1>
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <form id="form-question" method="post">
+                        <div class="form-group form-align-center">
+                            <label asp-for="FundId"></label>
+                            <select class="form-control" asp-for="FundId" asp-items="FundService.GetSelectListFund()">
+                                <option value="0" selected>Tổng</option>
+                            </select>
+                            <button class="btn btn-action" type="submit">
+                                Kiểm tra
+                            </button>
+                        </div>
+                        <p>Số lượng khách hàng đầu tư vào quỹ: <span>@Model.CountUserFund</span></p>
+                        <p>Tổng số tiền đang được đầu từ vào quỹ:<span>@Model.TotalAmountUserFund.ToString("N0") đ</span></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="manager-check-invest__Chart">
+    <div class="container">
+        <div class="manager-check-invest__Chart--wrapper">
+            <div class="chart"><canvas class="chart-profile" id="chart-profile"></canvas></div>
+            <div id="legend"></div>
+        </div>
+    </div>
+</section>
+

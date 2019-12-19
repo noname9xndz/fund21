@@ -1,0 +1,69 @@
+section.investment-funds
+    .content
+        h1.section-title Quản lý danh mục đầu tư
+        a.btn.btn-action(href="/investment-fund-add.html" ) Thêm Danh Mục Đầu Tư
+        .table-filter-actions
+            .table-filter-actions__item.table-filter-actions__delete
+                a.fas.fa-trash-alt(href="#", data-micromodal-trigger="manage-customer-modal") 
+                    span Xóa
+            .table-filter-actions__item.table-filter-actions__pagesize
+                a() Hiển thị
+                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                    option(value="10") 10
+                    option(value="20") 20
+                    option(value="30") 30
+                span 1 trang
+            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                button.buttons-csv Xuất
+        table#manager-user__table.display(style='width:100%')
+            thead
+                tr
+                    th STT
+                    th 
+                        input.select-all-btn(name="select_all", value="1", type="checkbox")
+                    th Tên
+                    th Vai trò
+                    
+            tbody
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="2", type="checkbox")
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="3", type="checkbox", disabled)
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="4", type="checkbox", disabled)
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="5", type="checkbox", disabled)
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="6", type="checkbox", disabled)
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="7", type="checkbox", disabled)
+                    td Quỹ 1
+                    td Q1
+                tr
+                    td 1
+                    td 
+                        input(name="select_all", value="8", type="checkbox")
+                    td Quỹ 1
+                    td Q1

@@ -12,7 +12,7 @@ namespace smartFunds.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Content { get; set; }
-        public int Mark { get; set; }
+        public int? Mark { get; set; }
         [ForeignKey("KVRRQuestionId")]
         public KVRRQuestion KVRRQuestion { get; set; }
     }

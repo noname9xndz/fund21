@@ -15,7 +15,7 @@ namespace smartFunds.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -129,397 +129,75 @@ namespace smartFunds.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Country", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.AdminTask", b =>
                 {
-                    b.Property<string>("Code")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address1Label");
+                    b.Property<int>("FundId");
 
-                    b.Property<bool>("Address1Required");
+                    b.Property<string>("LastUpdatedBy");
 
-                    b.Property<bool>("Address1Visible");
+                    b.Property<DateTime>("LastUpdatedDate");
 
-                    b.Property<string>("Address2Label");
+                    b.Property<int>("Status");
 
-                    b.Property<bool>("Address2Required");
+                    b.Property<decimal>("TransactionAmount");
 
-                    b.Property<bool>("Address2Visible");
-
-                    b.Property<string>("Address3Label");
-
-                    b.Property<bool>("Address3Required");
-
-                    b.Property<bool>("Address3Visible");
-
-                    b.Property<string>("Address4Label");
-
-                    b.Property<bool>("Address4Required");
-
-                    b.Property<bool>("Address4Visible");
-
-                    b.Property<string>("Address5Label");
-
-                    b.Property<bool>("Address5Required");
-
-                    b.Property<bool>("Address5Visible");
-
-                    b.Property<string>("Address6Label");
-
-                    b.Property<bool>("Address6Required");
-
-                    b.Property<bool>("Address6Visible");
-
-                    b.Property<string>("Address7Label");
-
-                    b.Property<bool>("Address7Required");
-
-                    b.Property<bool>("Address7Visible");
-
-                    b.Property<string>("Address8Label");
-
-                    b.Property<bool>("Address8Required");
-
-                    b.Property<bool>("Address8Visible");
-
-                    b.Property<string>("AddressFormat");
-
-                    b.Property<string>("DialingPrefix");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("RegionId");
-
-                    b.HasKey("Code");
-
-                    b.HasIndex("RegionId");
-
-                    b.ToTable("CountryView","dbo");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Locality", b =>
-                {
-                    b.Property<int>("Id");
-
-                    b.Property<string>("CountryCode");
-
-                    b.Property<string>("Name");
+                    b.Property<int>("TransactionType");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryCode");
+                    b.HasIndex("FundId");
 
-                    b.ToTable("LocalityView","dbo");
+                    b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Member", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.ContactCMS", b =>
                 {
-                    b.Property<int>("Id");
-
-                    b.Property<string>("Address1");
-
-                    b.Property<string>("Address2");
-
-                    b.Property<string>("Address3");
-
-                    b.Property<string>("Address4");
-
-                    b.Property<string>("Address5");
-
-                    b.Property<string>("Address6");
-
-                    b.Property<string>("Address7");
-
-                    b.Property<string>("Address8");
-
-                    b.Property<string>("AddressFormat");
-
-                    b.Property<int?>("Age");
-
-                    b.Property<string>("CountryCode");
-
-                    b.Property<string>("CountryName");
-
-                    b.Property<DateTime?>("DateOfBirth");
-
-                    b.Property<DateTime?>("DeceasedDate");
-
-                    b.Property<string>("DeceasedSpouse");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email");
 
-                    b.Property<bool?>("FatherDeceased");
+                    b.Property<string>("EmailForReceiving");
 
-                    b.Property<int?>("FatherId");
-
-                    b.Property<string>("FathersLocality");
-
-                    b.Property<string>("FathersName");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("FirstName_SC");
-
-                    b.Property<string>("FullName");
-
-                    b.Property<string>("FullNameReverse");
-
-                    b.Property<string>("Generation");
-
-                    b.Property<string>("HomePhone");
-
-                    b.Property<string>("HomePhoneCode");
-
-                    b.Property<DateTime?>("HomePhoneLastUpdated");
-
-                    b.Property<string>("HouseholdCoupleName");
-
-                    b.Property<string>("HouseholdLastName");
-
-                    b.Property<string>("HouseholdName");
-
-                    b.Property<string>("HouseholdNameDisplay");
-
-                    b.Property<string>("Household_FirstName");
-
-                    b.Property<string>("Household_LastName");
-
-                    b.Property<int?>("HouseholderId");
-
-                    b.Property<string>("HouseholderName");
-
-                    b.Property<bool>("IsDeceased");
-
-                    b.Property<bool>("IsHidden");
-
-                    b.Property<bool>("IsHouseholder");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("LastName_SC");
-
-                    b.Property<int?>("LocalityId");
-
-                    b.Property<string>("LocalityName");
-
-                    b.Property<string>("MaidenName");
-
-                    b.Property<string>("MobilePhone");
-
-                    b.Property<string>("MobilePhoneCode");
-
-                    b.Property<DateTime?>("MobilePhoneLastUpdated");
-
-                    b.Property<bool?>("MotherDeceased");
-
-                    b.Property<int?>("MotherId");
-
-                    b.Property<string>("MothersLocality");
-
-                    b.Property<string>("MothersName");
-
-                    b.Property<string>("PhotoTagCdnPath");
-
-                    b.Property<int?>("RegionId");
-
-                    b.Property<string>("RegionName");
-
-                    b.Property<int?>("SpouseId");
-
-                    b.Property<int?>("SublocalityId");
-
-                    b.Property<bool?>("SublocalityIsMainHall");
-
-                    b.Property<string>("SublocalityName");
-
-                    b.Property<string>("SublocalityShortName");
-
-                    b.Property<string>("Title");
-
-                    b.Property<string>("WorkPhone");
-
-                    b.Property<string>("WorkPhoneCode");
-
-                    b.Property<DateTime?>("WorkPhoneLastUpdated");
+                    b.Property<string>("Phone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryCode");
-
-                    b.HasIndex("LocalityId");
-
-                    b.HasIndex("SublocalityId");
-
-                    b.ToTable("MemberView","dbo");
+                    b.ToTable("ContactConfigurations");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Region", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.CustomerLevel", b =>
                 {
-                    b.Property<int>("Id");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RegionView","dbo");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Sublocality", b =>
-                {
-                    b.Property<int>("Id");
-
-                    b.Property<string>("Address1");
-
-                    b.Property<string>("Address2");
-
-                    b.Property<string>("Address3");
-
-                    b.Property<string>("Address4");
-
-                    b.Property<string>("Address5");
-
-                    b.Property<string>("Address6");
-
-                    b.Property<string>("Address7");
-
-                    b.Property<string>("Address8");
-
-                    b.Property<bool>("IsMainHall");
-
-                    b.Property<int>("LocalityId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("ShortName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocalityId");
-
-                    b.ToTable("SublocalityView","dbo");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Event", b =>
-                {
-                    b.Property<int>("Id")
+                    b.Property<int>("IDCustomerLevel")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CountryCode");
-
-                    b.Property<DateTime>("DateLastUpdated");
-
-                    b.Property<string>("DeletedAt")
-                        .HasMaxLength(30);
-
-                    b.Property<DateTime>("EventDate");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LastUpdatedBy");
-
-                    b.Property<int>("MainLocalityId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryCode");
-
-                    b.HasIndex("MainLocalityId");
-
-                    b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.EventGuest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateLastUpdated");
-
-                    b.Property<string>("DeletedAt")
-                        .HasMaxLength(30);
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("HouseholderId");
-
-                    b.Property<bool>("IsAway");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool>("IsToBeAssigned");
-
-                    b.Property<string>("LastUpdatedBy");
-
-                    b.Property<int>("MemberId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId", "MemberId", "HouseholderId");
-
-                    b.ToTable("EventGuests");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.EventHost", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CP");
-
-                    b.Property<DateTime>("DateLastUpdated");
-
-                    b.Property<string>("DeletedAt")
-                        .HasMaxLength(30);
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("HostId");
-
-                    b.Property<int>("HouseholderId");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LastUpdatedBy");
-
-                    b.Property<int>("SCP");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HostId");
-
-                    b.HasIndex("EventId", "HostId");
-
-                    b.ToTable("EventHosts");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.EventSublocality", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<decimal>("CertificateValue");
 
                     b.Property<DateTime>("DateLastUpdated");
 
                     b.Property<string>("DeletedAt");
 
-                    b.Property<int>("EventId");
-
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastUpdatedBy");
 
-                    b.Property<int>("SublocalityId");
+                    b.Property<decimal>("MaxMoney");
 
-                    b.HasKey("Id");
+                    b.Property<decimal>("MinMoney");
 
-                    b.HasIndex("EventId");
+                    b.Property<decimal>("NAV");
 
-                    b.HasIndex("SublocalityId");
+                    b.Property<string>("NameCustomerLevel");
 
-                    b.ToTable("EventSublocalities");
+                    b.HasKey("IDCustomerLevel");
+
+                    b.ToTable("CustomerLevel");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.FAQ", b =>
@@ -528,11 +206,11 @@ namespace smartFunds.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Category");
+
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("DateLastUpdated");
-
-                    b.Property<int?>("FAQId");
 
                     b.Property<string>("LastUpdatedBy");
 
@@ -540,9 +218,144 @@ namespace smartFunds.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FAQId");
-
                     b.ToTable("FAQs");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.Fund", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("DateLastApproved");
+
+                    b.Property<DateTime>("DateLastUpdated");
+
+                    b.Property<string>("DeletedAt");
+
+                    b.Property<int>("EditStatus");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<string>("Link");
+
+                    b.Property<decimal>("NAV");
+
+                    b.Property<decimal>("NAVNew");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fund");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.FundPurchaseFee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Fee");
+
+                    b.Property<decimal>("From");
+
+                    b.Property<int>("FromLabel");
+
+                    b.Property<int>("FundId");
+
+                    b.Property<decimal>("To");
+
+                    b.Property<int>("ToLabel");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FundId");
+
+                    b.ToTable("FundPurchaseFees");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.FundSellFee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Fee");
+
+                    b.Property<int>("From");
+
+                    b.Property<int>("FromLabel");
+
+                    b.Property<int>("FundId");
+
+                    b.Property<int>("To");
+
+                    b.Property<int>("ToLabel");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FundId");
+
+                    b.ToTable("FundSellFees");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.FundTransactionHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FundId");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<DateTime>("LastUpdatedDate");
+
+                    b.Property<decimal>("NoOfCertificates");
+
+                    b.Property<int>("Status");
+
+                    b.Property<decimal>("TotalInvestNoOfCertificates");
+
+                    b.Property<decimal>("TotalWithdrawnNoOfCertificates");
+
+                    b.Property<DateTime>("TransactionDate");
+
+                    b.Property<int>("TransactionType");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FundId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FundTransactionHistory");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.GenericIntroducingSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Banner");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("MobileBanner");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GenericIntroducingSettings");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.HangFire.Job", b =>
@@ -562,7 +375,43 @@ namespace smartFunds.Data.Migrations
                     b.ToTable("Job","HangFire");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Host", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.HomepageCMS", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Category");
+
+                    b.Property<string>("ImageName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomepageConfigurations");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.Investment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<DateTime>("DateInvestment");
+
+                    b.Property<decimal>("RemainAmount");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Investment");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.InvestmentTarget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -570,81 +419,76 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<DateTime>("DateLastUpdated");
 
-                    b.Property<int>("DefaultCP");
+                    b.Property<string>("DeletedAt");
 
-                    b.Property<int>("DefaultSCP");
+                    b.Property<int>("Duration");
 
-                    b.Property<int>("HouseholderId");
+                    b.Property<decimal>("ExpectedAmount");
+
+                    b.Property<int>("Frequency");
+
+                    b.Property<int>("InvestmentMethod");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastUpdatedBy");
 
-                    b.Property<int>("LocalityId");
+                    b.Property<decimal>("OneTimeAmount");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HouseholderId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Hosts");
+                    b.ToTable("InvestmentTargets");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Interchange", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.InvestmentTargetSetting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CountryCode");
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("PortfolioId");
+
+                    b.Property<decimal>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("InvestmentTargetSettings");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.KVRR", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateLastUpdated");
 
                     b.Property<string>("DeletedAt")
                         .HasMaxLength(30);
 
-                    b.Property<string>("EmailAddress");
+                    b.Property<string>("Detail");
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("LastUpdatedBy");
-
-                    b.Property<int>("MainLocalityId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryCode");
-
-                    b.HasIndex("MainLocalityId", "IsDeleted", "DeletedAt")
-                        .IsUnique()
-                        .HasFilter("[DeletedAt] IS NOT NULL");
-
-                    b.ToTable("Interchanges");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.InterchangeLocality", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateLastUpdated");
-
-                    b.Property<string>("DeletedAt")
-                        .HasMaxLength(30);
-
-                    b.Property<int>("InterchangeId");
-
-                    b.Property<bool>("IsDeleted");
+                    b.Property<string>("KVRRImagePath");
 
                     b.Property<string>("LastUpdatedBy");
 
-                    b.Property<int>("LocalityId");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InterchangeId");
-
-                    b.HasIndex("LocalityId");
-
-                    b.ToTable("InterchangeLocalities");
+                    b.ToTable("Kvrr");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.KVRRAnswer", b =>
@@ -657,13 +501,49 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<int?>("KVRRQuestionId");
 
-                    b.Property<int>("Mark");
+                    b.Property<int?>("Mark");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KVRRQuestionId");
 
-                    b.ToTable("KVRRAnswer");
+                    b.ToTable("KvrrAnswer");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.KVRRMark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateLastUpdated");
+
+                    b.Property<int?>("KVRRId");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<int>("MarkFrom");
+
+                    b.Property<int>("MarkTo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KVRRId");
+
+                    b.ToTable("KvrrMark");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.KVRRPortfolio", b =>
+                {
+                    b.Property<int>("KVRRId");
+
+                    b.Property<int>("PortfolioId");
+
+                    b.HasKey("KVRRId", "PortfolioId");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("KVRRPortfolio");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.KVRRQuestion", b =>
@@ -674,6 +554,8 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<int>("KVRRQuestionCategories");
+
                     b.Property<int>("No");
 
                     b.HasKey("Id");
@@ -681,43 +563,135 @@ namespace smartFunds.Data.Migrations
                     b.ToTable("KvrrQuestion");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.MealAllocation", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.MaintainingFee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("AmountFrom");
+
+                    b.Property<decimal>("AmountTo");
+
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(12,4)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MaintainingFees");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CheckSum");
+
+                    b.Property<string>("Desc");
+
+                    b.Property<bool>("IsInvestmentTarget");
+
+                    b.Property<bool>("IsSuccess");
+
+                    b.Property<string>("MerchantCode");
+
+                    b.Property<string>("Msisdn");
+
+                    b.Property<string>("TransAmount");
+
+                    b.Property<string>("Version");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.OrderRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ErrorCode");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderRequests");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.Portfolio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
                     b.Property<DateTime>("DateLastUpdated");
 
                     b.Property<string>("DeletedAt");
-
-                    b.Property<int>("EventGuestId");
-
-                    b.Property<int>("EventHostId");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastUpdatedBy");
 
+                    b.Property<string>("Title");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("EventGuestId");
-
-                    b.HasIndex("EventHostId");
-
-                    b.ToTable("MealAllocations");
+                    b.ToTable("Portfolio");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Setting", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.PortfolioFund", b =>
                 {
-                    b.Property<string>("Key")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("PortfolioId");
 
-                    b.Property<string>("Value");
+                    b.Property<int>("FundId");
 
-                    b.HasKey("Key");
+                    b.Property<DateTime>("DateLastUpdated");
 
-                    b.ToTable("Settings");
+                    b.Property<int>("EditStatus");
+
+                    b.Property<decimal?>("FundPercent");
+
+                    b.Property<decimal?>("FundPercentNew");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.HasKey("PortfolioId", "FundId");
+
+                    b.HasIndex("FundId");
+
+                    b.ToTable("PortfolioFund");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.TaskCompleted", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<DateTime>("LastUpdatedDate");
+
+                    b.Property<int>("ObjectID");
+
+                    b.Property<string>("ObjectName");
+
+                    b.Property<int>("TaskType");
+
+                    b.Property<decimal>("TransactionAmount");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TasksCompleted");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.Test", b =>
@@ -733,6 +707,37 @@ namespace smartFunds.Data.Migrations
                     b.ToTable("Tests");
                 });
 
+            modelBuilder.Entity("smartFunds.Data.Models.TransactionHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<decimal>("CurrentAccountAmount");
+
+                    b.Property<int?>("RemittanceStatus");
+
+                    b.Property<int>("Status");
+
+                    b.Property<decimal>("TotalWithdrawal");
+
+                    b.Property<DateTime>("TransactionDate");
+
+                    b.Property<int>("TransactionType");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int?>("WithdrawalType");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TransactionHistory");
+                });
+
             modelBuilder.Entity("smartFunds.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -740,12 +745,21 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<decimal>("AdjustmentFactor")
+                        .HasColumnType("decimal(15,7)");
+
+                    b.Property<decimal>("AmountWithdrawn");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<DateTime>("Created");
 
                     b.Property<decimal>("CurrentAccountAmount");
+
+                    b.Property<decimal>("CurrentAmountWithdrawn");
+
+                    b.Property<decimal>("CurrentInvestmentAmount");
 
                     b.Property<DateTime>("DateLastUpdated");
 
@@ -760,9 +774,11 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<decimal>("InitialInvestmentAmount");
 
-                    b.Property<bool>("IsActive");
-
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<int?>("KVRRId");
+
+                    b.Property<DateTime>("LastLogin");
 
                     b.Property<string>("LastUpdatedBy");
 
@@ -789,7 +805,13 @@ namespace smartFunds.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<bool>("WithdrawProcessing");
+
+                    b.Property<DateTime>("WithdrawProcessingDate");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("KVRRId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -800,6 +822,41 @@ namespace smartFunds.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.UserFund", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("FundId");
+
+                    b.Property<int>("EditStatus");
+
+                    b.Property<decimal?>("NoOfCertificates");
+
+                    b.HasKey("UserId", "FundId");
+
+                    b.HasIndex("FundId");
+
+                    b.ToTable("UserFunds");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.WithdrawalFee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(12,4)");
+
+                    b.Property<int>("TimeInvestmentBegin");
+
+                    b.Property<int>("TimeInvestmentEnd");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WithdrawalFees");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -847,119 +904,61 @@ namespace smartFunds.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Country", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.AdminTask", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Region", "Region")
-                        .WithMany("Countries")
-                        .HasForeignKey("RegionId")
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
+                        .WithMany()
+                        .HasForeignKey("FundId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Locality", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.FundPurchaseFee", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Country")
-                        .WithMany("Localities")
-                        .HasForeignKey("CountryCode");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Member", b =>
-                {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Country", "Country")
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
                         .WithMany()
-                        .HasForeignKey("CountryCode");
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Locality", "Locality")
-                        .WithMany()
-                        .HasForeignKey("LocalityId");
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Sublocality", "Sublocality")
-                        .WithMany()
-                        .HasForeignKey("SublocalityId");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Contactbase.Sublocality", b =>
-                {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Locality", "Locality")
-                        .WithMany("Sublocalities")
-                        .HasForeignKey("LocalityId")
+                        .HasForeignKey("FundId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.Event", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.FundSellFee", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Country", "Country")
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
                         .WithMany()
-                        .HasForeignKey("CountryCode");
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Locality", "Locality")
-                        .WithMany()
-                        .HasForeignKey("MainLocalityId")
+                        .HasForeignKey("FundId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.EventGuest", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.FundTransactionHistory", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Event", "Event")
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
                         .WithMany()
-                        .HasForeignKey("EventId")
+                        .HasForeignKey("FundId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("smartFunds.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.EventHost", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.Investment", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Event", "Event")
-                        .WithMany("EventHosts")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("smartFunds.Data.Models.Host", "Host")
-                        .WithMany("EventHosts")
-                        .HasForeignKey("HostId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("smartFunds.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.EventSublocality", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.InvestmentTarget", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.Event", "Event")
-                        .WithMany("EventSublocalities")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Sublocality", "Sublocality")
+                    b.HasOne("smartFunds.Data.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("SublocalityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.FAQ", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.InvestmentTargetSetting", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.FAQ")
-                        .WithMany("RelatedFAQs")
-                        .HasForeignKey("FAQId");
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.Interchange", b =>
-                {
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Country", "Country")
+                    b.HasOne("smartFunds.Data.Models.Portfolio", "Portfolio")
                         .WithMany()
-                        .HasForeignKey("CountryCode");
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Locality", "Locality")
-                        .WithMany()
-                        .HasForeignKey("MainLocalityId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("smartFunds.Data.Models.InterchangeLocality", b =>
-                {
-                    b.HasOne("smartFunds.Data.Models.Interchange", "Interchange")
-                        .WithMany("InterchangeLocalities")
-                        .HasForeignKey("InterchangeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("smartFunds.Data.Models.Contactbase.Locality", "Locality")
-                        .WithMany()
-                        .HasForeignKey("LocalityId")
+                        .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -970,17 +969,64 @@ namespace smartFunds.Data.Migrations
                         .HasForeignKey("KVRRQuestionId");
                 });
 
-            modelBuilder.Entity("smartFunds.Data.Models.MealAllocation", b =>
+            modelBuilder.Entity("smartFunds.Data.Models.KVRRMark", b =>
                 {
-                    b.HasOne("smartFunds.Data.Models.EventGuest", "EventGuest")
+                    b.HasOne("smartFunds.Data.Models.KVRR", "KVRR")
                         .WithMany()
-                        .HasForeignKey("EventGuestId")
+                        .HasForeignKey("KVRRId");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.KVRRPortfolio", b =>
+                {
+                    b.HasOne("smartFunds.Data.Models.KVRR", "KVRR")
+                        .WithMany("KVRRPortfolios")
+                        .HasForeignKey("KVRRId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("smartFunds.Data.Models.EventHost", "EventHost")
-                        .WithMany()
-                        .HasForeignKey("EventHostId")
+                    b.HasOne("smartFunds.Data.Models.Portfolio", "Portfolio")
+                        .WithMany("KVRRPortfolios")
+                        .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.PortfolioFund", b =>
+                {
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
+                        .WithMany("PortfolioFunds")
+                        .HasForeignKey("FundId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("smartFunds.Data.Models.Portfolio", "Portfolio")
+                        .WithMany("PortfolioFunds")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.TransactionHistory", b =>
+                {
+                    b.HasOne("smartFunds.Data.Models.User", "User")
+                        .WithMany("TransactionHistory")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.User", b =>
+                {
+                    b.HasOne("smartFunds.Data.Models.KVRR", "KVRR")
+                        .WithMany()
+                        .HasForeignKey("KVRRId");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.UserFund", b =>
+                {
+                    b.HasOne("smartFunds.Data.Models.Fund", "Fund")
+                        .WithMany("UserFunds")
+                        .HasForeignKey("FundId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("smartFunds.Data.Models.User", "User")
+                        .WithMany("UserFunds")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

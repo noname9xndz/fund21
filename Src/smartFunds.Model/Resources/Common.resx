@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accountant" xml:space="preserve">
+    <value>Kế toán</value>
+  </data>
   <data name="AccountCreated" xml:space="preserve">
     <value>Ngày lập tài khoản</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Đang hoạt động</value>
+  </data>
   <data name="ActiveStatus" xml:space="preserve">
     <value>Trạng thái hoạt động</value>
+  </data>
+  <data name="AddKVRR" xml:space="preserve">
+    <value>Thêm khẩu vị rủi ro</value>
+  </data>
+  <data name="AddKVRRMark" xml:space="preserve">
+    <value>Thêm trọng số</value>
+  </data>
+  <data name="AddPortfolio" xml:space="preserve">
+    <value>Thêm danh mục đầu tư</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Quản trị viên</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Số tiền</value>
   </data>
   <data name="Content" xml:space="preserve">
     <value>Nội dung</value>
@@ -129,25 +150,646 @@
   <data name="CurrentAccountAmount" xml:space="preserve">
     <value>Số tiền tài khoản hiện tại</value>
   </data>
+  <data name="CustomerManager" xml:space="preserve">
+    <value>Quản lý khách hàng</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Họ và tên khách hàng</value>
+  </data>
   <data name="DateLastUpdated" xml:space="preserve">
     <value>Lần sửa cuối</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
     <value>Địa chỉ email</value>
   </data>
+  <data name="EmailOrPhone" xml:space="preserve">
+    <value>Số điện thoại hoặc Địa chỉ email</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Họ và tên</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Không hoạt động</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Ảnh</value>
   </data>
   <data name="InitialInvestmentAmount" xml:space="preserve">
     <value>Số tiền đầu tư ban đầu</value>
   </data>
+  <data name="Investment" xml:space="preserve">
+    <value>Đầu tư</value>
+  </data>
+  <data name="InvestmentManager" xml:space="preserve">
+    <value>Quản lý đầu tư</value>
+  </data>
+  <data name="KVRRContent" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="KVRRName" xml:space="preserve">
+    <value>Tên khẩu vị rủi ro</value>
+  </data>
   <data name="NumberKVRR" xml:space="preserve">
     <value>Số KVRR</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Số điện thoại</value>
   </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="PortfolioContent" xml:space="preserve">
+    <value>Nội dung danh mục</value>
+  </data>
+  <data name="PortfolioName" xml:space="preserve">
+    <value>Tên danh mục đầu tư</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Giữ đăng nhập?</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Vai trò</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="TimeAction" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="STT" xml:space="preserve">
+    <value>STT</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Tiêu đề</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Loại hình</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Tên tài khoản</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Số OTP</value>
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value>Rút tiền</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="AmountWithdrawn" xml:space="preserve">
+    <value>Số tiền đã rút</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Thời hạn đầu tư</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Tần suất đầu tư</value>
+  </data>
+  <data name="InvestmentMethod" xml:space="preserve">
+    <value>Hình thức đầu tư</value>
+  </data>
+  <data name="OneTimeAmount" xml:space="preserve">
+    <value>Số tiền trong 1 lần đầu tư</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Khoảng thời gian</value>
+  </data>
+  <data name="TargetAmount" xml:space="preserve">
+    <value>Số tiền đầu tư</value>
+  </data>
+  <data name="AddFund" xml:space="preserve">
+    <value>Thêm quỹ đầu tư</value>
+  </data>
+  <data name="FundCode" xml:space="preserve">
+    <value>Mã quỹ</value>
+  </data>
+  <data name="FundContent" xml:space="preserve">
+    <value>Chi tiết quỹ</value>
+  </data>
+  <data name="FundName" xml:space="preserve">
+    <value>Tên quỹ</value>
+  </data>
+  <data name="FundPercent" xml:space="preserve">
+    <value>% Phân bổ</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>Thông tin chung</value>
+  </data>
+  <data name="KVRRInformation" xml:space="preserve">
+    <value>Thông tin khẩu vị rủi ro</value>
+  </data>
+  <data name="FundLink" xml:space="preserve">
+    <value>Link liên kết</value>
+  </data>
+  <data name="AdminUser" xml:space="preserve">
+    <value>Tài khoản admin</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Thay đổi mật khẩu</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Mật khẩu hiện tại</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Xin chào</value>
+  </data>
+  <data name="InvestmentTarget" xml:space="preserve">
+    <value>Mục tiêu đầu tư</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="NewPasswordConfirm" xml:space="preserve">
+    <value>Xác nhận mật khẩu mới</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Đăng ký ngay</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Tạo lại mật khẩu</value>
+  </data>
+  <data name="TransactionHistory" xml:space="preserve">
+    <value>Lịch sử giao dịch</value>
+  </data>
+  <data name="KVRRRecommendation" xml:space="preserve">
+    <value>Danh mục đầu tư khuyến nghị</value>
+  </data>
+  <data name="SelectOtherKVRR" xml:space="preserve">
+    <value>Chọn danh mục đầu tư khác</value>
+  </data>
+  <data name="AnswerAgain" xml:space="preserve">
+    <value>Trả lời lại câu hỏi</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="ConfirmKVRR" xml:space="preserve">
+    <value>Xác nhận danh mục đầu tư</value>
+  </data>
+  <data name="KVRRDefinition" xml:space="preserve">
+    <value>Câu hỏi xác định khẩu vị rủi ro</value>
+  </data>
+  <data name="KVRRSelection" xml:space="preserve">
+    <value>Lựa chọn danh mục đầu tư</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>Thêm câu hỏi</value>
+  </data>
+  <data name="Fund" xml:space="preserve">
+    <value>Quỹ</value>
+  </data>
+  <data name="LastUpdatedDate" xml:space="preserve">
+    <value>Thời điểm cập nhật</value>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Quay lại đăng nhập?</value>
+  </data>
+  <data name="CompletedTasks" xml:space="preserve">
+    <value>Nhiệm vụ đã hoàn thành</value>
+  </data>
+  <data name="PendingTasks" xml:space="preserve">
+    <value>Nhiệm vụ đang chờ xử lý</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="MyWallet" xml:space="preserve">
+    <value>Ví tiền của bạn</value>
+  </data>
+  <data name="PercentageGrowth" xml:space="preserve">
+    <value>Tỉ lệ tăng trưởng</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Đã hoàn thành</value>
+  </data>
+  <data name="Investing" xml:space="preserve">
+    <value>Đang đầu tư</value>
+  </data>
+  <data name="InvestmentAmount" xml:space="preserve">
+    <value>Số tiền đã đầu tư</value>
+  </data>
+  <data name="InvestmentDuration" xml:space="preserve">
+    <value>Thời hạn đã đầu tư</value>
+  </data>
+  <data name="InvestmentStatus" xml:space="preserve">
+    <value>Tình trạng đầu tư</value>
+  </data>
+  <data name="PortfolioManagement" xml:space="preserve">
+    <value>Quản lý danh mục đầu tư</value>
+  </data>
+  <data name="PortfolioFundBelong" xml:space="preserve">
+    <value>Thông tin quỹ đầu tư trực thuộc</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu thay đổi</value>
+  </data>
+  <data name="KVRRManagement" xml:space="preserve">
+    <value>Quản lý khẩu vị rủi ro</value>
+  </data>
+  <data name="KVRRImage" xml:space="preserve">
+    <value>Ảnh đại diện</value>
+  </data>
+  <data name="EditKVRR" xml:space="preserve">
+    <value>Sửa khẩu vị rủi ro</value>
+  </data>
+  <data name="DeleteFund" xml:space="preserve">
+    <value>Xóa quỹ đầu tư</value>
+  </data>
+  <data name="EditFund" xml:space="preserve">
+    <value>Sửa quỹ đầu tư</value>
+  </data>
+  <data name="ManageFund" xml:space="preserve">
+    <value>Quản lý quỹ đầu tư</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="AddAdminUser" xml:space="preserve">
+    <value>Thêm admin user</value>
+  </data>
+  <data name="AdminUserManager" xml:space="preserve">
+    <value>Quản lý admin user</value>
+  </data>
+  <data name="ListAdminUser" xml:space="preserve">
+    <value>Danh sách admin user</value>
+  </data>
+  <data name="AnswerNumber" xml:space="preserve">
+    <value>Đáp án số</value>
+  </data>
+  <data name="Fund2" xml:space="preserve">
+    <value>Quỹ đầu tư</value>
+  </data>
+  <data name="KVRR" xml:space="preserve">
+    <value>Khẩu vị rủi ro</value>
+  </data>
+  <data name="KVRRQuestion" xml:space="preserve">
+    <value>Câu hỏi KVRR</value>
+  </data>
+  <data name="ManageDefinedKVRR" xml:space="preserve">
+    <value>Quản lý câu hỏi xác định KVRR</value>
+  </data>
+  <data name="Mark" xml:space="preserve">
+    <value>Trọng số</value>
+  </data>
+  <data name="Portfolio" xml:space="preserve">
+    <value>Danh mục đầu tư</value>
+  </data>
+  <data name="QuestionX" xml:space="preserve">
+    <value>Câu hỏi X</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Đồng ý</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Quay trở lại trang chủ</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Xác nhận mật khẩu</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa không?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="LoginAccount" xml:space="preserve">
+    <value>Đăng nhập tài khoản</value>
+  </data>
+  <data name="RegisterAccount" xml:space="preserve">
+    <value>Đăng ký tài khoản</value>
+  </data>
+  <data name="RegisterSmallTitle" xml:space="preserve">
+    <value>Hoàn toàn miễn phí và rất đơn giản</value>
+  </data>
+  <data name="Slogan" xml:space="preserve">
+    <value>Tiết kiệm bằng đầu tư một cách thông minh</value>
+  </data>
+  <data name="WelcomeLogin" xml:space="preserve">
+    <value>Chào mừng bạn trở lại với chúng tôi</value>
+  </data>
+  <data name="CustomerDetail" xml:space="preserve">
+    <value>Thông tin khách hàng</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="PropertyFluctuation" xml:space="preserve">
+    <value>Biến động tài sản</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Mục tiêu</value>
+  </data>
+  <data name="FundUseBy" xml:space="preserve">
+    <value>Đang được sử dụng bởi</value>
+  </data>
+  <data name="EditCustomer" xml:space="preserve">
+    <value>Chỉnh sửa khách hàng</value>
+  </data>
+  <data name="EditPortfolio" xml:space="preserve">
+    <value>Sửa danh mục đầu tư</value>
+  </data>
+  <data name="WeightRiskManagement" xml:space="preserve">
+    <value>Quản lý trọng số khẩu vị rủi ro</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Trọng số từ</value>
+  </data>
+  <data name="MarkTo" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="ActiveAccount" xml:space="preserve">
+    <value>Kích hoạt tài khoản</value>
+  </data>
+  <data name="InvestMore" xml:space="preserve">
+    <value>Đầu tư thêm</value>
+  </data>
+  <data name="ResendCode" xml:space="preserve">
+    <value>Gửi lại mã kích hoạt</value>
+  </data>
+  <data name="Wallet" xml:space="preserve">
+    <value>Ví tiền</value>
+  </data>
+  <data name="EditMark" xml:space="preserve">
+    <value>Sửa trọng số</value>
+  </data>
+  <data name="AddDefinedKVRR" xml:space="preserve">
+    <value>Thêm câu hỏi xác định khẩu vị rủi ro</value>
+  </data>
+  <data name="EditDefinedKVRR" xml:space="preserve">
+    <value>Chỉnh sửa câu hỏi xác định khẩu vị rủi ro</value>
+  </data>
+  <data name="KVRRType" xml:space="preserve">
+    <value>Loại khẩu vị rủi ro</value>
+  </data>
+  <data name="CancelMessage" xml:space="preserve">
+    <value>Bạn có chắc muốn hủy xử lý không?</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Tài khoản</value>
+  </data>
+  <data name="BackOfficer" xml:space="preserve">
+    <value>Back Officer</value>
+  </data>
+  <data name="CustomerService" xml:space="preserve">
+    <value>Chăm sóc khách hàng</value>
+  </data>
+  <data name="QuestionContent" xml:space="preserve">
+    <value>Nội dung câu hỏi</value>
+  </data>
+  <data name="TotalInvestAmount" xml:space="preserve">
+    <value>Tổng số tiền đầu tư</value>
+  </data>
+  <data name="TotalWithdrawnAmount" xml:space="preserve">
+    <value>Tổng số tiền rút ra</value>
+  </data>
+  <data name="BalanceFund" xml:space="preserve">
+    <value>Cân bằng giao dịch quỹ</value>
+  </data>
+  <data name="BalanceFundAmount" xml:space="preserve">
+    <value>Số tiền sau CBGD</value>
+  </data>
+  <data name="TransactionDate" xml:space="preserve">
+    <value>Thời gian giao dịch</value>
+  </data>
+  <data name="TransactionValue" xml:space="preserve">
+    <value>Giá trị giao dịch</value>
+  </data>
+  <data name="EmailForReceiving" xml:space="preserve">
+    <value>Địa chỉ email nhận thông tin liên hệ</value>
+  </data>
+  <data name="HotLine" xml:space="preserve">
+    <value>Số điện thoại nóng</value>
+  </data>
+  <data name="NameFirstBanner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="NamePartnerBanner" xml:space="preserve">
+    <value>Đối tác</value>
+  </data>
+  <data name="NameSecondBanner" xml:space="preserve">
+    <value>Banner 2</value>
+  </data>
+  <data name="For12Month" xml:space="preserve">
+    <value>12 tháng</value>
+  </data>
+  <data name="For2Year" xml:space="preserve">
+    <value>2 năm</value>
+  </data>
+  <data name="For3Month" xml:space="preserve">
+    <value>3 tháng</value>
+  </data>
+  <data name="For5Year" xml:space="preserve">
+    <value>5 năm</value>
+  </data>
+  <data name="For6Month" xml:space="preserve">
+    <value>6 tháng</value>
+  </data>
+  <data name="ChangeProfile" xml:space="preserve">
+    <value>Thay đổi thông tin tài khoản</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Thông tin cá nhân</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Thông tin tài khoản</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="UpdateProfile" xml:space="preserve">
+    <value>Sửa thông tin tài khoản</value>
+  </data>
+  <data name="CheckFund" xml:space="preserve">
+    <value>Kiểm tra quỹ</value>
+  </data>
+  <data name="NotificationContent" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="AddCustomerLevel" xml:space="preserve">
+    <value>Thêm cấp khách hàng</value>
+  </data>
+  <data name="EditCustomerLevel" xml:space="preserve">
+    <value>Sửa cấp khách hàng</value>
+  </data>
+  <data name="ManageCustomerLevel" xml:space="preserve">
+    <value>Phân cấp khách hàng</value>
+  </data>
+  <data name="MaxMoney" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="MinMoney" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="NameCustomerLevel" xml:space="preserve">
+    <value>Cấp khách hàng</value>
+  </data>
+  <data name="SumMoneyInvest" xml:space="preserve">
+    <value>Tổng số tiền đầu tư</value>
+  </data>
+  <data name="SumMoneyInvested" xml:space="preserve">
+    <value>Tổng số tiền đã đầu tư</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Danh mục</value>
+  </data>
+  <data name="AnswerContent" xml:space="preserve">
+    <value>Nội dung câu trả lời</value>
+  </data>
+  <data name="ExpectedAmount" xml:space="preserve">
+    <value>Số tiền kì vọng</value>
+  </data>
+  <data name="NoOfCertificate" xml:space="preserve">
+    <value>Số lượng CCQ</value>
+  </data>
+  <data name="NoOfCertificateInvest" xml:space="preserve">
+    <value>Số lượng CCQ mua vào</value>
+  </data>
+  <data name="NoOfCertificateWithdrawn" xml:space="preserve">
+    <value>Số lượng CCQ bán ra</value>
+  </data>
+  <data name="WithdrawalAmount" xml:space="preserve">
+    <value>Nhập số tiền muốn rút</value>
+  </data>
+  <data name="WithdrawalFee" xml:space="preserve">
+    <value>Phí rút tiền</value>
+  </data>
+  <data name="WithdrawalType" xml:space="preserve">
+    <value>Hình thức rút tiền</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Nhiệm vụ của tôi</value>
+  </data>
+  <data name="ApprovedNAVName" xml:space="preserve">
+    <value>Cập nhật NAV</value>
+  </data>
+  <data name="NAV" xml:space="preserve">
+    <value>NAV</value>
+  </data>
+  <data name="FundPercentNew" xml:space="preserve">
+    <value>% Phân bổ mới</value>
+  </data>
+  <data name="PushNotificationError" xml:space="preserve">
+    <value>Có lỗi trong quá trình gửi thông báo, xin vui lòng thử lại</value>
+  </data>
+  <data name="PushNotificationSuccess" xml:space="preserve">
+    <value>Gửi thông báo thành công</value>
+  </data>
+  <data name="ContentMessage" xml:space="preserve">
+    <value>Lý do</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Giao dịch</value>
+  </data>
+  <data name="TransfersCustomMoney" xml:space="preserve">
+    <value>Chuyển tiền cho khách</value>
+  </data>
+  <data name="TransfersDealMoney" xml:space="preserve">
+    <value>Chuyển tiền quỹ</value>
+  </data>
+  <data name="DealMoney" xml:space="preserve">
+    <value>Số tiền giao dịch</value>
+  </data>
+  <data name="Object" xml:space="preserve">
+    <value>Đối tượng</value>
+  </data>
+  <data name="RequestNav" xml:space="preserve">
+    <value>Điều chỉnh NAV</value>
+  </data>
+  <data name="RequestPortfolioFund" xml:space="preserve">
+    <value>Điều chỉnh phần trăm phân bổ mới</value>
+  </data>
+  <data name="DealCustomer" xml:space="preserve">
+    <value>Chuyển tiền cho khách hàng</value>
+  </data>
+  <data name="DealFund" xml:space="preserve">
+    <value>Chuyển tiền quỹ</value>
+  </data>
+  <data name="DownloadExampleFile" xml:space="preserve">
+    <value>Tải file mẫu</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Chọn file</value>
+  </data>
+  <data name="CMSAndSettings" xml:space="preserve">
+    <value>Các Trang CMS &amp; Cài Đặt</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>Câu hỏi thường gặp</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Mua CCQ</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Số tiền giao dịch</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Bán CCQ</value>
+  </data>
+  <data name="CurrentAcountAmount2" xml:space="preserve">
+    <value>Tài sản hiện có</value>
+  </data>
+  <data name="Statistic" xml:space="preserve">
+    <value>Thống kê</value>
+  </data>
+  <data name="AddFundPurchaseFee" xml:space="preserve">
+    <value>Thêm phí mua CCQ</value>
+  </data>
+  <data name="AddFundSellFee" xml:space="preserve">
+    <value>Thêm phí bán CCQ</value>
+  </data>
+  <data name="EditName" xml:space="preserve">
+    <value>Cập nhập họ tên</value>
+  </data>
+  <data name="FundPurchaseFee" xml:space="preserve">
+    <value>Phí mua</value>
+  </data>
+  <data name="FundSellFee" xml:space="preserve">
+    <value>Phí bán</value>
+  </data>
+  <data name="UpdateFundPurchaseFee" xml:space="preserve">
+    <value>Cập nhập phí mua CCQ</value>
+  </data>
+  <data name="UpdateFundSellFee" xml:space="preserve">
+    <value>Cập nhập phí bán CCQ</value>
   </data>
 </root>

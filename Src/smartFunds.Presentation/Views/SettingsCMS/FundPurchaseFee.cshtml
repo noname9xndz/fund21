@@ -1,0 +1,269 @@
+﻿@model List<smartFunds.Model.Common.FundModel>
+@inject smartFunds.Service.Services.FundPurchaseFeeService FundPurchaseFeeService
+@inject smartFunds.Service.Services.FundSellFeeService FundSellFeeService
+
+<section class="manager-risk__questions">
+    <div class="content">
+        <h1 class="section-title">Phí mua/bán CCQ</h1>
+
+        <div class="manager-risk__questions__list-questions flex-container">
+            @{
+                var fundPurchaseFeeDeleteIndex = 1;
+                var fundSellFeeDeleteIndex = 1;
+            }
+
+            @foreach (var fund in Model)
+            {
+                var index = 1;
+                var indexSell = 1;
+                <div class="manager-risk__questions__list-questions__item">
+                    <div style="width: 100%" class="collapse-part">
+                        <div class="manager-risk__questions__list-questions__item__title">
+                            <span class="truncate-line collapse-btn">@fund.Code</span>
+                        </div>
+
+                        <div class="manager-risk__questions__list-questions__item__content collapse-content">
+
+                            <form asp-controller="FundPurchaseFee" asp-action="Delete" method="post" s>
+                                <div class="title-table">
+                                    <span>Bảng phí mua CCQ</span>
+                                    <div class="table-option">
+                                        <a href="#" data-micromodal-trigger="delete-purchase-@fundPurchaseFeeDeleteIndex"><i class="fa fa-window-close delete-confirm"></i></a>
+                                        <div class="modal micromodal-slide" id="delete-purchase-@fundPurchaseFeeDeleteIndex" aria-hidden="true">
+                                            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                    <header class="modal__header">
+                                                        <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                    </header>
+                                                    <footer class="modal__footer">
+                                                        <button class="modal__btn modal__btn-primary" type="submit">
+                                                            @Common.Yes
+                                                        </button>
+                                                        <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                            @Common.No
+                                                        </button>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a asp-controller="FundPurchaseFee" asp-action="Add" asp-route-fundId="@fund.Id" class="active"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                                <table class="table-list-questions display" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>@Common.STT</th>
+                                            <th></th>
+                                            <th>Số tiền mua</th>
+                                            <th>Phí mua (đơn vị: %)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var listFee = FundPurchaseFeeService.GetListFundPurchaseFee(fund.Id).Result;
+                                        }
+                                        @if (listFee != null && listFee.Any())
+                                        {
+                                            foreach (var fee in listFee)
+                                            {
+                                                var text = string.Empty;
+                                                @if (fee.From == 0 && fee.To == -1)
+                                                {
+                                                    text = "All";
+                                                }
+                                                else
+                                                {
+                                                    text = fee.FromLabel.GetDisplayName() + " ";
+                                                    if (fee.From == 0)
+                                                    {
+                                                        text = text + (fee.From / 1000000000).ToString("0");
+                                                    }
+                                                    else if (fee.From % 1000000000 == 0)
+                                                    {
+                                                        text = text + (fee.From / 1000000000).ToString("0") + " tỷ";
+                                                    }
+                                                    else
+                                                    {
+                                                        text = text + (fee.From / 1000000).ToString("0") + " triệu";
+                                                    }
+
+                                                    if (fee.To == -1)
+                                                    {
+                                                        text = text + " trở lên";
+                                                    }
+                                                    else
+                                                    {
+                                                        text = text + " - ";
+                                                        if (fee.ToLabel == ToLabel.To)
+                                                        {
+                                                            if (fee.To % 1000000000 == 0)
+                                                            {
+                                                                text = text + (fee.To / 1000000000).ToString("0") + " tỷ";
+                                                            }
+                                                            else
+                                                            {
+                                                                text = text + (fee.To / 1000000).ToString("0") + " triệu";
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            text = text + fee.ToLabel.GetDisplayName() + " ";
+                                                            if (fee.To % 1000000000 == 0)
+                                                            {
+                                                                text = text + (fee.To / 1000000000).ToString("0") + " tỷ";
+                                                            }
+                                                            else
+                                                            {
+                                                                text = text + (fee.To / 1000000).ToString("0") + " triệu";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                <tr class="text-center">
+                                                    <td>@index</td>
+                                                    <td><input type="checkbox" name="fundPurchaseFeeIds" value="@fee.Id" /></td>
+                                                    <td><a asp-controller="FundPurchaseFee" asp-action="Update" asp-route-fundPurchaseFeeId="@fee.Id">@text</a></td>
+                                                    <td>@fee.Fee</td>
+                                                </tr>
+                                                index++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+                            <form asp-controller="FundSellFee" asp-action="Delete" method="post">
+                                <div class="title-table">
+                                    <span>Bảng phí bán CCQ</span>
+                                    <div class="table-option">
+                                        <a href="#" data-micromodal-trigger="delete-sell-@fundSellFeeDeleteIndex"><i class="fa fa-window-close delete-confirm"></i></a>
+                                        <div class="modal micromodal-slide" id="delete-sell-@fundSellFeeDeleteIndex" aria-hidden="true">
+                                            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                    <header class="modal__header">
+                                                        <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                    </header>
+                                                    <footer class="modal__footer">
+                                                        <button class="modal__btn modal__btn-primary" type="submit">
+                                                            @Common.Yes
+                                                        </button>
+                                                        <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                            @Common.No
+                                                        </button>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a asp-controller="FundSellFee" asp-action="Add" asp-route-fundId="@fund.Id" class="active"><i class="fa fa-plus-square"></i></a>
+
+                                    </div>
+                                </div>
+                                <table class="table-list-questions display" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>@Common.STT</th>
+                                            <th></th>
+                                            <th>Thời gian nắm giữ</th>
+                                            <th>Phí bán (đơn vị: %)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var listSellFee = FundSellFeeService.GetListFundSellFee(fund.Id).Result;
+                                        }
+                                        @if (listSellFee != null && listSellFee.Any())
+                                        {
+                                            foreach (var fee in listSellFee)
+                                            {
+                                                var text = string.Empty;
+                                                @if (fee.From == 0 && fee.To == -1)
+                                                {
+                                                    text = "All";
+                                                }
+                                                else
+                                                {
+                                                    text = fee.FromLabel.GetDisplayName() + " ";
+                                                    if (fee.From == 0)
+                                                    {
+                                                        text = text + "0";
+                                                    }
+                                                    else if (fee.From % 365 == 0)
+                                                    {
+                                                        text = text + (fee.From / 365) + " năm";
+                                                    }
+                                                    else if (fee.From % 30 == 0)
+                                                    {
+                                                        text = text + (fee.From / 30) + " tháng";
+                                                    }
+                                                    else
+                                                    {
+                                                        text = text + fee.From + " ngày";
+                                                    }
+
+                                                    if (fee.To == -1)
+                                                    {
+                                                        text = text + " trở lên";
+                                                    }
+                                                    else
+                                                    {
+                                                        text = text + " - ";
+                                                        if (fee.ToLabel == ToLabel.To)
+                                                        {
+                                                            if (fee.To % 365 == 0)
+                                                            {
+                                                                text = text + (fee.To / 365) + " năm";
+                                                            }
+                                                            else if (fee.To % 30 == 0)
+                                                            {
+                                                                text = text + (fee.To / 30) + " tháng";
+                                                            }
+                                                            else
+                                                            {
+                                                                text = text + fee.To + " ngày";
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            text = text + fee.ToLabel.GetDisplayName() + " ";
+                                                            if (fee.To % 365 == 0)
+                                                            {
+                                                                text = text + (fee.To / 365) + " năm";
+                                                            }
+                                                            else if (fee.To % 30 == 0)
+                                                            {
+                                                                text = text + (fee.To / 30) + " tháng";
+                                                            }
+                                                            else
+                                                            {
+                                                                text = text + fee.To + " ngày";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                <tr class="text-center">
+                                                    <td>@indexSell</td>
+                                                    <td><input type="checkbox" name="fundSellFeeIds" value="@fee.Id" /></td>
+                                                    <td><a asp-controller="FundSellFee" asp-action="Update" asp-route-fundSellFeeId="@fee.Id">@text</a></td>
+                                                    <td>@fee.Fee</td>
+                                                </tr>
+                                                indexSell++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                fundPurchaseFeeDeleteIndex++;
+                fundSellFeeDeleteIndex++;
+            }
+        </div>
+    </div>
+
+</section>
+
+

@@ -1,0 +1,19 @@
+.manager-risk-add {
+  .form-control {
+    margin-bottom: 10px;
+  }
+  .label-number {
+    width: auto;
+    display: inline-block;
+    margin: 0;
+  }
+
+  .errorMSG {
+    display: none;
+    color: red;
+  }
+}
+.manager-risk__questions__list-questions__item__title {
+  color: #000;
+  font-weight: bold;
+}

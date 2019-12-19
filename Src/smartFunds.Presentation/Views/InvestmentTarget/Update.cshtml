@@ -1,0 +1,60 @@
+﻿@model InvestmentTargetModel
+@{
+    ViewData["Title"] = Common.InvestmentTarget;
+}
+
+<div class="body-content-endUser">
+    <div class="user-invesment-target px-15">
+        <input id="user-expected-amount" type="hidden" value="/investment-target/GetOneTimeAmount">
+        <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
+        <form class="user-form-group p-15" id="user-invesment-target-content" method="post">
+            <div class="user-form-control user-expected-money-amount">
+                <span class="user-form-control__title">
+                    @Common.ExpectedAmount
+                </span>
+                @if (Model.ExpectedAmount != null && Model.ExpectedAmount == 0)
+                {
+                    <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount" value="">
+                }
+                else
+                {
+                    <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount">
+                }
+                <span class="warning-message" asp-validation-for="ExpectedAmount">@ViewData["Message"]</span>
+            </div>
+            <div class="user-form-control user-form-control--existing-asset">
+                <span class="user-form-control__title">@Common.CurrentAcountAmount2</span>
+                <input class="input-form-control existing-assets" type="text" readonly value="@Model.User.CurrentAccountAmount.ToString("N0")">
+                <span class="currency">đ</span>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">@Common.Duration</span>
+                <select asp-for="Duration" asp-items="Html.GetEnumSelectList<Duration>()" class="user-period-invesment"></select>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">@Common.Frequency</span>
+                <select asp-for="Frequency" asp-items="Html.GetEnumSelectList<Frequency>()" class="user-frequency-invesment"></select>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">
+                    @Common.OneTimeAmount
+                </span>
+                <input class="input-form-control" type="text" id="user-expected-amount-one" name="amoutInvesmentOfOne" readonly>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">@Common.InvestmentMethod</span>
+                <select asp-for="InvestmentMethod" asp-items="Html.GetEnumSelectList<InvestmentMethod>()"></select>
+            </div>
+            <span class="warning-message">
+                <span>Lưu ý: </span>Mục tiêu đầu tư bạn đang thực hiện
+                sẽ bị hủy bỏ. Bạn sẽ phải thực hiện mục tiêu đầu tư mới lại từ đầu.
+            </span>
+            <button class="btn btn-actions" type="submit">
+                @Common.Yes
+            </button>
+        </form>
+        <div id="pageloader">
+            <img src="/assets/images/loader-large.gif" alt="processing..." />
+        </div>
+    </div>
+</div>

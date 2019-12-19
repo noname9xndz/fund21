@@ -1,0 +1,44 @@
+﻿@model smartFunds.Model.Common.SearchTask
+
+@{
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+    //
+}
+
+<form class="my-mission__item__form-sort" asp-controller="Task" asp-action="ExportCompletedTasks" method="post">
+    <div class="row">
+        <div class="col-sm-2 col-lg-2">
+            <div class="form-group">
+                <label>Loại giao dịch</label>
+                <select asp-for="CustomerName" asp-items="Html.GetEnumSelectList<TaskTypeAccountant>()" class="form-control" name="CustomerName"></select>
+            </div>
+        </div>
+        <div class="col-sm-10 col-lg-4">
+            <div class="form-group">
+                <label>Số tiền giao dịch:</label>
+                <div class="form-in-line">
+                    <input asp-for="AmountFrom" class="form-control form-control-number my-mission-inputFrom" type="text" placeholder="Từ" name="AmountFrom">
+                    <input asp-for="AmountTo" class="form-control form-control-number my-mission-inputTo" type="text" placeholder="Đến" name="AmountTo">
+                </div>
+                <span>Số tiền giao dịch từ phải nhỏ hơn hoặc bằng số tiền giao dịch đến</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-lg-2 my-mission__item__form-sort__align-item">
+            <button class="btn btn-action" type="button">@Common.Search</button>
+        </div>
+        <div class="col-sm-9 col-lg-4">
+            <div class="table-filter-actions">
+                <div class="table-filter-actions__item table-filter-actions__pagesize">
+                    <a>Hiển thị</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                        <option value="10">10</option>
+                        <option value="20" selected="selected">20</option>
+                        <option value="30">30</option>
+                    </select><span>1 trang</span>
+                </div>
+                <div class="table-filter-actions__item table-filter-actions__export dt-buttons">
+                    <button class="buttons-csv @(checkNoRule ? "" : "disabled")">@Common.Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

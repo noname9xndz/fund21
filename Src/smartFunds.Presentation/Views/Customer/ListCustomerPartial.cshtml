@@ -1,0 +1,91 @@
+﻿@model CustomersModel
+
+@{
+    var index = 1 + (Model.PageIndex - 1)*Model.PageSize;
+}
+
+<input id="totalCustomer" value="@Model.TotalCount" type="hidden" />
+<table id="manageCustomers" width="100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th> <input class="select-all-btn" name="" value="1" type="checkbox"></th>
+            <th>@Common.FullName</th>
+            <th>@Common.PhoneNumber</th>
+            @*<th>@Common.EmailAddress</th>*@
+            <th>@Common.InitialInvestmentAmount</th>
+            <th>@Common.CurrentAccountAmount</th>
+            <th>@Common.AccountCreated</th>
+            <th>@Common.ActiveStatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>@index</td>
+                <td><input name="CustomerIds" type="checkbox" value="@item.Id" @((DateTime.Now - item.LastLogin).Days < 365 ? "disabled" : string.Empty) /></td>
+                <td><a asp-action="Detail" asp-route-customerId="@item.Id">@item.FullName</a></td>
+                <td>@item.PhoneNumber</td>
+                @*<td>@item.Email</td>*@
+                <td>@item.InitialInvestmentAmount.ToString("N0") đ</td>
+                <td>@item.CurrentAccountAmount.ToString("N0") đ</td>
+                <td data-order="@item.Created.ToString("yyyy/MM/dd")">@item.Created.ToString("dd/MM/yyyy")</td>
+                <td>@((DateTime.Now - item.LastLogin).Days < 365 ? Common.Active : Common.Inactive)</td>
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>
+
+@if (Model.Customers.Count < Model.TotalCount)
+{
+    <div class="dataTables_paginate paging_simple_numbers" id="manageCustomers_paginate">
+        <a class="paginate_button previous @(Model.PageIndex > 1 ? string.Empty : "disabled")" id="manageCustomers_previous" aria-controls="manageCustomers" data-dt-idx="0" tabindex="0">Trước</a>
+        <span>
+            @{
+                var totalPage = Model.TotalCount % Model.PageSize == 0 ? (Model.TotalCount / Model.PageSize) : (Model.TotalCount / Model.PageSize + 1);
+                <input class="totalPage" type="hidden" value="@totalPage">
+                if (totalPage > 8)
+                {
+                    <a class="paginate_button @(Model.PageIndex == 1 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="1" tabindex="0">1</a>
+
+                    if (Model.PageIndex < 4)
+                    {
+                        <a class="paginate_button @(Model.PageIndex == 2 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="2" tabindex="0">2</a>
+                        <a class="paginate_button @(Model.PageIndex == 3 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="3" tabindex="0">3</a>
+                        <a class="paginate_button @(Model.PageIndex == 4 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="3" tabindex="0">4</a>
+                        <span class="ellipsis">...</span>
+                    }
+                    else if (totalPage - Model.PageIndex > 2)
+                    {
+                        <span class="ellipsis">...</span>
+                        <a class="paginate_button" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex - 1)" tabindex="0">@(Model.PageIndex - 1)</a>
+                        <a class="paginate_button current" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex)" tabindex="0">@(Model.PageIndex)</a>
+                        <a class="paginate_button" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex + 1)" tabindex="0">@(Model.PageIndex + 1)</a>
+                        <span class="ellipsis">...</span>
+                    }
+                    else
+                    {
+                        <span class="ellipsis">...</span>
+                        for (int i = totalPage - 3; i < totalPage; i++)
+                        {
+                            <a class="paginate_button @(Model.PageIndex == i ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@i" tabindex="0">@i</a>
+                        }
+
+                    }
+                    <a class="paginate_button @(Model.PageIndex == totalPage ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@totalPage" tabindex="0">@totalPage</a>
+
+                }
+                else
+                {
+                    for (int i = 1; i <= totalPage; i++)
+                    {
+                        <a class="paginate_button @(Model.PageIndex == i ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@i" tabindex="0">@i</a>
+                    }
+                }
+            }
+        </span>
+        <a class="paginate_button next @(Model.PageIndex < totalPage?string.Empty:"disabled")" id="manageCustomers_next" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex+1)" tabindex="0">Sau</a>
+    </div>
+}

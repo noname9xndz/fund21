@@ -1,0 +1,51 @@
+.user-investment-section {
+    background: #e5e5e5;
+    .container-fluid {
+        @include min-sm {
+            max-width: 100%;
+            width: 100%;
+        }
+        @include min-xl {
+            padding: 0;
+            max-width: 97rem;
+        }
+    }
+    .section-title-endUser {
+        text-align: left;
+        @include min-sm {
+            margin-bottom: 21px;
+        }
+    }
+    .user-invesment-target.is-active {
+        &:first-child {
+            margin-bottom: 10px;
+        }
+        .user-form-group {
+            max-width: 100%;
+        }
+        h3 {
+            font-weight: bold;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #F77314;
+            margin: 0;
+        }
+        .user-form-control {
+            margin-top: 24px;
+            @include min-sm {
+                @include justify-content(flex-start);
+            }
+            > span {
+                @include min-md {
+                    width: 26%;
+                }
+                &:last-child {
+                    @include min-md {
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}

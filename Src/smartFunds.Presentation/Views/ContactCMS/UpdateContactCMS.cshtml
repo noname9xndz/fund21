@@ -1,0 +1,63 @@
+﻿@model ContactCMSModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="manager-settings-contact">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">Liên hệ</h1>
+            <div class="row center-xs">
+                <div class="col-sm-6">
+                    <form method="post" asp-controller="ContactCMS" asp-action="UpdateContactCMS">
+                        <input name="Id" value="@Model.Id" type="hidden" />
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" value="@Model.Email" class="form-control">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone"></label>
+                            <input asp-for="Phone" value="@Model.Phone" class="form-control" type="tel">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EmailForReceiving"></label>
+                            <input asp-for="EmailForReceiving" value="@Model.EmailForReceiving" class="form-control">
+                            <span asp-validation-for="EmailForReceiving" class="text-danger"></span>
+                        </div>
+                        <div class="btns-wrapper-center">
+                            <button class="btn btn-action" id="add-questions" type="submit">@Common.Confirm</button>
+                            <a class="btn btn-action" data-micromodal-trigger='model-cancel' href="#">Hủy</a>
+                            <div class="manager-risk__questions__list-questions__item__title">
+                                <div class="item-option">
+                                    <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="manager-user-title">@Common.CancelMessage</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <a class="modal__btn modal__btn-primary" asp-action="Index" asp-controller="SettingsCMS">
+                                                        Ok
+                                                    </a>
+                                                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                        Cancel
+                                                    </button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<input id="required-mess" value="Không bỏ trống" type="hidden" />
+

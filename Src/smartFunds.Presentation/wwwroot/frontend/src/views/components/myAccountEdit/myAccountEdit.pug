@@ -1,0 +1,29 @@
+section.myAccountEdit
+    .container-fluid
+        h1.section-title Sửa thông tin tài khoản
+        form(action="")
+            .box-body
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Họ và tên
+                        .col-sm-6
+                            input.form-control(type="text", placeholder="Họ và tên", value="Nguyễn Văn A") 
+                            .error-messeage
+                                span Họ và tên không được để trống
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Email
+                        .col-sm-6
+                            input.form-control(type="email", placeholder="Email", value="vana123@gmail.com")
+                            .error-messeage
+                                span Email không được để trống
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Vai trò
+                        .col-sm-6
+                            input.form-control(type="text", placeholder="Admin", value="Admin", disabled)
+                            .error-messeage
+                                span Vai trò không được sửa
+            .box-footer
+                button.btn.btn-action(type="submit") Xác Nhận
+                a.btn.btn-action(href="") Quay Lại

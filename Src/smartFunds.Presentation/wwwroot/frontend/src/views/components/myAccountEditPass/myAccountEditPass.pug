@@ -1,0 +1,33 @@
+section.myAccountEditPass
+    .container-fluid
+        h1.section-title Sửa mật khẩu
+        form(action="")
+            .box-body
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Mật khẩu hiện tại
+                        .col-sm-6.myAccountEditPass__Input
+                            input.form-control(type="password", value="Nguyễn Văn A")
+                            i.fas.fa-eye.myAccountEditPass__showPassword 
+                            .error-messeage
+                                span Mật khẩu hiện tại sai                           
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Mật khẩu mới
+                        .col-sm-6.myAccountEditPass__Input
+                            input.form-control(type="password", value="") 
+                            i.fas.fa-eye.myAccountEditPass__showPassword
+                            .error-messeage
+                                span Dữ liệu trường Mật khẩu không đúng định dạng
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3 Xác nhận lại mật khẩu mới
+                        .col-sm-6.myAccountEditPass__Input
+                            input.form-control(type="password", value="")
+                            i.fas.fa-eye.myAccountEditPass__showPassword
+                            .error-messeage
+                                span Dữ liệu trường Mật khẩu không được để trống                           
+                           
+            .box-footer
+                button.btn.btn-action(type="submit") Xác nhận
+                a.btn.btn-action(href="") Quay Lại

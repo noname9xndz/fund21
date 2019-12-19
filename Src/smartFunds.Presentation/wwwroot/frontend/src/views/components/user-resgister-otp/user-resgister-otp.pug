@@ -1,0 +1,17 @@
+extends ../resgisterUser/resgisterUser.pug
+block form
+    form.resgister#register-form__OTP
+        .resgiter-title
+            .title-big Xác nhận OTP
+            .title-small 
+                | Bạn vừa dùng Số điện thoại để đăng ký. Mã OTP đã được gửi về số 
+                span ******015&nbsp;
+                | nhập mã OTP vào bên dưới để xác nhận
+        .resgister-form.resgister-otp
+            input#otp.form-group-otp.form-control-number--phone(type="number" name="otp" placeholder="Mã OTP" min="0" max="10")
+            span.text-danger Lỗi
+            span.text-danger Lỗi
+            button.btn-active Kích Hoạt
+    form.again-otp
+        button(type="submit") Gửi lại mã OTP
+block viettelpay

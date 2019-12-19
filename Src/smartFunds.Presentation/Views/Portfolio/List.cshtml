@@ -1,0 +1,62 @@
+﻿@model smartFunds.Model.Common.PortfoliosModel
+
+@{
+	ViewData["Title"] = @Common.PortfolioManagement;
+	Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result;
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+
+<section class="investment-portfolio">
+    <div class="content">
+        <h1 class="section-title">@Common.PortfolioManagement</h1>
+        <a asp-action="New" class="btn btn-action @( checkRule ? "":"disabled-button" )">@Common.AddPortfolio</a>
+        <div class="table-filter-actions">
+            <div class="table-filter-actions__item table-filter-actions__pagesize">
+                <a>Hiển thị</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select><span>1 trang</span>
+            </div>
+            <div class="table-filter-actions__item table-filter-actions__export dt-buttons">
+                <form asp-controller="Portfolio" asp-action="Export" method="post">
+                        <button type="submit" class="buttons-csv @( checkNoRule ? "":"disabled-button" )">@Common.Export</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="display" id="invesment-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Common.STT</th>
+                    <th>@Common.PortfolioName</th>
+                    <th>@Common.PortfolioContent</th>
+                    <th>@Common.KVRRName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 1; }
+                @if (Model.Portfolios != null && Model.Portfolios.Any())
+                {
+                    foreach (var portfolio in Model.Portfolios)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                <a asp-action="Detail" asp-route-id="@portfolio.Id">@portfolio.Title</a>
+                            </td>
+	                        <td>
+                                <pre>@portfolio.Content</pre>
+                            </td>
+                            <td>
+                                @(portfolio.KVRRPortfolios != null && portfolio.KVRRPortfolios.Any() ? portfolio.KVRRPortfolios?.First()?.KVRR?.Name : string.Empty)
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,10 @@
+.user-not-found-section.user-error-section {
+    .user-not-found-content {
+        h1 {
+            margin-top: 40px;
+            @include min-sm {
+                margin-top: 67px;
+            }
+        }
+    }
+}

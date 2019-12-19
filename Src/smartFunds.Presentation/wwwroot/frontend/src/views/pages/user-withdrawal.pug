@@ -1,0 +1,15 @@
+extends ../layouts/masterUser_login.pug
+
+block title
+  title My Page - withDrawal 
+
+block basicSeo
+  meta(name='description' content='withDrawal page')
+  meta(name='keywords', content='withDrawal, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    .body-content-endUser
+        include ../components/user-withdrawal/user-withdrawal.pug

@@ -1,0 +1,302 @@
+.user-transaction-history {
+
+    &.container-fluid {
+        width: 100%;
+        max-width: 100%;
+
+        @include min-xl {
+            width: 100%;
+            max-width: 1200px;
+        }
+    }
+
+    &-filters {
+        background: #fff;
+        border-radius: 3px;
+        margin: 0 -5px;
+        padding: 15px;
+        @include flexbox();
+        @include flex-direction(column);
+        @include flex-wrap(wrap);
+
+        @include min-md {
+
+            padding-left: 25px;
+            padding-right: 25px;
+            @include flex-direction(row);
+            @include align-items(flex-end);
+        }
+
+        &__items {
+            margin-top: 0;
+            padding: 0 5px;
+            margin-top: 30px;
+            flex-grow: 1;
+
+            @include min-md {
+                margin-top: 0;
+            }
+
+            &:first-child {
+                margin-top: 0px;
+                width: 100%;
+
+                @include min-md {
+                    width: 40%;
+                    padding-right: 20px;
+                }
+
+                .user-transaction-history-filters__items__input {
+                    margin-left: -5px;
+                    margin-right: -5px;
+                    @include flexbox();
+                    @include align-items(center);
+
+                    .date-form-group {
+                        width: 50%;
+                        padding: 0 5px;
+                        @include flexbox();
+                        @include align-items(center);
+                        @include flex-direction(column);
+
+                        @include min-md {
+                            @include flex-direction(row);
+                        }
+
+                        span {
+                            margin-right: auto;
+                            font-size: 12px;
+                            line-height: 16px;
+                            color: $text-color-purple;
+                            font-weight: 400;
+                            margin-bottom: 10px;
+                            display: inline-block;
+                            width: auto;
+
+                            @include min-md {
+                                margin-bottom: 0px;
+                                margin-right: inherit;
+                            }
+                        }
+
+                        input.input-form-control {
+                            width: 100%;
+                            flex-grow: 1;
+
+                            @include min-md {
+                                width: 60%;
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                width: 100%;
+                margin-top: 30px;
+
+                @include min-md {
+                    width: 23%;
+                    margin-top: 20px;
+                }
+            }
+
+            & > span {
+                color: $text-color-purple;
+                @include typography($font-main, 700, 14px, 16px);
+            }
+
+            a {
+                min-height: 45px;
+                background: $bg-color-orange;
+                color: #fff;
+                @include flexbox();
+                @include align-items(center);
+                @include justify-content(center);
+                @include typography($font-main, 700, 14px, 16px);
+
+                @include ie-only {
+                    line-height: 30px;
+                }
+            }
+
+            &__input {
+                margin-top: 10px;
+
+                &>span {
+                    color: $text-color-purple;
+                    @include typography($font-main, 400, 14px, 16px);
+                }
+
+                input.input-form-control {
+                    background-image: url('../../assets/images/calendar.png');
+                    background-position: right 15px center;
+                    background-repeat: no-repeat;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &-pagesize {
+        margin-top: 30px;
+        @include flexbox();
+        @include align-items(center);
+        @include justify-content(flex-end);
+
+        >span {
+            color: $text-color-purple;
+            margin-right: 20px;
+            @include typography($font-main, 700, 12px, 14px)
+        }
+
+        .ui-menu-item-wrapper {
+            padding: 7px 10px 7px 15px;
+        }
+
+        .ui-selectmenu-button {
+            &.ui-button {
+                &:active {
+                    background: #fff;
+                }
+            }
+        }
+    }
+
+    &-table {
+        position: relative;
+        margin-top: 10px;
+
+        &__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &__spinner {
+                color: black;
+                font-size: 60px;
+
+                &:before {
+                    content: "\f110";
+                    font-family: $font-awesome;
+                    z-index: 1;
+                    animation: rotating 2s linear infinite;
+                }
+            }
+
+            &.hide {
+                display: none;
+            }
+        }
+
+        .dataTables_wrapper.no-footer {
+            table.dataTable.no-footer {
+                width: 100% !important;
+                border-bottom: none;
+                overflow: hidden;
+                @include border-radius(3px);
+
+                thead {
+                    background: $bg-color-purple;
+
+                    tr {
+                        background: $bg-color-purple;
+                    }
+
+                    th {
+                        color: #fff;
+                        padding: 22px 15px;
+                        border: none;
+                        text-transform: uppercase;
+                        vertical-align: baseline;
+                        @include typography($font-main, 700, 12px, 14px);
+
+                        &:nth-of-type(3) {
+                            display: none;
+
+                            @include min-sm {
+                                display: table-cell;
+                                ;
+                            }
+                        }
+
+                        &:first-child {
+                            text-align: left;
+                        }
+
+                        &:last-child {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                tbody {
+
+                    tr {
+                        border-bottom: 1px solid #EAEBEE;
+                        background: #FAFAFA;
+
+                        &:hover {
+                            background: #FAFAFA;
+                        }
+
+                        &.odd {
+                            background-color: #FAFAFA !important;
+                        }
+
+                        td {
+                            color: #0F0E30;
+                            text-align: center;
+                            padding: 15px;
+                            border: none;
+                            background: #FAFAFA;
+                            @include typography($font-main, 400, 12px, 150%);
+
+                            &:first-child {
+                                text-align: left;
+                            }
+
+                            &:last-child {
+                                text-align: right;
+                            }
+
+                            &:nth-of-type(3) {
+                                display: none;
+
+                                @include min-sm {
+                                    display: table-cell;
+                                }
+                            }
+                            p {
+                                line-height: 150%;
+                            }
+                        }
+
+                        td.dataTables_empty {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        @include paginate();
+
+        @include min-sm {
+            .dataTables_paginate {
+                &.paging_simple_numbers {
+                    @include justify-content(flex-end);
+                    margin: 0 3px;
+                }
+            }
+        }
+    }
+}

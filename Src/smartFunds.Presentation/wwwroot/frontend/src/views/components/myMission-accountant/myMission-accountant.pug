@@ -1,0 +1,118 @@
+section.my-mission
+    section.my-mission__item(data-api-link="http://smartfunds-be-net.hn.smartosc.com/admin/task/pending-deal-fund-list")
+        a(href="#", data-micromodal-trigger="my-mission__Modal--admin") Admin
+        +microModal('my-mission__Modal--admin')
+        a(href="#", data-micromodal-trigger="my-mission__Modal--accountant") Accountant
+        +microModal('my-mission__Modal--accountant')
+        .content
+            h1.section-title NHIỆM VỤ CỦA TÔI KẾ TOÁN
+            .detail-block__title 
+                h2 Nhiệm vụ đang chờ xử lý
+            h4.my-mission__item__subTitle GIAO DỊCH VỚI QUỸ
+            form.my-mission__item__form-sort
+                .row
+                    .col-sm-2.col-lg-2
+                        .form-group
+                            label Quỹ
+                            select.form-control(name="CustomerName")
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                    .col-sm-10.col-lg-4
+                        .form-group
+                            label Số tiền giao dịch:
+                            .form-in-line
+                                input.form-control.form-control-number.my-mission-inputFrom(type="text" placeholder="Từ" name="AmountFrom")                      
+                                input.form-control.form-control-number.my-mission-inputTo(type="text" placeholder="Đến" name="AmountTo")
+                            span Số tiền giao dịch trước phải nhỏ hơn sau
+                    .col-sm-3.col-lg-2.my-mission__item__form-sort__align-item
+                        button.btn.btn-action(type="button") Tìm Kiếm
+                    .col-sm-9.col-lg-4
+                        .table-filter-actions
+                            .table-filter-actions__item.table-filter-actions__pagesize
+                                a() Hiển thị
+                                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                                    option(value="10") 10
+                                    option(value="20" selected="selected") 20
+                                    option(value="30") 30
+                                span 1 trang
+                            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                                button.buttons-csv Xuất
+            .my-mission__item__table
+                .table__overlay.hide
+                    .table__overlay__spinner.rotating
+                .table__wrapper                                                                                                                                                                       
+    section.my-mission__item(data-api-link="http://smartfunds-be-net.hn.smartosc.com/admin/task/pending-deal-custom-list")
+        .content
+            h4.my-mission__item__subTitle GIAO DỊCH VỚI KHÁCH HÀNG
+            form.my-mission__item__form-sort
+                .row
+                    .col-sm-2.col-lg-2
+                        .form-group
+                            label Quỹ
+                            input.form-control(name="CustomerName")
+                    .col-sm-10.col-lg-4
+                        .form-group
+                            label Số tiền giao dịch:
+                            .form-in-line
+                                input.form-control.form-control-number.my-mission-inputFrom(type="text" placeholder="Từ" name="AmountFrom")                      
+                                input.form-control.form-control-number.my-mission-inputTo(type="text" placeholder="Đến" name="AmountTo")
+                            span Số tiền giao dịch trước phải nhỏ hơn sau
+                    .col-sm-3.col-lg-2.my-mission__item__form-sort__align-item
+                        button.btn.btn-action(type="button") Tìm Kiếm
+                    .col-sm-9.col-lg-4
+                        .table-filter-actions
+                            .table-filter-actions__item.table-filter-actions__pagesize
+                                a() Hiển thị
+                                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                                    option(value="10") 10
+                                    option(value="20") 20
+                                    option(value="30") 30
+                                span 1 trang
+                            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                                button.buttons-csv Xuất
+            .my-mission__item__table
+                .table__overlay.hide
+                    .table__overlay__spinner.rotating
+                .table__wrapper  
+    section.my-mission__item(data-api-link="http://smartfunds-be-net.hn.smartosc.com/admin/task/completed-list")
+        .content
+            .detail-block__title 
+                h2 Nhiệm vụ đã hoàn thành
+            form.my-mission__item__form-sort
+                .row
+                    .col-sm-2.col-lg-2
+                        .form-group
+                            label Quỹ
+                            select.form-control(name="CustomerName")
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                                option(value="1") 1
+                    .col-sm-10.col-lg-4
+                        .form-group
+                            label Số tiền giao dịch:
+                            .form-in-line
+                                input.form-control.form-control-number.my-mission-inputFrom(type="text" placeholder="Từ" name="AmountFrom")                      
+                                input.form-control.form-control-number.my-mission-inputTo(type="text" placeholder="Đến" name="AmountTo")
+                            span Số tiền giao dịch trước phải nhỏ hơn sau
+                    .col-sm-3.col-lg-2.my-mission__item__form-sort__align-item
+                        button.btn.btn-action(type="button") Tìm Kiếm
+                    .col-sm-9.col-lg-4
+                        .table-filter-actions
+                            .table-filter-actions__item.table-filter-actions__pagesize
+                                a() Hiển thị
+                                select.table-filter-actions__pagesize__select(id="pagesize" name="pagesize")
+                                    option(value="10") 10
+                                    option(value="20") 20
+                                    option(value="30") 30
+                                span 1 trang
+                            .table-filter-actions__item.table-filter-actions__export.dt-buttons
+                                button.buttons-csv Xuất
+            .my-mission__item__table
+                .table__overlay.hide
+                    .table__overlay__spinner.rotating
+                .table__wrapper

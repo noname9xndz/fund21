@@ -1,0 +1,70 @@
+﻿@model smartFunds.Model.Common.KVRRMarksModel
+
+@{
+    ViewData["Title"] = @Common.WeightRiskManagement;
+    Layout = "_AdminLayout";
+}
+
+@if (Model != null)
+{
+<section>
+    <section class="manage-weightRisk">
+        <form asp-action="Delete" asp-controller="KVRRMark" method="post" id="manage-kvrrmark-form">
+            <div class="content">
+                <h1 class="section-title">@Common.WeightRiskManagement</h1>
+                <div class="detail-block">
+                    <a asp-action="New" class="btn btn-action">@Common.AddKVRRMark</a>
+
+                    <div class="table-filter-actions">
+                        <div class="table-filter-actions__item table-filter-actions__delete">
+                            <a class="fas fa-trash-alt" href="#" data-micromodal-trigger="manage-kvrrmark-modal">
+                                <span>Xóa</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="display" id="weightRiskTable" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>@Common.STT</th>
+                                <th><input class="select-all-btn" type="checkbox" /></th>
+                                <th>@Common.Mark</th>
+                                <th>@Common.KVRR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var index = 1; }
+                            @foreach (var mark in Model?.KVRRMarks)
+                            {
+                                var checkboxName = "checkbox_kvrrmark" + mark.Id;
+                                <tr>
+                                    <td>@index</td>
+                                    <td>
+                                        <input type="checkbox" name="@checkboxName" asp-route-id="@mark.Id" />
+                                    </td>
+                                    <td data-order="@mark.MarkFrom">
+                                        <a asp-action="Edit" asp-route-id="@mark.Id">@mark.MarkFrom - @mark.MarkTo</a>
+                                    </td>
+                                    <td>@mark.KVRR?.Name</td>
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal micromodal-slide" id="manage-kvrrmark-modal" aria-hidden="true">
+                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manage-invesfund-modal-title">
+                        <header class="modal__header">
+                            <h2 class="modal__title" id="manage-invesfund-modal-title">Bạn có chắc không?</h2>
+                            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                        </header>
+                        <footer class="modal__footer"><button class="modal__btn modal__btn-primary">Tiếp tục</button><button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Hủy bỏ</button></footer>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</section>
+}

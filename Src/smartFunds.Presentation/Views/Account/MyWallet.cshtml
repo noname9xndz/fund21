@@ -1,0 +1,63 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = Common.Account;
+}
+
+<div class="body-content-endUser">
+    <section class="user-wallet">
+        <div class="user-wallet-title"> <span class="text-content">@Common.Account</span></div>
+        <div class="user-wallet-content">
+            <div class="user-wallet-block user-wallet-account-balance money-record">
+                <div class="block-icon">
+                    <img class="icon-wallet" src="/images/icons/wallet.png" alt="Account-balance">
+                </div>
+                <div class="user-wallet-block-content user-wallet-account-balance-inside money-record__detail">
+                    <div class="user-wallet-account-balance-title money-record__title">
+                        @*<span class="text">
+                                @Html.DisplayNameFor(m => m.CurrentAccountAmount)
+                            </span>*@
+                    </div>
+                    <div class="user-wallet-account-balance-content money-record__info">
+                        <span class="amount">@Model.CurrentAccountAmount.ToString("N0")</span><span class="item-price">VND</span>
+                    </div>
+                </div>
+            </div>
+            <div class="user-wallet-block user-wallet-growth-rate">
+                <div class="block-icon">
+                    <img class="icon-arrow-increase"
+                         src="/images/icons/arrow-increase.png" alt="Account-balance">
+                </div>
+                <div class="user-wallet-block-content user-wallet-growth-rate-inside">
+                    <div class="user-wallet-growth-rate-title">@*<span class="text">@Common.PercentageGrowth</span>*@</div>
+                    @{
+                        //decimal percentageGrowth = Model.InitialInvestmentAmount - Model.AmountWithdrawn == 0 ? 0 : ((Model.CurrentAccountAmount / (Model.InitialInvestmentAmount - Model.AmountWithdrawn)) * 100) - 100;
+                        decimal percentageGrowth = Model.CurrentInvestmentAmount == 0 ? 0 : (((Model.CurrentAccountAmount / Model.CurrentInvestmentAmount) - 1)* Model.AdjustmentFactor)*100;
+                    }
+                    <div class="user-wallet-growth-rate-content"><span class="amount">@(percentageGrowth.ToString("0.##"))%</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="link-widget-wallet">
+            <a class="withdraw" asp-action="Withdrawal" asp-controller="Withdrawal">@Common.Withdrawal</a>
+            @if (Model.CurrentAccountAmount > 0)
+            {
+                <a class="invest-more" asp-controller="Investment" asp-action="Invest">
+                    <img src="/images/icons/payment-method.png" alt="Invest more"><span>
+                        @Common.Investment
+                    </span>
+                </a>
+            }
+            else
+            {
+                <a class="invest-more link-show-popup">
+                    <img src="/images/icons/payment-method.png" alt="Invest more"><span>
+                        @Common.Investment
+                    </span>
+                </a>
+            }
+        </div>
+
+
+
+    </section>
+</div>

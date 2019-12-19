@@ -1,0 +1,45 @@
+﻿@model ListTransactionHistoryModel
+
+@{
+    var index = 1;
+}
+
+<table width="100%">
+    <thead>
+        <tr>
+            <th>@Common.Type</th>
+            <th>@Common.Amount</th>
+            <th>@Common.Status</th>
+            <th>@Common.TimeAction</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListTransactionHistory)
+        {
+            <tr>
+                <td>@item.TransactionType.GetDisplayName()</td>
+                <td>@item.Amount.ToString("N0") đ</td>
+                <td>@item.Status.GetDisplayName()</td>
+                <td>@item.TransactionDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.ListTransactionHistory.Count < Model.TotalCount)
+{
+    <div class="dataTables_paginate paging_simple_numbers" id="manageCustomers_paginate">
+        <a class="paginate_button previous @(Model.PageIndex > 1 ? string.Empty : "disabled")" id="manageCustomers_previous" aria-controls="manageCustomers" data-dt-idx="0" tabindex="0">Trước</a>
+        <span>
+            @{
+                var totalPage = Model.TotalCount % Model.PageSize == 0? (Model.TotalCount / Model.PageSize) : (Model.TotalCount / Model.PageSize + 1);
+                for (int i = 1; i <= totalPage; i++)
+                {
+                    index = i;
+                    <a class="paginate_button @(Model.PageIndex == i ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@i" tabindex="0">@i</a>
+            }
+            }
+        </span>
+        <a class="paginate_button next @(Model.PageIndex < index?string.Empty:"disabled")" id="manageCustomers_next" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex+1)" tabindex="0">Sau</a>
+    </div>
+}

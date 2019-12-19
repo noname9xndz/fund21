@@ -1,0 +1,15 @@
+extends ../layouts/master.pug
+
+block title
+  title My Page - home
+
+block basicSeo
+  meta(name='description' content='home page')
+  meta(name='keywords', content='home, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    .body-content
+        include ../components/manage-weightRisk/manage-weightRisk.pug

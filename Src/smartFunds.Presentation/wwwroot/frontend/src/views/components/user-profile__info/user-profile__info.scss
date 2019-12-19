@@ -1,0 +1,208 @@
+.user-info-section {
+    background: #e5e5e5;
+    padding: 32px 0 0;
+    @include min-sm {
+        padding: 60px 0 0;
+    }
+    .container-fluid {
+        @include min-sm {
+            max-width: 100%;
+            width: 100%;
+        }
+        @include min-xl {
+            padding: 0;
+            max-width: 97rem;
+        }
+    }
+    .user-info-content {
+        &__title {
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 28px;
+            color: #3D4359;
+            margin: 0 0 31px;
+            @include min-sm {
+                margin: 0 0 21px;
+            }
+        }
+        &__detail {
+            padding: 15px;
+            background: #FFF;
+            border: 1px solid #F2F2F2;
+            @include border-radius(3px);
+            @include flexbox();
+            @include flex-direction(column);
+            @include min-sm {
+                padding-right: 20px;
+                @include flex-direction(row);
+                @include justify-content(space-between);
+            }
+            &__items {
+                @include min-sm {
+                    width: 50%;
+                }
+            }
+        }
+        .info-details {
+            margin: 10px 0 41px 0;
+            @include min-sm {
+                margin: 10px 0;
+            }
+            &__account {
+                p {
+                    margin-bottom: 15px;
+                    @include flexbox();
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                span {
+                    color: #888;
+                    font-size: 14px;
+                    &:first-child {
+                        color: #000;
+                        font-weight: bold;
+                        width: 35%;
+                        @include min-md {
+                            width: 27%;
+                        }
+                    }
+                }
+            }
+        }
+        .change-info {
+            @include flexbox();
+            @include justify-content(center);
+            @include min-sm {
+                @include justify-content(flex-end);
+            }
+            &__link {
+                cursor: pointer;
+                color: #F77314;
+                font-size: 14px;
+                @include min-sm {
+                    margin-top: 5px;
+                }
+                .link-show {
+                    @include flexbox();
+                    @include align-items(center);
+                    @include justify-content(center);
+                    @include min-sm {
+                        @include justify-content(flex-end);
+                    }
+                }
+                img {
+                    margin-right: 10px;
+                }
+            }
+            &__modal {
+                .modal {
+                    &__overlay {
+                        background: rgba(0, 0, 0, .9);
+                    }
+                    &__container {
+                        position: fixed;
+                        max-width: calc(100% - 30px);
+                        padding: 15px;
+                        top: 50%;
+                        left: 50%;
+                        @include transform(translate(-50%,-50%));
+                        @include min-sm {
+                            width: 486px;
+                            max-width: 100%;
+                            padding: 30px;
+                        }
+                    }
+                    &__header {
+                        margin: 3px 0 22px;
+                        h2 {
+                            font-size: 18px;
+                            font-weight: bold;
+                            color: #3D4359;
+                        }
+                        button {
+                            color: #111;
+                            font-size: 18px;
+                            font-weight: bold;
+                            right: 4px;
+                            top: 7px;
+                            cursor: pointer;
+                        }
+                    }
+                    &__content {
+                        .form-row {
+                            position: relative;
+                        }
+                        input.user-input {
+                            + label {
+                                color: #E43C3D;
+                                font-size: 13px;
+                                display: block;
+                                margin-top: 10px;
+                            }
+                            + label + .placeholder {
+                                margin-bottom: 10px;
+                                span {
+                                    font-weight: normal;
+                                    margin: 0;
+                                    position: absolute;
+                                    z-index: 9;
+                                    color: #9CA7B4;
+                                    font-size: 14px;
+                                    line-height: 1;
+                                    top: 17px;
+                                    left: 15px;
+                                    @include transition((top 0.2s ease, font-size 0.2s ease, color 0.2s ease));
+                                }
+                            }
+                            &:focus {
+                                border-color: #F77314;
+                            }
+                            &:focus,
+                            &:valid,
+                            &.input-has-value {
+                                + label + .placeholder {
+                                    span {
+                                        top: 8px;
+                                        font-size: 11px;
+                                        font-weight: 500;
+                                        z-index: 11;
+                                    }
+                                }
+                            }
+                            &.your_phone {
+                                + .placeholder,
+                                + label + .placeholder {
+                                    span {
+                                        top: 8px;
+                                        font-size: 11px;
+                                        font-weight: 500;
+                                        z-index: 11;
+                                    }
+                                }
+                                &:focus {
+                                    border-color: #EDEDED;
+                                }
+                            }
+                            &--update {
+                                border-color: #F77314;
+                                background: #F77314;
+                                color: #fff;
+                                font-weight: bold;
+                                padding: 0;
+                                margin-top: 30px;
+                                cursor: pointer;
+                                text-align: center;
+                                @include min-sm {
+                                    width: 43%;
+                                    float: right;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

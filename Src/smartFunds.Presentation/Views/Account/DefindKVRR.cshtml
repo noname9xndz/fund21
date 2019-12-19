@@ -1,0 +1,63 @@
+﻿@model List<smartFunds.Model.Common.KVRRQuestion>
+
+@{
+    ViewData["Title"] = Common.KVRRDefinition;
+}
+
+@if (Model != null)
+{
+    <div class="body-content-endUser">
+        <section class="user-answers-question">
+            <div class="container-fluid user-quizmain">
+                <div class="row">
+                    <div class="quizmain-title">
+                        <h4 class="text-title">@Common.KVRRDefinition</h4>
+                    </div>
+                    <div class="form-user-quizmain">
+                        <form class="user-quizform" id="user-quizform" method="post" asp-controller="Account" asp-action="ConfirmDefindKVRR">
+                            @for (int k = 0; k < Model.Count; k++)
+                            {
+                                <input asp-for="@Model[k].Id" value="@Model[k].Id" type="hidden" />
+                                <input asp-for="@Model[k].Content" value="@Model[k].Content" type="hidden" />
+
+                                <h3>abc</h3>
+                                <div class="quizmain-container">
+                                    <div class="quizmain-header">
+                                        <div class="question-order">
+                                            <span class="quiz-order">@(k + 1)</span><span class="slash">/</span><span class="quiz-total">@Model.Count</span>
+                                        </div>
+                                        <div class="question-main">
+                                            <span class="question-title"> @Model[k].KVRRQuestionCategories.GetDisplayName()</span>
+                                            <p class="question-content">
+                                                @Model[k].Content
+                                            </p>
+                                        </div>
+                                    </div>
+                                    @if (Model[k].KVRRAnswers.Count > 0)
+                                    {
+                                        <div class="choose-answers">
+                                            @for (int i = 0; i < Model[k].KVRRAnswers.Count; i++)
+                                            {
+                                                <input asp-for="@Model[k].KVRRAnswers[i].Id" type="hidden" />
+                                                <input asp-for="@Model[k].KVRRAnswers[i].Content" type="hidden" />
+                                                <div class="choose-answers-detail">
+                                                    <label class="radio-answers-container">
+                                                        @Model[k].KVRRAnswers[i].Content
+                                                        <input asp-for="@Model[k].AnswerSelected" value="@Model[k].KVRRAnswers[i].Id" class="user-select-radio user-select-radio required" type="radio"><span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                        </form>
+                    </div><a class="user-checkout-quizmain" asp-controller="Account" asp-action="KVRRSelection">
+                        Bỏ qua
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+}

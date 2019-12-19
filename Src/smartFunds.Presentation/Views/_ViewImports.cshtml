@@ -1,6 +1,15 @@
 @using Microsoft.AspNetCore.Identity
 @using smartFunds.Presentation.Models
+@using smartFunds.Common
 @using smartFunds.Common.Helpers
 @using smartFunds.Model.Common
+@using smartFunds.Model.Admin
 @using smartFunds.Model.Resources
+@using static smartFunds.Common.Constants
+@inject smartFunds.Service.Services.UserService UserService
+@inject smartFunds.Service.Services.FundService FundService
+@inject smartFunds.Service.Services.HomepageCMSService HomepageCMSService
+@inject smartFunds.Service.Services.WithdrawFeeService WithdrawFeeService
+@inject smartFunds.Service.Services.InvestmentTargetCMSService InvestTargetCMSService
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

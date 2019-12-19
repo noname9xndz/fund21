@@ -1,0 +1,119 @@
+﻿@model ListWithdrawFee
+@{
+    decimal quickFee = WithdrawFeeService.GetQuickWithdrawalFee().Result;
+    var listData = Model.ListFees.Where(x => x.TimeInvestmentEnd != -1).ToList();
+
+}
+
+<form class="submit-form" asp-controller="WithdrawFee" asp-action="edit" method="post">
+    <button type="submit" style="display: none;">Submit</button>
+    <div class="manager-settings__item">
+        <div class="manager-settings__item__title">
+            <h1>Phí rút tiền</h1>
+            <div class="options">
+                <a class="add-withdraw-table" href="javascript:void(0)" data-table-id="withdrawal-fee"><i class="fa fa-plus"></i></a>
+                <div class="delete-fee-table" id="btn-delete-2" data-table-id="withdrawal-fee"
+                     data-api-delete="/admin/withdrawfee/delete">
+                    <a href="javascript:void(0)" data-micromodal-trigger="delete-confirm-2"><i class="fa fa-window-close"></i></a>
+                    <div class="modal micromodal-slide" id="delete-confirm-2" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-2-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="delete-confirm-2-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" type="button">
+                                        Tiếp
+                                        tục
+                                    </button>
+                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                        Hủy
+                                        bỏ
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="edit-directly" href="javascript:void(0)" data-table-id="withdrawal-fee"><i class="fa fa-edit"></i></a>
+                <div class="save-fee-table save-table" data-table-id="withdrawal-fee"
+                     data-api-save="/admin/withdrawfee/save">
+                    <a href="javascript:void(0)" data-micromodal-trigger="save-confirm-2"><i class="fa fa-save"></i></a>
+                    <div class="modal micromodal-slide" id="save-confirm-2" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="save-confirm-2-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="save-confirm-2-title">Bạn có chắc chắn muốn lưu thay đổi không?</h2>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button class="modal__btn modal__btn-primary" data-micromodal-close="" type="button">
+                                        Tiếp
+                                        tục
+                                    </button>
+                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                        Hủy
+                                        bỏ
+                                    </button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="manager-settings__item__content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="show-error" id="show-error-2"> </p>
+                    @if (TempData["Error_WithdrawFee"] != null)
+                    {
+                        <span class="text-danger field-validation-error"><span>@TempData["Error_WithdrawFee"]</span></span>
+                    }
+                    <table class="settings-fee display" id="withdrawal-fee" style="width: 100%" data-btn-delete="#btn-delete-2" data-show-error="#show-error-2">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="2">Thời gian đầu tư (Tháng)</th>
+                                <th>Phần trăm (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Từ</td>
+                                <td>Đến</td>
+                                <td></td>
+                            </tr>
+                            @for (int i = 0; i < listData.Count(); i++)
+                            {
+                                <tr data-tr-id="@Model.ListFees[i].Id">
+                                    <input type="hidden" asp-for="@Model.ListFees[i].Id" />
+                                    <td>
+                                        <input class="checkbox-item" type="checkbox" value="checkbox-@i" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="editable-input form-control-number--phone" name="ListFees[@i].TimeInvestmentBegin" value="@String.Format("{0:0,0}",  @Model.ListFees[i].TimeInvestmentBegin)" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="editable-input form-control-number--phone" name="ListFees[@i].TimeInvestmentEnd" value="@Model.ListFees[i].TimeInvestmentEnd" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="editable-input form-control-float" name="ListFees[@i].Percentage" value="@Model.ListFees[i].Percentage" readonly="readonly" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p class="quick-fee">
+                        Phí rút tiền nhanh (%/ngày):
+                        <input type="text" asp-for="@Model.QuickWithdrawFee.Percentage" class="form-control-float" />
+                        <input type="hidden" asp-for="@Model.QuickWithdrawFee.TimeInvestmentBegin" />
+                        <input type="hidden" asp-for="@Model.QuickWithdrawFee.TimeInvestmentEnd" />
+                        <input type="hidden" asp-for="@Model.QuickWithdrawFee.Id" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

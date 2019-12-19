@@ -1,0 +1,43 @@
+.investment-portfolio {
+    &__btn-add-invesment {
+        border-radius: 10px;
+        background-color: #3c8dbc;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+
+        a {
+            color: #fff;
+            font-size: 20px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+    }
+
+    &__modal-invesment {
+        form {
+            .row {
+                margin-bottom: 20px;
+            }
+
+            .btn-part {
+                text-align: center;
+
+                button {
+                    font-size: 16px;
+                    border-radius: 10px;
+                    background-color: #3c8dbc;
+                    padding: 10px;
+                    text-transform: uppercase;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    table {
+        margin-bottom: 30px !important;
+    }
+}

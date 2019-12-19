@@ -1,0 +1,55 @@
+.user-data-management-section {
+    background: #e5e5e5;
+    padding: 60px 0;
+    @include min-sm {
+        padding-bottom: 90px;
+    }
+    .container-fluid {
+        @include min-sm {
+            max-width: 100%;
+            width: 100%;
+        }
+        @include min-xl {
+            padding: 0;
+            max-width: 97rem;
+        }
+    }
+    .user-data-management {
+        h2 {
+            color: #3D4359;
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 28px;
+            margin: 0 0 20px;
+        }
+        &__detail {
+            @include flexbox();
+            @include flex-direction(column);
+            @include min-sm {
+                @include flex-direction(row);
+            }
+            &__items {
+                height: 45px;
+                width: 210px;
+                padding: 0 15px;
+                background: #FFFFFF;
+                border: 1px solid #F2F2F2;
+                @include border-radius(5px);
+                @include flexbox();
+                @include align-items(center);
+                @include justify-content(space-between);
+                &:first-child {
+                    margin-bottom: 10px;
+                    @include min-sm {
+                        margin-right: 10px;
+                        margin-bottom: 0;
+                    }
+                }
+                span {
+                    color: #3D4359;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

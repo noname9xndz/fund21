@@ -1,0 +1,35 @@
+section.contact-section
+    .container-fluid
+        .contact-content
+            .contact-content__left
+                h2.contact-content__left__title Liên hệ với chúng tôi
+                p.contact-content__left__description Lorem ipsum dolor sit amet, tincidunt tellus dolor ex, auctor rhoncus amet, purus commodo orci aptent
+                a.contact-content__left__mail(href="mailto:Customerservice@smartfund.com")
+                    img(src="../../../assets/images/icon-email.png", alt="mail")
+                    span Customerservice@smartfund.com
+                a.contact-content__left__phone(href="tel:84123456789")
+                    img(src="../../../assets/images/icon-phone.png", alt="phone")
+                    span +84 123 456 789
+            .contact-content__right
+                form#form_login.form_contact(action="#")
+                    .form-row
+                        input#your_name.user-input.user-input--change(type="text", name="your_name", required autocomplete="on")
+                        p.placeholder
+                            span Họ và Tên
+                    .form-row
+                        input#your_phone.user-input.user-input--change.user-input--change-1(type="text", name="your_phone", required autocomplete="on")
+                        p.placeholder
+                            span Số điện thoại (Không bắt buộc)
+                    .form-row
+                        input#your_email.user-input.user-input--change(type="email", name="your_email", required autocomplete="on")
+                        p.placeholder
+                            span Địa chỉ Email
+                    .form-row
+                        textarea#your_message.user-input.user-input--change.user-textarea(name="your_message", required)
+                        p.placeholder
+                            span Nội dung tin nhắn
+                    .form-row
+                        .send-button
+                            input.user-input(type="submit", value="Gửi đi", name="Gửi đi")
+
+

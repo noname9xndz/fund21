@@ -1,0 +1,32 @@
+section.edit-customer
+    .container-fluid
+        form#editCustomer(action="")
+            .box-body
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3(for="editCustomerFullName") Họ và tên
+                        .col-sm-6
+                            input.form-control#editCustomerFullName(type="text", placeholder="Họ và tên", value="Nguyễn Văn A") 
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3(for="editCustomerPhoneNumber") Số điện thoại
+                        .col-sm-6
+                            input.form-control#editCustomerPhoneNumber(type="tel", placeholder="Số điện thoại", value="0123456789") 
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3(for="editCustomerEmailAddress") Email
+                        .col-sm-6
+                            input.form-control#editCustomerEmailAddress(type="email", placeholder="Email", value="vana123@gmail.com") 
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3(for="editCustomerDateCreate") Ngày lập tài khoản
+                        .col-sm-6
+                            input.form-control#editCustomerDateCreate(type="text", placeholder="Ngày lập tài khoản", value="13/03/2019", disabled) 
+                .form-group
+                    .row.center-sm
+                        label.col-sm-3(for="editCustomerStatus") Trạng thái hoạt động:
+                        .col-sm-6
+                            input.form-control#editCustomerStatus(type="text", placeholder="Trạng thái hoạt động:", value="Đang hoạt động", disabled)
+            .box-footer
+                button.btn.btn-primary(type="submit") Lưu Thay Đổi
+                a.btn.btn-default(href="") Quay Lại

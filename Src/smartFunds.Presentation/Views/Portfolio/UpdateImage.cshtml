@@ -1,0 +1,131 @@
+﻿@model HomepageCMSModel
+@{
+    ViewData["Title"] = "UpdateImage";
+    var mobileImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && x.ImageName.Contains("mobile_")).FirstOrDefault();
+    var desktopImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && !x.ImageName.Contains("mobile_")).FirstOrDefault();
+    var a = 0;
+}
+
+<div class="manager-settings__item">
+    <div class="manager-settings__item__title">
+        <h1>Ảnh các DMĐT</h1>
+    </div>
+    <div class="manager-settings__item__content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Desktop</label>
+                    <form asp-controller="Portfolio" asp-action="UpdateImage" enctype="multipart/form-data">
+                        <div class="image-upload">
+                            <div class="image-upload__item upload-big-image" data-title="dmdt-desktop" data-button-upload="#btn-upload-1" data-input-file="#input-file-1" data-btn-submit="#btn-submit-1">
+
+                                @if (desktopImage != null)
+                                {
+                                    <div class="image-upload__item__image big" data-id="@desktopImage.Id">
+                                        <img class="img-show" src="@BannerHomepageFolder.Path@desktopImage.ImageName">
+                                        <div class="actions">
+                                            <form></form>
+                                            <form asp-controller="Portfolio" asp-action="UpdateImage" enctype="multipart/form-data">
+                                                <button type="submit" style="display:none;" data-edit="">submit</button>
+                                                <button class="btn-edit-image" type="button">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <input class="actions__input-image" type="file" name="image" accept="image/*">
+                                                <input type="hidden" name="Id" value="@desktopImage.Id" />
+                                            </form>
+                                            <form action="/admin/homepagecms/delete" method="get">
+                                                <button type="submit" style="display:none;" data-delete="">submit</button>
+                                                <input type="hidden" value=" style=" display:none;">
+                                                <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-dmdt-desktop-1">
+                                                    <i class="fa fa-window-close"></i>
+                                                </a>
+                                                <div class="modal micromodal-slide" id="delete-dmdt-desktop-1" aria-hidden="true">
+                                                    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-dmdt-desktop-1-title">
+                                                            <header class="modal__header">
+                                                                <h2 class="modal__title" id="delete-dmdt-desktop-1-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                                <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                            </header>
+                                                            <footer class="modal__footer">
+                                                                <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                                <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                            </footer>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="Id" value="@desktopImage.Id" />
+                                                <input value="mobileImage" name="typeUpload" type="hidden" />
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <button class="image-upload__item__btn-upload" id="btn-upload-1" type="button" data-categoryid="3" style="display: @(desktopImage != null ? "none" : "flex");"><i class="fa fa-plus"></i></button>
+                            <input class="image-upload__item__input-image" id="input-file-1" name="image" type="file" accept="image/*">
+                            <button id="btn-submit-1" type="submit" style="display: none;"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <form asp-controller="Portfolio" asp-action="UpdateImage" enctype="multipart/form-data">
+                        <div class="image-upload">
+                            <div class="image-upload__item upload-big-image" data-title="dmdt-mobile" data-button-upload="#btn-upload-4" data-input-file="#input-file-4" data-btn-submit="#btn-submit-4">
+
+                                @if (mobileImage != null)
+                                {
+                                    <div class="image-upload__item__image big" data-id="1">
+                                        <img class="img-show" src="@BannerHomepageFolder.Path@mobileImage.ImageName">
+                                        <div class="actions">
+                                            <form asp-controller="Portfolio" asp-action="UpdateImage" enctype="multipart/form-data">
+                                                <button type="submit" style="display:none;" data-edit="">submit</button>
+                                                <button class="btn-edit-image" type="button">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <input class="actions__input-image" type="file" name="image" accept="image/*">
+                                                <input value="mobileImage" name="typeUpload" type="hidden" />
+                                                <input type="hidden" name="Id" value="@mobileImage.Id" />
+                                            </form>
+                                            <form action="/admin/homepagecms/delete" method="get">
+                                                <button type="submit" style="display:none;" data-delete="">submit</button>
+                                                <input type="hidden" value=" style=" display:none;" ="">
+                                                <a class="btn-delete-image" href="javascript:void(0)" data-micromodal-trigger="delete-dmdt-mobile-1">
+                                                    <i class="fa fa-window-close"></i>
+                                                </a>
+                                                <div class="modal micromodal-slide" id="delete-dmdt-mobile-1" aria-hidden="true">
+                                                    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-dmdt-mobile-1-title">
+                                                            <header class="modal__header">
+                                                                <h2 class="modal__title" id="delete-dmdt-mobile-1-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                                                <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+                                                            </header>
+                                                            <footer class="modal__footer">
+                                                                <button class="modal__btn modal__btn-primary" data-micromodal-close="" data-confirm="">Tiếp tục</button>
+                                                                <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                                            </footer>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="Id" value="@mobileImage.Id" />
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <button class="image-upload__item__btn-upload" id="btn-upload-4" type="button" data-categoryid="3" style="display: @(mobileImage != null ? "none" : "flex");"><i class="fa fa-plus"></i></button>
+                            <input class="image-upload__item__input-image" id="input-file-4" type="file" name="image" accept="image/*">
+                            <button id="btn-submit-4" type="submit" style="display: none;"></button>
+                            <input value="mobileImage" name="typeUpload" type="hidden" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

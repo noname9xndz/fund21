@@ -1,0 +1,87 @@
+.user-hp-partner {
+    background: #e5e5e5;
+    .container-fluid {
+        padding: 0;
+    }
+    .content-details {
+        .title {
+            padding-top: 61px;
+            text-align: center;
+            margin: 0 auto;
+            width: 90%;
+            @include min-xl {
+                width: 35%;
+            }
+            p {
+                font-size: 24px;
+                font-weight: normal;
+                color: #3D4359;
+                margin-bottom: 13px;
+            }
+        }
+        .slide-contents {
+            padding: 20px 0 65px;
+            @include min-sm {
+                padding: 50px 0 75px;
+            }
+            .slick-track {
+                @include flexbox();
+                @include align-items(center);
+            }
+            .slick-slide {
+                img {
+                    @include min-sm {
+                        margin: 0 auto;
+                    }
+                }
+            }
+            .slide-items {
+                text-align: center;
+            }
+        }
+        .slick-prev, 
+        .slick-next {
+            top: 40%;
+            &:before {
+                font-family: "FontAwesome";
+                font-size: 23px;
+                color: #3D4359;
+                opacity: 1;
+            }
+            &:hover {
+                &:before {
+                    color: #F77314;
+                }
+            }
+            &.slick-disabled {
+                pointer-events: none;
+                &:before {
+                    opacity: 1;
+                }
+                &:hover {
+                    &:before {
+                        color:#3D4359;
+                    }
+                }
+            }
+        }
+        .slick-prev {
+            left: -45px;
+            @media (min-width: 1200px) and (max-width: 1300px) {
+                left: -10px;
+            }
+            &:before {
+                content: '\f060';
+            }
+        }
+        .slick-next {
+            right: -45px;
+            @media (min-width: 1200px) and (max-width: 1300px) {
+                right: -10px;
+            }
+            &:before {
+                content: '\f061';
+            }
+        }
+    }
+}

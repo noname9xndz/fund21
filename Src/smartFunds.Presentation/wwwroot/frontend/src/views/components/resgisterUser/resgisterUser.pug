@@ -1,0 +1,51 @@
+block resgister-content
+    .resgiste-user
+        block left
+            .banner-left
+                section.rectangnle
+                section.banner
+                    img.img-cover(src="../../assets/images/tyler-franta.png")
+                section.text
+                    p.text-uppercase Tiết kiệm bằng đầu tư một cách thông minh
+        block right
+            .form-resgister-right
+                .container-fluid.form-resgister-right-content
+                    .back-to-homepage
+                        a.back-to-homepage-link(href="/")
+                            img(src="../../assets/images/arrow-left.png", alt="images")
+                            span.back-to-homepage-content Quay trở lại trang chủ
+                    block form
+                        form.resgister#resgister-form 
+                            .resgiter-title
+                                .title-big Đăng ký tài khoản
+                                .title-small Hoàn toàn miễn phí và rất đơn giản
+                            .error-resgister Quá trình đăng ký đã xảy ra một số lỗi. Xin vui lòng thử lại sau
+                            .resgister-form.resgister-phone
+                                input#email.form-group.form-control-number--phone(type="number" name="email" required)
+                                span.text-placeholder Địa chỉ Email hoặc Số Điện Thoại
+                                img.icon.icon-success(src="../../assets/images/check-success.png", alt="success")
+                                img.icon.icon-warning(src="../../assets/images/check-warning.png", alt="warning")
+                                span.error-messeage Lỗi
+                            .resgister-form.resgister-name
+                                input#lastname.form-group(type="text" name="fullname" required)
+                                span.text-placeholder Họ và tên
+                                span.error-messeage Lỗi
+                            .accept-condition
+                                input#accept.accept(type="checkbox" name="accept")
+                                label(for="accept") Tôi đã đọc và đồng ý với&nbsp;
+                                    a.term-condition(href="#") Điều khoản sử dụng và bảo mật
+                                span.warning-messeage Vui lòng chọn đồng ý
+                            .btn-resgister
+                                button.btnResgister Đăng ký
+                        .link-login
+                            span Đã có tài khoản?&nbsp;
+                            a.link(href="#") Đăng nhập tại đây
+                    block viettelpay
+                        .line
+                            span Hoặc
+                        .resgister-viettelpay
+                            a.link-viettelpay(href="#") Đăng ký qua Viettel Pay
+                        
+                    
+
+

@@ -1,0 +1,52 @@
+.body-content-endUser {
+    &__termService {
+        background-color: #fff;
+    }
+}
+.user__electronic__contracts {
+    display: none;
+    @include min-sm {
+        @include flexbox();
+        @include align-items(center);
+        @include justify-content(flex-end);
+        margin-top: 62px;
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+        &__is-view {
+            text-decoration: none;
+            color: $text-color-orange;
+            cursor: pointer;
+        }
+    }
+}
+.user__termService {
+    color: $text-color-purple;
+    padding-bottom: 60px;
+
+    @include min-sm {
+        padding-bottom: 200px;
+    }
+
+    &__title {
+        font-size: 24px;
+        line-height: 28px;
+        margin: 0;
+    }
+
+    &__component {
+        margin-top: 30px;
+    }
+
+    &__name {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 150%;
+        margin-bottom: 10px;
+    }
+
+    &__content {
+        font-size: 14px;
+        line-height: 150%;
+    }
+}

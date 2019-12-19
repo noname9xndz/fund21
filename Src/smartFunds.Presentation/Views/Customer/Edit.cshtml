@@ -1,0 +1,74 @@
+﻿@model EditCustomerViewModel
+@{
+    ViewData["Title"] = Common.EditCustomer;
+    Layout = "_AdminLayout";
+}
+
+<section class="edit-customer">
+    <div class="container-fluid">
+        <h1 class="section-title">@Common.EditCustomer</h1>
+        <form id="editCustomer" method="post">
+            <div class="box-body">
+                <input asp-for="CustomerId" type="hidden" />
+                <div class="row center-xs">
+                    <div class="col-sm-6">
+                        <span class="error-messeage">@ViewData["Message"]</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label asp-for="FullName" class="col-sm-3"></label>
+                        <div class="col-sm-6">
+                            <input asp-for="FullName" value="@Model.FullName" class="form-control">
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label asp-for="PhoneNumber" class="col-sm-3"></label>
+                        <div class="col-sm-6">
+                            <input asp-for="PhoneNumber" value="@Model.PhoneNumber" disabled class="form-control" type="tel">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <div class="row center-sm">
+                        <label asp-for="Email" class="col-sm-3"></label>
+                        <div class="col-sm-6">
+                            <input asp-for="Email" value="@Model.Email" class="form-control">
+                        </div>
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label class="col-sm-3">
+                            @Common.AccountCreated
+                        </label>
+                        <div class="col-sm-6">
+                            <input class="form-control"
+                                   type="text" value="@Model.Created.ToString("dd/MM/yyyy")" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row center-sm">
+                        <label class="col-sm-3">
+                            @Common.ActiveStatus
+                        </label>
+                        <div class="col-sm-6">
+                            <input class="form-control"
+                                   type="text" value="@((DateTime.Now - Model.LastLogin).Days < 365 ? Common.Active : Common.Inactive)"
+                                   disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-action @( UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result?"":"disabled" )" type="submit">@Common.Save</button>
+                <a class="btn btn-action" asp-controller="Customer" asp-action="Detail" asp-route-customerId="@Model.CustomerId">@Common.Back</a>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,11 @@
+mixin microModal(modalId)
+    div.modal.micromodal-slide(id=modalId, aria-hidden="true")
+        div.modal__overlay(tabindex="-1" data-micromodal-close)
+            div.modal__container(role="dialog" aria-modal="true" aria-labelledby= modalId + "-title")
+                header.modal__header
+                    h2.modal__title(id=modalId + "-title") Bạn có chắc chắn muốn xóa không?
+                    button.modal__close(aria-label="Close modal" data-micromodal-close)
+                footer.modal__footer
+                    button.modal__btn.modal__btn-primary(data-micromodal-close, type="button") Tiếp tục
+                    button.modal__btn(data-micromodal-close, aria-label="Close this dialog window") Hủy bỏ
+

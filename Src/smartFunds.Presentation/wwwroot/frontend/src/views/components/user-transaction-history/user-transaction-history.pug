@@ -1,0 +1,40 @@
+section.user-transaction-history.container-fluid
+    input(id="usermanageTransactionInputHidden", type="hidden", value="http://smartfunds-be-net.hn.smartosc.com/transaction-history/list")
+    h1.section-title-endUser Lịch sử giao dịch
+    .user-transaction-history-filters
+        .user-transaction-history-filters__items
+            span Thời gian thực hiện giao dịch
+            .user-transaction-history-filters__items__input
+                .date-form-group
+                    span Từ ngày
+                    input.input-form-control.user-transaction-history-from(type="text", readonly="readonly", value="", name="date-range-form")
+                .date-form-group
+                    span Đến ngày
+                    input.input-form-control.user-transaction-history-to(type="text", readonly="readonly", value="", name="date-range-to")
+        .user-transaction-history-filters__items
+            span Loại hình giao dịch
+            .user-transaction-history-filters__items__input 
+                select.input-form-control.user-transaction-history-type(name="typeTransaction")
+                    option(value="0") Tất cả
+                    option(value="1") Đầu tư
+                    option(value="2") Rút tiền
+        .user-transaction-history-filters__items
+            span Trạng thái
+            .user-transaction-history-filters__items__input 
+                select.input-form-control.user-transaction-history-status(name="status")  
+                    option(value="0") Tất cả
+                    option(value="1") Hoàn Thành
+                    option(value="2") Đang xử lý
+        .user-transaction-history-filters__items
+            a.btn Tìm kiếm
+    .user-transaction-history-pagesize
+        span Hiển thị
+        select#user-transaction-history-pagesize-select.table-filter-actions__pagesize__select(name="pagesize")
+            option(value="10") 10
+            option(value="15") 15
+            option(value="20") 20
+    .user-transaction-history-table
+        .user-transaction-history-table__overlay.hide    
+            .user-transaction-history-table__overlay__spinner.rotating
+        form#user-transition-history-form(action="")
+            .user-transition-history-form--wrapper

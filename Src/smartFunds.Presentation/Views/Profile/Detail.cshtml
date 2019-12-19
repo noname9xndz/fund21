@@ -1,0 +1,149 @@
+﻿@model DetailCustomerViewModel
+@{
+    ViewData["Title"] = Common.MyProfile;
+    Layout = "_Layout";
+}
+
+<section class="user-info-section">
+    <div class="container-fluid">
+        <div class="user-info-content">
+            <h2 class="user-info-content__title">@Common.MyProfile</h2>
+            <div class="user-info-content__detail">
+                <div class="user-info-content__detail__items">
+                    <div class="info-details">
+                        <div class="info-details__account">
+                            <p><span>@Html.DisplayNameFor(model => model.Customer.FullName)</span><span class="username">@Html.DisplayFor(model => model.Customer.FullName)</span></p>
+                            <p><span>@Common.PhoneNumber</span><span>@Html.DisplayFor(model => model.Customer.PhoneNumber)</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-info-content__detail__items">
+                    <div class="change-info">
+                        <div class="change-info__link">
+                            <a class="link-show">
+                                <img src="/images/icon-change-info.png" alt=""><span>
+                                    Thay đổi thông tin cá nhân
+                                </span>
+                            </a>
+                        </div>
+                        <div class="change-info__modal">
+                            <div class="modal micromodal-slide" id="modal-change-info" aria-hidden="true">
+                                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                </div>
+                                <div class="modal__container" role="dialog" aria-modal="true"
+                                        aria-labelledby="modal-1-title">
+                                    <header class="modal__header">
+                                        <h2 class="modal__title" id="modal-1-title">
+                                            Thay đổi thông tin cá nhân
+                                        </h2><button class="modal__close" aria-label="Close modal"
+                                                        data-micromodal-close></button>
+                                    </header>
+                                    <div class="modal__content" id="modal-1-content">
+                                        <form id="form_login">
+                                            <div class="form-row">
+                                                <input class="user-input" id="your_name"
+                                                        type="text" name="your_name" required autocomplete="on"
+                                                        value="@Model.Customer.FullName">
+                                                <p class="placeholder"><span>@Html.DisplayNameFor(model => model.Customer.FullName)</span></p>
+                                            </div>
+                                            <div class="form-row">
+                                                <input class="user-input your_phone"
+                                                        id="your_phone" type="number" name="your_phone" required
+                                                        autocomplete="on" value="@Model.Customer.PhoneNumber" readonly="readonly">
+                                                <p class="placeholder"><span>@Common.PhoneNumber</span></p>
+                                            </div>
+                                            <div class="form-row">
+                                                <input class="user-input user-input--update" type="submit"
+                                                        value="Cập nhật" name="Cập nhật">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><input type="hidden" id="editProfileDataApiUrl"
+                 value="/profile/edit">
+</section>
+<section class="user-chart-section">
+    <div class="container-fluid">
+        <h2>@Common.PropertyFluctuation</h2>
+        <div class="user-chart-content">
+            <div class="user-chart-content__detail">
+                <div class="user-chart-content__detail_date-range">
+                    <h3>@Common.TimeAction</h3>
+                    <div class="date-range-input">
+                        <div class="date-range-input__items">
+                            <span>Từ ngày</span><input class="user_asset_from"
+                                                       id="user_asset_from" type="text" name="user_asset_from" placeholder="dd/MM/yyyy"
+                                                       autocomplete="off">
+                        </div>
+                        <div class="date-range-input__items">
+                            <span>Đến ngày</span><input class="user_asset_to"
+                                                        id="user_asset_to" type="text" name="user_asset_to" placeholder="dd/MM/yyyy"
+                                                        autocomplete="off">
+                        </div>
+                        <button class="btn-search">
+                            <img src="/images/icon-search.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="user-chart-content__container">
+                <div class="chart"> <canvas class="chart-profile" id="chart-profile"></canvas><span>Không có dữ liệu</span></div>
+            </div>
+        </div>
+    </div><input type="hidden" id="profileDataApiUrl"
+                 value="/profile/PropertyFluctuations">
+</section>
+@if (Model.InvestmentTarget != null)
+{
+    <section class="user-investment-section">
+        <div class="container-fluid">
+            <div class="user-invesment-target is-active">
+                <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
+                <div class="user-form-group p-15">
+                    <h3>@Common.Target</h3>
+                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.ExpectedAmount)</span><span>@Model.InvestmentTarget.ExpectedAmount?.ToString("N0") đ</span></div>
+                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.Duration)</span><span>@Model.InvestmentTarget.Duration.GetDisplayName()</span></div>
+                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.Frequency)</span><span>@Model.InvestmentTarget.Frequency.GetDisplayName()</span></div>
+                    <div class="user-form-control"><span>@Common.OneTimeAmount</span><span>@Model.InvestmentTarget.OneTimeAmount.ToString("N0") đ</span></div>
+                    <div class="user-form-control"><span>@Common.InvestmentMethod</span><span>@Model.InvestmentTarget.InvestmentMethod.GetDisplayName()</span></div>
+                </div>
+            </div>
+
+            <div class="user-invesment-target is-active">
+                <div class="user-form-group p-15">
+                    <h3>Đã thực hiện</h3>
+                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentAmount)</span><span>@Model.InvestmentTarget.InvestmentAmount.ToString("N0") đ</span></div>
+                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentDuration)</span><span>@Model.InvestmentTarget.InvestmentDuration @(Model.InvestmentTarget.Frequency == Frequency.OneMonth ? "tháng" : "tuần")</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+<section class="user-data-management-section">
+    <div class="container-fluid">
+        <div class="user-data-management">
+            <h2>Quản lý dữ liệu</h2>
+            <div class="user-data-management__detail">
+                <div class="user-data-management__detail__items">
+                    <img src="/images/icon-pdf.png"
+                         alt=""><span>Qt1_Report.pdf</span><a href="#">
+                        <img src="/images/icon-download.png" alt="">
+                    </a>
+                </div>
+                <div class="user-data-management__detail__items">
+                    <img src="/images/icon-docx.png"
+                         alt=""><span>Qt1_Report.docx</span><a href="#">
+                        <img src="/images/icon-download.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

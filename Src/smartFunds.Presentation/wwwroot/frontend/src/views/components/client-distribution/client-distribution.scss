@@ -1,0 +1,62 @@
+.clientDistributionTableList {
+  select.form-control {
+    width: 50%;
+    height: 43px;
+    @include min-xl {
+      width: 27%;
+    }
+  }
+  label {
+    margin-right: 10px;
+    display: none;
+    @include min-xl {
+      display: inline;
+    }
+  }
+  button {
+    margin: 0px;
+    margin-left: 10px;
+  }
+  &__ListOptionsOne {
+    padding: 0px;
+  }
+  &__ListOptionsTwo {
+    padding: 0px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .table-filter-conditions {
+    margin-bottom: 50px;
+  }
+  .table-filter-actions {
+    margin: 0px;
+  }
+  .table-filter-actions__item.table-filter-actions__delete {
+    padding-right: 0px;
+    margin-left: 10px;
+    a {
+      color: #ffffff;
+      &:hover {
+        color: #3c8dbc;
+      }
+    }
+  }
+
+}
+
+.client-distribution {
+    .dataTables_paginate {
+        span {
+            margin-bottom: 0px;
+        }
+    }
+
+}
+
+.client-distribution__Fake--Paging {
+  text-align: center;
+  font-size: 25px;
+  a {
+    padding: 0 10px;
+  }
+}

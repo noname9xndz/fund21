@@ -1,0 +1,118 @@
+﻿@using System.Linq
+@model smartFunds.Model.Common.PortfolioModel
+@{
+    ViewData["Title"] = @Common.GeneralInformation;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result;
+}
+
+@if (Model != null)
+{
+    <section class="investment-detail content">
+        <div class="detail-block">
+            <div class="detail-block__title">
+                <h2>@Common.GeneralInformation</h2>
+                <div class="title-info__btn-wrapper">
+                    <a asp-action="Edit" class="edit-table-info @( checkRule ? "":"disabled-icon" )"><i class="fa fa-edit"></i></a>
+                </div>
+            </div>
+            <div class="detail-block__content">
+                <input asp-for="Id" type="hidden" placeholder="Id" class="form-control" />
+                <div class="container-fluid">
+                    <div class="row">
+                        <strong class="col-sm-3">@Common.PortfolioName</strong>
+                        <div class="col-sm-6"><pre>@Model.Title</pre></div>
+                    </div>
+                    <div class="row">
+                        <strong class="col-sm-3">@Common.PortfolioContent</strong>
+                        <div class="col-sm-6"><pre>@Model.Content</pre></div>
+                    </div>
+                    <div class="row">
+                        <strong class="col-sm-3">@Common.KVRRName</strong>
+                        <p class="col-sm-6">
+                            @{ var kvrr = Model.KVRRPortfolios != null && Model.KVRRPortfolios.Any() ? Model.KVRRPortfolios.First().KVRR.Name : string.Empty; }
+                            @kvrr
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-xs-6 btn-part text-center"><a asp-action="List" class="btn btn-action">@Common.Back</a></div>
+
+        <section class="investment-detail__info-title">
+            <div class="investment-funds__table">
+                <div class="investment-funds__table__overlay hide">
+                    <div class="investment-funds__table__overlay__spinner rotating"></div>
+                </div>
+                <form asp-controller="Portfolio" asp-action="SaveFunds" method="post" id="portfolio-fund">
+                    <input asp-for="Id" type="hidden" class="form-control" />
+                    <input asp-for="Title" type="hidden" class="form-control" />
+                    <input asp-for="Content" type="hidden" class="form-control" />
+                    <input asp-for="KVRRPortfolios" type="hidden" class="form-control" />
+                    <div class="detail-block">
+                        <div class="detail-block__title">
+                            <h2>@Common.PortfolioFundBelong</h2>
+                            <div class="title-info__btn-wrapper">
+                                <a class="edit-table-info edit-directly @( checkRule ? "":"disabled-icon" )" href="#" data-table-id="invesment-detail"><i class="fa fa-edit"></i></a>
+                                <button class="btn save-directly investment-detail__Save--button @( checkRule ? "":"disabled-icon" )" type="submit"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                        <p class="text-center" id="table-mess-valid">
+                            <span asp-validation-for="IsFundPercent100" class="text-danger error-messeage"></span>
+                        </p>
+                        <div class="detail-block__content">
+                            <table class="display" id="invesment-detail" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>@Common.STT</th>
+                                        <th>@Common.FundName</th>
+                                        <th>@Common.FundContent</th>
+                                        <th style="width: 170px">@Common.FundPercent</th>
+                                        <th style="width: 170px">@Common.FundPercentNew </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.PortfolioFunds != null && Model.PortfolioFunds.Any())
+                                    {
+                                        for (int i = 0; i < Model.PortfolioFunds.Count; i++)
+                                        {
+                                            <input asp-for="PortfolioFunds[i].FundId" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].Fund.Id" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].Fund.Title" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].Fund.Content" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].Fund.Code" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].PortfolioId" style="display: none;" />
+                                            <input asp-for="PortfolioFunds[i].FundPercent" style="display: none;" />
+
+                                            var checkboxName = "fund" + Model.PortfolioFunds[i].FundId;
+                                            <tr>
+                                                <td>@(i + 1)</td>
+                                                <td>
+                                                    <a asp-controller="Fund" asp-action="Detail" asp-route-id="@Model.PortfolioFunds[i].FundId">@(Model.PortfolioFunds[i].Fund?.Title ?? string.Empty)</a>
+                                                </td>
+                                                <td>@(Model.PortfolioFunds[i].Fund?.Content ?? string.Empty)</td>
+                                                <td>
+                                                    @(Model.PortfolioFunds[i].FundPercent == 0 ? string.Empty : Model.PortfolioFunds[i].FundPercent?.ToString("0.##"))
+                                                </td>
+                                                <td class="new-percent">
+                                                    @{
+                                                        var value = "";
+                                                        if (Model.PortfolioFunds[i].FundPercentNew != null && Model.PortfolioFunds[i].FundPercentNew > 0)
+                                                        {
+                                                            value = Model.PortfolioFunds[i].FundPercentNew?.ToString("0.##");
+                                                        }
+                                                    }
+                                                    <input asp-for="@Model.PortfolioFunds[i].FundPercentNew" type="number" value="@value" class="editable-input" readonly="readonly" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </section>
+}

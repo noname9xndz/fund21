@@ -1,0 +1,129 @@
+.footer {
+    background-color: color(c-bg-footer);
+    padding-bottom: 3rem;
+    @include min-sm {
+        padding: 4rem 0rem 2rem;
+    }
+    @include min-md {
+        padding: 6rem 0rem 2rem;
+    }
+
+    [class^="col-"] {
+        margin-bottom: 1rem;
+        &:nth-child(odd) {
+            padding-right: 1rem;
+        }
+        &:nth-child(even) {
+            padding-left: 1rem;
+        }
+    }
+
+    &__logo {
+        text-align: center;
+        @include min-sm {
+            @include clearfix();
+            width: 20%;
+            float: left;
+            margin-right: 4rem;
+        }
+        img {
+            width: 100%;
+            @include min-sm {
+                max-width: 19.7rem;
+            }
+        }
+    }
+
+    &__content {
+        @include min-sm {
+            @include clearfix();
+            width: calc(80% - 4rem);
+            float: left;
+        }
+        &__input {
+            input {
+                width: 100%;
+                font-family: $font-main;
+                font-weight: 100;
+                font-size: 1.8rem;
+                line-height: 5rem;
+                background-image: url('/assets/images/footer-input-bg.png');
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-size: cover;
+                padding: 0 0.8rem;
+                border: none;
+                color: color(c-white);
+                margin-bottom: 2.4rem;
+
+                &::placeholder {
+                    color: color(c-white);
+                }
+                @include min-sm {
+                    height: 6.4rem;
+                    padding: 0 1.7rem;
+                    margin-bottom: unset;
+                }
+            }
+        }
+
+        &__subcribe {
+            text-align: center;
+            margin-bottom: 3.4rem;
+            @include min-sm {
+                text-align: left;
+            }
+            button {
+                @include min-sm {
+                    padding: 1rem 6.7rem;
+                }
+            }
+        }
+
+        &__socials {
+            text-align: center;
+            margin-bottom: 2.8rem;
+            @include min-sm {
+                text-align: left;
+            }
+            a {
+                display: inline-block;
+                img {
+                    padding: 0 0.8rem;
+                    @include min-sm {
+                        padding: 0;
+                        margin-right: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &__copyright {
+        width: fit-content;
+        margin: 0 auto;
+        font-size: 1rem;
+
+    }
+
+    // @include min-lg {
+    //     padding-top: 50px;
+    //     &__content {
+    //         &__input {
+    //             input {
+    //                 font-size: 24px;
+    //             }
+    //         }
+
+    //         &__subcribe {
+    //             button {
+    //                 font-size: 24px;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // @include min-lg {
+    //     padding-top: 70px;
+    // }
+}

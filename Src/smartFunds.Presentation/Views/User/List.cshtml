@@ -1,0 +1,83 @@
+﻿@model AdminUsersModel
+@{
+    ViewData["Title"] = Common.AdminUserManager;
+    Layout = "_AdminLayout";
+}
+
+@if (Model != null && Model.ListUser.Any())
+{
+    var index = 1;
+<section>
+    <section class="investment-funds">
+        <div class="content">
+            <h1 class="section-title">@Common.AdminUserManager</h1>
+            <a class="btn btn-action" asp-action="New">@Common.AddAdminUser</a>
+
+            <div class="table-filter-actions">
+                <div class="table-filter-actions__item table-filter-actions__delete">
+                    <a class="fas fa-trash-alt" href="#" data-micromodal-trigger="manager-user-delete-modal"><span>@Common.Delete</span></a>
+                </div>
+                <div class="table-filter-actions__item table-filter-actions__pagesize">
+                    <a>Hiển thị</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                    </select><span>1 trang</span>
+                </div>
+            </div>
+            <span class="error-messeage">@TempData["Message"]</span>
+            <form id="manage-user" asp-controller="User" asp-action="Delete" method="post">
+                <table class="display" id="manager-user__table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th><input class="select-all-btn" name="select_all" value="1" type="checkbox"></th>
+                            <th>@Common.FullName</th>
+                            <th>@Common.EmailAddress</th>
+                            <th>@Common.Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListUser)
+                        {
+                            var disable = string.Empty;
+                            if (UserService.GetCurrentUser().Result.UserName.Equals(item.UserName) || item.UserName.Equals("admin@savenow.vn"))
+                            {
+                                disable = "disabled";
+                            }
+                            <tr>
+                                <td>@index</td>
+                                <td><input name="UserIds" type="checkbox" value="@item.Id" @disable></td>
+                                <td>@item.FullName</td>
+                                <td>@item.UserName</td>
+                                <td>@(UserService.GetRoleName(item))</td>
+                            </tr>
+                            index++;
+                        }
+                    </tbody>
+                </table>
+                <div class="modal micromodal-slide" id="manager-user-delete-modal" aria-hidden="true">
+                    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                        <div class="modal__container" role="dialog" aria-modal="true"
+                             aria-labelledby="manager-user-title">
+                            <header class="modal__header">
+                                <h2 class="modal__title" id="manager-user-title">@Common.DeleteMessage</h2>
+                                <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                            </header>
+                            <footer class="modal__footer">
+                                <button type="submit" class="modal__btn modal__btn-primary">
+                                    @Common.Yes
+                                </button><button class="modal__btn" data-micromodal-close
+                                                 aria-label="Close this dialog window">
+                                    @Common.No
+                                </button>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</section>
+}

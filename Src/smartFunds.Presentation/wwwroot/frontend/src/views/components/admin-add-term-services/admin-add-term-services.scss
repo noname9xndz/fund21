@@ -1,0 +1,21 @@
+.admin-add-term-services {
+    .section-title {
+        padding-top: 40px;
+    }
+    &__agree-btn {
+        display: flex;
+        align-items: center;
+
+        input {
+            margin-right: 5px;
+        }
+    }
+    p {
+        text-align: left;
+        margin-bottom: 20px;
+        a {
+            color: #3c8dbc;
+            text-decoration: none;
+        }
+    }
+}

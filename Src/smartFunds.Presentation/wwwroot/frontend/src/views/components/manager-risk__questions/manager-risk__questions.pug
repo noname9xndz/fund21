@@ -1,0 +1,144 @@
+section.manager-risk__questions
+  .content
+    h1.section-title QUẢN LÝ CÂU HỎI XÁC ĐỊNH KVRR
+    .top-action-page
+      .top-action-page__part
+        a.btn.btn-action(href="/manager-risk__questions__data.html") Thêm câu hỏi
+      .top-action-page__part
+        .top-action-page__part__actions
+          form
+            span.name-file#file-name No file to import
+            input.input-file#input-file(type="file" accept="file_extension")
+            button.btn.btn-action#btn-add-file(type="button") Chọn file
+            button.btn.btn-action(type="submit") Import
+    .manager-risk__questions__list-questions.flex-container
+      .manager-risk__questions__list-questions__item(data-index="1" style="order:1;")
+        form.collapse-part(style="width: 100%")
+          .manager-risk__questions__list-questions__item__title
+            span.truncate-line.collapse-btn 1. Bạn thích đầu tư vào loại hình nào?
+            .item-option
+              i.fa.fa-chevron-down.click-go-down
+              i.fa.fa-chevron-up.click-go-up
+              a(href="/manager-risk__questions__data.html")
+                i.fa.fa-edit
+              a(href="#" data-micromodal-trigger='delete-item-3')
+                i.fa.fa-window-close
+              +microModal('delete-item-3')
+              input.questionId(type="hidden" value="1")
+          .manager-risk__questions__list-questions__item__content.collapse-content
+            label.category-name Danh mục: 
+              span Danh mục 1
+            .title-table
+              span Đáp án
+              .table-option
+                a(href="#" data-micromodal-trigger='delete-table-1')
+                  i.fa.fa-window-close.delete-confirm
+                +microModal('delete-table-1')
+                a.active(href="/manager-risk__questions__data.html")
+                  i.fa.fa-plus-square
+            table.table-list-questions.display(style='width:100%')
+              thead
+                tr
+                  th Stt
+                  th 
+                    input.select-all-btn(type="checkbox")
+                  th Tên quỹ
+                  th Chi tiết quỹ
+              tbody
+                tr
+                  td 1
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-1")
+                  td System Architect
+                  td Edinburgh
+                tr
+                  td 2
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-2")
+                  td Accountant
+                  td Tokyo
+                tr
+                  td 3
+                  td
+                    input.checkbox-item(type="checkbox" value="checkbox-3")
+                  td Junior Technical Author
+                  td San Francisco
+                tr
+                  td 3
+                  td
+                    input.checkbox-item(type="checkbox" value="checkbox-3")
+                  td Junior Technical Author
+                  td San Francisco
+                tr
+                  td 3
+                  td
+                    input.checkbox-item(type="checkbox" value="checkbox-3")
+                  td Junior Technical Author
+                  td San Francisco
+      .manager-risk__questions__list-questions__item(data-index="2" style="order:2;")
+        form.collapse-part(style="width: 100%")
+          .manager-risk__questions__list-questions__item__title
+            span.truncate-line.collapse-btn 2. Bạn thích đầu tư vào loại hình nào? Bạn thích đầu tư vào loại hình nào? Bạn thích đầu tư vào loại hình nào? Bạn thích đầu tư vào loại hình nào?
+            .item-option
+              i.fa.fa-chevron-down.click-go-down
+              i.fa.fa-chevron-up.click-go-up
+              a(href="/manager-risk__questions__data.html")
+                i.fa.fa-edit
+              a(href="#" data-micromodal-trigger='delete-item-2')
+                i.fa.fa-window-close
+              +microModal('delete-item-2')
+              input.questionId(type="hidden" value="2")
+          .manager-risk__questions__list-questions__item__content.collapse-content
+            .title-table
+              span Đáp án
+              .table-option
+                a(href="#" data-micromodal-trigger='delete-table-2')
+                  i.fa.fa-window-close.delete-confirm
+                +microModal('delete-table-2')
+                a.active(href="/manager-risk__questions__data.html")
+                  i.fa.fa-plus-square
+            table.table-list-questions.display(style='width:100%')
+              thead
+                tr
+                  th stt
+                  th 
+                    input.select-all-btn(type="checkbox")
+                  th Nội dung đáp án
+                  th trong số
+              tbody
+                tr.text-center
+                  td 1
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-5")
+                  td Nội dung đáp án
+                  td 1
+                tr.text-center
+                  td 1
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-6")
+                  td Nội dung đáp án
+                  td 1
+                tr.text-center
+                  td 1
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-7")
+                  td Nội dung đáp án
+                  td 1
+                tr.text-center
+                  td 1
+                  td 
+                    input.checkbox-item(type="checkbox" value="checkbox-8")
+                  td Nội dung đáp án
+                  td 1
+input#updateIndexQues(type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder")
+.modal.modal-top-up.modal-nomal#confirm-modal
+  a.btn-close-modal(href="#" rel="modal:close")
+      img(src="/assets/images/x-icon@2x.png")
+  .modal-title
+      span Xác nhận
+  .modal-body
+    .text-center
+      button.btn.btn-action(type="button") Đồng ý
+      button.btn.btn-action(type="button") Không
+a#btn-alert-mess(data-micromodal-trigger='alert-mess' href="#" style="display: none;") open
++microModal('alert-mess')

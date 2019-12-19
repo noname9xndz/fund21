@@ -1,0 +1,42 @@
+section.user-info-section
+    .container-fluid
+        .user-info-content
+            h2.user-info-content__title Thông tin tài khoản
+            .user-info-content__detail
+                .user-info-content__detail__items
+                    .info-details 
+                        .info-details__account
+                            p
+                                span Họ và Tên
+                                span.username Nguyễn Trung Anh
+                            p
+                                span Phone 
+                                span +01 234 567 89 10
+                .user-info-content__detail__items
+                    .change-info
+                        .change-info__link
+                            a.link-show
+                                img(src="../../../assets/images/icon-change-info.png", alt="")
+                                span Thay đổi thông tin cá nhân
+                        .change-info__modal
+                            .modal.micromodal-slide#modal-change-info(aria-hidden="true")
+                                .modal__overlay(tabindex="-1" data-micromodal-close)
+                                .modal__container(role="dialog" aria-modal="true" aria-labelledby="modal-1-title")
+                                    header.modal__header 
+                                        h2.modal__title#modal-1-title Thay đổi thông tin cá nhân
+                                        button.modal__close(aria-label="Close modal" data-micromodal-close)
+                                    .modal__content#modal-1-content
+                                        form#form_login
+                                            .form-row 
+                                                input#your_name.user-input(type="text", name="your_name", required autocomplete="on" value="Nguyễn Trung Anh")
+                                                p.placeholder
+                                                    span Họ Và Tên
+                                            .form-row
+                                                input#your_phone.user-input.your_phone(type="number", name="your_phone", required autocomplete="on" value="0123456789" readonly="readonly")
+                                                p.placeholder
+                                                    span Số điện thoại
+                                            .form-row
+                                                input.user-input.user-input--update(type="submit", value="Cập nhật", name="Cập nhật")
+    input(type="hidden" id="editProfileDataApiUrl" value="http://smartfunds-be-net.hn.smartosc.com/profile/edit")  
+                                            
+

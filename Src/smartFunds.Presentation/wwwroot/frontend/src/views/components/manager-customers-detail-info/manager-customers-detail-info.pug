@@ -1,0 +1,25 @@
+section.customer-detail
+    .detail-block
+        .detail-block__title
+            h2 Thông tin khách hàng
+            .title-info__btn-wrapper
+                a.edit-table-info(href="/manager-customers__detail-info__edit.html")
+                    i.fa.fa-edit
+            input#customerID(type="hidden", value="9e5988f1-6c83-4bb1-9fcb-0b39521a0fd6")
+        .detail-block__content
+            .container-fluid
+                .row
+                    strong.col-sm-3(for="customerInfoFullName") Họ và tên
+                    p.col-sm-6 Nguyễn Văn A
+                .row
+                    strong.col-sm-3(for="customerInfoPhoneNumber") Số điện thoại
+                    p.col-sm-6 0123456789
+                .row
+                    strong.col-sm-3(for="customerInfoEmailAddress") Email
+                    p.col-sm-6 vana123@gmail.com
+                .row
+                    strong.col-sm-3(for="customerInfoDateCreate") Ngày lập tài khoản
+                    p.col-sm-6 13/03/2019
+                .row
+                    strong.col-sm-3(for="customerInfoStatus") Trạng thái hoạt động:
+                    p.col-sm-6 Đang hoạt động

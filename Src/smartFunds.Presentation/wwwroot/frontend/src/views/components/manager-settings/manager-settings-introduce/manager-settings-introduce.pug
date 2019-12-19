@@ -1,0 +1,33 @@
+section.manager-settings-introduce
+  .container-fluid
+    .content
+      h1.section-title Giới thiệu chung
+      .row.center-xs
+        .col-sm-6
+          form#form-introduce
+            .form-group
+              label Banner Desktop
+              .image-upload
+                .image-upload__item.upload-banner-image(data-title="desktop",data-button-upload="#btn-banner-1", data-input-file="#input-file-1", data-value-delete="#IsDeleteDesktopBanner")
+                button#btn-banner-1.image-upload__item__btn-upload(type="button")
+                  i.fa.fa-plus
+                input#input-file-1.image-upload__item__input-image(type="file" accept="image/*")
+                label#imageIntroduceError Chưa có ảnh
+              input#IsDeleteDesktopBanner(value="0" type="hidden") 
+            .form-group
+              label Banner Mobile
+              .image-upload
+                .image-upload__item.upload-banner-image(data-title="mobile",data-button-upload="#btn-banner-2", data-input-file="#input-file-2", data-value-delete="#IsDeleteMobileBanner")
+                button#btn-banner-2.image-upload__item__btn-upload(type="button")
+                  i.fa.fa-plus
+                input#input-file-2.image-upload__item__input-image(type="file" accept="image/*")
+                label#imageIntroduceError Chưa có ản
+              input#IsDeleteMobileBanner(value="0" type="hidden") 
+            .form-group
+              label Số điện thoại nguội
+              input.form-control(type="text" name="phoneIntroduce")
+            .btns-wrapper-center
+              button.btn.btn-action#add-introduce(type="submit") Xác nhận
+              a.btn.btn-action Quay lại
+input#required-mess(value="Không bỏ trống" type="hidden")
+input#phone-validate-mess(value="Sai định dạng số điện thoại" type="hidden")

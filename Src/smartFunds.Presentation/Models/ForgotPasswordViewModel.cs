@@ -8,7 +8,9 @@ namespace smartFunds.Presentation.Models
 {
     public class ForgotPasswordViewModel
     {
-        [Required]
-        public string EmailOrPhone { get; set; }
+        [Required(ErrorMessageResourceName = "FieldEmpty", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
+        [Display(Name = "EmailAddress", ResourceType = typeof(Model.Resources.Common))]
+        [EmailAddress(ErrorMessageResourceName = "FieldFormat", ErrorMessageResourceType = typeof(Model.Resources.ValidationMessages))]
+        public string Email { get; set; }
     }
 }

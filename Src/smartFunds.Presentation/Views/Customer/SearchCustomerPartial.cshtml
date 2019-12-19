@@ -1,0 +1,55 @@
+﻿@model SearchCustomer
+@{ 
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result;
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+<form id="SearchCustomerForm" asp-controller="Customer" asp-action="Export" method="post">
+    <div class="table-filter-conditions row">
+        <div class="table-filter-conditions__item col-xs-6 col-md-3">
+            <div class="table-filter-conditions__item__title">@Common.FullName</div>
+            <div class="table-filter-conditions__item__input">
+                <input class="table-filter-conditions__item__input__type table-filter-conditions__item__input__type--name" asp-for="FullName">
+            </div>
+        </div>
+        <div class="table-filter-conditions__item col-xs-6 col-md-3">
+            <div class="table-filter-conditions__item__title">@Common.PhoneNumber</div>
+            <div class="table-filter-conditions__item__input">
+                <input class="table-filter-conditions__item__input__type table-filter-conditions__item__input__type--phone" asp-for="PhoneNumber">
+            </div>
+        </div>
+        <div class="table-filter-conditions__item col-xs-6 col-md-3">
+            <div class="table-filter-conditions__item__title">@Common.AccountCreated</div>
+            <div class="table-filter-conditions__item__input table-filter-conditions__item__input--date">
+                <input class="table-filter-conditions__item__input__type table-filter-conditions__item__input__type--date" asp-for="CreatedDate" type="text" readonly="readonly">
+            </div>
+        </div>
+        <div class="table-filter-conditions__item col-xs-6 col-md-3">
+            <div class="table-filter-conditions__item__title">@Common.ActiveStatus</div>
+            <div class="table-filter-conditions__item__input table-filter-conditions__select--custom">
+                <select class="table-filter-conditions__item__input__type table-filter-conditions__item__input__type--status" asp-for="ActiveStatus" asp-items="Model.Status"></select>
+            </div>
+        </div>
+        <div class="table-filter-conditions__item col-xs-6 col-md-3">
+            <div class="table-filter-conditions__item__title">&nbsp;</div>
+            <div class="table-filter-conditions__item__input dt-buttons">
+                <a class="buttons-search">
+                    @Common.Search
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-filter-actions">
+        <div class="table-filter-actions__delete">
+            <a class="fas fa-trash-alt @( checkRule ? "":"disabled-icon" )" href="#" data-micromodal-trigger="manage-customer-modal"><span>@Common.Delete</span></a>
+        </div>
+        <div class="table-filter-actions__pagesize">
+            <a>@Common.Display</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select><span>1 trang</span>
+        </div>
+        <div class="table-filter-actions__export dt-buttons"><button type="submit" class="buttons-csv @( checkNoRule ? "":"disabled-button" )">@Common.Export</button></div>
+    </div>
+</form>

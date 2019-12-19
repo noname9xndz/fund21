@@ -1,0 +1,49 @@
+﻿@model WithdrawalViewModel
+@{
+    ViewData["Title"] = Common.Withdrawal;
+}
+
+<div class="body-content-endUser">
+    <div class="user-withdrawal-invest px-15">
+        <input class="get-cost-withdrawal" type="hidden" value="/withdrawal/GetWithdrawalFee">
+        <h1 class="section-title-endUser">@Common.Withdrawal</h1>
+        <form class="user-form-group p-15" id="user-withdrawal" method="post">
+            @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+            {
+                <span class="warning-message" style="margin-top: 0px; margin-bottom: 20px">
+                    @ViewBag.Error
+                </span>
+            }
+
+            <div class="user-form-control user-expected-money-amount">
+                <span class="user-form-control__title">
+                    Nhập số tiền muốn rút
+                </span>
+                <input class="input-form-control form-control-number" type="text" asp-for="WithdrawalAmount">
+                <span class="warning-message" asp-validation-for="WithdrawalAmount">@ViewData["Message"]</span><span class="currency">đ</span>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">@Common.WithdrawalType</span>
+                <select class="type-withdrawal" asp-for="WithdrawalType" asp-items="Html.GetEnumSelectList<WithdrawalType>()"></select>
+            </div>
+            <div class="user-form-control">
+                <span class="user-form-control__title">@Common.WithdrawalFee</span><input class="input-form-control cost-withdrawal" type="text" asp-for="WithdrawalFee" readonly><span class="currency">đ</span>
+            </div>
+            <span class="warning-message" id="message-withdrawal-fast">
+                Khi sử dụng hình thức Rút nhanh, bạn chỉ có thể rút được tối đa 90% tài sản
+            </span>
+            <span class="warning-message d-none" id="message-withdrawal-slow">
+                Bạn sẽ nhận được tiền trong vòng 1 tuần
+            </span>
+            <div class="user-withdrawal-invest__action">
+                <a class="btn btn-actions is-destroy" asp-action="MyWallet" asp-controller="Account">
+                    Hủy
+                </a>
+                <button class="btn btn-actions" type="submit" @(!string.IsNullOrWhiteSpace(ViewBag.Error)?"disabled":"")>Đồng ý</button>
+            </div>
+        </form>
+        <div id="pageloader">
+            <img src="/assets/images/loader-large.gif" alt="processing..." />
+        </div>
+    </div>
+</div>

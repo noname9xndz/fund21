@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using smartFunds.Common;
 using smartFunds.Common.Data.Repositories;
 
 namespace smartFunds.Data.Models
@@ -14,5 +15,6 @@ namespace smartFunds.Data.Models
         public string Content { get; set; }
         public int No { get; set; }
         public ICollection<KVRRAnswer> KVRRAnswers { get; set; }
+        public KVRRQuestionCategories KVRRQuestionCategories { get; set; }
     }
 }

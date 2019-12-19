@@ -1,0 +1,128 @@
+﻿@model smartFunds.Model.Common.FundsModel
+
+@{
+    ViewData["Title"] = @Common.ManageFund;
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result;
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+<section>
+    <section class="investment-funds">
+        <input id="investment-funds__url" type="hidden" value="/admin/Fund/List">
+        <div class="content">
+            <h1 class="section-title">@Common.ManageFund</h1>
+            <a class="btn btn-action @( checkRule ? "":"disabled-button" )" asp-action="New">@Common.AddFund</a>
+            <div class="table-filter-actions">
+                <div class="table-filter-actions__item table-filter-actions__delete">
+                    <a class="fas fa-trash-alt" href="#" data-micromodal-trigger="manage-invesfund-modal"><span>@Common.Delete</span></a>
+                </div>
+                <div class="table-filter-actions__item table-filter-actions__pagesize">
+                    <a>Hiển thị</a><select class="table-filter-actions__pagesize__select" id="pagesize" name="pagesize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                    </select><span>1 trang</span>
+                </div>
+                <div class="table-filter-actions__item table-filter-actions__export dt-buttons">
+                    <form asp-controller="Fund" asp-action="Export" method="post">
+                        <button type="submit" class="buttons-csv @( checkNoRule ? "":"disabled-button" )">@Common.Export</button>
+                    </form>
+                </div>
+            </div>
+            <form class="table-special-actions">
+                <div class="title">@Common.ManageFund</div>
+                <div class="option-actions">
+                    <button class="edit-table-info edit-directly @( checkRule ? "":"disabled-icon" )" href="javascript:void(0)" data-table-id="investment-funds__table" type="button">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="investment-funds--Save @( checkRule ? "":"disabled-icon" )" type="button"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+            <div class="investment-funds__table">
+                <div class="investment-funds__table__overlay hide">
+                    <div class="investment-funds__table__overlay__spinner rotating"></div>
+                </div>
+                <form asp-controller="Fund" asp-action="delete" method="post" id="manage-invesfund-form">
+                    <div class="modal micromodal-slide" id="manage-invesfund-modal" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manage-invesfund-modal-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="manage-invesfund-modal-title">Bạn có chắc không?</h2>
+                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                </header>
+                                <footer class="modal__footer"><button class="modal__btn modal__btn-primary">Tiếp tục</button><button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Hủy bỏ</button></footer>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="display" id="investment-funds__table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>@Common.STT</th>
+                                <th><input class="select-all-btn" name="select_all" type="checkbox" /></th>
+                                <th style="width: 100px;">@Common.FundCode</th>
+                                <th>@Common.FundName</th>
+                                <th style="width: 100px;">NAV</th>
+                                <th style="width: 100px;">NAV mới</th>
+                                <th style="width: 100px;">NAV mới / NAV </th>
+                                <th style="width: 300px;">@Common.FundContent</th>
+                                <th style="width: 200px;">@Common.FundUseBy</th>
+                                <th>Thời gian cập nhật</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var index = 1; }
+                            @if (Model != null && Model.Funds.Any())
+                            {
+                                foreach (var fund in Model.Funds)
+                                {
+                                    var checkboxName = "checkbox_fund" + fund.Id;
+                                    var portfolio = string.Empty;
+                                    if (fund.PortfolioFunds != null && fund.PortfolioFunds.Any())
+                                    {
+                                        foreach (var portfolioFund in fund.PortfolioFunds)
+                                        {
+                                            portfolio += portfolioFund.Portfolio.Title + ", ";
+                                        }
+
+                                        portfolio = portfolio.Substring(0, portfolio.Length - 2);
+                                    }
+
+                                    <tr class="investment-funds__Row">
+                                        <td>@index</td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(portfolio))
+                                            {
+                                                <input type="checkbox" name="@checkboxName" asp-route-id="@fund.Id" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="@checkboxName" asp-route-id="@fund.Id" disabled />
+                                            }
+                                        </td>
+                                        <td class="investment-funds__ID" data-id="@fund.Id">@fund.Code</td>
+                                        <td>
+                                            <a asp-action="Detail" asp-route-id="@fund.Id">@fund.Title</a>
+                                        </td>
+                                        <td class="current__NAV">@String.Format("{0:0,0.00}", @fund.NAV)</td>
+                                        <td>
+                                            <input class="editable-input new__NAV form-control-number--fund" value="@String.Format("{0:0,0.00}", @fund.NAVNew)" type="text" readonly="readonly">
+                                        </td>
+                                        <td class="proportion__NAV"></td>
+                                        <td><pre>@fund.Content</pre></td>
+                                        <td>
+                                            @portfolio
+                                        </td>
+                                        <td>
+                                            @fund.DateLastApproved.ToString("dd/MM/yyyy HH:mm:ss")
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>

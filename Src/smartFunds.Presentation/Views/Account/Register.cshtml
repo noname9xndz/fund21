@@ -1,29 +1,70 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Common.RegisterAccount;
 }
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="FullName" placeholder="Họ và tên đầy đủ *" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+
+<div class="resgiste-user submit-form-general">
+    <div class="banner-left">
+        @*<section class="rectangnle"></section>*@
+        <section class="banner"><img class="img-cover" src="/images/tyler-franta.jpg"></section>
+        @*<section class="text">
+            <p class="text-uppercase">@Common.Slogan</p>
+        </section>*@
+    </div>
+    <div class="form-resgister-right">
+        <div class="container-fluid form-resgister-right-content">
+            <div class="back-to-homepage">
+                <a class="back-to-homepage-link" href="/">
+                    <img src="/images/arrow-left.png" alt="images"><span class="back-to-homepage-content">@Common.BackToHome</span>
+                </a>
             </div>
-            <div class="form-group">
-                <input asp-for="EmailOrPhone" placeholder="Số điện thoại hoặc địa chỉ Email *" class="form-control" />
-                <span asp-validation-for="EmailOrPhone" class="text-danger"></span>
+            <form class="resgister" id="resgister-form" method="post">
+                <div class="resgiter-title">
+                    <div class="title-big">@Common.RegisterAccount</div>
+                    <div class="title-small">@Common.RegisterSmallTitle</div>
+                </div>
+                <div class="error-resgister">@ViewData["Message"]</div>
+                <div class="error-resgister">@TempData["Message"]</div>
+                <div class="resgister-form resgister-phone">
+                    @if (!string.IsNullOrEmpty(Model.Phone) && Model.Phone.IsPhoneNumber())
+                    {
+                        <input class="form-group form-control-number--phone" asp-for="Phone" value="@Model.Phone" type="text" required>
+                    }
+                    else
+                    {
+                        <input class="form-group form-control-number--phone" asp-for="Phone" type="text" required>
+                    }
+                    <span class="text-placeholder">
+                        @Common.PhoneNumber
+                    </span>
+                    <img class="icon icon-success" src="/images/check-success.png" alt="success">
+                    <img class="icon icon-warning" src="/images/check-warning.png" alt="warning">
+                    <span class="error-messeage" asp-validation-for="Phone"></span>
+                </div>
+
+                <div class="resgister-form resgister-name">
+                    <input class="form-group" asp-for="FullName" required>
+                    <span class="text-placeholder">@Common.FullName</span>
+                    <span class="error-messeage" asp-validation-for="FullName"></span>
+                </div>
+                <div class="accept-condition">
+                    <input class="accept" id="accept" type="checkbox" name="accept"><label for="accept">
+                        Tôi đã đọc và đồng ý với&nbsp;<a class="term-condition" href="/files/HĐ HTĐT.docx" target="_blank">
+                            Điều khoản sử
+                            dụng và bảo mật
+                        </a>
+                    </label><span class="warning-messeage">Bạn phải đọc và đồng ý với Điều khoản sử dụng và bảo mật</span>
+                </div>
+                <div class="btn-resgister button-submit-general"><button class="btnResgister" type="submit">Đăng ký</button></div>
+            </form>
+            <div class="link-login">
+                <span>Đã có tài khoản?&nbsp;</span><a class="link" asp-controller="Account" asp-action="Login">
+                    Đăng nhập tại
+                    đây
+                </a>
             </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input type="password" asp-for="Password" placeholder="Mật khẩu *" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+            @*<div class="line"><span>Hoặc</span></div>
+            <div class="resgister-viettelpay"><a class="link-viettelpay" href="#">Đăng ký qua Viettel Pay</a></div>*@
+        </div>
     </div>
 </div>
-

@@ -1,38 +1,203 @@
-﻿@model UserModel
+﻿@model DetailCustomerViewModel
 @{
-    ViewData["Title"] = "Customer Detail";
+    ViewData["Title"] = Common.CustomerDetail;
+    Layout = "_AdminLayout";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <section>
+<div class="content">
+    <section class="customer-detail">
+        <div class="detail-block">
+            <div class="detail-block__title">
+                <h2>@Common.CustomerDetail</h2>
+                <div class="title-info__btn-wrapper">
+                    <a class="edit-table-info @( UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result?"":"disabled" )" asp-action="Edit" asp-route-customerId="@Model.Customer.Id"><i class="fa fa-edit"></i></a>
+                </div>
+                <input id="customerID" type="hidden" value="@Model.Customer.Id">
+            </div>
+            <div class="detail-block__content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <strong class="col-sm-3" for="customerInfoFullName">@Common.FullName</strong>
+                        <p class="col-sm-6">@Model.Customer.FullName</p>
+                    </div>
+                    <div class="row">
+                        <strong class="col-sm-3" for="customerInfoPhoneNumber">
+                            @Common.PhoneNumber
+                        </strong>
+                        <p class="col-sm-6">@Model.Customer.PhoneNumber</p>
+                    </div>
+                    @*<div class="row">
+                            <strong class="col-sm-3" for="customerInfoEmailAddress">@Common.EmailAddress</strong>
+                            <p class="col-sm-6">@Model.Customer.Email</p>
+                        </div>*@
+                    <div class="row">
+                        <strong class="col-sm-3" for="customerInfoDateCreate">
+                            @Common.AccountCreated
+                        </strong>
+                        <p class="col-sm-6">@Model.Customer.Created.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    
+                    <div class="row">
+                        <strong class="col-sm-3" for="customerInfoStatus">
+                            @Common.ActiveStatus
+                        </strong>
+                        <p class="col-sm-6">@((DateTime.Now - Model.Customer.LastLogin).Days < 365 ? Common.Active : Common.Inactive)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 btn-part text-center"><a asp-action="List" class="btn btn-action">@Common.Back</a></div>
 
-            <h4>Customer Detail</h4>
-
-            <table class="table">
-                <tr>
-                    <td>@Html.DisplayNameFor(model => model.FullName)</td>
-                    <td>@Html.DisplayFor(model => model.FullName)</td>
-                </tr>
-                <tr>
-                    <td>@Common.ResourceManager.GetString("PhoneNumber")</td>
-                    <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
-                </tr>
-                <tr>
-                    <td>@Common.ResourceManager.GetString("EmailAddress")</td>
-                    <td>@Html.DisplayFor(model => model.Email)</td>
-                </tr>
-                <tr>
-                    <td>@Common.ResourceManager.GetString("NumberKVRR")</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>@Common.ResourceManager.GetString("AccountCreated")</td>
-                    <td>@Model.Created.ToString("dd/MM/yyyy")</td>
-                </tr>
-            </table>
+    </section>
 
 
-        </section>
+    <div class="detail-block__title">
+        <h2>@Common.TransactionHistory</h2>
     </div>
+    <section class="transaction-history transaction-history__customer-details">
+        <div class="content">
+            <input id="manageTransactionInputHidden" type="hidden"
+                   value="/admin/customer/SearchTransactionHistory">
+            <h1 class="section-title">@Common.TransactionHistory</h1>
+            <div class="transaction-history__sort-form">
+                <div id="transaction-history-form">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>@Common.Type</label>
+                                <select class="form-control" id="type" name="TransactionType" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group table-filter-conditions__select--custom">
+                                <label>@Common.Status</label>
+                                <select class="form-control" id="status" name="Status" asp-items="Html.GetEnumSelectList<TransactionStatus>()"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>@(Common.TimeAction)</label>
+                                <div class="form-in-line">
+                                    <input class="form-control" id="date-range-from" name="TransactionDateFrom" readonly="readonly" placeholder="Từ">
+                                    <input class="form-control" id="date-range-to" name="TransactionDateTo" readonly="readonly" placeholder="Đến">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="dt-buttons btn-part"><button>@Common.Search</button></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="transaction-history__table">
+                <div class="transaction-history__table__overlay hide">
+                    <div class="transaction-history__table__overlay__spinner rotating"></div>
+                </div>
+
+                <div class="transaction-history__table--wrapper"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="customer-detail">
+        <div class="detail-block">
+            <div class="detail-block__title">
+                <h2>Thông tin tài sản</h2>
+            </div>
+            <div class="detail-block__content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <strong class="col-sm-3" for="customerInfoFullName">Tổng tài sản hiện có</strong>
+                        <p class="col-sm-6">@Model.Customer.CurrentAccountAmount.ToString("N0") đ</p>
+                    </div>
+                    <div class="row">
+                        @{
+                            decimal percentageGrowth = Model.Customer.InitialInvestmentAmount - Model.Customer.AmountWithdrawn == 0 ? 0 : ((Model.Customer.CurrentAccountAmount / (Model.Customer.InitialInvestmentAmount - Model.Customer.AmountWithdrawn)) * 100) - 100;
+                        }
+                        <strong class="col-sm-3" for="customerInfoPhoneNumber">
+                            % tăng trưởng
+                        </strong>
+                        <p class="col-sm-6">@(percentageGrowth.ToString("0.##"))%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="detail-block__title">
+        <h2>@Common.PropertyFluctuation</h2>
+    </div>
+    <div class="container-fluid">
+        <div class="row center-xs">
+            <div class="col-lg-8">
+                <div class="customer-chart__date-range">
+                    <label>@(Common.Period):</label>
+                    <div class="customer-chart__date-range__inputs">
+                        <input class="form-control" id="property-fluctuations-from" name="property-fluctuations-from" readonly="readonly" placeholder="Từ">
+                        <input class="form-control" id="property-fluctuations-to" name="property-fluctuations-to" readonly="readonly" placeholder="Đến">
+                    </div>
+                    <div class="dt-buttons btn-part"><button>@Common.Search</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid"><canvas class="chart-customer" id="chart-customer"></canvas><span id="checkChartData">Không có dữ liệu</span></div>
+    <input type="hidden" id="customerDataApiUrl" value="/admin/customer/PropertyFluctuations">
+
+    @*@if (Model.InvestmentTarget != null && Model.InvestmentTarget.Status == EditStatus.Success)
+    {
+        <section class="customer-target">
+            <div class="detail-block">
+                <div class="detail-block__title">
+                    <h2>@Common.InvestmentTarget</h2>
+                </div>
+                <div class="detail-block__content">
+                    <div class="container-fluid">
+                        <div class="row center-xs">
+                            <div class="col-sm-6">
+                                <div class="customer-target__target">
+                                    <h3>@Common.Target</h3>
+
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.ExpectedAmount)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.ExpectedAmount.ToString("N0")</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Duration)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.Duration.GetDisplayName()</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Frequency)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.Frequency.GetDisplayName()</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentMethod)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentMethod.GetDisplayName()</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentStatus)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentStatus</p>
+                                    </div>
+                                </div>
+                                <div class="customer-target__finished">
+                                    <h3>Đã thực hiện</h3>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentAmount)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentAmount.ToString("N0")</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentDuration)</strong>
+                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentDuration @(Model.InvestmentTarget.Frequency == Frequency.OneMonth ? "tháng" : "tuần")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }*@
+
 </div>

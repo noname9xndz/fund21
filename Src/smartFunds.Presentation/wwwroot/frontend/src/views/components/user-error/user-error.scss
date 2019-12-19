@@ -1,0 +1,44 @@
+.body-content-endUser.body-content-error-page {
+  background: #ecf0f5;
+  padding: 25px;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(center);
+
+  @include ie-only {
+    padding: 0;
+  }
+}
+
+.user-error-section {
+  @include ie-only {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+  }
+
+  .user-error-content {
+    text-align: center;
+
+    h1 {
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 28px;
+      color: #3D4359;
+      margin: 14px 0 7px;
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #818D99;
+
+      span {
+        &:last-child {
+          color: #F77314;
+        }
+      }
+    }
+  }
+}

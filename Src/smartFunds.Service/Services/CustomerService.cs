@@ -9,13 +9,20 @@ using smartFunds.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using smartFunds.Common;
 using System.Collections.Generic;
+using smartFunds.Model.Admin;
 
 namespace smartFunds.Service.Services
 {
     public interface ICustomerService
     {
-        Task<CustomersModel> GetListCustomer(int pageSize, int pageIndex);
+        Task<CustomersModel> GetListCustomer(int pageSize, int pageIndex, SearchCustomer searchCustomer = null);
+        Task<CustomersModel> GetAllCustomer(SearchCustomer searchCustomer = null);
         Task<UserModel> GetCustomerById(string customerId);
+        Task<RegisterStatus> AddCustomer(UserModel userModel, string password);
+        Task<bool> UpdateCustomer(UserModel customer);
+        Task<bool> DeleteCustomerById(string customerId);
+        Task<bool> DeleteCustomerByIds(List<string> customerIds);
+        Task<byte[]> ExportCustomer(SearchCustomer searchCustomer = null);
     }
     public class CustomerService : ICustomerService
     {
@@ -28,7 +35,19 @@ namespace smartFunds.Service.Services
             _customerManager = customerManager;
 
         }
-        
+
+        public async Task<RegisterStatus> AddCustomer(UserModel userModel, string password)
+        {
+            var user = _mapper.Map<User>(userModel);
+            return await _customerManager.AddCustomer(user, password);
+        }
+
+        public async Task<bool> UpdateCustomer(UserModel customer)
+        {
+            var user = _mapper.Map<User>(customer);
+            return await _customerManager.UpdateCustomer(user);
+        }
+
         public async Task<UserModel> GetCustomerById(string customerId)
         {
             var user = await _customerManager.GetCustomerById(customerId);
@@ -36,11 +55,38 @@ namespace smartFunds.Service.Services
             return userModel;
         }
 
-        public async Task<CustomersModel> GetListCustomer(int pageSize, int pageIndex)
+        public async Task<bool> DeleteCustomerById(string customerId)
+        {
+            return await _customerManager.DeleteCustomerById(customerId);
+        }
+
+        public async Task<bool> DeleteCustomerByIds(List<string> customerIds)
+        {
+            return await _customerManager.DeleteCustomerByIds(customerIds);
+        }
+
+        public async Task<CustomersModel> GetListCustomer(int pageSize, int pageIndex, SearchCustomer searchCustomer = null)
         {
             var model = new CustomersModel();
-            model.Customers = (await _customerManager.GetListCustomer(pageSize, pageIndex)).Select(u => _mapper.Map<UserModel>(u)).ToList();
+            var listUser = (await _customerManager.GetListCustomer(pageSize, pageIndex, searchCustomer)).ToList();
+            var listUserModel = _mapper.Map<List<User>, List<UserModel>>(listUser);
+            model.Customers = listUserModel;
+            model.TotalCount = (await _customerManager.GetAllCustomer(searchCustomer)).Count;
             return model;
+        }
+
+        public async Task<CustomersModel> GetAllCustomer(SearchCustomer searchCustomer = null)
+        {
+            var model = new CustomersModel();
+            var allUserModel = _mapper.Map<List<User>, List<UserModel>>(await _customerManager.GetAllCustomer(searchCustomer));
+            model.Customers = allUserModel;
+            model.TotalCount = allUserModel.Count;
+            return model;
+        }
+
+        public async Task<byte[]> ExportCustomer(SearchCustomer searchCustomer = null)
+        {
+            return await _customerManager.ExportCustomer(searchCustomer);
         }
     }
 }

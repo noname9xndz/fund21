@@ -1,0 +1,131 @@
+﻿@using smartFunds.Presentation.Models.Client
+@model UserPorfolioModel
+@{
+    ViewData["Title"] = Common.Portfolio;
+}
+
+@if (Model.CurrentUser.KVRR != null)
+{
+    decimal? totalFundAmount = 0;
+
+    <div class="body-content-endUser">
+        <section class="userfund-kvrr">
+            <div class="container-fluid">
+                <div class="userfund-kvrr__content">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-4 boxshadow-right">
+                            <div class="money-record money-record--blue">
+                                <div class="block-icon"><img class="icon-wallet" src="/images/icons/wallet.png"></div>
+                                <div class="money-record__detail">
+                                    <div class="money-record__info">
+                                        <span class="amount">@Model.CurrentUser.CurrentAccountAmount.ToString("N0")</span><span class="item-price">VNĐ</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-8">
+                            <div class="suggest-block">
+                                <h4>@Model.CurrentUser.KVRR.Name</h4>
+                                <p class="minimize">
+                                    @Model.CurrentUser.KVRR.Detail
+                                </p>
+                                <a asp-controller="Account" asp-action="KVRRSelection">
+                                    <img src="/images/icon-change-info.png">
+                                    Thay đổi danh mục đầu tư
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-actions">
+                        @if (Model.CurrentUser.CurrentAccountAmount > 0)
+                        {
+                            <a class="btn btn-select" asp-controller="Investment" asp-action="Invest">
+                                <img src="/images/icons/payment-method-2.svg">Đầu tư
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-select link-show-popup">
+                                <img src="/images/icons/payment-method-2.svg">Đầu tư
+                            </a>
+                        }
+
+                        <a class="btn btn-target" asp-controller="InvestmentTarget" asp-action="Detail">Mục tiêu</a>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </section>
+        <section class="userfund-dmdt">
+            <div class="container-fluid">
+                <h4 class="block-title">@Common.Portfolio</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã Quỹ</th>
+                            <th>Số lượng </th>
+                            <th>Giá trị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int j = 0; j < Model.UserPortfolios.Count(); j++)
+                        {
+                            if (Model.UserPortfolios[j].NoOfCertificates != null)
+                            {
+                                totalFundAmount += Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue;
+                            }
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(m => m.UserPortfolios[j].FundCode)
+                                <span>@Html.DisplayFor(m => m.UserPortfolios[j].FundName)</span>
+                            </th>
+                            <th>@(Model.UserPortfolios[j].NoOfCertificates != null ? Model.UserPortfolios[j].NoOfCertificates?.ToString("0.##") : "0")</th>
+                            @{
+                                if (Model.UserPortfolios[j].Status == EditStatus.Updating)
+                                {
+                                    <th>
+                                        @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
+                                        <span></span>
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th class="is-active">
+                                        @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
+                                        <span></span>
+                                    </th>
+                                }
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="userfund-status">
+            <p class="is-active"><span></span>Giao dịch đã thanh toán</p>
+            <p><span></span>Giao dịch đang được xử lý</p>
+        </section>
+    </div>
+}
+else
+{
+    <section class="emptyManageRisk">
+        <div class="container-fluid">
+            <div class="emptyManageRisk__BigImage">
+                <img src="/images/manageRisk1.png"
+                     alt="image-socials">
+            </div>
+            <div class="emptyManageRisk__Content">
+                <h4>Bạn chưa có khẩu vị rủi ro</h4>
+                <div class="emptyManageRisk__Button">
+                    <a asp-controller="Account" asp-action="DefindKVRR" class="btn-select">Lựa chọn ngay</a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+

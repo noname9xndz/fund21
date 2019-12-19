@@ -1,0 +1,144 @@
+﻿@if (UserService.IsSignedIn(User))
+{
+    <section class="sidebar">
+        <ul>
+            <li class="sidebar__items @Html.IsActived("Customer","List") @Html.IsActived("Customer","Detail") @Html.IsActived("Customer","Edit")" id="customer">
+                <a class="sidebar__links" asp-controller="Customer" asp-action="List">
+                    <i class="fas fa-users"></i>
+                    <span class="sidebar__items--Name">@Common.Customer</span>
+                </a>
+            </li>
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("Task", "ApproveList") @Html.IsActived("Task", "Detail") @Html.IsActived("Task", "Edit")" id="customer">
+                    <a class="sidebar__links" asp-controller="Task" asp-action="ApproveList">
+                        <i class="fa fa-tasks"></i>
+                        <span class="sidebar__items--Name">@Common.Tasks</span>
+                    </a>
+                </li>
+            }
+            else if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("Task", "List") @Html.IsActived("Task", "Detail") @Html.IsActived("Task", "Edit")" id="customer">
+                    <a class="sidebar__links" asp-controller="Task" asp-action="List">
+                        <i class="fa fa-tasks"></i>
+                        <span class="sidebar__items--Name">@Common.Tasks</span>
+                    </a>
+                </li>
+            }
+            <li class="sidebar__items @Html.IsActived("KVRR","List") @Html.IsActived("KVRR","New") @Html.IsActived("KVRR","Detail") @Html.IsActived("KVRR","Edit")" id="manager-risk">
+                <a class="sidebar__links" asp-controller="KVRR" asp-action="List">
+                    <i class="fas fa-copy"></i>
+                    <span class="sidebar__items--Name">@Common.KVRR</span>
+                </a>
+            </li>
+            <li class="sidebar__items @Html.IsActived("Portfolio","List") @Html.IsActived("Portfolio","New") @Html.IsActived("Portfolio","Detail") @Html.IsActived("Portfolio","Edit")">
+                <a class="sidebar__links" asp-controller="Portfolio" asp-action="List">
+                    <i class="fas fa-money-check"></i>
+                    <span class="sidebar__items--Name">@Common.Portfolio</span>
+                </a>
+            </li>
+            <li class="sidebar__items @Html.IsActived("Fund","List") @Html.IsActived("Fund","New") @Html.IsActived("Fund","Detail") @Html.IsActived("Fund","Edit")">
+                <a class="sidebar__links" asp-controller="Fund" asp-action="List">
+                    <i class="fas fa-landmark"></i>
+                    <span class="sidebar__items--Name">@Common.Fund2</span>
+                </a>
+            </li>
+            @if (UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("KVRRMark", "List") @Html.IsActived("KVRRMark", "New") @Html.IsActived("KVRRMark", "Detail") @Html.IsActived("KVRRMark", "Edit")">
+                    <a class="sidebar__links" asp-controller="KVRRMark" asp-action="List">
+                        <i class="fas fa-sort-numeric-up"></i>
+                        <span class="sidebar__items--Name">@Common.Mark</span>
+                    </a>
+                </li>
+            }
+            <li class="sidebar__items @Html.IsActived("TransactionHistory","List") @Html.IsActived("TransactionHistory","New") @Html.IsActived("TransactionHistory","Detail") @Html.IsActived("TransactionHistory","Edit")">
+                <a class="sidebar__links" asp-controller="TransactionHistory" asp-action="List">
+                    <i class="fas fa-passport"></i>
+                    <span class="sidebar__items--Name">@Common.TransactionHistory</span>
+                </a>
+            </li>
+            @if (UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("KVRRQuestionAnswer", "List") @Html.IsActived("KVRRQuestionAnswer", "New") @Html.IsActived("KVRRQuestionAnswer", "Detail") @Html.IsActived("KVRRQuestionAnswer", "Edit")">
+                    <a class="sidebar__links" asp-controller="KVRRQuestionAnswer" asp-action="List">
+                        <i class="far fa-question-circle"></i>
+                        <span class="sidebar__items--Name">@Common.KVRRQuestion</span>
+                    </a>
+                </li>
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin, RoleName.Accountant).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("BalanceFund", "List") @Html.IsActived("BalanceFund", "Detail")">
+                    <a class="sidebar__links" asp-controller="BalanceFund" asp-action="List">
+                        <i class="fas fa-balance-scale"></i>
+                        <span class="sidebar__items--Name">@Common.BalanceFund</span>
+                    </a>
+                </li>
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin, RoleName.Accountant).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("CheckFund", "Detail")">
+                    <a class="sidebar__links" asp-controller="CheckFund" asp-action="Detail">
+                        <i class="fas fa-balance-scale"></i>
+                        <span class="sidebar__items--Name">@Common.CheckFund</span>
+                    </a>
+                </li>
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin, RoleName.Accountant).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("Statistic", "Index")">
+                    <a class="sidebar__links" asp-controller="Statistic" asp-action="Index">
+                        <i class="fas fa-database"></i>
+                        <span class="sidebar__items--Name">@Common.Statistic</span>
+                    </a>
+                </li>
+            }
+            <li class="sidebar__items @Html.IsActived("FAQ", "List") @Html.IsActived("FAQ", "New") @Html.IsActived("FAQ", "Edit")">
+                <a class="sidebar__links" asp-controller="FAQ" asp-action="List">
+                    <i class="far fa-question-circle"></i>
+                    <span class="sidebar__items--Name">@Common.FAQ</span>
+                </a>
+            </li>
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("PushNotification", "SendNotification")">
+                    <a class="sidebar__links" asp-controller="PushNotification" asp-action="SendNotification">
+                        <i class="fas fa-bell"></i>
+                        <span class="sidebar__items--Name">Push Notification</span>
+                    </a>
+                </li>
+
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("CustomerLevel", "List") @Html.IsActived("CustomerLevel", "New") @Html.IsActived("CustomerLevel", "Edit")">
+                    <a class="sidebar__links" asp-controller="CustomerLevel" asp-action="List">
+                        <i class="fas fa-share-alt"></i>
+                        <span class="sidebar__items--Name">@Common.ManageCustomerLevel</span>
+                    </a>
+                </li>
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("User","List") @Html.IsActived("User","New") @Html.IsActived("User","Detail") @Html.IsActived("User","Edit")">
+                    <a class="sidebar__links" asp-controller="User" asp-action="List">
+                        <i class="fas fa-address-card"></i>
+                        <span class="sidebar__items--Name">@Common.AdminUser</span>
+                    </a>
+                </li>
+            }
+            @if (UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Admin).Result)
+            {
+                <li class="sidebar__items @Html.IsActived("SettingsCMS","Index") @Html.IsActived("MaintainingFee","Edit") @Html.IsActived("WithdrawFee","Edit") @Html.IsActived("ContactCMS","UpdateContactCMS")
+                    @Html.IsActived("IntroducingPageCMS","Update")">
+                    <a class="sidebar__links" asp-controller="SettingsCMS" asp-action="Index">
+                        <i class="fas fa-bell"></i>
+                        <span class="sidebar__items--Name">@Common.CMSAndSettings</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </section>
+}

@@ -1,0 +1,15 @@
+extends ../layouts/masterUser_login.pug
+
+block title
+  title My Page - investment
+
+block basicSeo
+  meta(name='description' content='investment page')
+  meta(name='keywords', content='investment, page')
+  meta(name='author' content='')
+
+block content
+
+    //- Desktop page
+    .body-content-endUser
+        include ../components/user-investment-no-answers/user-investment-no-answers.pug

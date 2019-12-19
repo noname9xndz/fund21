@@ -1,0 +1,14 @@
+.customer-target {
+  &__target {
+    border-bottom: 1px solid #7a7a7a;
+  }
+
+  h3 {
+    margin: 20px 0;
+  }
+
+  span {
+    display: block;
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,43 @@
+.chart-customer {
+    width: 500px;
+    height: 500px;
+    margin-bottom: 30px;
+}
+
+.container-fluid{
+    position: relative;
+    #checkChartData{
+        position: absolute;
+        display: none;
+        left: 50%;
+        bottom: -2px;
+        transform: translateX(-50%);
+        color: #E43C3D;
+    }
+}
+.customer-chart {
+    &__date-range {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        label {
+            padding-right: 10px;
+        }
+        &__inputs {
+            display: flex;
+            padding-right: 10px;
+        }
+        button {
+            margin: 0;
+        }
+        .btn-part {
+            &.disabled {
+                button {
+                    background: #dcdcdc;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}

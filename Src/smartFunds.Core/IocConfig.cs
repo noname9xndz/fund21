@@ -26,9 +26,9 @@ namespace smartFunds.Core
         {
             // Assembly scanning
             services.Scan(scan => scan
-                .FromAssemblyOf<ISettingRepository>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
+                .FromAssemblyOf<ITestRepository>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
                 .FromAssemblyOf<IRedisCacheProvider>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
-                .FromAssemblyOf<ISettingService>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
+                .FromAssemblyOf<ITestService>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
                 .FromAssemblyOf<ITestManager>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime()
                 .FromAssemblyOf<IEmailSender>().AddClasses().AsSelfWithInterfaces().WithTransientLifetime());
                 

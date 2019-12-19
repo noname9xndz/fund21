@@ -7,6 +7,7 @@ using AutoMapper.Configuration;
 using smartFunds.Common.Options;
 using Microsoft.Extensions.Options;
 using Amazon.CloudFront;
+using System.Security.Cryptography;
 
 namespace smartFunds.Service.Services
 {
@@ -75,6 +76,34 @@ jyweJ5gTWfNgFuk4vrrioGUW10P/yuNU6C2bPQKDJtc7tfkuD7o=
             }
 
             return null;
+        }
+
+        public static string CreateCheckSum(string accessCode, string secretKey, params string[] listparam)
+        {
+            var checkSumStr = accessCode + String.Join("", listparam);
+
+            //HMAC-SHA1
+            Byte[] secretBytes = UTF8Encoding.UTF8.GetBytes(secretKey);
+            HMACSHA1 hmac = new HMACSHA1(secretBytes);
+
+            Byte[] dataBytes = UTF8Encoding.UTF8.GetBytes(checkSumStr);
+            Byte[] calcHash = hmac.ComputeHash(dataBytes);
+            string checkSumHash = Convert.ToBase64String(calcHash).Replace(" ", "+").Replace("=", "%3D").Replace("+", "%2B");
+
+            return checkSumHash;
+        }
+
+        public static string CreateCheckSumSHA256(string accessCode, params string[] listparam)
+        {
+            var checkSumStr = accessCode + String.Join("", listparam);
+
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA256Managed sha256hasher = new SHA256Managed();
+            byte[] hashedDataBytes = sha256hasher.ComputeHash(encoder.GetBytes(checkSumStr));
+
+            string checkSum = BitConverter.ToString(hashedDataBytes).Replace("-", "").ToLower();
+
+            return checkSum;
         }
     }
 }
