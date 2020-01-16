@@ -33,11 +33,24 @@ namespace smartFunds.Presentation.Controllers.Client
 
         [Route("")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (!_userService.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var currentUser = await _userService.GetCurrentUser();
+
+            ViewBag.TotalAmountInvest = currentUser.InitialInvestmentAmount;
+
+            var listTransactionHistory = await _transactionHistoryService.GetAllTransactionHistory(currentUser.Id);
+
+            if(listTransactionHistory != null)
+            {
+                ViewBag.TotalAmountWithdrawl = listTransactionHistory.Where(i => i.TransactionType == TransactionType.Withdrawal).Sum(i => i.Amount); ;
+                ViewBag.TotalFundFee = listTransactionHistory.Where(i => i.TransactionType == TransactionType.FundPurchaseFee || i.TransactionType == TransactionType.FundSellFee).Sum(i => i.Amount);
+                ViewBag.TotalWithdrawFee = listTransactionHistory.Where(i => i.TransactionType == TransactionType.WithdrawalFee).Sum(i => i.Amount);
             }
 
             return View();
@@ -81,5 +94,6 @@ namespace smartFunds.Presentation.Controllers.Client
 
             return PartialView("Views/ClientTransactionHistory/TransactionHistoryPartial.cshtml", model);
         }
+
     }
 }

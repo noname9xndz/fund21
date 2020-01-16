@@ -45,8 +45,9 @@ namespace smartFunds.Service.Services
         Task<UserModel> GetCurrentUser();
         Task<UserModel> GetUserRelateData();
         Task ConfirmKVRR(int kvrrId);
-        Task<List<UserPorfolio>> GetUserPorfolio();
+        Task<List<UserPorfolio>> GetUserPorfolio(string userId = null);
         Task<bool> Login(string userName);
+        Task UpdateSecurityStamp(string userName);
     }
     public class UserService : IUserService
     {
@@ -262,15 +263,20 @@ namespace smartFunds.Service.Services
             }
         }
 
-        public async Task<List<UserPorfolio>> GetUserPorfolio()
+        public async Task<List<UserPorfolio>> GetUserPorfolio(string userId = null)
         {
-            var userPortfolios = await _userManager.GetUserPorfolio();
+            var userPortfolios = await _userManager.GetUserPorfolio(userId);
             return userPortfolios;
         }
 
         public async Task<bool> Login(string userName)
         {
             return await _userManager.Login(userName);
+        }
+
+        public async Task UpdateSecurityStamp(string userName)
+        {
+            await _userManager.UpdateSecurityStamp(userName);
         }
     }
 }

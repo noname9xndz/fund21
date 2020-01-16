@@ -19,13 +19,15 @@ namespace smartFunds.Presentation.Controllers.Client
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
         private readonly IOrderService _orderService;
+        private readonly IGlobalConfigurationService _globalConfigurationService;
 
-        public InvestmentTargetController(InvestmentTargetService investmentTargetService, IUserService userService, IConfiguration configuration, IOrderService orderService)
+        public InvestmentTargetController(InvestmentTargetService investmentTargetService, IUserService userService, IConfiguration configuration, IOrderService orderService, IGlobalConfigurationService globalConfigurationService)
         {
             _investmentTargetService = investmentTargetService;
             _userService = userService;
             _configuration = configuration;
             _orderService = orderService;
+            _globalConfigurationService = globalConfigurationService;
         }
 
         [Route("")]
@@ -67,6 +69,11 @@ namespace smartFunds.Presentation.Controllers.Client
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
 
             var currentUser = await _userService.GetCurrentUser();
 
@@ -83,7 +90,11 @@ namespace smartFunds.Presentation.Controllers.Client
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
-
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
             var currentUser = await _userService.GetCurrentUser();
             model.User = currentUser;
 
@@ -148,6 +159,11 @@ namespace smartFunds.Presentation.Controllers.Client
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
 
             var currentUser = await _userService.GetCurrentUser();
 
@@ -164,7 +180,11 @@ namespace smartFunds.Presentation.Controllers.Client
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
-
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
             var currentUser = await _userService.GetCurrentUser();
             model.User = currentUser;
 

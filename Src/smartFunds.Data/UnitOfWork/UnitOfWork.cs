@@ -45,6 +45,9 @@ namespace smartFunds.Data.UnitOfWork
         IInvestmentRepository InvestmentRepository { get; }
         ITaskCompeletedRepository TaskCompeletedRepository { get; }
         IWithdrawalFeeRepository WithdrawalFeeRepository { get; }
+        IGlobalConfigurationRepository GlobalConfigurationRepository { get; }
+        ICateNewsRepository CateNewsRepository { get; }
+        IContentNewsRepository ContentNewsRepository { get; }
         Task<int> SaveChangesAsync();
         smartFundsDbContext GetCurrentContext();
     }
@@ -88,7 +91,10 @@ namespace smartFunds.Data.UnitOfWork
         private IInvestmentRepository _investmentRepository;
         private ITaskCompeletedRepository _taskCompeletedRepository;
         private IWithdrawalFeeRepository _withdrawalFeeRepository;
+        private IGlobalConfigurationRepository _globalConfigurationRepository;
 
+        private ICateNewsRepository _cateNewsRepository;
+        private IContentNewsRepository _contentNewsRepository;
         public UnitOfWork(IDbContextFactory<smartFundsDbContext> dbContextFactory, IOptions<smartFundsRedisOptions> redisConfigurationOptions
             , IRedisAutoCompleteProvider redisAutoCompleteProvider, IHttpContextAccessor httpContextAccessor)
         {
@@ -336,7 +342,29 @@ namespace smartFunds.Data.UnitOfWork
                 return _withdrawalFeeRepository = _withdrawalFeeRepository ?? new WithdrawalFeeRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
             }
         }
+        public ICateNewsRepository CateNewsRepository
+        {
+            get
+            {
+                return _cateNewsRepository = _cateNewsRepository ?? new CateNewsRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
 
+        public IGlobalConfigurationRepository GlobalConfigurationRepository
+        {
+            get
+            {
+                return _globalConfigurationRepository = _globalConfigurationRepository ?? new GlobalConfigurationRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
+
+        public IContentNewsRepository ContentNewsRepository
+        {
+            get
+            {
+                return _contentNewsRepository = _contentNewsRepository ?? new ContentNewsRepository(_context, _redisConfigurationOptions, _redisAutoCompleteProvider);
+            }
+        }
         public smartFundsDbContext GetCurrentContext()
         {
             return _context;

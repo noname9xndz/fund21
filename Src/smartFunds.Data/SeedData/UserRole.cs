@@ -68,6 +68,24 @@ namespace smartFunds.Data.SeedData
                 userStore.AddToRoleAsync(adminUser, RoleName.Admin, CancellationToken.None).Wait();
             }
 
+            if (!Context.GlobalConfiguration.Any(x=>x.Name == Configuration.IsAdminApproving))
+            {
+                var isAdminApproving = new GlobalConfiguration();
+                isAdminApproving.Name = smartFunds.Common.Constants.Configuration.IsAdminApproving;
+                isAdminApproving.Value = "false";
+                Context.GlobalConfiguration.Add(isAdminApproving);
+                Context.SaveChanges();
+            }
+
+            if (!Context.GlobalConfiguration.Any(x => x.Name == Configuration.ProgramLocked))
+            {
+                var programLocked = new GlobalConfiguration();
+                programLocked.Name = smartFunds.Common.Constants.Configuration.ProgramLocked;
+                programLocked.Value = "false";
+                Context.GlobalConfiguration.Add(programLocked);
+                Context.SaveChanges();
+            }
+
             Context.SaveChanges();
         }
     }

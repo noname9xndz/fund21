@@ -78,7 +78,7 @@ const UserProfileShowChart = {
         options: {
           legend: {
             onClick: null,
-            position: 'left',
+            position: 'top',
             labels: {
               padding: 0,
               boxWidth: 0,

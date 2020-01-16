@@ -1,0 +1,146 @@
+﻿@using smartFunds.Model.Common;
+@using smartFunds.Common;
+@model ContentNewsModel
+@{
+    ViewData["Title"] = "Thêm bản tin";
+    Layout = "_AdminLayout";
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.InvestmentManager).Result;
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="/assets-new/js/gijgo.min.js" type="text/javascript"></script>
+<link href="/assets-new/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+
+<section class="transaction-history">
+    <div class="container-fluid">
+        <div class="content">
+            <h1 class="section-title">Thêm bản tin</h1>
+            <div class="row center-xs">
+                <div class="col-sm-12">
+                    <form method="post" enctype="multipart/form-data">
+
+                        <input asp-for="Id" type="hidden" placeholder="Id" class="form-control" />
+                        <input asp-for="ImageThumb" type="hidden" placeholder="ImageThumb" class="form-control" />
+
+                        <div class="form-group">
+                            <label>Tiêu đề</label>
+
+                            <input asp-for="Title" type="text" class="form-control">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CateNewsID"></label>
+                            <select class="form-control" asp-for="CateNewsID" asp-items="@Model.CateNewsIDs">
+                            </select>
+                            <span asp-validation-for="CateNewsID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả </label>
+                            <textarea asp-for="ShortDescribe" class="form-control" type="text" rows="3" cols="80"></textarea>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label>Nội dung tin </label>
+                            <textarea asp-for="Contents" class="form-control" type="text" rows="10" cols="80"></textarea>
+
+                            <script>
+                                CKEDITOR.replace('Contents', {
+                                    customConfig: 'CustomConfig.js'
+                                });
+                            </script>
+                        </div>
+                        <style>
+                            .postdate .input-group-append {
+                                display: none;
+                            }
+                        </style>
+                        <div class="form-group row postdate">
+                            <label class="col-sm-2">Ngày đăng</label>
+                            <div class="col-sm-6">
+                                <input readonly="readonly" asp-for="TransactionDateFrom" class="form-control" placeholder="Ngày đăng" />
+                                <script>
+                                    $('#TransactionDateFrom').datepicker({
+                                        uiLibrary: 'bootstrap4',
+                                         format: 'dd/mm/yyyy'
+                                    });
+                                </script>
+                                <span asp-validation-for="TransactionDateFrom" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group__up-image">
+                            <label> Ảnh </label>
+                            <input type="file" name="NewsImage" />
+                            <div class="form-group__image-wrapper">
+                                @if (!String.IsNullOrEmpty(Model.ImageThumb))
+                                {
+                                    <img src="@Constants.NewsImageFolder.Path@Model.ImageThumb" height="100px" />
+                                }
+                                else
+                                {
+                                    <img src="/images/empty-photo.jpg" />
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tác giả</label>
+
+                            <input asp-for="Author" type="text" class="form-control">
+                            <span asp-validation-for="Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Hiển thị trang chủ</label>
+                            <div class="col-sm-2">
+                                <input asp-for="Ishome" type="checkbox" class="form-control" checked="checked">
+
+                                <span asp-validation-for="Ishome" class="text-danger"></span>
+                            </div>
+                            <label class="col-sm-2">Hiển thị</label>
+                            <div class="col-sm-2">
+                                <input asp-for="Status" type="checkbox" class="form-control" checked="checked">
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="btns-wrapper-center">
+                            <button class="btn btn-action @( checkRule ? "":"disabled-button" )" id="add-contentnews" type="submit">@Common.Confirm</button>
+                            <a class="btn btn-action" data-micromodal-trigger='model-cancel' href="#">Hủy</a>
+                            <div class="manager-risk__questions__list-questions__item__title">
+                                <div class="item-option">
+                                    <div class="modal micromodal-slide" id="model-cancel" aria-hidden="true">
+                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="manager-user-title">
+                                                <header class="modal__header">
+                                                    <h2 class="modal__title" id="manager-user-title">@Common.CancelMessage</h2>
+                                                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                                                </header>
+                                                <footer class="modal__footer">
+                                                    <a class="modal__btn modal__btn-primary" asp-action="List">
+                                                        Ok
+                                                    </a>
+                                                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">
+                                                        Cancel
+                                                    </button>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<input id="required-mess" value="Không bỏ trống" type="hidden"
+
+
+
+

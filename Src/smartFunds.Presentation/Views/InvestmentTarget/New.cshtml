@@ -1,57 +1,202 @@
 ﻿@model InvestmentTargetModel
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.InvestmentTarget;
 }
 
-<div class="body-content-endUser">
-    <div class="user-invesment-target px-15">
-        <input id="user-expected-amount" type="hidden" value="/investment-target/GetOneTimeAmount">
-        <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
-        <form class="user-form-group p-15" id="user-invesment-target-content" method="post">
-            <div class="user-form-control user-expected-money-amount">
-                <span class="user-form-control__title">
-                    @Common.ExpectedAmount
-                </span>
-                @if (Model.ExpectedAmount != null && Model.ExpectedAmount == 0)
-                {
-                    <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount" value="">
-                }
-                else
-                {
-                    <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount">
-                }
-                <span class="warning-message" asp-validation-for="ExpectedAmount">@ViewData["Message"]</span>
-            </div>
-            <div class="user-form-control user-form-control--existing-asset">
-                <span class="user-form-control__title">@Common.CurrentAcountAmount2</span>
-                <input class="input-form-control existing-assets" type="text" readonly value="@Model.User.CurrentAccountAmount.ToString("N0")">
-                <span class="currency">đ</span>
-            </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">@Common.Duration</span>
-                <select asp-for="Duration" asp-items="Html.GetEnumSelectList<Duration>()" class="user-period-invesment"></select>
-            </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">@Common.Frequency</span>
-                <select asp-for="Frequency" asp-items="Html.GetEnumSelectList<Frequency>()" class="user-frequency-invesment"></select>
-            </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">
-                    @Common.OneTimeAmount
-                </span>
-                <input class="input-form-control" type="text" id="user-expected-amount-one" name="amoutInvesmentOfOne" readonly>
-            </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">@Common.InvestmentMethod</span>
-                <select asp-for="InvestmentMethod" asp-items="Html.GetEnumSelectList<InvestmentMethod>()"></select>
-            </div>
+@*<div class="body-content-endUser">
+        <div class="user-invesment-target px-15">
+            <input id="user-expected-amount" type="hidden" value="/investment-target/GetOneTimeAmount">
+            <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
+            <form class="user-form-group p-15" id="user-invesment-target-content" method="post">
+                <div class="user-form-control user-expected-money-amount">
+                    <span class="user-form-control__title">
+                        @Common.ExpectedAmount
+                    </span>
+                    @if (Model.ExpectedAmount != null && Model.ExpectedAmount == 0)
+                    {
+                        <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount" value="">
+                    }
+                    else
+                    {
+                        <input class="input-form-control form-control-number" type="text" asp-for="ExpectedAmount">
+                    }
+                    <span class="warning-message" asp-validation-for="ExpectedAmount">@ViewData["Message"]</span>
+                </div>
+                <div class="user-form-control user-form-control--existing-asset">
+                    <span class="user-form-control__title">@Common.CurrentAcountAmount2</span>
+                    <input class="input-form-control existing-assets" type="text" readonly value="@Model.User.CurrentAccountAmount.ToString("N0")">
+                    <span class="currency">đ</span>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">@Common.Duration</span>
+                    <select asp-for="Duration" asp-items="Html.GetEnumSelectList<Duration>()" class="user-period-invesment"></select>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">@Common.Frequency</span>
+                    <select asp-for="Frequency" asp-items="Html.GetEnumSelectList<Frequency>()" class="user-frequency-invesment"></select>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">
+                        @Common.OneTimeAmount
+                    </span>
+                    <input class="input-form-control" type="text" id="user-expected-amount-one" name="amoutInvesmentOfOne" readonly>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">@Common.InvestmentMethod</span>
+                    <select asp-for="InvestmentMethod" asp-items="Html.GetEnumSelectList<InvestmentMethod>()"></select>
+                </div>
 
-            <button class="btn btn-actions" type="submit">
-                @Common.Yes
-            </button>
-        </form>
-        <div id="pageloader">
-            <img src="/assets/images/loader-large.gif" alt="processing..." />
+                <button class="btn btn-actions" type="submit">
+                    @Common.Yes
+                </button>
+            </form>
+            <div id="pageloader">
+                <img src="/assets/images/loader-large.gif" alt="processing..." />
+            </div>
         </div>
+    </div>*@
+
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30 invesment-target-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="media g-mb-15 text-center d-block">
+                    <img class="img-fluid g-width-100x g-mb-0 rounded-circle" src="/assets-new/img/content/muc-tieu.png" alt="Image Description">
+                </div>
+                <!-- Example Button -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Mục tiêu</span> đầu tư</h2>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer g-py-10">
+                    <div class="g-px-10 g-pt-0 g-pb-20 text-center ">
+                        <div class="u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5">
+                            <form method="post">
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Số tiền kỳ vọng</label>
+                                    </div>
+                                    <div class="input-group g-brd-primary--focus ">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            @if (Model.ExpectedAmount != null && Model.ExpectedAmount == 0)
+                                            {
+                                                <input asp-for="ExpectedAmount" value="" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0  number-mask user-expected-amount" placeholder="0" data-decimal="," data-thousands=",">
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="ExpectedAmount" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0  number-mask user-expected-amount" placeholder="0" data-decimal="," data-thousands=",">
+                                            }
+                                            <b class="tooltip tooltip-top-right u-tooltip--v1">Số tiền kỳ vọng</b>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">đ</span>
+                                            </div>
+                                        </div>
+                                        <span class="form-control-feedback" asp-validation-for="ExpectedAmount">@ViewData["Message"]</span>
+                                    </div>
+                                </div>
+                                <div class="form-group g-mb-20">
+
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tài sản hiện có</label>
+                                    </div>
+                                    <div class="input-group g-brd-primary--focus">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            <input readonly value="@Model.User.CurrentAccountAmount.ToString("N0")" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0  number-mask" placeholder="0" data-decimal="," data-thousands="," style="background-color:#fff">
+                                            <b class="tooltip tooltip-top-right u-tooltip--v1">Tài sản hiện có</b>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">đ</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group g-mb-20">
+
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Thời hạn đầu tư</label>
+                                    </div>
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+
+                                        <select asp-for="Duration" asp-items="Html.GetEnumSelectList<Duration>()" class="custom-select rounded-0 border-0 user-period-invesment">
+                                            @*<option value="1">3 tháng</option>
+                                                <option value="2">6 tháng</option>
+                                                <option value="3" selected="selected">1 năm</option>
+                                                <option value="3">2 năm</option>
+                                                <option value="3">5 năm</option>*@
+                                        </select>
+                                        <b class="tooltip tooltip-top-right u-tooltip--v1">Thời hạn đầu tư</b>
+
+                                    </div>
+                                </div>
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tần suất đầu tư</label>
+                                    </div>
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                        <select asp-for="Frequency" asp-items="Html.GetEnumSelectList<Frequency>()" class="custom-select rounded-0 border-0 g-pa-0 user-frequency-invesment">
+                                            @*<option value="1" selected="selected">1 tuần/lần</option>
+                                                <option value="2">2 tuần/lần</option>*@
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Số tiền trong 1 lần đầu tư</label>
+                                    </div>
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                        <input id="user-expected-amount-one" name="amoutInvesmentOfOne" readonly class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0  number-mask" placeholder="0" data-decimal="," data-thousands="." style="background-color:#fff">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">VNĐ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x g-font-weight-700">Hình thức đầu tư</label>
+                                    </div>
+
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                        <select asp-for="InvestmentMethod" asp-items="Html.GetEnumSelectList<InvestmentMethod>()" class="custom-select rounded-0 border-0 g-pa-0">
+                                            @*<option selected="selected">Tự đầu tư</option>
+                                                <option value="1">Tự động</option>*@
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                                        <a class="u-shadow-v1-1 btn btn-md u-btn-darkgray g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 g-width-40x float-left" asp-action="MyWallet" asp-controller="Account"><i class="fa fa-close"></i> Hủy</a>
+                                        &nbsp;
+                                        <button class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 btn-block g-font-size-14 g-width-40x float-right" type="submit">Đồng ý</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Article Content -->
+                        <!-- End Article -->
+                        <!-- End Icon Blocks -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+
+</section>
+<!-- End Section 3  Hoạt dong-->
+
+@section Scripts {
+    <script src="/assets-new/vendor/numbermask/jquery.masknumber.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('.number-mask').maskNumber({ integer: true });
+      $('[name=currency-default]').maskNumber();
+    });
+    </script>
+}

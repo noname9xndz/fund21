@@ -111,16 +111,21 @@ namespace smartFunds.Presentation.Controllers
 
         [Route("edit")]
         [HttpPost]
-        public async Task<IActionResult> Edit([FromBody]EditCustomerViewModel model)
+        public async Task<IActionResult> Edit(string FullName)
         {
             if (!_userService.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
+            if(string.IsNullOrWhiteSpace(FullName))
+            {
+                return Json(new { Success = false, Message = ValidationMessages.EditCustomerError });
+            }
+
             var currentUser = await _userService.GetCurrentUser();
 
-            currentUser.FullName = model.FullName;
+            currentUser.FullName = FullName;
 
             var updateCustomer = await _customerService.UpdateCustomer(currentUser);
             if (updateCustomer)

@@ -1,0 +1,24 @@
+﻿@model LstNewsModel
+@{
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+@if (Model != null && Model.LstNews.Any())
+{
+    <div class="row">
+        <div class="col-md-12 text-left g-mb-0">
+            <div class="js-carousel text-left g-pa-10 g-color-black" data-arrows="false" data-autoplay="true" data-infinite="true" data-arrows-classes="u-arrow-v1 g-absolute-centered--y g-width-35 g-height-40 g-font-size-18 g-color-black g-bg-white g-mt-minus-10 d-none" data-arrow-left-classes="fa fa-angle-left g-left-0 d-none" data-arrow-right-classes="fa fa-angle-right g-right-0 d-none">
+                @for (int i = 0; i < Model.LstNews.Count; i++)
+                {
+
+                    <div class="js-slide">
+                        <a class="js-fancybox"    data-animate-in="bounceInDown" data-animate-out="bounceOutDown" data-speed="1000" data-overlay-blur-bg="true" asp-controller="ContentNews" asp-action="Detail" asp-route-id="@Model.LstNews[i].Id" title="@Html.Raw(Model.LstNews[i].Title)">
+                            <p class="g-color-black"><i class="fa fa-calendar"></i> @Html.Raw(Model.LstNews[i].PostDate.ToString("dd/MM/yyyy")) : @StringHelper.SubString(@Model.LstNews[i].Title, 80)  <i style="color:#F15B28;">  >></i></p>
+
+                        </a>
+                    </div>
+                }
+                   
+                </div>
+        </div>
+    </div>
+}

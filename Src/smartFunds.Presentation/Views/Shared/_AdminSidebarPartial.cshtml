@@ -139,6 +139,20 @@
                     </a>
                 </li>
             }
+            @*<li class="sidebar__items @Html.IsActived("CateNews", "List") @Html.IsActived("CateNews", "New") @Html.IsActived("CateNews", "Edit")">
+                <a class="sidebar__links" asp-controller="CateNews" asp-action="List">
+
+                    <i class="fas fa-newspaper"></i>
+                    <span class="sidebar__items--Name">@Common.CateNews</span>
+                </a>
+            </li>*@
+            <li class="sidebar__items @Html.IsActived("ContentNews", "List") @Html.IsActived("ContentNews", "New") @Html.IsActived("ContentNews", "Edit")">
+                <a class="sidebar__links" asp-controller="ContentNews" asp-action="List">
+
+                    <i class="fas fa-newspaper"></i>
+                    <span class="sidebar__items--Name">@Common.ContentNews</span>
+                </a>
+            </li>
         </ul>
     </section>
 }

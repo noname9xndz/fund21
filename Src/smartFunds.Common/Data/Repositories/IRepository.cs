@@ -11,5 +11,7 @@ namespace smartFunds.Common.Data.Repositories
         void BulkInsert(ICollection<T> items);
         void BulkDelete(ICollection<T> items);
         void BulkUpdate(ICollection<T> items);
+
+        Task ExecuteSql(string statement);
     }
 }

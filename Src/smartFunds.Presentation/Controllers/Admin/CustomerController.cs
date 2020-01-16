@@ -63,6 +63,8 @@ namespace smartFunds.Presentation.Controllers.Admin
 
             model.InvestmentTarget = await _investmentTargetService.GetInvestmentTarget(customerId);
 
+            model.UserPortfolios = await _userService.GetUserPorfolio(customerId);
+
             return View(model);
         }
 

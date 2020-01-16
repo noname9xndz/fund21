@@ -117,12 +117,13 @@
             }
         }
         &__container {
-            overflow: auto;
+            // overflow: auto;
             .chart {
-                width: 968px;
-                @include min-md {
-                    width: 100%;
-                }
+                width: 100%;
+                // width: 968px;
+                // @include min-md {
+                //     width: 100%;
+                // }
                 span {
                     display: none;
                     position: absolute;

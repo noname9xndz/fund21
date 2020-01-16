@@ -1,0 +1,156 @@
+﻿@*This page is for end-user*@
+@model GenericIntroducingSettingModel
+@{
+    ViewData["Title"] = "Danh mục phí";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+<!-- Section 3 Hoat dong -->
+<section class="g-py-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md">
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-left g-font-weight-700">Danh mục <span class="g-color-deeporange g-ml-5">Loại phí</span></h2>
+
+                </div>
+
+                <div id="accordion-10" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
+                    <!-- Card -->
+                    <div class="card rounded-0 g-brd-none">
+                        <div id="accordion-10-heading-01" class="u-accordion__header g-pa-0" role="tab">
+                            <h5 class="mb-0 g-font-weight-600 g-font-size-default">
+                                <a class="d-flex justify-content-between g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#accordion-10-body-01" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="true" aria-controls="accordion-10-body-01">
+                                    <span class="d-flex">
+                                        Phí đầu tư (mua/bán CCQ)
+                                    </span>
+                                    <span class="u-accordion__control-icon g-ml-10">
+                                        <i class="fa fa-angle-right"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="accordion-10-body-01" class="collapse show" role="tabpanel" aria-labelledby="accordion-10-heading-01" data-parent="#accordion-10">
+                            <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                SaveNow không thu phí. Các Quỹ đầu tư sẽ thu phí đầu tư từ 0% - 2% trên tổng số tiền đầu tư, tùy từng Quỹ. Phí này được các Quỹ thu tại mỗi lần thực hiện khớp lệnh và được ghi lại trong lịch sử giao dịch. Phí mua bán CCQ xem tại <a asp-controller="Page" asp-action="FeeTable">đây</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                    <!-- Card -->
+                    <div class="card rounded-0 g-brd-none">
+                        <div id="accordion-10-heading-02" class="u-accordion__header g-pa-0" role="tab">
+                            <h5 class="mb-0 g-font-weight-600 g-font-size-default">
+                                <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#accordion-10-body-02" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="false" aria-controls="accordion-10-body-02">
+                                    <span class="d-flex">
+                                        Phí duy trì tài khoản
+                                    </span>
+                                    <span class="u-accordion__control-icon g-ml-10">
+                                        <i class="fa fa-angle-right"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="accordion-10-body-02" class="collapse" role="tabpanel" aria-labelledby="accordion-10-heading-02" data-parent="#accordion-10">
+                            <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                Từ 0.05% - 0.09% được tính và thu trên tổng số dư trong tháng. Phí duy trì phục vụ công tác tối ưu hóa danh mục đầu tư và được thu vào ngày đầu tiên trong tháng, có ghi lại chi tiết trong lịch sử giao dịch.
+                                <ul>
+                                    <li>
+                                        Các khoản đầu tư có số dư dưới 10 triệu VNĐ thì áp phí 0.09%/tháng; nghĩa là nếu bạn đầu tư 1.000.000 vnđ sẽ áp phí 900 vnđ.
+                                    </li>
+                                    <li>
+                                        Các khoản đầu tư có số dư từ 10 triệu đến 50 triệu thì áp phí 0.07%/tháng; nghĩa là nếu bạn đầu tư 10.000.000 vnđ sẽ áp phí 7000 vnđ.
+                                    </li>
+
+                                    <li>
+                                        Các khoản đầu tư có số dư trên 50 triệu thì áp phí 0.05%/tháng; nghĩa là nếu bạn đầu tư từ 50.000.000 vnđ trở lên sẽ áp phí 25.000 vnđ.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                    <!-- Card -->
+                    <div class="card rounded-0 g-brd-none">
+                        <div id="accordion-10-heading-03" class="u-accordion__header g-pa-0" role="tab">
+                            <h5 class="mb-0 g-font-weight-600 g-font-size-default">
+                                <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#accordion-10-body-03" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="false" aria-controls="accordion-10-body-03">
+                                    <span class="d-flex">
+                                        Phí rút tiền
+                                    </span>
+                                    <span class="u-accordion__control-icon g-ml-10">
+                                        <i class="fa fa-angle-right"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="accordion-10-body-03" class="collapse" role="tabpanel" aria-labelledby="accordion-10-heading-03" data-parent="#accordion-10">
+                            <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                Phí rút được tính trên mỗi lần rút.
+                                <ul>
+                                    <li>Từ 18 tháng trở lên: Miễn phí</li>
+                                    <li>Từ 12 tháng - dưới 18 tháng: 0.49%</li>
+                                    <li>Từ 6 tháng – dưới 12 tháng: 0.79%</li>
+                                    <li>Từ 3 tháng – dưới 6 tháng: 0.99%</li>
+                                    <li>Dưới 3 tháng:  1.39%</li>
+                                </ul>
+                                Ví dụ: Bạn đầu tư lần đầu số tiền 50.000đ cách đây 6 tháng và đầu tư lần 2 số tiền 50.000đ cách đây 3 tháng. Trong trường hợp muốn rút 80.000đ thì phí rút sẽ được tính bằng 0.79% x 50.000 + 30.000 x 0.99%
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                    <!-- Card -->
+                    <div class="card rounded-0 g-brd-none">
+                        <div id="accordion-10-heading-04" class="u-accordion__header g-pa-0" role="tab">
+                            <h5 class="mb-0 g-font-weight-600 g-font-size-default">
+                                <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#accordion-10-body-04" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="false" aria-controls="accordion-10-body-04">
+                                    <span class="d-flex">
+                                        Phí rút tiền nhanh = phí rút tiền + 0.0375%/ngày
+                                    </span>
+                                    <span class="u-accordion__control-icon g-ml-10">
+                                        <i class="fa fa-angle-right"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="accordion-10-body-04" class="collapse" role="tabpanel" aria-labelledby="accordion-10-heading-03" data-parent="#accordion-10">
+                            <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                Do Danh mục đầu tư của bạn bao gồm nhiều quỹ mở khác nhau nên thời gian khớp lệnh để bán CCQ phải mất một thời gian tương ứng. Ví dụ, Danh mục đầu tư gồm quỹ A và quỹ B, thời gian khớp lệnh của quỹ A vào thứ Hai và thời gian khớp lệnh của quỹ B vào thứ Sáu. Khi bạn Rút tiền vào thứ Tư, tài khoản của bạn sẽ hoàn thành khớp lệnh vào thứ Sáu và thứ Hai tuần tới. Sau thời gian khớp lệnh T+5 (T: là thời điểm khớp lệnh), các quỹ mới chuyển tiền về tài khoản. Như vậy, tính từ thời điểm rút tiền thông thường đến thời điểm tiền về tài khoản sẽ mất 1 khoảng thời gian T+5 (không tính T7 và CN).
+                                Với Rút tiền nhanh, sẽ được rút tối đa 90% giá trị tài sản trong tài khoản. Lúc này SaveNow sẽ tạm ứng khoản tiền rút để chuyển về tài khoản và thực hiện bán CCQ tương ứng với số tiền rút để hoàn trả.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                    <!-- Card -->
+                    <div class="card rounded-0 g-brd-none">
+                        <div id="accordion-10-heading-05" class="u-accordion__header g-pa-0" role="tab">
+                            <h5 class="mb-0 g-font-weight-600 g-font-size-default">
+                                <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#accordion-10-body-05" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="false" aria-controls="accordion-10-body-05">
+                                    <span class="d-flex">
+                                        Thuế thu nhập cá nhân
+                                    </span>
+                                    <span class="u-accordion__control-icon g-ml-10">
+                                        <i class="fa fa-angle-right"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="accordion-10-body-05" class="collapse" role="tabpanel" aria-labelledby="accordion-10-heading-03" data-parent="#accordion-10">
+                            <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                Với thu nhập chịu thuế từ chuyển nhượng chứng khoán, theo quy định tại Điều 16 Thông tư 92/2015/TT-BTC, bạn sẽ phải nộp thuế với thuế suất 0,1% trên giá bán chứng khoán từng lần. Mức thuế này sẽ được SaveNow nộp hộ như trong hợp đồng điện tử.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->

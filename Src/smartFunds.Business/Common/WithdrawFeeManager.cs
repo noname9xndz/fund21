@@ -81,8 +81,8 @@ namespace smartFunds.Business.Common
         public List<WithdrawalFee> GetConfiguration()
         {
             var listData = new List<WithdrawalFee>();
-            var list = _unitOfWork.WithdrawalFeeRepository.GetAllAsync();
-            if (list.Result.Count > 0)
+            var list = _unitOfWork.WithdrawalFeeRepository.GetAllAsync().Result;
+            if (list.Any())
                 listData = _unitOfWork.WithdrawalFeeRepository.FindByAsync(i => i.TimeInvestmentEnd != -1).Result.ToList();
             else
             {
@@ -95,7 +95,7 @@ namespace smartFunds.Business.Common
                 _unitOfWork.WithdrawalFeeRepository.Add(newData);
                 _unitOfWork.SaveChangesAsync();
 
-                listData = list.Result.ToList();
+                listData = list.ToList();
             }
             return listData;
         }
@@ -168,123 +168,49 @@ namespace smartFunds.Business.Common
         {
             try
             {
-                //var currentUser = await _userManager.GetCurrentUser();
-
-                //var listFee = GetConfiguration().Where(i => i.TimeInvestmentEnd > -1).OrderByDescending(i => i.TimeInvestmentBegin).ToList();
-                //var total = withdrawalAmount;
-                //decimal feeAmount = 0;
-                //foreach (var fee in listFee)
-                //{
-                //    var listInvestment = (await _unitOfWork.InvestmentRepository.FindByAsync(i => i.UserId == currentUser.Id &&
-                //                            DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) >= fee.TimeInvestmentBegin &&
-                //                            DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) <= fee.TimeInvestmentEnd /*&& i.RemainAmount > 0*/)
-                //                        ).OrderBy(i => i.DateInvestment).ToList();
-                //    var listCase = listInvestment.Where(i => i.RemainAmount > 0).ToList();
-
-                //    if (listCase.Count > 0)
-                //    {
-                //        var RemainAmountMax = listCase.OrderByDescending(item => item.RemainAmount).First();
-
-                //        if (RemainAmountMax.RemainAmount >= total)
-                //        {
-                //            // Tồn tại một record có giá trị >= số tiền cần rút
-                //            feeAmount += total * fee.Percentage / 100;
-                //            RemainAmountMax.RemainAmount = RemainAmountMax.RemainAmount - total;
-                //            if (!noUpdateDB)
-                //            {
-                //                _unitOfWork.InvestmentRepository.Update(RemainAmountMax);
-                //                await _unitOfWork.SaveChangesAsync();
-                //            }
-
-                //            return feeAmount;
-                //        }
-                //        else
-                //        {
-                //            //var totalCase = withdrawalAmount;
-                //            //decimal feeAmountCase = 0;
-                //            // Săp xếp listCase theo tứ tự tăng dần của time đầu tư và trừ dần
-                //            foreach (var investment in listCase)
-                //            {
-                //                if (total >= investment.RemainAmount)
-                //                {
-                //                    total = total - investment.RemainAmount;
-                //                    feeAmount = feeAmount + (investment.RemainAmount * fee.Percentage / 100);
-                //                    investment.RemainAmount = 0;
-                //                    if (!noUpdateDB)
-                //                    {
-                //                        _unitOfWork.InvestmentRepository.Update(investment);
-                //                        await _unitOfWork.SaveChangesAsync();
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    feeAmount = feeAmount + (total * fee.Percentage / 100);
-                //                    investment.RemainAmount = investment.RemainAmount - total;
-                //                    total = 0;
-                //                    if (!noUpdateDB)
-                //                    {
-                //                        _unitOfWork.InvestmentRepository.Update(investment);
-                //                        await _unitOfWork.SaveChangesAsync();
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
-                //return feeAmount;
-
-                #region -- Chau --
                 var currentUser = await _userManager.GetCurrentUser();
 
-                var listFee = GetConfiguration().Where(i => i.TimeInvestmentEnd > -1).OrderByDescending(i => i.TimeInvestmentBegin).ToList();
+                var listFee = (await _unitOfWork.WithdrawalFeeRepository.FindByAsync(i => i.TimeInvestmentEnd > -1)).OrderByDescending(i => i.TimeInvestmentBegin).ToList();
                 var total = withdrawalAmount;
                 decimal feeAmount = 0;
-                foreach (var fee in listFee)
+                if(listFee!= null && listFee.Any())
                 {
-                    var listInvestment = (await _unitOfWork.InvestmentRepository.FindByAsync(i => i.UserId == currentUser.Id &&
-                                            DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) >= fee.TimeInvestmentBegin &&
-                                            DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) <= fee.TimeInvestmentEnd && i.RemainAmount > 0)
-                                        ).OrderBy(i => i.DateInvestment).ToList();
-                    foreach (var investment in listInvestment)
+                    foreach (var fee in listFee)
                     {
-                        if (investment.RemainAmount >= total)
+                        var listInvestment = (await _unitOfWork.InvestmentRepository.FindByAsync(i => i.UserId == currentUser.Id &&
+                                                DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) >= fee.TimeInvestmentBegin &&
+                                                DateTimeHelper.GetMonthDifference(i.DateInvestment, DateTime.Now) <= fee.TimeInvestmentEnd && i.RemainAmount > 0)
+                                            ).OrderBy(i => i.DateInvestment).ToList();
+                        foreach (var investment in listInvestment)
                         {
-                            feeAmount += total * fee.Percentage / 100;
-                            investment.RemainAmount -= total;
-                            if (!noUpdateDB)
+                            if (investment.RemainAmount >= total)
                             {
-                                _unitOfWork.InvestmentRepository.Update(investment);
-                                await _unitOfWork.SaveChangesAsync();
-                            }
+                                feeAmount += total * fee.Percentage / 100;
+                                investment.RemainAmount -= total;
+                                if (!noUpdateDB)
+                                {
+                                    _unitOfWork.InvestmentRepository.Update(investment);
+                                    await _unitOfWork.SaveChangesAsync();
+                                }
 
-                            return feeAmount;
-                        }
-                        else
-                        {
-                            feeAmount += investment.RemainAmount * fee.Percentage / 100;
-                            total -= investment.RemainAmount;
-                            investment.RemainAmount = 0;
-                            if (!noUpdateDB)
+                                return feeAmount;
+                            }
+                            else
                             {
-                                _unitOfWork.InvestmentRepository.Update(investment);
-                                await _unitOfWork.SaveChangesAsync();
+                                feeAmount += investment.RemainAmount * fee.Percentage / 100;
+                                total -= investment.RemainAmount;
+                                investment.RemainAmount = 0;
+                                if (!noUpdateDB)
+                                {
+                                    _unitOfWork.InvestmentRepository.Update(investment);
+                                    await _unitOfWork.SaveChangesAsync();
+                                }
                             }
                         }
                     }
                 }
 
-                //if (total > 0)
-                //{
-                //    var firstFee = listFee?.Last();
-                //    if (firstFee != null)
-                //    {
-                //        feeAmount += total * firstFee.Percentage / 100;
-                //    }
-                //}
-
                 return feeAmount;
-                #endregion
             }
             catch (Exception ex)
             {
@@ -296,7 +222,7 @@ namespace smartFunds.Business.Common
         {
             var rangeMonth = await _unitOfWork.WithdrawalFeeRepository.GetAllAsync();
             if (rangeMonth == null || !rangeMonth.Any()) return false;
-            rangeMonth = rangeMonth.Where(x => x.Id != currentFee.Id).ToList();
+            rangeMonth = rangeMonth.Where(x => x.Id != currentFee.Id);//.ToList();
             var existedRangeMonth = rangeMonth.Where(x => (currentFee.TimeInvestmentBegin >= x.TimeInvestmentBegin && currentFee.TimeInvestmentEnd <= x.TimeInvestmentEnd)
                              || (currentFee.TimeInvestmentBegin >= x.TimeInvestmentBegin && currentFee.TimeInvestmentBegin <= x.TimeInvestmentEnd && currentFee.TimeInvestmentEnd > x.TimeInvestmentEnd)
                              || (currentFee.TimeInvestmentBegin < x.TimeInvestmentBegin && currentFee.TimeInvestmentEnd >= x.TimeInvestmentBegin && currentFee.TimeInvestmentEnd <= x.TimeInvestmentEnd)

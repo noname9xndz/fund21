@@ -62,10 +62,17 @@
                             }
 
                             <td>
+                                @if (ViewBag.IsAdminApproving)
+                                {
+                                    <i>Processing</i>
+                                }
+                                else
+                                {
                                 <a asp-controller="Task" asp-action="RejectedTask" asp-route-idTask="@task.IdTask" asp-route-typeTask="@task.TaskType">Từ chối </a>
                                 <span>| </span>
                                 <a href="javascript:void(0)" class="myMission__Admin--accept">Đồng ý</a>
                                 <input type="hidden" value="/admin/task/approved?idTask=@task.IdTask&typeTask=@task.TaskType" />
+                                }
                             </td>
                         </tr>
                         index++;

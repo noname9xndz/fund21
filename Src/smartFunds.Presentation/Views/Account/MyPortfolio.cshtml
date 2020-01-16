@@ -1,131 +1,899 @@
 ﻿@using smartFunds.Presentation.Models.Client
 @model UserPorfolioModel
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.Portfolio;
 }
+<div class="container">
+    <partial name="/Views/Home/ListContentNewsHomePartial.cshtml" model="ViewBag.LstNewsHomeViewModel" />
+    </div>
+    @if (Model.CurrentUser.KVRR != null)
+    {
+        @*decimal? totalFundAmount = 0;
 
-@if (Model.CurrentUser.KVRR != null)
-{
-    decimal? totalFundAmount = 0;
-
-    <div class="body-content-endUser">
-        <section class="userfund-kvrr">
-            <div class="container-fluid">
-                <div class="userfund-kvrr__content">
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-4 boxshadow-right">
-                            <div class="money-record money-record--blue">
-                                <div class="block-icon"><img class="icon-wallet" src="/images/icons/wallet.png"></div>
-                                <div class="money-record__detail">
-                                    <div class="money-record__info">
-                                        <span class="amount">@Model.CurrentUser.CurrentAccountAmount.ToString("N0")</span><span class="item-price">VNĐ</span>
+            <div class="body-content-endUser">
+                <section class="userfund-kvrr">
+                    <div class="container-fluid">
+                        <div class="userfund-kvrr__content">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-4 boxshadow-right">
+                                    <div class="money-record money-record--blue">
+                                        <div class="block-icon"><img class="icon-wallet" src="/images/icons/wallet.png"></div>
+                                        <div class="money-record__detail">
+                                            <div class="money-record__info">
+                                                <span class="amount">@Model.CurrentUser.CurrentAccountAmount.ToString("N0")</span><span class="item-price">VNĐ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-8">
+                                    <div class="suggest-block">
+                                        <h4>@Model.CurrentUser.KVRR.Name</h4>
+                                        <p class="minimize">
+                                            @Model.CurrentUser.KVRR.Detail
+                                        </p>
+                                        <a asp-controller="Account" asp-action="KVRRSelection">
+                                            <img src="/images/icon-change-info.png">
+                                            Thay đổi danh mục đầu tư
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-8">
-                            <div class="suggest-block">
-                                <h4>@Model.CurrentUser.KVRR.Name</h4>
-                                <p class="minimize">
-                                    @Model.CurrentUser.KVRR.Detail
-                                </p>
-                                <a asp-controller="Account" asp-action="KVRRSelection">
-                                    <img src="/images/icon-change-info.png">
-                                    Thay đổi danh mục đầu tư
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-actions">
-                        @if (Model.CurrentUser.CurrentAccountAmount > 0)
-                        {
-                            <a class="btn btn-select" asp-controller="Investment" asp-action="Invest">
-                                <img src="/images/icons/payment-method-2.svg">Đầu tư
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-select link-show-popup">
-                                <img src="/images/icons/payment-method-2.svg">Đầu tư
-                            </a>
-                        }
-
-                        <a class="btn btn-target" asp-controller="InvestmentTarget" asp-action="Detail">Mục tiêu</a>
-                    </div>
-                </div>
-            </div>
-
-            
-
-        </section>
-        <section class="userfund-dmdt">
-            <div class="container-fluid">
-                <h4 class="block-title">@Common.Portfolio</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Mã Quỹ</th>
-                            <th>Số lượng </th>
-                            <th>Giá trị</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int j = 0; j < Model.UserPortfolios.Count(); j++)
-                        {
-                            if (Model.UserPortfolios[j].NoOfCertificates != null)
-                            {
-                                totalFundAmount += Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue;
-                            }
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(m => m.UserPortfolios[j].FundCode)
-                                <span>@Html.DisplayFor(m => m.UserPortfolios[j].FundName)</span>
-                            </th>
-                            <th>@(Model.UserPortfolios[j].NoOfCertificates != null ? Model.UserPortfolios[j].NoOfCertificates?.ToString("0.##") : "0")</th>
-                            @{
-                                if (Model.UserPortfolios[j].Status == EditStatus.Updating)
+                            <div class="block-actions">
+                                @if (Model.CurrentUser.CurrentAccountAmount > 0)
                                 {
-                                    <th>
-                                        @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
-                                        <span></span>
-                                    </th>
+                                    <a class="btn btn-select" asp-controller="Investment" asp-action="Invest">
+                                        <img src="/images/icons/payment-method-2.svg">Đầu tư
+                                    </a>
                                 }
                                 else
                                 {
-                                    <th class="is-active">
-                                        @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
-                                        <span></span>
-                                    </th>
+                                    <a class="btn btn-select link-show-popup">
+                                        <img src="/images/icons/payment-method-2.svg">Đầu tư
+                                    </a>
                                 }
+
+                                <a class="btn btn-target" asp-controller="InvestmentTarget" asp-action="Detail">Mục tiêu</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </section>
+                <section class="userfund-dmdt">
+                    <div class="container-fluid">
+                        <h4 class="block-title">@Common.Portfolio</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã Quỹ</th>
+                                    <th>Số lượng </th>
+                                    <th>Giá trị</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int j = 0; j < Model.UserPortfolios.Count(); j++)
+                                {
+                                    if (Model.UserPortfolios[j].NoOfCertificates != null)
+                                    {
+                                        totalFundAmount += Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue;
+                                    }
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayFor(m => m.UserPortfolios[j].FundCode)
+                                            <span>@Html.DisplayFor(m => m.UserPortfolios[j].FundName)</span>
+                                        </th>
+                                        <th>@(Model.UserPortfolios[j].NoOfCertificates != null ? Model.UserPortfolios[j].NoOfCertificates?.ToString("0.##") : "0")</th>
+                                        @{
+                                            if (Model.UserPortfolios[j].Status == EditStatus.Updating)
+                                            {
+                                                <th>
+                                                    @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
+                                                    <span></span>
+                                                </th>
+                                            }
+                                            else
+                                            {
+                                                <th class="is-active">
+                                                    @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
+                                                    <span></span>
+                                                </th>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="userfund-status">
+                    <p class="is-active"><span></span>Giao dịch đã thanh toán</p>
+                    <p><span></span>Giao dịch đang được xử lý</p>
+                </section>
+            </div>*@
+
+
+
+        <!-- Section 4 Danh muc dau tu-->
+        <section class="g-py-30 change-portfolio-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                        <div class="g-brd-primary g-mb-30">
+                            <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Lợi nhuận kỳ vọng</span> của các danh mục đầu tư</h2>
+                        </div>
+                        <div class="mb-4 text-center">
+                            <div id="container"></div>
+                        </div>
+
+                        <div class="g-brd-primary g-mb-30">
+                            <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Danh mục đầu tư</span> của Bạn</h2>
+                        </div>
+
+                        @{
+                            var modal = "#modalAntoan";
+                            var image = "/assets-new/img/content/an-toan.png";
+                            if (Model.CurrentUser.KVRR.Name.Contains("Cẩn trọng"))
+                            {
+                                modal = "#modalCantrong";
+                                image = "/assets-new/img/content/can-trong.png";
                             }
-                        </tr>
+                            else if (Model.CurrentUser.KVRR.Name.Contains("Cân bằng"))
+                            {
+                                modal = "#modalCanbang";
+                                image = "/assets-new/img/content/can-bang.png";
+                            }
+                            else if (Model.CurrentUser.KVRR.Name.Contains("Mạo hiểm"))
+                            {
+                                modal = "#modalMaohiem";
+                                image = "/assets-new/img/content/mao-hiem.png";
+                            }
+                            else if (Model.CurrentUser.KVRR.Name.Contains("Đầu cơ"))
+                            {
+                                modal = "#modalDauco";
+                                image = "/assets-new/img/content/dau-co.png";
+                            }
                         }
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <section class="userfund-status">
-            <p class="is-active"><span></span>Giao dịch đã thanh toán</p>
-            <p><span></span>Giao dịch đang được xử lý</p>
-        </section>
-    </div>
-}
-else
-{
-    <section class="emptyManageRisk">
-        <div class="container-fluid">
-            <div class="emptyManageRisk__BigImage">
-                <img src="/images/manageRisk1.png"
-                     alt="image-socials">
-            </div>
-            <div class="emptyManageRisk__Content">
-                <h4>Bạn chưa có khẩu vị rủi ro</h4>
-                <div class="emptyManageRisk__Button">
-                    <a asp-controller="Account" asp-action="DefindKVRR" class="btn-select">Lựa chọn ngay</a>
+
+                        <div class="g-px-0 g-pt-0 g-pb-20">
+                            <div class="media g-mb-15">
+                                <div class="align-self-center mr-3 g-width-50x text-right">
+                                    <a href="@modal" data-modal-target="@modal" data-modal-effect="scale"> <img class="img-fluid g-width-100 g-height-100 g-mb-0 rounded-circle" src="@image" alt="Image Description"></a>
+                                </div>
+                                <div class="media-body align-self-center g-width-50x text-left">
+                                    <a href="@modal" data-modal-target="@modal" data-modal-effect="scale"><h3 class="h5 g-color-black mb-0">@Model.CurrentUser.KVRR.Name</h3></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="g-brd-primary g-mb-30">
+                            <div class="g-px-0 g-pt-0 g-pb-20 user-existing-assets">
+                                <a asp-controller="Account" asp-action="MyWallet" class="u-shadow-v1-1 btn-block btn btn-xl u-btn-deeporange u-btn-hover-v1-4 g-letter-spacing-0_5  g-rounded-15 g-px-30 g-mr-10">
+                                    <i class="fa fa-briefcase float-left g-font-size-42 g-ml-15"></i>
+                                    <span class="pull-right float-right text-left">
+                                        <span class="d-block g-font-size-30 text-uppercase">@Model.CurrentUser.CurrentAccountAmount.ToString("N0")<sup style="text-transform:lowercase">đ</sup></span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="row">
+                                @* <div class="col-md-6 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center"> *@
+                                @*     <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="Account" asp-action="MyWallet">@Model.CurrentUser.CurrentAccountAmount.ToString("N0")<sup style="text-transform:lowercase">đ</sup></a> *@
+                                @* </div> *@
+                                <div class="col-md-6 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                    <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="InvestmentTarget" asp-action="Detail">Đầu tư theo mục tiêu</a>
+                                </div>
+                                <div class="col-md-6 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                    <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="Investment" asp-action="Invest">Đầu tư</a>
+                                </div>
+                                <div class="col-md-6 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                    <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="Account" asp-action="KVRRSelection">Thay đổi danh mục đầu tư</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="g-px-0">
+                            <!-- Example Button -->
+                            <div class="g-brd-primary g-mb-30">
+                                <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Danh mục đầu tư</span> các Quỹ của Bạn</h2>
+                            </div>
+
+                            <!-- Icon Blocks -->
+                            <div class="table-responsive g-rounded-15">
+                                <table class="table table-bordered u-table--v1">
+                                    <thead class="text-uppercase g-letter-spacing-1">
+                                        <tr class="g-bg-darkblue-v4 g-color-white g-col-border-top-0">
+                                            <th class="g-brd-white-opacity-0_1 g-rounded-15 g-rounded-0--top-right g-rounded-0--bottom-left g-rounded-0--bottom-right"></th>
+                                            <th class="g-brd-white-opacity-0_1 text-center">Mã Quỹ</th>
+                                            <th class="g-brd-white-opacity-0_1 text-center">Tăng trưởng NAV/CCQ</th>
+                                            <th class="g-brd-white-opacity-0_1 text-center">S.Lượng CCQ mua</th>
+                                            <th class="g-brd-white-opacity-0_1 text-center g-rounded-15 g-rounded-0--top-left g-rounded-0--bottom-left g-rounded-0--bottom-right">Giá trị</th>
+                                        </tr>
+                                    </thead>
+                                    @for (int j = 0; j < Model.UserPortfolios.Count(); j++)
+                                    {
+                                        var cerUpdate = Model.UserPortfolios[j].CertificateValue - Model.UserPortfolios[j].OldCertificateValue;
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">@(j + 1)</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                @Html.DisplayFor(m => m.UserPortfolios[j].FundCode)
+                                            </td>
+                                            @if (cerUpdate < 0)
+                                            {
+                                                <td class="g-width-20x">
+                                                    <div class="d-flex align-items-right float-right">
+                                                        <span class="g-font-weight-300 g-font-size-14 g-color-black">@(cerUpdate?.ToString("N0"))đ</span>
+                                                        <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                            <i class="material-icons g-color-deeporange g-font-size-14">arrow_downward</i>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="g-width-20x">
+                                                    <div class="d-flex align-items-center float-right">
+                                                        <span class="g-font-weight-300 g-font-size-14 g-color-black">+@(cerUpdate?.ToString("N0"))đ</span>
+                                                        <span class="d-flex align-self-right g-font-size-0 g-ml-5 g-ml-10--md">
+                                                            <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            }
+                                            <td class="g-width-10x text-right">@(Model.UserPortfolios[j].NoOfCertificates != null ? Model.UserPortfolios[j].NoOfCertificates?.ToString("0.##") : "0")</td>
+                                            <td class="g-width-20x text-right">@(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0")đ</td>
+                                        </tr>
+                                    }
+
+                                    @*<tr>
+                                            <td class="g-width-10x g-pl-5 text-center">2</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                VFMVFB
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-center float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+500đ</span>
+                                                    <span class="d-flex align-self-right g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">0.5</td>
+                                            <td class="g-width-20x text-right">316.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">3</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                BVBF
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+2.000đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">100đ</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">4</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                VFF
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+10.000đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">20</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">5</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                VTBF
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+1.600đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">15</td>
+                                            <td class="g-width-20x text-right">3.000.000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">6</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                SCA
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+1000đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">1000</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">7</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                ETFVN30
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+220đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">200</td>
+                                            <td class="g-width-20x text-right">36.000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">8</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                VNDAF
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+666đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">6</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">9</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                BVPF
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+116đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">3</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="g-width-10x g-pl-5 text-center">10</td>
+                                            <td class="g-width-100 g-pl-5 text-left">
+                                                VF1
+                                            </td>
+                                            <td class="g-width-20x">
+                                                <div class="d-flex align-items-right float-right">
+                                                    <span class="g-font-weight-300 g-font-size-14 g-color-black">+50đ</span>
+                                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                                        <i class="material-icons g-color-darkblue-v2 g-font-size-14">arrow_upward</i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="g-width-10x text-right">56</td>
+                                            <td class="g-width-20x text-right">36.000đ</td>
+                                        </tr>*@
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-}
+
+
+            <!-- An toan modal window -->
+            <div id="modalAntoan" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+                <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">An toàn</span></h2>
+                <p>
+                    Danh mục đầu tư dành cho các khách hàng có khẩu vị rủi ro rất thấp và mong muốn đạt lợi nhuận ổn định.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-borderless u-table--v1">
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">7.95%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">9.07%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">6.84%</td></tr>
+                    </table>
+                </div>
+                <div id="cAntoan" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+            </div>
+            <!-- End toan modal window -->
+            <!-- Can trong modal window -->
+            <div id="modalCantrong" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+                <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cẩn trọng</span></h2>
+                <p>
+                    Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro thấp và mong muốn bảo vệ nguồn vốn khỏi tác động của lạm phát.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-borderless u-table--v1">
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">8.38%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">13.35%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.42%</td></tr>
+                    </table>
+                </div>
+                <div id="cCantrong" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+            </div>
+            <!-- End Can trong modal window -->
+            <!-- An toan modal window -->
+            <div id="modalCanbang" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+                <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cân bằng</span></h2>
+                <p>
+                    Danh mục đầu tư dành cho khách hàng mong muốn khoản đầu tư có tiềm năng tăng trưởng.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-borderless u-table--v1">
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">10.52%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">19.41%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">1.63%</td></tr>
+                    </table>
+                </div>
+                <div id="cCanbang" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+            </div>
+            <!-- End toan modal window -->
+            <!-- An toan modal window -->
+            <div id="modalMaohiem" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+                <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Mạo hiểm</span></h2>
+                <p>
+                    Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro cao, chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về cao hơn đáng kể so với mức lạm phát.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-borderless u-table--v1">
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.32%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.21%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">2.43%</td></tr>
+                    </table>
+                </div>
+                <div id="cMaohiem" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+            </div>
+            <!-- End toan modal window -->
+            <!-- An toan modal window -->
+            <div id="modalDauco" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+                <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Đầu cơ</span></h2>
+                <p>
+                    Danh mục dành cho khách hàng chấp nhận khẩu vị rủi ro rất cao, chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về rất lớn.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-borderless u-table--v1">
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.99%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.88%</td></tr>
+                        <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.10%</td></tr>
+                    </table>
+                </div>
+                <div id="cDauco" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+            </div>
+            <!-- End toan modal window -->
+
+        </section>
+        <!-- End Section 3  Hoạt dong-->
+
+
+        @section Scripts {
+
+            <script src="/assets-new/vendor/highcharts/code/highcharts.js"></script>
+            <script src="/assets-new/vendor/highcharts/code/modules/exporting.js"></script>
+            <script src="/assets-new/vendor/highcharts/code/modules/export-data.js"></script>
+            <script type="text/javascript">
+                Highcharts.setOptions({
+                    chart: {
+                        style: {
+                            fontFamily: 'Quicksand',
+                            fontSize: '16px'
+                        }
+                    }
+                });
+                // Build the chart
+                Highcharts.chart('cAntoan', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tỷ lệ',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Quỹ đầu tư trái phiếu',
+                            y: 100,
+                            sliced: false,
+                            selected: true
+                        }, {
+                            name: 'Quỹ đầu tư hỗn hợp',
+                            y: 0
+                        }, {
+                            name: 'Quỹ đầu tư cổ phiếu',
+                            y: 0
+                        }]
+                    }],
+                    exporting:
+                    {
+                        enabled: false
+                    }
+                });
+
+
+                // Build the chart Can trong
+                Highcharts.chart('cCantrong', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tỷ lệ',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Quỹ đầu tư trái phiếu',
+                            y: 56,
+                            sliced: false,
+                            selected: true
+                        }, {
+                            name: 'Quỹ đầu tư hỗn hợp',
+                            y: 24
+                        }, {
+                            name: 'Quỹ đầu tư cổ phiếu',
+                            y: 20
+                        }]
+                    }],
+                    exporting:
+                    {
+                        enabled: false
+                    }
+                });
+
+                // Build the chart Can trong
+                Highcharts.chart('cCanbang', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tỷ lệ',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Quỹ đầu tư trái phiếu',
+                            y: 30,
+                            sliced: false,
+                            selected: true
+                        }, {
+                            name: 'Quỹ đầu tư hỗn hợp',
+                            y: 30
+                        }, {
+                            name: 'Quỹ đầu tư cổ phiếu',
+                            y: 40
+                        }]
+                    }],
+                    exporting:
+                    {
+                        enabled: false
+                    }
+                });
+
+                // Build the chart Can trong
+                Highcharts.chart('cMaohiem', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tỷ lệ',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Quỹ đầu tư trái phiếu',
+                            y: 15,
+                            sliced: false,
+                            selected: true
+                        }, {
+                            name: 'Quỹ đầu tư hỗn hợp',
+                            y: 15
+                        }, {
+                            name: 'Quỹ đầu tư cổ phiếu',
+                            y: 70
+                        }]
+                    }],
+                    exporting:
+                    {
+                        enabled: false
+                    }
+                });
+
+                // Build the chart Can trong
+                Highcharts.chart('cDauco', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tỷ lệ',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Quỹ đầu tư trái phiếu',
+                            y: 5,
+                            sliced: false,
+                            selected: true
+                        }, {
+                            name: 'Quỹ đầu tư hỗn hợp',
+                            y: 5
+                        }, {
+                            name: 'Quỹ đầu tư cổ phiếu',
+                            y: 90
+                        }]
+                    }],
+                    exporting:
+                    {
+                        enabled: false
+                    }
+                });
+
+
+                Highcharts.chart('container', {
+
+                    title: {
+                        text: ''
+                    },
+
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: ['An toàn', 'Cẩn trọng', 'Cân bằng', 'Mạo hiểm', 'Đầu cơ'],
+                        gridLineWidth: 1
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        labels: {
+                            format: '{value}%'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>Danh mục đầu tư {point.x}</b><br/>',
+                        pointFormat: '<b>{series.name}: {point.y}%</b>'
+                    },
+                    colors: ['#fe541e', '#72c02c', '#1d75e5'],
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    },
+
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            }
+                        },
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: true
+                        }
+                    },
+
+                    series: [{
+                        name: 'Lợi nhuận thấp nhất',
+                        data: [6.08, 3.42, 1.63, 2.43, 3.10]
+                    },
+                    {
+                        name: 'Lợi nhuận trung bình',
+                        data: [7.95, 8.38, 10.52, 11.32, 11.99]
+                    },
+                    {
+                        name: 'Lợi nhuận cao nhất',
+                        data: [9.07, 13.35, 19.41, 20.21, 20.88]
+                    }
+                    ],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    },
+                    exporting:
+                    {
+                        enabled: false
+                    }
+
+                });
+
+            </script>
+
+            <script src="/assets-new/vendor/numbermask/jquery.masknumber.js"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('.number-mask').maskNumber({ integer: true });
+                    $('[name=currency-default]').maskNumber();
+                });
+            </script>
+        }
+    }
+    else
+    {
+        @*<section class="emptyManageRisk">
+                <div class="container-fluid">
+                    <div class="emptyManageRisk__BigImage">
+                        <img src="/images/manageRisk1.png"
+                             alt="image-socials">
+                    </div>
+                    <div class="emptyManageRisk__Content">
+                        <h4>Bạn chưa có khẩu vị rủi ro</h4>
+                        <div class="emptyManageRisk__Button">
+                            <a asp-controller="Account" asp-action="DefindKVRR" class="btn-select">Lựa chọn ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </section>*@
+
+
+        <!-- Section 4 Danh muc dau tu-->
+        <section class="g-py-30">
+            <div class="container">
+                <div class="row g-ma-0">
+                    <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-0">
+                        <div class="mb-4 text-center">
+                            <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                                <span class="u-icon-v6-inner">
+                                    <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/dau-tu.png" alt="Image Description">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="g-brd-primary g-mb-30">
+                            <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Bạn chưa <span class="g-color-deeporange g-ml-5">chọn danh mục đầu tư</span></h2>
+                        </div>
+
+
+                        <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                            <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 g-font-size-14 g-width-200" asp-controller="Account" asp-action="DefindKVRR">Lựa chọn ngay</a>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- End Section 3  Hoạt dong-->
+    }
 
 

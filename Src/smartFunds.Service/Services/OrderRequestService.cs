@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using smartFunds.Common;
 
 namespace smartFunds.Service.Services
 {
@@ -15,6 +16,8 @@ namespace smartFunds.Service.Services
         Task<OrderRequestModel> GetOrder(int? orderId);
         Task<OrderRequestModel> SaveOrder(OrderRequestModel order);
         Task UpdateOrder(OrderRequestModel order);
+        Task<List<OrderRequestModel>> GetAllOrderRequestByStatus(OrderRequestStatus status);
+        Task<OrderRequestStatus> GetStatsByOrderRequestId(int? orderId);
     }
     public class OrderRequestService : IOrderRequestService
     {
@@ -25,6 +28,39 @@ namespace smartFunds.Service.Services
             _mapper = mapper;
             _orderManager = orderManager;
         }
+
+        public async Task<List<OrderRequestModel>> GetAllOrderRequestByStatus(OrderRequestStatus status)
+        {
+            List<OrderRequestModel> orderRequest = new List<OrderRequestModel>();
+            try
+            {
+                var listOrder = await _orderManager.GetAllOrderRequestByStatus(status);
+                if (listOrder != null)
+                {
+                    orderRequest =  _mapper.Map<List<OrderRequest>, List<OrderRequestModel>>(listOrder);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return orderRequest;
+        }
+
+        public async Task<OrderRequestStatus> GetStatsByOrderRequestId(int? orderId)
+        {
+            try
+            {
+                var order = await _orderManager.GetOrder(orderId);
+                return order.Status;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<OrderRequestModel> GetOrder(int? orderId)
         {
             try
@@ -51,5 +87,6 @@ namespace smartFunds.Service.Services
             OrderRequest newOrder = _mapper.Map<OrderRequest>(order);
             await _orderManager.UpdateOrder(newOrder);
         }
+
     }
 }

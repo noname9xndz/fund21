@@ -58,6 +58,7 @@ namespace smartFunds.Service.Mapper
             CreateMap<Model.Common.CustomerLevelModel, Data.Models.CustomerLevel>();
             CreateMap<Data.Models.TaskCompleted, Model.Common.TaskCompletedModel>();// phuongnc
             CreateMap<Model.Common.TaskCompletedModel, Data.Models.TaskCompleted>();
+            CreateMap<Model.Common.GlobalConfigurationModel, Data.Models.GlobalConfiguration>();
         }
     }
 }

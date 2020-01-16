@@ -36,7 +36,7 @@
                         </strong>
                         <p class="col-sm-6">@Model.Customer.Created.ToString("dd/MM/yyyy")</p>
                     </div>
-                    
+
                     <div class="row">
                         <strong class="col-sm-3" for="customerInfoStatus">
                             @Common.ActiveStatus
@@ -146,58 +146,103 @@
     <div class="container-fluid"><canvas class="chart-customer" id="chart-customer"></canvas><span id="checkChartData">Không có dữ liệu</span></div>
     <input type="hidden" id="customerDataApiUrl" value="/admin/customer/PropertyFluctuations">
 
-    @*@if (Model.InvestmentTarget != null && Model.InvestmentTarget.Status == EditStatus.Success)
-    {
-        <section class="customer-target">
-            <div class="detail-block">
-                <div class="detail-block__title">
-                    <h2>@Common.InvestmentTarget</h2>
-                </div>
-                <div class="detail-block__content">
-                    <div class="container-fluid">
-                        <div class="row center-xs">
-                            <div class="col-sm-6">
-                                <div class="customer-target__target">
-                                    <h3>@Common.Target</h3>
 
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.ExpectedAmount)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.ExpectedAmount.ToString("N0")</p>
+    <div class="detail-block__title">
+        <h2>@Common.InvestmentFund</h2>
+    </div>
+    <section class="investment-funds">
+        <div class="content">
+
+            <div class="investment-funds__table">
+                <div class="investment-funds__table__overlay hide">
+                    <div class="investment-funds__table__overlay__spinner rotating"></div>
+                </div>
+
+
+                <table class="display" id="investment-funds__table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Mã Quỹ</th>
+                            <th>Số lượng </th>
+                            <th>Giá trị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.UserPortfolios != null && Model.UserPortfolios.Any())
+                        {
+                            for (int j = 0; j < Model.UserPortfolios.Count(); j++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(m => m.UserPortfolios[j].FundCode)
+                                    </td>
+                                    <td>@(Model.UserPortfolios[j].NoOfCertificates != null ? Model.UserPortfolios[j].NoOfCertificates?.ToString("0.##") : "0")</td>
+                                    <td>
+                                        @(Model.UserPortfolios[j].NoOfCertificates != null ? (Model.UserPortfolios[j].NoOfCertificates * Model.UserPortfolios[j].CertificateValue)?.ToString("N0") : "0") đ
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+
+    @*@if (Model.InvestmentTarget != null && Model.InvestmentTarget.Status == EditStatus.Success)
+        {
+            <section class="customer-target">
+                <div class="detail-block">
+                    <div class="detail-block__title">
+                        <h2>@Common.InvestmentTarget</h2>
+                    </div>
+                    <div class="detail-block__content">
+                        <div class="container-fluid">
+                            <div class="row center-xs">
+                                <div class="col-sm-6">
+                                    <div class="customer-target__target">
+                                        <h3>@Common.Target</h3>
+
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.ExpectedAmount)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.ExpectedAmount.ToString("N0")</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Duration)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.Duration.GetDisplayName()</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Frequency)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.Frequency.GetDisplayName()</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentMethod)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.InvestmentMethod.GetDisplayName()</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentStatus)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.InvestmentStatus</p>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Duration)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.Duration.GetDisplayName()</p>
-                                    </div>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.Frequency)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.Frequency.GetDisplayName()</p>
-                                    </div>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentMethod)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentMethod.GetDisplayName()</p>
-                                    </div>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentStatus)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentStatus</p>
-                                    </div>
-                                </div>
-                                <div class="customer-target__finished">
-                                    <h3>Đã thực hiện</h3>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentAmount)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentAmount.ToString("N0")</p>
-                                    </div>
-                                    <div class="row">
-                                        <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentDuration)</strong>
-                                        <p class="col-sm-6">@Model.InvestmentTarget.InvestmentDuration @(Model.InvestmentTarget.Frequency == Frequency.OneMonth ? "tháng" : "tuần")</p>
+                                    <div class="customer-target__finished">
+                                        <h3>Đã thực hiện</h3>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentAmount)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.InvestmentAmount.ToString("N0")</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong class="col-sm-6">@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentDuration)</strong>
+                                            <p class="col-sm-6">@Model.InvestmentTarget.InvestmentDuration @(Model.InvestmentTarget.Frequency == Frequency.OneMonth ? "tháng" : "tuần")</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    }*@
+            </section>
+        }*@
 
 </div>

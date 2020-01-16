@@ -46,10 +46,11 @@ namespace smartFunds.Business.Common
         Task<bool> ChangePassword(string userName, string currentPassword, string newPassword);
         Task<List<User>> GetAllUserByRoles(params string[] roles);
         Task<List<User>> GetUsersByRoles(int pageSize, int pageIndex, params string[] roles);
-        Task<List<UserPorfolio>> GetUserPorfolio();
+        Task<List<UserPorfolio>> GetUserPorfolio(string userId = null);
         Task<User> GetUserRelateData();
         Task ConfirmKVRR(int kvrrId);
         Task<bool> Login(string userName);
+        Task UpdateSecurityStamp(string userName);
     }
 
     public class UserManager : IUserManager
@@ -329,6 +330,12 @@ namespace smartFunds.Business.Common
             return true;
         }
 
+        public async Task UpdateSecurityStamp(string userName)
+        {
+            var user = await _appUserManager.FindByNameAsync(userName);
+            await _appUserManager.UpdateSecurityStampAsync(user);
+        }
+
         public async Task<bool> ResetPassword(string userName, string code, string newPassword)
         {
             if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(newPassword))
@@ -505,7 +512,7 @@ namespace smartFunds.Business.Common
 
             if (listUser != null && listUser.Any())
             {
-                _unitOfWork.UserRepository.BulkDelete(listUser);
+                _unitOfWork.UserRepository.BulkDelete(listUser.ToList());
                 await _unitOfWork.SaveChangesAsync();
                 return true;
             }
@@ -535,13 +542,15 @@ namespace smartFunds.Business.Common
 
         public async Task<List<User>> GetAllUserByRoles(params string[] roles)
         {
-            var listUser = new List<User>();
-            if (roles != null && roles.Any())
+            var users = new List<User>();
+            foreach (var role in roles)
             {
-                listUser = (await _unitOfWork.UserRepository.FindByAsync(u => !u.IsDeleted && IsInRoles(u, roles))).OrderBy(u => u.FullName).ToList();
+                var us = (await _appUserManager.GetUsersInRoleAsync(role)).ToList();
+                users = users.Union(us).ToList();
             }
 
-            return listUser;
+            return users.OrderBy(h => h.FullName).ToList();
+
         }
 
         public async Task<List<User>> GetUsersByRoles(int pageSize, int pageIndex, params string[] roles)
@@ -600,21 +609,41 @@ namespace smartFunds.Business.Common
         }
 
 
-        public async Task<List<UserPorfolio>> GetUserPorfolio()
+        public async Task<List<UserPorfolio>> GetUserPorfolio(string userId = null)
         {
-            var currentUser = await GetCurrentUser();
-            if (currentUser != null)
+            if(string.IsNullOrWhiteSpace(userId))
             {
-                var userPorfolios = (await _unitOfWork.UserFundRepository.GetAllAsync("User,Fund")).Where(i => i.UserId == currentUser.Id)
-                    .Select(i => new UserPorfolio()
-                    {
-                        CertificateValue = i.Fund.NAV,
-                        CurrentAccountAmount = i.User.CurrentAccountAmount,
-                        FundName = i.Fund.Title,
-                        FundCode = i.Fund.Code,
-                        NoOfCertificates = i.NoOfCertificates,
-                        Status = i.EditStatus
-                    }).ToList();
+                var currentUser = await GetCurrentUser();
+                if (currentUser != null)
+                {
+                    var userPorfolios = (await _unitOfWork.UserFundRepository.GetAllAsync("User,Fund")).Where(i => i.UserId == currentUser.Id)
+                        .Select(i => new UserPorfolio()
+                        {
+                            CertificateValue = i.Fund.NAV,
+                            OldCertificateValue = i.Fund.NAVOld,
+                            CurrentAccountAmount = i.User.CurrentAccountAmount,
+                            FundName = i.Fund.Title,
+                            FundCode = i.Fund.Code,
+                            NoOfCertificates = i.NoOfCertificates,
+                            Status = i.EditStatus
+                        }).OrderBy(i => i.FundCode).ToList();
+
+                    return userPorfolios;
+                }
+            }
+            else
+            {
+                var userPorfolios = (await _unitOfWork.UserFundRepository.GetAllAsync("User,Fund")).Where(i => i.UserId == userId)
+                        .Select(i => new UserPorfolio()
+                        {
+                            CertificateValue = i.Fund.NAV,
+                            OldCertificateValue = i.Fund.NAVOld,
+                            CurrentAccountAmount = i.User.CurrentAccountAmount,
+                            FundName = i.Fund.Title,
+                            FundCode = i.Fund.Code,
+                            NoOfCertificates = i.NoOfCertificates,
+                            Status = i.EditStatus
+                        }).OrderBy(i => i.FundCode).ToList();
 
                 return userPorfolios;
             }

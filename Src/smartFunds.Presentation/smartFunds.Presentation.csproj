@@ -7,6 +7,7 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,6 +52,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Account\Login.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Account\WithdrawalResult.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Account\PaymentResult.cshtml">
@@ -203,6 +207,15 @@
     <Content Update="Views\KVRR\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Lock.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Page\FeeTable.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Page\ChargeList.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Portfolio\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -309,8 +322,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Job\" />
+    <Folder Include="Views\CateNews\" />
+    <Folder Include="Views\ContentNews\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\kvrr\" />
+    <Folder Include="wwwroot\images\news\" />
   </ItemGroup>
 
   <ItemGroup>

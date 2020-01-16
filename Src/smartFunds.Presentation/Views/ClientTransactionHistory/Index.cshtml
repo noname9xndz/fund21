@@ -1,54 +1,304 @@
 ﻿@{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.TransactionHistory;
 }
 
-<div class="body-content-endUser">
-    <section class="user-transaction-history container-fluid">
-        <input id="usermanageTransactionInputHidden"
-               type="hidden" value="transaction-history/list">
-        <h1 class="section-title-endUser">@Common.TransactionHistory</h1>
-        <div class="user-transaction-history-filters p-15">
-            <div class="user-transaction-history-filters__items">
-                <span>@(Common.TimeAction)</span>
-                <div class="user-transaction-history-filters__items__input">
-                    <div class="date-form-group">
-                        <span>Từ ngày</span>
-                        <input class="input-form-control user-transaction-history-from" type="text" readonly="readonly" value="" name="date-range-form">
+@*<div class="body-content-endUser">
+        <section class="user-transaction-history container-fluid">
+            <input id="usermanageTransactionInputHidden"
+                   type="hidden" value="transaction-history/list">
+            <h1 class="section-title-endUser">@Common.TransactionHistory</h1>
+            <div class="user-transaction-history-filters p-15">
+                <div class="user-transaction-history-filters__items">
+                    <span>@(Common.TimeAction)</span>
+                    <div class="user-transaction-history-filters__items__input">
+                        <div class="date-form-group">
+                            <span>Từ ngày</span>
+                            <input class="input-form-control user-transaction-history-from" type="text" readonly="readonly" value="" name="date-range-form">
+                        </div>
+                        <div class="date-form-group">
+                            <span>Đến ngày</span>
+                            <input class="input-form-control user-transaction-history-to" type="text" readonly="readonly" value="" name="date-range-to">
+                        </div>
                     </div>
-                    <div class="date-form-group">
-                        <span>Đến ngày</span>
-                        <input class="input-form-control user-transaction-history-to" type="text" readonly="readonly" value="" name="date-range-to">
+                </div>
+                <div class="user-transaction-history-filters__items">
+                    <span>@Common.Type</span>
+                    <div class="user-transaction-history-filters__items__input">
+                        <select class="input-form-control user-transaction-history-type" name="typeTransaction" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+                    </div>
+                </div>
+                <div class="user-transaction-history-filters__items">
+                    <span>@Common.Status</span>
+                    <div class="user-transaction-history-filters__items__input">
+                        <select class="input-form-control user-transaction-history-status" name="status" asp-items="Html.GetEnumSelectList<TransactionStatus>()"></select>
+                    </div>
+                </div>
+                <div class="user-transaction-history-filters__items"><a class="btn">@Common.Search</a></div>
+            </div>
+            <div class="user-transaction-history-pagesize">
+                <span>Hiển thị</span><select class="table-filter-actions__pagesize__select" id="user-transaction-history-pagesize-select" name="pagesize">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="user-transaction-history-table">
+                <div class="user-transaction-history-table__overlay hide">
+                    <div class="user-transaction-history-table__overlay__spinner rotating"></div>
+                </div>
+                <form id="user-transition-history-form" action="">
+                    <div class="user-transition-history-form--wrapper"></div>
+                </form>
+            </div>
+        </section>
+    </div>*@
+
+
+
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30 transaction-history-main">
+    <input id="usermanageTransactionInputHidden"
+           type="hidden" value="transaction-history/list">
+    <div class="container">
+        <div class="row g-ma-0">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-0">
+                <div class="mb-4 text-center">
+                    <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                        <span class="u-icon-v6-inner">
+                            <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/lich-su.png" alt="Image Description">
+                        </span>
+                    </span>
+                </div>
+                <!-- Example Button -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Lịch sử</span> giao dịch</h2>
+                </div>
+                <div class="g-pt-0 g-pb-10 text-center">
+                    <div class="d-block u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-pa-10">
+                        <!-- Icon Blocks -->
+                        <div class="row g-mb-10">
+                            <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                                <span class="g-mb-10 g-width-100x g-font-weight-700">Tổng số tiền đầu tư: </span>
+                            </div>
+                            <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-right">
+                                @(ViewBag.TotalAmountInvest != null ? ViewBag.TotalAmountInvest.ToString("N0") : "0")VNĐ
+                            </div>
+                        </div>
+                        <div class="row g-mb-10">
+                            <div class="col-6 align-self-left g-mb-50--md g-mb-0--md text-left">
+                                <span class="g-mb-10 g-width-100x g-font-weight-700">Tổng số tiền đã rút: </span>
+                            </div>
+                            <div class="col-6 align-self-left g-mb-50--md g-mb-0--md text-right">
+                                @(ViewBag.TotalAmountWithdrawl != null ? ViewBag.TotalAmountWithdrawl.ToString("N0") : "0")VNĐ
+                            </div>
+                        </div>
+                        <div class="row g-mb-10">
+                            <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                                <span class="g-mb-10 g-width-100x g-font-weight-700">Tổng phí mua/bán trả quỹ đầu tư: </span>
+                            </div>
+                            <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-right">
+                                @(ViewBag.TotalFundFee != null ? ViewBag.TotalFundFee.ToString("N0") : "0")VNĐ
+                            </div>
+                        </div>
+                        <div class="row g-mb-10">
+                            <div class="col-6 align-self-left g-mb-50--md g-mb-0--md text-left">
+                                <span class="g-mb-10 g-width-100x g-font-weight-700">Tổng phí rút tiền: </span>
+                            </div>
+                            <div class="col-6 align-self-left g-mb-50--md g-mb-0--md text-right">
+                                @(ViewBag.TotalWithdrawFee != null ? ViewBag.TotalWithdrawFee.ToString("N0") : "0")VNĐ
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer g-py-10">
+                    <div id="accordion-10" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="false">
+                        <!-- Card -->
+                        <div class="card rounded-0 g-brd-none">
+                            <div id="accordion-10-heading-01" class="u-accordion__header g-pa-0" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="d-flex g-color-main g-text-underline--none--hover g-brd-gray-light-v4 g-rounded-5 g-pa-10-15" href="#accordion-10-body-01" data-toggle="collapse" data-parent="#accordion-10" aria-expanded="false" aria-controls="accordion-10-body-01">
+                                        <span class="u-accordion__control-icon g-mr-10">
+                                            <i class="fa fa-angle-down"></i>
+                                            <i class="fa fa-angle-up"></i>
+                                        </span>
+                                        Tìm kiếm
+                                    </a>
+                                </h5>
+
+                            </div>
+                            <div id="accordion-10-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-10-heading-01" data-parent="#accordion-10">
+                                <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+                                    <div class="g-px-0 g-pt-0 g-pb-20 text-center">
+                                        <div class="u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-overflow-y-auto g-pa-20">
+                                            <div class="form-group g-mb-20">
+                                                <div class="text-left g-width-100x">
+                                                    <label class="g-mb-10 g-width-100x g-font-weight-700">Từ ngày</label>
+                                                </div>
+                                                <div class="input-group g-brd-primary--focus ">
+                                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                                        <input id="datepickerFrom" class="form-control form-control-md  border-0 u-datepicker-v1 g-brd-right-none rounded-0 g-pa-0 transition-start-date" type="text" data-range="true" data-to="datepickerTo">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1"><i class="icon-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group g-mb-20">
+                                                <div class="text-left g-width-100x">
+                                                    <label class="g-mb-10 g-width-100x g-font-weight-700">Đến ngày</label>
+                                                </div>
+                                                <div class="input-group g-brd-primary--focus">
+                                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                                        <input id="datepickerTo" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 transition-end-date" type="text" >
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1"><i class="fa fa-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group g-mb-20">
+                                                <div class="text-left g-width-100x">
+                                                    <label class="g-mb-10 g-width-100x g-font-weight-700">Loại hình</label>
+                                                </div>
+                                                <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                                    <select class="custom-select rounded-0 border-0 g-pa-0 transaction-select-type" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group g-mb-20">
+                                                <div class="text-left g-width-100x">
+                                                    <label class="g-mb-10 g-width-100x g-font-weight-700">Trạng thái</label>
+                                                </div>
+                                                <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                                    <select class="custom-select rounded-0 border-0 g-pa-0 transaction-select-status" asp-items="Html.GetEnumSelectList<TransactionStatus>()"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-6 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                                    <button class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 transaction-button-search">Tìm kiếm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Article Content -->
+                                        <!-- End Article -->
+                                        <!-- End Icon Blocks -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                    </div>
+
+                </div>
+
+                <div class="g-px-0">
+                    <!-- Example Button -->
+                    <div class="g-brd-primary g-mb-30">
+                        <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Danh sách</span> giao dịch</h2>
+                    </div>
+                    <ul class="list-unstyled d-flex g-mb-10">
+
+                        <li class="media g-ml-5 g-ml-35--md">
+                            <div class="d-flex align-self-center g-mr-8">
+                                <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-darkblue-v2"></span>
+                            </div>
+                            <div class="media-body align-self-center g-font-size-12 g-font-size-default--md">Đã hoàn thành</div>
+                        </li>
+                        <li class="media g-ml-5 g-ml-35--md">
+                            <div class="d-flex align-self-center g-mr-8">
+                                <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-yellow"></span>
+                            </div>
+                            <div class="media-body align-self-center g-font-size-12 g-font-size-default--md">Đang xử lý</div>
+                        </li>
+                        <li class="media g-ml-5 g-ml-35--md">
+                            <div class="d-flex align-self-center g-mr-8">
+                                <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-red"></span>
+                            </div>
+                            <div class="media-body align-self-center g-font-size-12 g-font-size-default--md">Hủy</div>
+                        </li>
+                    </ul>
+                    <!-- Icon Blocks -->
+                    <div class="table-responsive g-rounded-15">
+                        <div class="transaction-table-response">
+                        
+                            @*<table class="table table-bordered u-table--v1">
+                                <thead class="text-uppercase g-letter-spacing-1">
+                                    <tr class="g-bg-darkblue-v4 g-color-white g-col-border-top-0">
+                                        <th class="g-brd-white-opacity-0_1 g-rounded-15 g-rounded-0--top-right g-rounded-0--bottom-left g-rounded-0--bottom-right"></th>
+                                        <th class="g-brd-white-opacity-0_1 text-center">Loại hình</th>
+                                        <th class="g-brd-white-opacity-0_1 text-center">Số tiền (VNĐ)</th>
+                                        <th class="g-brd-white-opacity-0_1 text-center g-rounded-15 g-rounded-0--top-left g-rounded-0--bottom-left g-rounded-0--bottom-right">Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tr><td class="g-width-10x g-pl-5 text-center">1</td><td class="g-width-70x g-pl-5 text-left"><span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-darkblue-v2"></span> Rút tiền</td><td class="g-width-20x text-right">1.000</td><td class="g-width-20x text-right">26/10/19</td></tr>
+                                <tr><td class="g-width-10x g-pl-5 text-center">2</td><td class="g-width-70x g-pl-5 text-left"><span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-darkblue-v2"></span> Trừ phí</td><td class="g-width-20x text-right">9.999.000</td><td class="g-width-20x text-right">26/10/19</td></tr>
+                                <tr><td class="g-width-10x g-pl-5 text-center">3</td><td class="g-width-70x g-pl-5 text-left"><span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-deeporange"></span> Đầu tư</td><td class="g-width-20x text-right">9.999.000</td><td class="g-width-20x text-right">26/10/19</td></tr>
+                                <tr><td class="g-width-10x g-pl-5 text-center">4</td><td class="g-width-70x g-pl-5 text-left"><span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-deeporange g-mt-5"></span> Rút tiền</td><td class="g-width-20x text-right">99.999.000</td><td class="g-width-20x text-right">26/10/19</td></tr>
+                                <tr><td class="g-width-10x g-pl-5 text-center">5</td><td class="g-width-70x g-pl-5 text-left"><span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-deeporange"></span> Đầu tư</td><td class="g-width-20x text-right">9.999.999.000</td><td class="g-width-20x text-right">26/10/19</td></tr>
+                            </table>*@
+                       
+                        </div>
+                        <nav class="text-center" aria-label="Page Navigation">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 g-pa-4-13 g-rounded-50 prev-page" href="javascript:void(0)" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <i class="fa fa-angle-left g-mr-5"></i>
+                                            Trước
+                                        </span>
+                                        <span class="sr-only">Trước</span>
+                                    </a>
+                                </li>
+                                @*<li class="list-inline-item g-hidden-sm-down">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 u-pagination-v1-3--active g-pa-4-11" href="#">1</a>
+                                </li>
+                                <li class="list-inline-item g-hidden-sm-down">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 g-pa-4-11" href="#">2</a>
+                                </li>
+                                <li class="list-inline-item g-hidden-sm-down">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 g-pa-4-11" href="#">3</a>
+                                </li>
+                                <li class="list-inline-item g-hidden-sm-down">
+                                    <span class="g-pa-4-11">...</span>
+                                </li>
+                                <li class="list-inline-item g-hidden-sm-down">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 g-pa-4-11" href="#">80</a>
+                                </li>*@
+                                <li class="list-inline-item">
+                                    <a class="u-pagination-v1__item u-pagination-v1-3 g-pa-4-13 g-rounded-50 next-page" href="javascript:void(0)" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            Sau
+                                            <i class="fa fa-angle-right g-ml-5"></i>
+                                        </span>
+                                        <span class="sr-only">Sau</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- End Pagination #09 -->
+
                     </div>
                 </div>
             </div>
-            <div class="user-transaction-history-filters__items">
-                <span>@Common.Type</span>
-                <div class="user-transaction-history-filters__items__input">
-                    <select class="input-form-control user-transaction-history-type" name="typeTransaction" asp-items="Html.GetEnumSelectList<TransactionType>()"></select>
-                </div>
-            </div>
-            <div class="user-transaction-history-filters__items">
-                <span>@Common.Status</span>
-                <div class="user-transaction-history-filters__items__input">
-                    <select class="input-form-control user-transaction-history-status" name="status" asp-items="Html.GetEnumSelectList<TransactionStatus>()"></select>
-                </div>
-            </div>
-            <div class="user-transaction-history-filters__items"><a class="btn">@Common.Search</a></div>
         </div>
-        <div class="user-transaction-history-pagesize">
-            <span>Hiển thị</span><select class="table-filter-actions__pagesize__select" id="user-transaction-history-pagesize-select" name="pagesize">
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-        <div class="user-transaction-history-table">
-            <div class="user-transaction-history-table__overlay hide">
-                <div class="user-transaction-history-table__overlay__spinner rotating"></div>
-            </div>
-            <form id="user-transition-history-form" action="">
-                <div class="user-transition-history-form--wrapper"></div>
-            </form>
-        </div>
-    </section>
-</div>
+
+    </div>
+
+</section>
+<!-- End Section 3  Hoạt dong-->
+
+@section Scripts {
+    <script>
+        $(window).on('load', function () {
+            // initialization of forms
+            $.HSCore.components.HSDatepicker.init('#datepickerFrom, #datepickerTo');
+        }
+        );
+    </script>
+}

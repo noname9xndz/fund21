@@ -13,6 +13,7 @@ using System.IO;
 using OfficeOpenXml;
 using System;
 using smartFunds.Model.Resources;
+using Microsoft.AspNetCore.Hosting;
 
 namespace smartFunds.Presentation.Controllers.Admin
 {   
@@ -20,10 +21,12 @@ namespace smartFunds.Presentation.Controllers.Admin
     public class KVRRQuestionAnswerController : Controller
     {
         private readonly IKVRRQuestionAnswerService _kvrrQuestionAnswerService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public KVRRQuestionAnswerController(IKVRRQuestionAnswerService kvrrQuestionAnswerService)
+        public KVRRQuestionAnswerController(IKVRRQuestionAnswerService kvrrQuestionAnswerService, IHostingEnvironment hostingEnvironment)
         {
             _kvrrQuestionAnswerService = kvrrQuestionAnswerService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [Authorize(Policy = "CustomerManagerNotAccess")]
@@ -289,5 +292,105 @@ namespace smartFunds.Presentation.Controllers.Admin
             return File(fileContent, "application/ms-excel", $"ListKVRRExample.xlsx");
         }
 
+        [HttpPost]
+        [Route("update-image")]
+        public async Task<IActionResult> UpdateImage(IFormFile image, string typeUpload = "", int Id = 0)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    bool isValidType = false;
+                    if (image?.Length > 0 && Id > 0)
+                    {
+                        string fileName = image.FileName;
+                        string extension = Path.GetExtension(fileName).ToLower();
+                        if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
+                            isValidType = true;
+                        if (!isValidType)
+                        {
+                            TempData["Error"] = ValidationMessages.FileIsWrongType;
+                            return RedirectToAction(nameof(KVRRQuestionAnswerController.Edit), "KVRRQuestionAnswer", new { Id });
+                        }
+
+                        var fileUrl = await UploadImage(image);
+
+                        var currentKVRRQuestion = await _kvrrQuestionAnswerService.GetKVRRQuestionNoAnswerById(Id);
+
+                        if(currentKVRRQuestion != null && !string.IsNullOrWhiteSpace(fileUrl))
+                        {
+                            if(typeUpload == "desktopImage")
+                            {
+                                currentKVRRQuestion.ImageDesktop = fileUrl;
+                            }
+                            else
+                            {
+                                currentKVRRQuestion.ImageMobile = fileUrl;
+                            }
+
+                            await _kvrrQuestionAnswerService.UpdateOnlyQuestion(currentKVRRQuestion);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return RedirectToAction(nameof(KVRRQuestionAnswerController.Edit), "KVRRQuestionAnswer", new { Id });
+        }
+
+        [HttpPost]
+        [Route("delete-image")]
+        public async Task<IActionResult> DeleteImage(string typeUpload = "", int Id = 0)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var currentKVRRQuestion = await _kvrrQuestionAnswerService.GetKVRRQuestionNoAnswerById(Id);
+
+                    if (currentKVRRQuestion != null)
+                    {
+                        if (typeUpload == "desktopImage")
+                        {
+                            currentKVRRQuestion.ImageDesktop = string.Empty;
+                        }
+                        else
+                        {
+                            currentKVRRQuestion.ImageMobile = string.Empty;
+                        }
+
+                        await _kvrrQuestionAnswerService.UpdateOnlyQuestion(currentKVRRQuestion);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return RedirectToAction(nameof(KVRRQuestionAnswerController.Edit), "KVRRQuestionAnswer", new { Id });
+        }
+
+        private async Task<string> UploadImage(IFormFile image)
+        {
+            if (image != null)
+            {
+                string suffix = DateTime.Now.ToFileTimeUtc().ToString();
+
+                var filePath = $"{_hostingEnvironment.WebRootPath}{smartFunds.Common.Constants.KVRRQuestionAnswerFolder.Path}{suffix + image.FileName}";
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                return $"{smartFunds.Common.Constants.KVRRQuestionAnswerImageUrl.Path}{suffix + image.FileName}";
+            }
+
+            return string.Empty;
+        }
     }
 }

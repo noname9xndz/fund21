@@ -116,5 +116,23 @@ namespace smartFunds.Common.Helpers
                 return decompressed;
             }
         }
+        public static string SubString(string sSource, int length)
+        {
+            if (string.IsNullOrEmpty(sSource))
+                return string.Empty;
+            if (sSource.Length <= length)
+                return sSource;
+
+            string mSource = sSource;
+            int nLength = length;
+
+            int m = mSource.Length;
+            while (nLength > 0 && mSource[nLength].ToString() != " ")
+            {
+                nLength--;
+            }
+            mSource = mSource.Substring(0, nLength);
+            return mSource + "...";
+        }
     }
 }

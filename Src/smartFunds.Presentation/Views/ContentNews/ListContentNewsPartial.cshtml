@@ -1,0 +1,164 @@
+﻿
+@model LstNewsModel
+@{
+   
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.InvestmentManager).Result;
+}
+@{
+    var index = 1 + (Model.PageIndex - 1) * Model.PageSize;
+}
+
+               
+                    <table id="manageCustomers" width="100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th width="15%">Ảnh đại diện</th>
+                                <th width="55%">@Common.ContentNews</th>
+                                <th width="10%">Ngày đăng</th>
+                                <th>@Common.Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstNews)
+                            {
+                                <tr>
+
+                                    <td>@index</td>
+                                    <td>
+                                        @if (!String.IsNullOrEmpty(item.ImageThumb))
+                                        {
+                                            <img src="@Constants.NewsImageFolder.Path@item.ImageThumb" />
+                                        }
+                                        else
+                                        {
+                                            <img src="/images/empty-photo.jpg" />
+                                        }
+                                    </td>
+                                    <td>@Html.Raw(item.Title)</td>
+                                    <td>@Html.Raw(item.PostDate.ToString("dd/MM/yyyy"))</td>
+                                    <td>
+                                        <div class="manager-risk__questions__list-questions__item" data-index="@index">
+
+                                            <div class="manager-risk__questions__list-questions__item__title">
+
+                                                <div class="item-option">
+                                                    <a asp-action="Edit" asp-route-id="@item.Id" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" data-micromodal-trigger="delete-item-@index" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-window-close"></i></a>
+                                                    <div class="modal micromodal-slide" id="delete-item-@index" aria-hidden="true">
+                                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-item-3-title">
+                                                                <header class="modal__header">
+                                                                    <h2 class="modal__title" id="delete-item-3-title">@Common.DeleteMessage</h2>
+                                                                </header>
+                                                                <footer class="modal__footer">
+                                                                    <button class="modal__btn modal__btn-primary" asp-action="Delete" asp-route-id="@item.Id">@Common.Yes</button>
+                                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                                                        @Common.No
+                                                                    </button>
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input class="questionId" type="hidden" value="1" />
+                                                </div>
+                                            </div>
+                                            <div class="manager-risk__questions__list-questions__item__content collapse-content">
+                                                <div class="form-group">
+                                                    <div class="content-detail style-text-editor">@Html.Raw(item.Contents)</div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+
+                    @if (Model.LstNews.Count < Model.TotalCount)
+                    {
+                        <div class="dataTables_paginate paging_simple_numbers" id="manageCustomers_paginate">
+                            <a class="paginate_button previous @(Model.PageIndex > 1 ? string.Empty : "disabled")" id="manageCustomers_previous" aria-controls="manageCustomers" data-dt-idx="0" tabindex="0">Trước</a>
+                            <span>
+                                @{
+                                    var totalPage = Model.TotalCount % Model.PageSize == 0 ? (Model.TotalCount / Model.PageSize) : (Model.TotalCount / Model.PageSize + 1);
+                                    <input class="totalPage" type="hidden" value="@totalPage">
+                                    if (totalPage > 8)
+                                    {
+                                        <a class="paginate_button @(Model.PageIndex == 1 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="1" tabindex="0">1</a>
+
+                                        if (Model.PageIndex < 4)
+                                        {
+                                            <a class="paginate_button @(Model.PageIndex == 2 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="2" tabindex="0">2</a>
+                                            <a class="paginate_button @(Model.PageIndex == 3 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="3" tabindex="0">3</a>
+                                            <a class="paginate_button @(Model.PageIndex == 4 ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="3" tabindex="0">4</a>
+                                            <span class="ellipsis">...</span>
+                                        }
+                                        else if (totalPage - Model.PageIndex > 2)
+                                        {
+                                            <span class="ellipsis">...</span>
+                                            <a class="paginate_button" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex - 1)" tabindex="0">@(Model.PageIndex - 1)</a>
+                                            <a class="paginate_button current" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex)" tabindex="0">@(Model.PageIndex)</a>
+                                            <a class="paginate_button" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex + 1)" tabindex="0">@(Model.PageIndex + 1)</a>
+                                            <span class="ellipsis">...</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="ellipsis">...</span>
+                                            for (int i = totalPage - 3; i < totalPage; i++)
+                                            {
+                                                <a class="paginate_button @(Model.PageIndex == i ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@i" tabindex="0">@i</a>
+                                            }
+
+                                        }
+                                        <a class="paginate_button @(Model.PageIndex == totalPage ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@totalPage" tabindex="0">@totalPage</a>
+
+                                    }
+                                    else
+                                    {
+                                        for (int i = 1; i <= totalPage; i++)
+                                        {
+                                            <a class="paginate_button @(Model.PageIndex == i ? "current" : string.Empty)" aria-controls="manageCustomers" data-dt-idx="@i" tabindex="0">@i</a>
+                                        }
+                                    }
+                                }
+                            </span>
+                            <a class="paginate_button next @(Model.PageIndex < totalPage?string.Empty:"disabled")" id="manageCustomers_next" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex+1)" tabindex="0">Sau</a>
+                        </div>
+                    }
+                    <input id="updateIndexQues" type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder" />
+                    <input id="updateIndexQues" type="hidden" value="0" />
+                    <div class="modal modal-top-up modal-nomal" id="confirm-modal">
+                        <a class="btn-close-modal" href="#" rel="modal:close">
+                            <img src="/assets/images/x-icon@2x.png" />
+                        </a>
+                        <div class="modal-title">
+                            <span>Xác nhận</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <button class="btn btn-action" type="button">Đồng ý</button>
+                                <button class="btn btn-action" type="button">Không</button>
+                            </div>
+                        </div>
+                    </div>
+                    <a id="btn-alert-mess" data-micromodal-trigger="alert-mess" href="#" style="display: none;">open</a>
+                    <div class="modal micromodal-slide" id="alert-mess" aria-hidden="true">
+                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="alert-mess-title">
+                                <header class="modal__header">
+                                    <h2 class="modal__title" id="alert-mess-title">Bạn có chắc chắn muốn xóa không?</h2>
+                                </header>
+                                <footer class="modal__footer">
+                                    <button class="modal__btn modal__btn-primary">Tiếp tục</button>
+                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+

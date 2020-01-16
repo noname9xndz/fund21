@@ -69,6 +69,11 @@ namespace smartFunds.Presentation
                 options.TokenLifespan = TimeSpan.FromDays(1);
             });
 
+            services.Configure<SecurityStampValidatorOptions>(option =>
+            {
+                option.ValidationInterval = TimeSpan.FromSeconds(0);
+            });
+
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
@@ -96,23 +101,24 @@ namespace smartFunds.Presentation
             services.AllowAllCors();
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(options => {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
 
             IocConfig.Register(services, Configuration);
             AppSettingsConfig.Register(services, Configuration);
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(Constants.Database.smartFundsConnectionStringName)));           
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(Constants.Database.smartFundsConnectionStringName)));
 
             services.UseJwtAuthentication(new DigitalAppsAudience(Configuration));
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
-            
+
 
             app.UseCors(CorsPolicy.AllowAll);
             app.UseAuthentication();
@@ -162,11 +168,17 @@ namespace smartFunds.Presentation
             app.ApplicationServices.GetService<smartFundsDatabaseInitializerToMigrate>().Init();
 #endif
 
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            var activeHangfire = Configuration.GetValue<bool>("HangfireConfig:Active") != null
+                ? Configuration.GetValue<bool>("HangfireConfig:Active")
+                : true;
+            if (activeHangfire)
+            {
+                app.UseHangfireServer();
+                app.UseHangfireDashboard();
+                HangfireJobScheduler.ScheduleRecurringJobs();
+            }
+           
 
-            HangfireJobScheduler.ScheduleRecurringJobs();
-            
         }
     }
 }

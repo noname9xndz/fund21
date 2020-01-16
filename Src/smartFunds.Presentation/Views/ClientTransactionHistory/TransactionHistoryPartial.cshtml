@@ -1,10 +1,10 @@
 ﻿@model ListTransactionHistoryModel
 
 @{
-    var index = 1;
+    var index = Model.PageIndex > 1 ? (Model.PageIndex - 1) * Model.PageSize : 1;
 }
 
-<table id="user-transition-history" class="display">
+@*<table id="user-transition-history" class="display">
     <thead>
         <tr>
             <th>@Common.Type</th>
@@ -76,4 +76,69 @@
         </span>
         <a class="paginate_button next @(Model.PageIndex < totalPage?string.Empty:"disabled")" id="manageCustomers_next" aria-controls="manageCustomers" data-dt-idx="@(Model.PageIndex+1)" tabindex="0">Sau</a>
     </div>
+}*@
+
+
+<table class="table table-bordered u-table--v1">
+    <thead class="text-uppercase g-letter-spacing-1">
+        <tr class="g-bg-darkblue-v4 g-color-white g-col-border-top-0">
+            <th class="g-brd-white-opacity-0_1 g-rounded-15 g-rounded-0--top-right g-rounded-0--bottom-left g-rounded-0--bottom-right"></th>
+            <th class="g-brd-white-opacity-0_1 text-center">Loại hình</th>
+            <th class="g-brd-white-opacity-0_1 text-center">Số tiền (VNĐ)</th>
+            <th class="g-brd-white-opacity-0_1 text-center g-rounded-15 g-rounded-0--top-left g-rounded-0--bottom-left g-rounded-0--bottom-right">Thời gian</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.ListTransactionHistory)
+    {
+        
+
+        <tr>
+            <td class="g-width-10x g-pl-5 text-center">@index</td>
+            <td class="g-width-70x g-pl-5 text-left">
+                @if (item.TransactionType != TransactionType.Withdrawal || item.ObjectId == 0)
+                {
+                    if (item.Status == TransactionStatus.Processing)
+                    {
+                        <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-yellow"></span>
+                    }
+                    else
+                    {
+                        <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-darkblue-v2"></span>
+                    }
+
+                }
+                else
+                {
+                    var status = await orderRequestService.GetStatsByOrderRequestId(item.ObjectId);
+                    if (status == OrderRequestStatus.Pending)
+                    {
+                        <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-yellow"></span>
+                    }
+                    else if (status == OrderRequestStatus.Success)
+                    {
+                        <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-darkblue-v2"></span>
+                    }
+                    else
+                    {
+                        <span class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-bg-red"></span>
+                    }
+                }
+
+                @item.TransactionType.GetDisplayName()
+            </td>
+            <td class="g-width-20x text-right">@item.Amount.ToString("N0")</td>
+            <td class="g-width-20x text-right">@item.TransactionDate.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+        </tr>
+        index++;
+    }
+
+
+</table>
+
+@{ 
+    var totalPage = Model.TotalCount % Model.PageSize == 0 ? (Model.TotalCount / Model.PageSize) : (Model.TotalCount / Model.PageSize + 1);
 }
+
+<input class="totalPage" type="hidden" value="@totalPage">
+<input class="pageIndex" type="hidden" value="@Model.PageIndex">
+<input class="pageSize" type="hidden" value="@Model.PageSize">

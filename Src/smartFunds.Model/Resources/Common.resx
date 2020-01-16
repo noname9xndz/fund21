@@ -792,4 +792,49 @@
   <data name="UpdateFundSellFee" xml:space="preserve">
     <value>Cập nhập phí bán CCQ</value>
   </data>
+  <data name="EditImageDefinedKVRR" xml:space="preserve">
+    <value>Chỉnh sửa ảnh câu hỏi xác định khẩu vị rủi ro</value>
+  </data>
+  <data name="InvestmentFund" xml:space="preserve">
+    <value>Danh mục đầu tư</value>
+  </data>
+  <data name="WithdrawalQuickResult" xml:space="preserve">
+    <value>Quý khách đã gửi yêu cầu rút tiền thành công, số tiền sẽ được trả về tài khoản sau vài phút</value>
+  </data>
+  <data name="WithdrawalResult" xml:space="preserve">
+    <value>Quý khách đã gửi yêu cầu rút tiền thông thường thành công, số tiền sẽ được trả về tài khoản Viettel Pay sau 1 tuần</value>
+  </data>
+  <data name="CateDescript" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="CateImg" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="CateNews" xml:space="preserve">
+    <value>Chuyên mục</value>
+  </data>
+  <data name="CateOrder" xml:space="preserve">
+    <value>Số thứ tự</value>
+  </data>
+  <data name="CateTitle" xml:space="preserve">
+    <value>Tên chuyên mục</value>
+  </data>
+  <data name="ContentNews" xml:space="preserve">
+    <value>Bản tin nội bộ</value>
+  </data>
+  <data name="NewsContent" xml:space="preserve">
+    <value>Nội dung tin</value>
+  </data>
+  <data name="NewsDescript" xml:space="preserve">
+    <value>Mô tả tin</value>
+  </data>
+  <data name="NewsImg" xml:space="preserve">
+    <value>Ảnh đại diện</value>
+  </data>
+  <data name="NewsPostDate" xml:space="preserve">
+    <value>Ngày đăng</value>
+  </data>
+  <data name="NewsTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
 </root>

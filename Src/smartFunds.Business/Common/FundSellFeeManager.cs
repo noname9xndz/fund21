@@ -102,7 +102,7 @@ namespace smartFunds.Business.Common
                 var list = await _unitOfWork.FundSellFeeRepository.FindByAsync(i => fundSellFeeIds.Contains(i.Id));
                 if(list != null && list.Any())
                 {
-                    _unitOfWork.FundSellFeeRepository.BulkDelete(list);
+                    _unitOfWork.FundSellFeeRepository.BulkDelete(list.ToList());
                     await _unitOfWork.SaveChangesAsync();
                 }
                

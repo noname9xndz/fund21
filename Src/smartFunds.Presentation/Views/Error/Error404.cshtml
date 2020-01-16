@@ -1,23 +1,52 @@
 ﻿@{
     ViewData["Title"] = "Error404";
-    if (UserService.IsSignedIn(User))
-    {
-        if (!UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Customer).Result)
-        {
-            Layout = "_AdminLayout";
-        }
-
-    }
+//    if (UserService.IsSignedIn(User))
+//    {
+//        if (!UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Customer).Result)
+//        {
+//            Layout = "_AdminLayout";
+//        }
+//
+//    }
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-<div class="body-content-endUser body-content-error-page">
-    <section class="user-not-found-section user-error-section">
-        <div class="user-not-found-content user-error-content">
-            <img src="@GeneralImageFolder.Path@("404.png")" alt="" />
-            <h1>Đã có lỗi xảy ra hoặc trang bạn truy cập không tồn tại</h1>
-            <a href="/">
-                <span>Quay lại</span>
-                <span>trang chủ</span>
-            </a>
+@* <div class="body-content-endUser body-content-error-page"> *@
+@*     <section class="user-not-found-section user-error-section"> *@
+@*         <div class="user-not-found-content user-error-content"> *@
+@*             <img src="@GeneralImageFolder.Path@("404.png")" alt="" /> *@
+@*             <h1>Đã có lỗi xảy ra hoặc trang bạn truy cập không tồn tại</h1> *@
+@*             <a href="/"> *@
+@*                 <span>Quay lại</span> *@
+@*                 <span>trang chủ</span> *@
+@*             </a> *@
+@*         </div> *@
+@*     </section> *@
+@* </div> *@
+<!-- Section 3 Hoat dong -->
+<section class="g-py-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md">
+                <div class="align-self-center mr-3 btn-block text-center">
+                    <span class="u-icon-v2 g-color-white g-bg-red rounded-circle">
+                        <i class="icon-close"></i>
+                    </span>
+                </div>
+                <div class="g-brd-primary g-mb-30 ">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">
+                        <span class="g-color-deeporange g-ml-5"></span>
+                        <span class="g-color-deeporange g-ml-5">Có lỗi xảy ra</span>, vui lòng thử lại. Hoặc
+                        <a href="/contact?area=Client">liên hệ</a> bộ phận hỗ trợ của chúng tôi.
+                    </h2>
+                </div>
+            </div>
         </div>
-    </section>
-</div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" href="/">Về trang chủ</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->

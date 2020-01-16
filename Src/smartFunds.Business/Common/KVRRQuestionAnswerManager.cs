@@ -26,6 +26,7 @@ namespace smartFunds.Business
         Task<KVRRQuestion> GetKVRRQuestionByNo(int no);
         Task Save(KVRRQuestion question);
         Task Update(KVRRQuestion question);
+        Task UpdateOnlyQuestion(KVRRQuestion question);
         Task UpdateQuestionOrder(KVRRQuestion question);
         Task DeleteAnswer(List<int> ids);
         Task DeleteQuestion(int id);
@@ -34,6 +35,7 @@ namespace smartFunds.Business
         byte[] ExportExampleKVRRs();
 
         KVRRQuestion IsQuestionExisted(string comparedContent);
+        Task<KVRRQuestion> GetKVRRQuestionNoAnswerById(int id);
 
     }
     public class KVRRQuestionAnswerManager : IKVRRQuestionAnswerManager
@@ -68,6 +70,18 @@ namespace smartFunds.Business
             }
         }
 
+        public async Task<KVRRQuestion> GetKVRRQuestionNoAnswerById(int id)
+        {
+            try
+            {
+                return await _unitOfWork.KVRRQuestionRepository.GetAsync(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<KVRRQuestion> GetKVRRQuestionByNo(int no)
         {
             try
@@ -93,7 +107,7 @@ namespace smartFunds.Business
                     {
                         //update No before insert record
                         var questions = await _unitOfWork.KVRRQuestionRepository.GetAllAsync();
-                        var no = (questions?.Count + 1) ?? 1;
+                        var no = (questions.Count() + 1);
                         question.No = no;
                         
                         var addQuestion = _unitOfWork.KVRRQuestionRepository.Add(question);
@@ -115,15 +129,35 @@ namespace smartFunds.Business
             try
             {
                 if (question == null) throw new InvalidParameterException();
+
+                var oldQuestion = await GetKVRRQuestionNoAnswerById(question.Id);
+                question.ImageDesktop = oldQuestion.ImageDesktop;
+                question.ImageMobile = oldQuestion.ImageMobile;
+
                 _unitOfWork.KVRRQuestionRepository.Update(question);
 
                 var answerOld = await _unitOfWork.KVRRAnswerRepository.FindByAsync(x => x.KVRRQuestion.Id == question.Id);
                 if (answerOld != null && answerOld.Any())
                 {
-                    _unitOfWork.KVRRAnswerRepository.BulkDelete(answerOld);
+                    _unitOfWork.KVRRAnswerRepository.BulkDelete(answerOld.ToList());
                 }
 
                 _unitOfWork.KVRRAnswerRepository.BulkUpdate(question.KVRRAnswers);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task UpdateOnlyQuestion(KVRRQuestion question)
+        {
+            try
+            {
+                if (question == null) throw new InvalidParameterException();
+                _unitOfWork.KVRRQuestionRepository.Update(question);
+
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -137,6 +171,11 @@ namespace smartFunds.Business
             try
             {
                 if (question == null) throw new InvalidParameterException();
+
+                var oldQuestion = await GetKVRRQuestionNoAnswerById(question.Id);
+                question.ImageDesktop = oldQuestion.ImageDesktop;
+                question.ImageMobile = oldQuestion.ImageMobile;
+
                 _unitOfWork.KVRRQuestionRepository.Update(question);
                 await _unitOfWork.SaveChangesAsync();
             }
@@ -153,7 +192,7 @@ namespace smartFunds.Business
                 if (ids == null || !ids.Any()) throw new InvalidParameterException();
                 var answers = await _unitOfWork.KVRRAnswerRepository.FindByAsync(x => ids.Contains(x.Id));
                 if (answers == null || !answers.Any()) throw new NotFoundException();
-                _unitOfWork.KVRRAnswerRepository.BulkDelete(answers);
+                _unitOfWork.KVRRAnswerRepository.BulkDelete(answers.ToList());
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -168,7 +207,7 @@ namespace smartFunds.Business
             {
                 var answers = await _unitOfWork.KVRRAnswerRepository.FindByAsync(x => x.KVRRQuestion.Id == id);
                 if (answers != null && answers.Any())
-                    _unitOfWork.KVRRAnswerRepository.BulkDelete(answers);
+                    _unitOfWork.KVRRAnswerRepository.BulkDelete(answers.ToList());
 
                 var question = await _unitOfWork.KVRRQuestionRepository.GetAsync(q => q.Id == id);
                 if (question == null) throw new NotFoundException();
@@ -195,7 +234,8 @@ namespace smartFunds.Business
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
                     var rowCount = worksheet.Dimension.Rows;
                     var questions = await _unitOfWork.KVRRQuestionRepository.GetAllAsync();
-                    var no = (questions?.Count) ?? 1;
+                    var no = questions.Count();
+                    if (no == 0) no = 1;
 
                     for (int row = 2; row <= rowCount; row++)
                     {

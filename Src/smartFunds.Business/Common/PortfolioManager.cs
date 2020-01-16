@@ -65,7 +65,8 @@ namespace smartFunds.Business
                 if (listPortfolioFund == null) throw new NotFoundException();
                 var currentPortfolioIds = listPortfolioFund.Select(x => x.PortfolioId).ToList();
 
-                return await _unitOfWork.PortfolioRepository.FindByAsync(m => currentPortfolioIds.Contains(m.Id) && m.IsDeleted == false);
+                var res = await _unitOfWork.PortfolioRepository.FindByAsync(m => currentPortfolioIds.Contains(m.Id) && m.IsDeleted == false);
+                return res.ToList();
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace smartFunds.Business
                 var listPortfolioFund = await _unitOfWork.PortfolioFundRepository.FindByAsync(m => m.EditStatus == status && m.PortfolioId == portfolioId);
                 if (listPortfolioFund == null) throw new NotFoundException();
 
-                return listPortfolioFund;
+                return listPortfolioFund.ToList();
             }
             catch (Exception ex)
             {
@@ -95,7 +96,7 @@ namespace smartFunds.Business
                 var listPortfolioFund = await _unitOfWork.PortfolioFundRepository.FindByAsync(m => m.PortfolioId == portfolioId);
                 if (listPortfolioFund == null) throw new NotFoundException();
 
-                return listPortfolioFund;
+                return listPortfolioFund.ToList();
             }
             catch (Exception ex)
             {
@@ -169,10 +170,10 @@ namespace smartFunds.Business
         {
             try
             {
-                ICollection<PortfolioFund> _listPortfolioFundUpdate = _unitOfWork.PortfolioFundRepository.FindByAsync(m => m.PortfolioId == idPortfolio && m.EditStatus == EditStatus.Updating).Result;
+                var _listPortfolioFundUpdate = _unitOfWork.PortfolioFundRepository.FindByAsync(m => m.PortfolioId == idPortfolio && m.EditStatus == EditStatus.Updating).Result;
                 if (_listPortfolioFundUpdate == null) throw new NotFoundException();
 
-                if (_listPortfolioFundUpdate.Count > 0)
+                if (_listPortfolioFundUpdate.Any())
                 {
                     foreach (var item in _listPortfolioFundUpdate)
                     {

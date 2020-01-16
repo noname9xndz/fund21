@@ -31,6 +31,10 @@ namespace smartFunds.Model.Common
         public WithdrawalType? WithdrawalType { get; set; }
 
         public RemittanceStatus? RemittanceStatus { get; set; }
+
+        public string Description { get; set; }
+
+        public int ObjectId { get; set; }
     }
 
     public class ListTransactionHistoryModel : PagingModel

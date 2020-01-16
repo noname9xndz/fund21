@@ -61,7 +61,7 @@ namespace smartFunds.Business
                 var currentKvrrMarks = await _unitOfWork.KVRRMarkRepository.FindByAsync(x => x.KVRRId != null);
                 if (currentKvrrMarks == null) throw new NotFoundException();
                 var currentKvrrMarkIds = currentKvrrMarks.Select(x => x.KVRRId).ToList();
-                return await _unitOfWork.KVRRRepository.FindByAsync(x => !currentKvrrMarkIds.Contains(x.Id));
+                return (await _unitOfWork.KVRRRepository.FindByAsync(x => !currentKvrrMarkIds.Contains(x.Id))).ToList();
             }
             catch (Exception ex)
             {

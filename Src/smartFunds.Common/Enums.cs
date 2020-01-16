@@ -155,10 +155,10 @@ namespace smartFunds.Common
 
     public enum WithdrawalType
     {
-        [Display(Name = "WithdrawalTypeQuick", ResourceType = typeof(Resources.Enum))]
-        Quick = 0,
         [Display(Name = "WithdrawalTypeManually", ResourceType = typeof(Resources.Enum))]
-        Manually = 1
+        Manually = 1,
+        [Display(Name = "WithdrawalTypeQuick", ResourceType = typeof(Resources.Enum))]
+        Quick = 0
     }
 
     public enum TransactionTypeAdmin
@@ -266,5 +266,15 @@ namespace smartFunds.Common
         PersonalTime = 7,
         [Display(Name = "LongTermInvestment", ResourceType = typeof(Resources.Enum))]
         LongTermInvestment = 8,
+    }
+
+    public enum OrderRequestStatus
+    {
+        [Display(Name = "Pending", ResourceType = typeof(Resources.Enum))]
+        Pending = 0,
+        [Display(Name = "Failure", ResourceType = typeof(Resources.Enum))]
+        Failure = 1,
+        [Display(Name = "Success", ResourceType = typeof(Resources.Enum))]
+        Success = 2
     }
 }

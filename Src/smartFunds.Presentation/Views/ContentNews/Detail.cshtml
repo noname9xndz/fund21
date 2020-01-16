@@ -1,0 +1,101 @@
+﻿@using smartFunds.Model.Common;
+@model ContentNewsModel
+@{
+    Layout = "_NewLayout";
+    ViewData["Title"] = Common.ContentNews;
+    var mobileImages = @HomepageCMSService.GetAll().Where(x => x.Category == "1" && x.ImageName.Contains("mobile_"));
+    var desktopImages = @HomepageCMSService.GetAll().Where(x => Int32.Parse(x.Category) == 1 && !x.ImageName.Contains("mobile_"));
+}
+   
+    <section class="g-py-20">
+        <div class="container">
+            <div class="text-left g-mb-20">
+                <h2 class="text-uppercase g-line-height-1 g-font-weight-600 g-font-size-20 g-mt-20 g-mb-10">
+                    <a asp-action="listnews" class="g-color-black">
+                        @Common.ContentNews
+                    </a>
+                </h2>
+            </div>
+            <div class="blog margin-bottom-40 content-detail">
+
+                <div id="content_news">
+                    <div class="row mb10">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="mt10">
+                                @Html.DisplayFor(model => model.Title)
+                            </h4>
+                            <p>
+                                <strong>
+                                    @Html.DisplayFor(model => model.ShortDescribe)
+                                </strong>
+                            </p>
+                            <p>
+
+                                @Html.Raw(Model.Contents)
+                            </p>
+                            <p>
+                                @if (!String.IsNullOrEmpty(Model.ImageThumb))
+                                {
+                                    <img src="@Constants.NewsImageFolder.Path@Model.ImageThumb" width="100%" />
+                                }
+                                else
+                                {
+
+                                }
+                            </p>
+                            <hr class="mtn mbn" />
+                        </div>
+                    </div>
+                    <div class="row mb10 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="list-unstyled list-inline blog-info">
+                                <li>
+                                    <i class="fa fa-calendar"></i>
+
+                                    @Html.Raw(Model.PostDate.ToString("dd/MM/yyyy"))
+                                </li>
+                                <li>
+                                    <i class="fa fa-pencil"></i>
+                                    @Html.DisplayFor(model => model.Author)
+                                </li>
+
+                            </ul>
+
+                            <hr class="mtn mbn" />
+                        </div>
+                    </div>
+
+                    <div id="newsRelation">
+                        <div class="row mb10">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <!-- Recent Comments -->
+
+                                <partial name="ListContentNewsOthersPartial.cshtml" model="ViewBag.LstNewsOthersViewModel" />
+
+
+
+                                <hr class="mtn mbn" />
+                                <!--/media-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="newsOther" runat="server">
+                        <div class="row mb10">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <!-- Recent Comments -->
+                                <div class="">
+                                    <partial name="ListContentNewsOthersOldPartial.cshtml" model="ViewBag.LstNewsOthersViewModelOld" />
+
+
+                                </div>
+                                <hr class="mtn mbn" />
+                                <!--/media-->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </section>
+

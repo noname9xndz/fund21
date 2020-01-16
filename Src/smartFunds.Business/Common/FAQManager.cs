@@ -75,7 +75,7 @@ namespace smartFunds.Business.Common
         {
             try
             {
-                ICollection<FAQ> iListFaqs;
+                IQueryable<FAQ> iListFaqs;
                 List<FAQ> listFaqs = new List<FAQ>();
                 if (category == FAQCategory.All)
                 {
@@ -98,7 +98,7 @@ namespace smartFunds.Business.Common
         {
             try
             {
-                ICollection<FAQ> faqs;
+                IQueryable<FAQ> faqs;
                 if(category == FAQCategory.All)
                 {
                     if (string.IsNullOrEmpty(searchValue))
@@ -127,7 +127,7 @@ namespace smartFunds.Business.Common
             
             try
             {
-                ICollection<FAQ> allFaqs = await _unitOfWork.FAQRepository.GetAllAsync();
+                var allFaqs = await _unitOfWork.FAQRepository.GetAllAsync();
                 List<FAQ> faqs = allFaqs.ToList();
                 return faqs;
             }

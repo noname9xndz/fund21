@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = @Common.GeneralInformation;
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
-<div class="body-content-endUser">
+@*<div class="body-content-endUser">
     <section class="contact-section submit-form-general">
         <div class="container-fluid">
             <div class="contact-content">
@@ -38,7 +39,7 @@
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="form-row">
-                            <input asp-for="Email" class="user-input user-input--change form-control" type="text" required autocomplete="on"/>
+                            <input asp-for="Email" class="user-input user-input--change form-control" type="text" required autocomplete="on" />
                             <p class="placeholder"><span>Địa chỉ Email</span></p>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
@@ -55,5 +56,108 @@
             </div>
         </div>
     </section>
-</div>
+</div>*@
 
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 media g-mb-15 text-center d-block">
+                <img class="img-fluid g-width-100x g-mb-0" src="/assets-new/img/content/lien-he.png" alt="Image Description">
+            </div>
+            <!-- Example Button -->
+            <div class="col-md-12 g-brd-primary g-mb-30">
+                <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Liên hệ</span> với chúng tôi</h2>
+            </div>
+            <div class="col-md-6 col-xs-6 g-mb-0">
+                <div class="g-bg-cover g-bg-size-cover text-center g-py-0 g-px-30">
+                    <div class="g-pos-rel g-z-index-1">
+                        <span class="g-rounded-5 g-mb-25">
+                            <i class="icon-envelope-letter g-font-size-26"></i>
+                        </span>
+                        <h3 class="h4 g-font-weight-600 mb-10">@ViewBag.Email</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-6 g-mb-0">
+                <div class="g-bg-cover g-bg-size-cover text-center g-py-0 g-px-30">
+                    <div class="g-pos-rel g-z-index-1">
+                        <span class="g-rounded-5 g-mb-25">
+                            <i class="icon-phone g-font-size-26"></i>
+                        </span>
+                        <h3 class="h4 g-font-weight-600 mb-10">@ViewBag.Hotline</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-0">
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer g-py-10">
+                    <div class="g-px-10 g-pt-0 g-pb-20 text-center ">
+                        <div class="u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5">
+
+                            <form asp-controller="Contact" asp-action="Contact" method="post">
+                                <div class="form-group g-mb-20">
+                                    <div class="input-group g-brd-primary--focus ">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            <input asp-for="FullName" class="form-control form-control-md  border-0 u-datepicker-v1 g-brd-right-none rounded-0 g-pa-0" type="text" placeholder="Họ và tên">
+                                            <b class="tooltip tooltip-top-right u-tooltip--v1">Họ và tên</b>
+                                            
+                                        </div>
+                                    </div>
+                                    <span class="form-control-feedback" asp-validation-for="FullName"></span>
+                                </div>
+                                <div class="form-group g-mb-20">
+                                    <div class="input-group g-brd-primary--focus">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            <input asp-for="PhoneNumber" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0" type="text" placeholder="Số điện thoại">
+                                            <b class="tooltip tooltip-top-right u-tooltip--v1">Số điện thoại</b>
+                                        </div>
+                                    </div>
+                                    <span class="form-control-feedback" asp-validation-for="PhoneNumber"></span>
+                                </div>
+
+                                <div class="form-group g-mb-20">
+                                    <div class="input-group g-brd-primary--focus">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            <input asp-for="Email" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0" type="text" placeholder="Địa chỉ Email">
+                                            <b class="tooltip tooltip-top-right u-tooltip--v1">Địa chỉ Email</b>
+                                        </div>
+                                    </div>
+                                    <span class="form-control-feedback" asp-validation-for="Email"></span>
+                                </div>
+                                <div class="form-group g-mb-20">
+                                    <div class="form-control input-group g-brd-primary--focus g-mb-10 g-rounded-30">
+                                        <textarea asp-for="Content" class="form-control form-control-md border-0 g-resize-none rounded-15 pr-0" rows="4" placeholder="Nội dung liên hệ"></textarea>
+                                        <b class="tooltip tooltip-top-right u-tooltip--v1">Nội dung liên hệ</b>
+                                        <!--<div class="input-group-append">
+          <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-info"></i></span>
+        </div>-->
+                                    </div>
+                                    <span class="form-control-feedback" asp-validation-for="Content"></span>
+                                    <!--<small class="text-muted g-font-size-12">Some information about the form field</small>-->
+                                </div>
+                                <!-- Checkboxes Option 2 -->
+                                <!--<label class="form-check-inline u-check g-pl-25">
+                                  <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" checked="">
+                                  <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+                                    <i class="fa" data-check-icon=""></i>
+                                  </div>
+                                  <span class="g-color-deeporange g-ml-5">Liên hệ</span> với chúng tôi
+                                </label>-->
+                                <!-- End Checkboxes Option 2 -->
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-6 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                        <button class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" type="submit">Gửi đi</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Article Content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->

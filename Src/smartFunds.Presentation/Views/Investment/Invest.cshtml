@@ -1,34 +1,95 @@
 ﻿@model InvestViewModel
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.Investment;
 }
 
-<div class="body-content-endUser">
-    <div class="user-withdrawal-invest px-15">
-        <h1 class="section-title-endUser">@Common.Investment</h1>
-        <form class="user-form-group p-15" id="user-invest-money" method="post" novalidate>
-            @if (!string.IsNullOrWhiteSpace(TempData["Error"]?.ToString()))
-            {
-                <span class="warning-message" style="margin-top: 0px; margin-bottom: 20px">
-                    @TempData["Error"]
-                </span>
-            }
-            <div class="user-form-control user-expected-money-amount">
-                <span class="user-form-control__title">
-                    Nhập số tiền muốn đầu tư
-                </span>
-                <input class="input-form-control form-control-number" type="text" asp-for="TargetAmount">
-                <span class="warning-message" asp-validation-for="TargetAmount">@ViewData["Message"]</span><span class="currency">đ</span>
+@*<div class="body-content-endUser">
+        <div class="user-withdrawal-invest px-15">
+            <h1 class="section-title-endUser">@Common.Investment</h1>
+            <form class="user-form-group p-15" id="user-invest-money" method="post" novalidate>
+                @if (!string.IsNullOrWhiteSpace(TempData["Error"]?.ToString()))
+                {
+                    <span class="warning-message" style="margin-top: 0px; margin-bottom: 20px">
+                        @TempData["Error"]
+                    </span>
+                }
+                <div class="user-form-control user-expected-money-amount">
+                    <span class="user-form-control__title">
+                        Nhập số tiền muốn đầu tư
+                    </span>
+                    <input class="input-form-control form-control-number" type="text" asp-for="TargetAmount">
+                    <span class="warning-message" asp-validation-for="TargetAmount">@ViewData["Message"]</span><span class="currency">đ</span>
+                </div>
+                <div class="user-withdrawal-invest__action">
+                    <a class="btn btn-actions is-destroy" asp-action="MyWallet" asp-controller="Account">
+                        Hủy
+                    </a>
+                    <button class="btn btn-actions" type="submit">Đồng ý</button>
+                </div>
+            </form>
+            <div id="pageloader">
+                <img src="/assets/images/loader-large.gif" alt="processing..." />
             </div>
-            <div class="user-withdrawal-invest__action">
-                <a class="btn btn-actions is-destroy" asp-action="MyWallet" asp-controller="Account">
-                    Hủy
-                </a>
-                <button class="btn btn-actions" type="submit">Đồng ý</button>
-            </div>
-        </form>
-        <div id="pageloader">
-            <img src="/assets/images/loader-large.gif" alt="processing..." />
         </div>
+    </div>*@
+
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30 user-withdrawal-invest">
+    <div class="container">
+        <div class="row g-ma-0">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-0">
+                <div class="mb-4 text-center">
+                    <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                        <span class="u-icon-v6-inner">
+                            <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/dau-tu.png" alt="Image Description">
+                        </span>
+                    </span>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Đầu tư<span class="g-color-deeporange g-ml-5"> ngay bây giờ</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+                <form method="post" class="user-form-group">
+                    <div class="form-group g-mb-20">
+                        <div class="input-group g-brd-primary--focus ">
+                            <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                <input asp-for="TargetAmount" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 number-mask g-brd-primary--hover" data-decimal="," data-thousands="," placeholder="Nhập số tiền đầu tư">
+                                <b class="tooltip tooltip-top-right u-tooltip--v1">Nhập số tiền đầu tư</b>
+                                <div class="input-group-append">
+                                    <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="form-control-feedback" asp-validation-for="TargetAmount">@ViewData["Message"]</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                            <a class="u-shadow-v1-1 btn btn-md u-btn-darkgray g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 g-width-40x float-left" asp-action="MyWallet" asp-controller="Account"><i class="fa fa-close"></i> Hủy</a>
+                            &nbsp;
+                            <button class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 btn-block g-font-size-14 g-width-40x float-right btn-actions" type="submit">Đồng ý</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
-</div>
+    <div id="pageloader">
+        <img src="/assets-new/img/preloaders/loader-large.gif" alt="loading" />
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->
+
+@section Scripts {
+    <script src="/assets-new/vendor/numbermask/jquery.masknumber.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('.number-mask').maskNumber({ integer: true });
+      $('[name=currency-default]').maskNumber();
+    });
+    </script>
+}

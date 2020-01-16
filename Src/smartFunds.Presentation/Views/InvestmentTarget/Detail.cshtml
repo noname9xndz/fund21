@@ -1,19 +1,113 @@
 ﻿@model InvestmentTargetModel
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.InvestmentTarget;
 }
 
-<div class="body-content-endUser">
-    <div class="user-invesment-target is-active px-15">
-        <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
-        <div class="user-form-group p-15">
-            <div class="user-form-control"><span>@Common.ExpectedAmount</span><span>@Model.ExpectedAmount?.ToString("N0") đ</span></div>
-            <div class="user-form-control"><span>@Common.CurrentAcountAmount2</span><span>@Model.User.CurrentAccountAmount.ToString("N0") đ</span></div>
-            <div class="user-form-control"><span>@Common.Duration</span><span>@Model.Duration.GetDisplayName()</span></div>
-            <div class="user-form-control"><span>@Common.Frequency</span><span>@Model.Frequency.GetDisplayName()</span></div>
-            <div class="user-form-control"><span>@Common.OneTimeAmount</span><span>@Model.OneTimeAmount.ToString("N0") đ</span></div>
-            <div class="user-form-control"><span>@Common.InvestmentMethod</span><span>@Model.InvestmentMethod.GetDisplayName()</span></div>
-            <a class="btn btn-actions" asp-action="Update">Thay đổi mục tiêu</a>
+@*<div class="body-content-endUser">
+        <div class="user-invesment-target is-active px-15">
+            <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
+            <div class="user-form-group p-15">
+                <div class="user-form-control"><span>@Common.ExpectedAmount</span><span>@Model.ExpectedAmount?.ToString("N0") đ</span></div>
+                <div class="user-form-control"><span>@Common.CurrentAcountAmount2</span><span>@Model.User.CurrentAccountAmount.ToString("N0") đ</span></div>
+                <div class="user-form-control"><span>@Common.Duration</span><span>@Model.Duration.GetDisplayName()</span></div>
+                <div class="user-form-control"><span>@Common.Frequency</span><span>@Model.Frequency.GetDisplayName()</span></div>
+                <div class="user-form-control"><span>@Common.OneTimeAmount</span><span>@Model.OneTimeAmount.ToString("N0") đ</span></div>
+                <div class="user-form-control"><span>@Common.InvestmentMethod</span><span>@Model.InvestmentMethod.GetDisplayName()</span></div>
+                <a class="btn btn-actions" asp-action="Update">Thay đổi mục tiêu</a>
+            </div>
         </div>
+    </div>*@
+
+
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="media g-mb-15 text-center d-block">
+                    <img class="img-fluid g-width-100x g-mb-0 rounded-circle" src="/assets-new/img/content/muc-tieu.png" alt="Image Description">
+                </div>
+                <!-- Example Button -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Mục tiêu</span> đầu tư</h2>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="d-block u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-mr-5 g-ml-5 g-pa-10">
+                <!-- Icon Blocks -->
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md">
+                        <span class="g-mb-10 g-width-100x g-font-weight-700">Số tiền kỳ vọng: </span>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.ExpectedAmount?.ToString("N0")đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tài sản hiện có: </label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.User.CurrentAccountAmount.ToString("N0")đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Thời hạn đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.Duration.GetDisplayName()
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tần suất đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.Frequency.GetDisplayName()
+                    </div>
+                </div> <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Số tiền trong 1 lần đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.OneTimeAmount.ToString("N0")đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Hình thức đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left g-mb-10">
+                        @Model.InvestmentMethod.GetDisplayName()
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                    <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 g-font-size-14 g-width-200" asp-action="Update">Thay đổi mục tiêu</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- End Icon Blocks -->
     </div>
-</div>
+
+
+</section>
+<!-- End Section 3  Hoạt dong-->
+
+
+@section Scripts {
+    <script src="/assets-new/vendor/numbermask/jquery.masknumber.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('.number-mask').maskNumber({ integer: true });
+      $('[name=currency-default]').maskNumber();
+    });
+    </script>
+}

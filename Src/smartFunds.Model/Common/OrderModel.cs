@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace smartFunds.Model.Common
 {
@@ -13,5 +14,10 @@ namespace smartFunds.Model.Common
         public bool IsInvestmentTarget { get; set; }
         public string CheckSum { get; set; }
         public bool IsSuccess { get; set; }
+        public bool IsVerify { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public string CreatedBy { set; get; }
+        public string UpdatedBy { set; get; }
     }
 }

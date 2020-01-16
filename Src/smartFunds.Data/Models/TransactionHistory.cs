@@ -23,5 +23,8 @@ namespace smartFunds.Data.Models
         public decimal TotalWithdrawal { get; set; }
         public WithdrawalType? WithdrawalType { get; set; }
         public RemittanceStatus? RemittanceStatus { get; set; }
+        public string Description { get; set; }
+        public string ObjectId { get; set; }
+
     }
 }

@@ -1,0 +1,145 @@
+﻿@{
+    var user = await UserService.GetCurrentUser();
+}
+
+<!-- Header -->
+<header id="js-header" class="u-header u-header--static">
+    <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-0 u-shadow-v27">
+        <nav class="js-mega-menu navbar navbar-expand-lg hs-menu-initialized hs-menu-horizontal">
+            <div class="container">
+                <!-- Responsive Toggle Button -->
+                <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-minus-3 g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+                    <span class="hamburger hamburger--slider">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </span>
+                </button>
+                <!-- End Responsive Toggle Button -->
+                <!-- Logo -->
+                <a href="/" class="navbar-brand d-flex">
+                    <img src="/assets-new/img/logo/logo_sn.png" />
+                </a>
+                <!-- End Logo -->
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+                    <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+                        @if (!UserService.IsSignedIn(User))
+                        {
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link g-py-7 g-px-0 g-font-size-14" asp-controller="IntroducingPageCMS" asp-action="Index">
+                                    Về Chúng Tôi
+                                </a>
+                            </li>
+
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link" asp-area="Client" asp-controller="contact" asp-action="Contact">
+                                    Hỗ Trợ
+                                </a>
+                            </li>
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl ">
+                                <a class="nav-link" asp-controller="ContentNews" asp-action="ListNews">
+                                    @Common.ContentNews
+                                </a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <!-- Intro -->
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a asp-controller="Account" asp-action="MyWallet" class="nav-link g-py-7 g-px-0 g-font-size-14">Tài khoản</a>
+                            </li>
+                            <!-- End Intro -->
+                            <!-- Home -->
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link" asp-controller="Account" asp-action="MyPortfolio">
+                                    Danh mục đầu tư
+                                    <!--<i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>-->
+                                </a>
+                            </li>
+                            <!-- End Home -->
+                            <!-- Pages -->
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link g-py-7 g-px-0 g-font-size-14" asp-controller="Investment" asp-action="Invest">Đầu tư</a>
+                            </li>
+                            <!-- End Pages -->
+                            <!-- Blog -->
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link g-py-7 g-px-0 g-font-size-14" asp-controller="InvestmentTarget" asp-action="Detail">Mục tiêu</a>
+                            </li>
+                            <!-- End Blog -->
+                            <!-- Blog -->
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl">
+                                <a class="nav-link g-py-7 g-px-0 g-font-size-14" asp-controller="ClientTransactionHistory" asp-action="Index">Lịch sử giao dịch</a>
+                            </li>
+                            <!-- End Blog -->
+                            <!-- Features -->
+                            <li class="nav-item hs-has-sub-menu  g-mx-10--lg g-mx-10--xl" data-animation-in="fadeIn" data-animation-out="fadeOut">
+                                <a id="nav-link--features" class="nav-link g-py-7 g-px-0 g-font-size-14" href="#" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--features">Giới thiệu<i class="hs-icon hs-icon-arrow-bottom g-ml-7 g-font-size-14"></i></a>
+                                <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-18 g-mt-8--lg--scrolling" id="nav-submenu--features" aria-labelledby="nav-link--features">
+                                    <!-- Features - Headers -->
+                                    <li class="dropdown-item ">
+                                        <a class="nav-link" asp-controller="IntroducingPageCMS" asp-action="Index">Giới thiệu về SAVENOW</a>
+                                    </li>
+                                    <!-- End Features - Headers -->
+                                    <li class="dropdown-item ">
+                                        <a class="nav-link" asp-controller="Page" asp-action="ChargeList">Danh mục các loại phí</a>
+                                    </li>
+                                    <!-- End Features - Promo blocks -->
+                                    <!-- Features - Sliders -->
+                                    @*<li class="dropdown-item">
+                        <a class="nav-link">Lý do đầu tư</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="/unify-main/home/thanh-cong.html">Thông báo thành công</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="/unify-main/home/loi.html">Thông báo lỗi</a>
+                    </li>*@
+                                    <!-- End Features - Sliders -->
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-divider d-md-none"></li>
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl d-md-none">
+                                <a class="nav-link g-font-size-14" asp-controller="Profile" asp-action="Detail">Thông tin cá nhân</a>
+                            </li>
+                            <li class="nav-item  g-mx-10--lg g-mx-10--xl d-md-none">
+                                <a class="nav-link g-font-size-14" asp-controller="Account" asp-action="Logout">Thoát</a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+                <!-- End Navigation -->
+                @if (UserService.IsSignedIn(User))
+                {
+                    <div class="d-inline-block g-hidden-md-down g-pos-rel g-valign-middle g-pl-30 g-pl-0--lg">
+                        <span class="d-block g-color-primary--hover g-cursor-pointer g-mr-minus-5 g-pa-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>
+                            @*<img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm" src="/admin-template/assets/img-temp/130x130/img1.jpg" alt="Image description">*@
+                            <!--<i class="icon-options-vertical g-pos-rel g-top-1"></i>-->
+                            <a class="btn u-btn-outline-deeporange u-btn-hover-v2-1  g-font-size-14 text-uppercase g-py-10 g-px-15 g-rounded-50 name-header" href="#" target="_blank">
+                                @user.FullName?.Split(" ")?.FirstOrDefault()
+                                <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
+                            </a>
+                        </span>
+
+                        <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
+                            <a class="dropdown-item g-px-10" asp-controller="Profile" asp-action="Detail">
+                                <i class="hs-admin-user g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> Thông tin cá nhân
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item g-px-10" asp-controller="Account" asp-action="Logout">
+                                <i class="hs-admin-shift-right g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> Thoát
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- End Header -->

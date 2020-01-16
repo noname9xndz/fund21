@@ -165,7 +165,7 @@ namespace smartFunds.Business.Common
             if (rangeMoney == null || !rangeMoney.Any()) return false;
 
             if (currentFee.EntityState == FormState.Edit)
-                rangeMoney = rangeMoney.Where(x => x.Id != currentFee.Id).ToList();
+                rangeMoney = rangeMoney.Where(x => x.Id != currentFee.Id);//.ToList();
 
             var existedMarks = rangeMoney.Where(x => (currentFee.AmountFrom >= x.AmountFrom && currentFee.AmountTo <= x.AmountTo)
                              || (currentFee.AmountFrom >= x.AmountFrom && currentFee.AmountFrom <= x.AmountTo && currentFee.AmountTo > x.AmountTo)

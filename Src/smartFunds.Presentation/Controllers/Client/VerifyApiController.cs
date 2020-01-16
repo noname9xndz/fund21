@@ -25,8 +25,11 @@ namespace smartFunds.Presentation.Controllers.Client
         private readonly ISMSGateway _smsGateway;
         private readonly ITransactionHistoryService _transactionHistoryService;
         private readonly IOrderService _orderService;
+        private readonly IGlobalConfigurationService _globalConfigurationService;
 
-        public VerifyApiController(IUserService userService, IFundTransactionHistoryService fundTransactionHistoryService, InvestmentTargetService investmentTargetService, IConfiguration configuration, ISMSGateway smsGateway, ITransactionHistoryService transactionHistoryService, IOrderService orderService)
+        public VerifyApiController(IUserService userService, IFundTransactionHistoryService fundTransactionHistoryService, 
+            InvestmentTargetService investmentTargetService, IConfiguration configuration, ISMSGateway smsGateway,
+            ITransactionHistoryService transactionHistoryService, IOrderService orderService, IGlobalConfigurationService globalConfigurationService)
         {
             _userService = userService;
             _fundTransactionHistoryService = fundTransactionHistoryService;
@@ -35,6 +38,7 @@ namespace smartFunds.Presentation.Controllers.Client
             _smsGateway = smsGateway;
             _transactionHistoryService = transactionHistoryService;
             _orderService = orderService;
+            _globalConfigurationService = globalConfigurationService;
         }
 
         [Route("payment/VerifyData")]
@@ -56,7 +60,8 @@ namespace smartFunds.Presentation.Controllers.Client
             try
             {
                 var orderId = 0;
-                if (string.IsNullOrWhiteSpace(billcode) || string.IsNullOrWhiteSpace(merchant_code) || !Int32.TryParse(order_id, out orderId) || string.IsNullOrWhiteSpace(check_sum))
+                var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+                if (string.IsNullOrWhiteSpace(billcode) || string.IsNullOrWhiteSpace(merchant_code) || !Int32.TryParse(order_id, out orderId) || string.IsNullOrWhiteSpace(check_sum) || config.Contains("true"))
                 {
                     orderVerify.error_code = "01";
                     logger.Info("Investment with ViettelPay | Verify Data: error_code: 01");
@@ -66,7 +71,7 @@ namespace smartFunds.Presentation.Controllers.Client
 
                 var order = await _orderService.GetOrder(orderId);
 
-                if (order != null)
+                if (order != null && !order.IsSuccess && !order.IsVerify)
                 {
                     var checkSum = Helpers.CreateCheckSum(_configuration.GetValue<string>("PaymentSecurity:AccessCode"), _configuration.GetValue<string>("PaymentSecurity:SecretKey"),
                    order.Id.ToString(), order.MerchantCode, order.Id.ToString(), order.TransAmount.ToString());
@@ -76,6 +81,10 @@ namespace smartFunds.Presentation.Controllers.Client
                         orderVerify.trans_amount = order.TransAmount;
 
                         logger.Info("Investment with ViettelPay | Verify Data: error_code: 00");
+
+                        order.IsVerify = true;
+                        await _orderService.UpdateOrder(order);
+
                         return Json(orderVerify);
                     }
                 }
@@ -113,8 +122,8 @@ namespace smartFunds.Presentation.Controllers.Client
             logger.Info("Investment with ViettelPay: billcode = " + billcode + ", cust_msisdn = " + cust_msisdn + ", error_code = " + error_code + ", merchant_code = " + merchant_code + ", order_id = " + order_id + ", payment_status = " + payment_status + ", trans_amount = " + trans_amount + ", vt_transaction_id = " + vt_transaction_id + ", check_sum = " + check_sum);
 
             var orderId = 0;
-
-            if (string.IsNullOrWhiteSpace(error_code) || string.IsNullOrWhiteSpace(cust_msisdn) || string.IsNullOrWhiteSpace(merchant_code) || string.IsNullOrWhiteSpace(order_id) || !Int32.TryParse(order_id, out orderId) || string.IsNullOrWhiteSpace(payment_status) || string.IsNullOrWhiteSpace(check_sum))
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (string.IsNullOrWhiteSpace(error_code) || string.IsNullOrWhiteSpace(cust_msisdn) || string.IsNullOrWhiteSpace(merchant_code) || string.IsNullOrWhiteSpace(order_id) || !Int32.TryParse(order_id, out orderId) || string.IsNullOrWhiteSpace(payment_status) || string.IsNullOrWhiteSpace(check_sum) || config.Contains("true"))
             {
 
                 logger.Error("Investment with ViettelPay: Param Invalid");
@@ -168,7 +177,7 @@ namespace smartFunds.Presentation.Controllers.Client
                     return Json(paymentResult);
                 }
 
-                await _fundTransactionHistoryService.Investment(decimal.Parse(order.TransAmount), currentUser.UserName);
+                await _fundTransactionHistoryService.Investment(decimal.Parse(order.TransAmount), currentUser.UserName,order_id);
                 if (order.IsInvestmentTarget)
                 {
                     var investmentTarget = await _investmentTargetService.GetInvestmentTarget(currentUser.Id);

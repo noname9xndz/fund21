@@ -23,6 +23,7 @@ namespace smartFunds.Business.Common
         Task<List<TransactionHistory>> GetListTransactionHistoryForTask(SearchTransactionHistory searchTransactionHistory = null);
         Task UpdateStatusTransactionHistory(int id, TransactionStatus status);
         Task<List<TransactionHistory>> GetAllTransactionHistory(string userId = null, SearchTransactionHistory searchTransactionHistory = null);
+        Task<int> GetTotalTransactionHistory(string userId = null, SearchTransactionHistory searchTransactionHistory = null);
         Task<TransactionHistory> AddTransactionHistory(TransactionHistory transactionHistory, string userName = null);
         Task UpdateTransactionHistory(TransactionHistory transactionHistory);
         Task<byte[]> ExportTransactionHistory(SearchTransactionHistory searchTransactionHistory = null);
@@ -129,7 +130,8 @@ namespace smartFunds.Business.Common
                 listTransactionHistory = (await _unitOfWork.TransactionHistoryRepository.GetAllAsync("User")).Where(i => i.TransactionType == TransactionType.Withdrawal && i.Status == TransactionStatus.Processing)
                                 .OrderBy(i => i.TransactionDate).ToList();
 
-                return listTransactionHistory.GroupBy(x => x.UserId, (k, g) => g.Aggregate((a, x) => (x.TotalWithdrawal > a.TotalWithdrawal) ? x : a)).Where(predicate).ToList();
+                //return listTransactionHistory.GroupBy(x => x.UserId, (k, g) => g.Aggregate((a, x) => (x.TotalWithdrawal > a.TotalWithdrawal) ? x : a)).Where(predicate).ToList();
+                return listTransactionHistory.Where(predicate).ToList();
             }
             catch (Exception ex)
             {
@@ -141,7 +143,7 @@ namespace smartFunds.Business.Common
         {   // for accountant
             try
             {
-                var listTransactionHistory = await _unitOfWork.TransactionHistoryRepository.FindByAsync(m => m.Id == id && m.Status == TransactionStatus.Processing && m.TransactionType == TransactionType.Withdrawal);
+                var listTransactionHistory = (await _unitOfWork.TransactionHistoryRepository.FindByAsync(m => m.Id == id && m.Status == TransactionStatus.Processing && m.TransactionType == TransactionType.Withdrawal)).ToList();
                 foreach (var itm in listTransactionHistory)
                 {
                     itm.Status = status;
@@ -172,12 +174,40 @@ namespace smartFunds.Business.Common
                 }
                 else
                 {
-                    listTransactionHistory = (await _unitOfWork.TransactionHistoryRepository.GetAllAsync("User")).Where(i => i.TransactionType != TransactionType.None)
+                    listTransactionHistory = (await _unitOfWork.TransactionHistoryRepository.FindByAsync(i => i.TransactionType != TransactionType.None, "User"))
                                     .Where(predicate).OrderByDescending(i => i.TransactionDate)
                                     .ToList();
                 }
 
                 return listTransactionHistory;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> GetTotalTransactionHistory(string userId = null, SearchTransactionHistory searchTransactionHistory = null)
+        {
+            try
+            {
+                var predicate = SetPredicate(searchTransactionHistory);
+
+                var listTransactionHistory = new List<TransactionHistory>();
+
+                if (!string.IsNullOrWhiteSpace(userId))
+                {
+                    return (await _unitOfWork.TransactionHistoryRepository.FindByAsync(i => i.User.Id == userId && i.TransactionType != TransactionType.None, "User"))
+                                    .Where(predicate).OrderByDescending(i => i.TransactionDate)
+                                    .Count();
+                }
+                else
+                {
+                    return (await _unitOfWork.TransactionHistoryRepository.FindByAsync(i => i.TransactionType != TransactionType.None, "User"))
+                                    .Where(predicate).OrderByDescending(i => i.TransactionDate)
+                                    .Count();
+
+                }
             }
             catch (Exception ex)
             {
@@ -407,7 +437,7 @@ namespace smartFunds.Business.Common
                 var propertyFluctuations = new PropertyFluctuations();
 
                 var listProperty = (await _unitOfWork.TransactionHistoryRepository.FindByAsync(i => i.User.Id == userId && i.TransactionDate.Date >= dateFrom.Date && i.TransactionDate.Date <= dateTo.Date, "User"))
-                                            .OrderByDescending(i => i.TransactionDate)
+                                            .OrderByDescending(i => i.Id)
                                             .GroupBy(i => i.TransactionDate.Date)
                                             .Select(g => new PropertyFluctuationItem()
                                             {
@@ -415,29 +445,6 @@ namespace smartFunds.Business.Common
                                                 Amount = g.First().CurrentAccountAmount
                                             })
                                             .ToList();
-                if (listProperty.Any())
-                {
-                    //var beginDate = listProperty.Last();
-                    var endDate = listProperty.First();
-                    //for (DateTime date = dateFrom; date < beginDate.Date; date = date.AddDays(1))
-                    //{
-                    //    var propertyFluctuationItem = new PropertyFluctuationItem()
-                    //    {
-                    //        Date = date,
-                    //        Amount = 0
-                    //    };
-                    //    listProperty.Add(propertyFluctuationItem);
-                    //}
-                    if (endDate.Date < dateTo)
-                    {
-                        var propertyFluctuationItem = new PropertyFluctuationItem()
-                        {
-                            Date = dateTo,
-                            Amount = endDate.Amount
-                        };
-                        listProperty.Add(propertyFluctuationItem);
-                    }
-                }
 
                 propertyFluctuations.ListProperty = listProperty.OrderBy(i => i.Date).ToList();
 

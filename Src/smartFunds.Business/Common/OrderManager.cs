@@ -14,14 +14,17 @@ namespace smartFunds.Business.Common
         Task<Order> GetOrder(int? orderId);
         Task<Order> SaveOrder(Order order);
         Task UpdateOrder(Order order);
+        Task DeleteOrder(Order order);
     }
     public class OrderManager : IOrderManager
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserManager _userManager;
 
-        public OrderManager(IUnitOfWork unitOfWork)
+        public OrderManager(IUnitOfWork unitOfWork, IUserManager userManager)
         {
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
         public async Task<Order> GetOrder(int? orderId)
@@ -49,6 +52,11 @@ namespace smartFunds.Business.Common
         {
             try
             {
+                order.CreatedDate = DateTime.Now;
+                order.CreatedBy = _userManager.CurrentUser();
+                order.UpdatedDate = DateTime.Now;
+                order.UpdatedBy = _userManager.CurrentUser();
+
                 var savedOrder = _unitOfWork.OrderRepository.Add(order);
                 await _unitOfWork.SaveChangesAsync();
                 return savedOrder;
@@ -63,9 +71,26 @@ namespace smartFunds.Business.Common
         {
             try
             {
+
+                if (order == null) throw new InvalidParameterException();
+                order.UpdatedDate = DateTime.Now;
+                order.UpdatedBy = _userManager.CurrentUser();
+                _unitOfWork.OrderRepository.Update(order);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task DeleteOrder(Order order)
+        {
+            try
+            {
                 if (order == null) throw new InvalidParameterException();
 
-                _unitOfWork.OrderRepository.Update(order);
+                _unitOfWork.OrderRepository.Delete(order);
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)

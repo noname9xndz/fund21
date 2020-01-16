@@ -233,4 +233,5 @@ $(document).ready(() => {
   ManagerCheckInvest.initFunction();
   UserProfileInfo.showPopup();
   Global.showPopupMobile();
+  userWithDrawal.checkBoxClick();
 });

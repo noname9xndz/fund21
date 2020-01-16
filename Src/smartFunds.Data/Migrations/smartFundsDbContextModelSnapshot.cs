@@ -15,7 +15,7 @@ namespace smartFunds.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -154,6 +154,38 @@ namespace smartFunds.Data.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("smartFunds.Data.Models.CateNews", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CateNewsName")
+                        .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<int>("CateNewsOrder");
+
+                    b.Property<string>("Contents")
+                        .HasColumnType("NVARCHAR(1000)");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("DateLastUpdated");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("VARCHAR(500)");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<int>("ParentNewsID");
+
+                    b.Property<bool>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CateNews");
+                });
+
             modelBuilder.Entity("smartFunds.Data.Models.ContactCMS", b =>
                 {
                     b.Property<int>("Id")
@@ -169,6 +201,50 @@ namespace smartFunds.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactConfigurations");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.ContentNews", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.Property<int>("CateNewsID");
+
+                    b.Property<string>("Contents")
+                        .HasColumnType("NTEXT");
+
+                    b.Property<DateTime>("DateLastUpdated");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("NVARCHAR(250)");
+
+                    b.Property<string>("ImageLarge")
+                        .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<string>("ImageThumb")
+                        .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<bool>("Ishome");
+
+                    b.Property<string>("LastUpdatedBy");
+
+                    b.Property<DateTime>("PostDate");
+
+                    b.Property<string>("ShortDescribe")
+                        .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("NVARCHAR(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContentNews");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.CustomerLevel", b =>
@@ -239,6 +315,8 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<int>("EditStatus");
 
+                    b.Property<bool>("IsBalancing");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastUpdatedBy");
@@ -248,6 +326,8 @@ namespace smartFunds.Data.Migrations
                     b.Property<decimal>("NAV");
 
                     b.Property<decimal>("NAVNew");
+
+                    b.Property<decimal>("NAVOld");
 
                     b.Property<string>("Title");
 
@@ -356,6 +436,18 @@ namespace smartFunds.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GenericIntroducingSettings");
+                });
+
+            modelBuilder.Entity("smartFunds.Data.Models.GlobalConfiguration", b =>
+                {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("GlobalConfiguration");
                 });
 
             modelBuilder.Entity("smartFunds.Data.Models.HangFire.Job", b =>
@@ -554,6 +646,10 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<string>("ImageDesktop");
+
+                    b.Property<string>("ImageMobile");
+
                     b.Property<int>("KVRRQuestionCategories");
 
                     b.Property<int>("No");
@@ -589,17 +685,27 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<string>("CheckSum");
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Desc");
 
                     b.Property<bool>("IsInvestmentTarget");
 
                     b.Property<bool>("IsSuccess");
 
+                    b.Property<bool>("IsVerify");
+
                     b.Property<string>("MerchantCode");
 
                     b.Property<string>("Msisdn");
 
                     b.Property<string>("TransAmount");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedDate");
 
                     b.Property<string>("Version");
 
@@ -614,11 +720,23 @@ namespace smartFunds.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("ErrorCode");
 
                     b.Property<string>("FullName");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
@@ -717,6 +835,10 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<decimal>("CurrentAccountAmount");
 
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ObjectId");
+
                     b.Property<int?>("RemittanceStatus");
 
                     b.Property<int>("Status");
@@ -746,7 +868,7 @@ namespace smartFunds.Data.Migrations
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<decimal>("AdjustmentFactor")
-                        .HasColumnType("decimal(15,7)");
+                        .HasColumnType("decimal(18,12)");
 
                     b.Property<decimal>("AmountWithdrawn");
 
@@ -759,7 +881,8 @@ namespace smartFunds.Data.Migrations
 
                     b.Property<decimal>("CurrentAmountWithdrawn");
 
-                    b.Property<decimal>("CurrentInvestmentAmount");
+                    b.Property<decimal>("CurrentInvestmentAmount")
+                        .HasColumnType("decimal(21,6)");
 
                     b.Property<DateTime>("DateLastUpdated");
 

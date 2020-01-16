@@ -37,9 +37,12 @@ namespace smartFunds.Model.Common
         public decimal NAV { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0,0.00}")]
         public decimal NAVNew { get; set; }
+        public decimal NAVOld { get; set; }
         public DateTime DateLastApproved { get; set; }
         public EditStatus EditStatus { get; set; }
         public virtual List<PortfolioFundModel> PortfolioFunds { get; set; }
+
+        public bool IsBalancing { get; set; }
     }
 
     public class FundsModel : PagingModel

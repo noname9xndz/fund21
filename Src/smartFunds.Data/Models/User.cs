@@ -12,8 +12,9 @@ namespace smartFunds.Data.Models
         public string FullName { get; set; }
         [PersonalData]
         public decimal InitialInvestmentAmount { get; set; }
-        [Column(TypeName = "decimal(15,7)")]
+        [Column(TypeName = "decimal(18,12)")]
         public decimal AdjustmentFactor { get; set; }
+        [Column(TypeName = "decimal(21,6)")]
         public decimal CurrentInvestmentAmount { get; set; }
         [PersonalData]
         public decimal CurrentAccountAmount { get; set; }

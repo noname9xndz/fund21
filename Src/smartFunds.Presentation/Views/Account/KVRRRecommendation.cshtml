@@ -3,150 +3,562 @@
     ViewData["Title"] = @Common.KVRRRecommendation;
     var mobileImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && x.ImageName.Contains("mobile_")).FirstOrDefault();
     var desktopImage = @HomepageCMSService.GetAll().Where(x => x.Category == "2" && !x.ImageName.Contains("mobile_")).FirstOrDefault();
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
 @if (Model != null)
 {
-    var disabled = "disabled";
-    <div class="body-content-endUser body-content-endUser-invesment">
-        <div class="user-invesment-portfolio container-fluid">
-            <form method="post" asp-controller="Account" asp-action="ConfirmKVRR" class="invesment-main" id="user-invesment-portfolio-main">
-                <input asp-for="@Model.KVRR.Id" type="hidden" />
-                <input type="hidden" asp-for="SelectedKVRRId" />
+    var isRecommen = false;
+    var modal = "#modalAntoan";
+    var image = "/assets-new/img/content/an-toan.png";
+    if (Model.KVRR != null && Model.KVRR.Id != 0)
+    {
+        if (Model.KVRR.Name.Contains("An toàn"))
+        {
+            modal = "#modalAntoan";
+            image = "/assets-new/img/content/an-toan.png";
+        }
 
-                <div class="modal micromodal-slide detail__subInvesment" id="modal-1" aria-hidden="true">
-                    <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
-                    <div class="modal__container detail__subInvesment_container" role="dialog" aria-modal="true"
-                         aria-labelledby="modal-1-title">
-                        <div class="detail__subInvesment_images">
-                            <img class="detail__subInvesment_images_banner"
-                                 src="/images/arrow-left.png" alt="img">
+        else if (Model.KVRR.Name.Contains("Cẩn trọng"))
+        {
+            modal = "#modalCantrong";
+            image = "/assets-new/img/content/can-trong.png";
+        }
+        else if (Model.KVRR.Name.Contains("Cân bằng"))
+        {
+            modal = "#modalCanbang";
+            image = "/assets-new/img/content/can-bang.png";
+        }
+        else if (Model.KVRR.Name.Contains("Mạo hiểm"))
+        {
+            modal = "#modalMaohiem";
+            image = "/assets-new/img/content/mao-hiem.png";
+        }
+        else if (Model.KVRR.Name.Contains("Đầu cơ"))
+        {
+            modal = "#modalDauco";
+            image = "/assets-new/img/content/dau-co.png";
+        }
+    }
+    
+    <section class="g-py-30 kvrr-select-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                    @if (Model.KVRR != null && Model.KVRR.Id != 0)
+                    {
+                        isRecommen = true;
+                        <!-- Article Content -->
+                        <div class="g-px-20 g-pt-20 g-pb-10">
+                            <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                                <span class="u-icon-v6-inner">
+                                    <img class="img-fluid g-width-200 g-height-200 g-mb-20 rounded-circle kvrr-image-chosen" src="@image" alt="Image Description">
+                                </span>
+                            </span>
+
+                            <h4 class="h5 g-color-black g-mb-10 kvrr-text-chosen">@Model.KVRR?.Name</h4>
+
                         </div>
-                        <div class="detail__subInvesment__main">
-                            <div class="detail__subInvesment__main__inside">
-                                <span class="detail__subInvesment__main__title"></span>
-                                <pre class="detail__subInvesment__main__content"></pre>
-                            </div>
-                        </div><img class="detail__subInvesment__main__close" src="/images/icon-close.png"
-                                   alt="close" aria-label="Close modal" data-micromodal-close>
+
+                    }
+                    else
+                    {
+                        <!-- Article Content -->
+                        <div class="g-px-20 g-pt-20 g-pb-10">
+                            <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                                <span class="u-icon-v6-inner">
+                                    <img class="img-fluid g-width-200 g-height-200 g-mb-20 rounded-circle kvrr-image-chosen" src="/assets-new/img/content/an-toan.png" alt="Image Description">
+                                </span>
+                            </span>
+
+                            <h4 class="h5 g-color-black g-mb-10 kvrr-text-chosen">An toàn</h4>
+
+                        </div>
+
+
+                    }
+
+                    <!-- End Article Content -->
+                    <div class="g-brd-primary g-mb-30">
+                        <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Lựa chọn</span> đầu tư</h2>
+                        <p class="text-center">Lựa chọn danh mục đầu tư phù hợp với khẩu vị rủi ro của Bạn</p>
                     </div>
-                </div>
-                @if (Model.KVRR != null && Model.KVRR.Id != 0)
-                {
-                    disabled = string.Empty;
-                    <div class="user-invesment-suggetestion">
-                        <h4 class="user-invesment-suggetestion-title">@Common.KVRRRecommendation</h4>
-                        <div class="user-invesment-suggetestion-wrapper">
-                            <div class="user-invesment-suggetestion-main is-active">
-                                <div class="user-invesment-suggetestion-images">
-                                    <label>
-                                        <img class="sub-invesment-avatar-cover" src="@Constants.KVRRImageFolder.Path@Model.KVRR.KVRRImagePath">
-                                        <input type="radio" asp-for="@Model.SelectedKVRRId" value="@Model.KVRR.Id" class="inputuser-invesment-suggetestion" id="user-invesment-suggetestion" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="user-invesment-suggetestion-content suggest-block">
-                                    <h4 class="invesment-name name-sub-invesment">@Model.KVRR.Name</h4>
-                                    <p class="invesment-sort-description sub-invesment-sort-description">@Model.KVRR.Detail</p>
-                                </div>
-                            </div>
-                            <div class="user-invesment-banner">
-                                <picture>
-                                    @if (mobileImage != null)
+                    <form method="post" asp-controller="Account" asp-action="ConfirmKVRR">
+
+                        <input asp-for="@Model.KVRR.Id" type="hidden" />
+                        <input type="hidden" asp-for="SelectedKVRRId" />
+                        <div class="g-font-size-18 g-line-height-2">
+                            <div class="js-carousel">
+
+                                @if (Model.KVRROthers != null && Model.KVRROthers.Any())
+                                {
+                                    if (Model.KVRR != null && Model.KVRR.Id != 0)
                                     {
-                                        <source media="(max-width: 992px)"
-                                                srcset="@BannerHomepageFolder.Path@mobileImage.ImageName">
-                                    }
-                                    else
-                                    {
-                                        <source media="(max-width: 992px)"
-                                                srcset="/images/intro-small.png">
-                                    }
-                                    @if (desktopImage != null)
-                                    {
-                                        <img src="@BannerHomepageFolder.Path@desktopImage.ImageName">
+                                        <div class="js-slide g-px-5 kvrr-selection-item">
+                                            <!-- Icon Blocks -->
+                                            <div class="g-transition-0_3 g-cursor-pointer g-py-10">
+                                                <!-- Article -->
+                                                <div class="text-center u-shadow-v1-3 g-line-height-2 g-pa-10 g-mb-30 g-rounded-15">
+                                                    <div class="text-right">
+                                                        <label class="u-check g-pl-25">
+                                                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="SelectedKVRRId" type="radio" value="@Model.KVRR?.Id" checked>
+                                                            <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+                                                                <i class="fa" data-check-icon="" data-uncheck-icon=""></i>
+                                                            </div>
+
+                                                        </label>
+                                                    </div>
+                                                    <!-- Article Header -->
+                                                    <!-- End Article Header -->
+                                                    <!-- Article Content -->
+                                                    <div class="g-px-20 g-pt-20 g-pb-10">
+                                                        <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                                                            <span class="u-icon-v6-inner">
+                                                                <img class="img-fluid g-width-200 g-height-200 g-mb-20 rounded-circle" src="@image" alt="Image Description">
+                                                            </span>
+                                                        </span>
+
+                                                        <h4 class="h5 g-color-black g-mb-10 kvrr-text-item">@Model.KVRR?.Name</h4>
+                                                        <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15" href="@modal" data-modal-target="@modal" data-modal-effect="scale">Xem thêm</a>
+                                                    </div>
+                                                    <!-- End Article Content -->
+                                                </div>
+                                                <!-- End Article -->
+                                            </div>
+                                            <!-- End Icon Blocks -->
+                                        </div>
 
                                     }
-                                    else
+
+                                    for (int i = 0; i < Model.KVRROthers.Count; i++)
                                     {
-                                        <img src="/images/intro.png">
+                                        if (Model.KVRROthers[i].Name.Contains("An toàn"))
+                                        {
+                                            modal = "#modalAntoan";
+                                            image = "/assets-new/img/content/an-toan.png";
+                                        }
+
+                                        else if (Model.KVRROthers[i].Name.Contains("Cẩn trọng"))
+                                        {
+                                            modal = "#modalCantrong";
+                                            image = "/assets-new/img/content/can-trong.png";
+                                        }
+                                        else if (Model.KVRROthers[i].Name.Contains("Cân bằng"))
+                                        {
+                                            modal = "#modalCanbang";
+                                            image = "/assets-new/img/content/can-bang.png";
+                                        }
+                                        else if (Model.KVRROthers[i].Name.Contains("Mạo hiểm"))
+                                        {
+                                            modal = "#modalMaohiem";
+                                            image = "/assets-new/img/content/mao-hiem.png";
+                                        }
+                                        else if (Model.KVRROthers[i].Name.Contains("Đầu cơ"))
+                                        {
+                                            modal = "#modalDauco";
+                                            image = "/assets-new/img/content/dau-co.png";
+                                        }
+
+                                        <div class="js-slide g-px-5 kvrr-selection-item">
+                                            <!-- Icon Blocks -->
+                                            <div class="g-transition-0_3 g-cursor-pointer g-py-10">
+                                                <!-- Article -->
+                                                <div class="text-center u-shadow-v1-3 g-line-height-2 g-pa-10 g-mb-30 g-rounded-15">
+                                                    <div class="text-right">
+                                                        <label class="u-check g-pl-25">
+                                                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="SelectedKVRRId" type="radio" value="@Model.KVRROthers[i].Id" @( !isRecommen && i==0? "checked":"")>
+                                                            <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+                                                                <i class="fa" data-check-icon="" data-uncheck-icon=""></i>
+                                                            </div>
+
+                                                        </label>
+                                                    </div>
+                                                    <!-- Article Header -->
+                                                    <!-- End Article Header -->
+                                                    <!-- Article Content -->
+                                                    <div class="g-px-20 g-pt-20 g-pb-10">
+                                                        <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                                                            <span class="u-icon-v6-inner">
+                                                                <img class="img-fluid g-width-200 g-height-200 g-mb-20 rounded-circle" src="@image" alt="Image Description">
+                                                            </span>
+                                                        </span>
+
+                                                        <h4 class="h5 g-color-black g-mb-10 kvrr-text-item">@Model.KVRROthers[i].Name</h4>
+                                                        <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15" href="@modal" data-modal-target="@modal" data-modal-effect="scale">Xem thêm</a>
+                                                    </div>
+                                                    <!-- End Article Content -->
+                                                </div>
+                                                <!-- End Article -->
+                                            </div>
+                                            <!-- End Icon Blocks -->
+                                        </div>
+
 
                                     }
-                                </picture>
+                                }
+
 
                             </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="user-invesment-no-answers-banner">
-                        <picture>
-                            @if (mobileImage != null)
-                            {
-                                <source media="(max-width: 768px)"
-                                        srcset="@BannerHomepageFolder.Path@mobileImage.ImageName">
-                            }
-                            else
-                            {
-                                <source media="(max-width: 768px)"
-                                        srcset="/images/intro-small.png">
-                            }
-                            @if (desktopImage != null)
-                            {
-                                <img src="@BannerHomepageFolder.Path@desktopImage.ImageName">
-
-                            }
-                            else
-                            {
-                                <img src="/images/intro.png">
-
-                            }
-                        </picture>
-                    </div>
-
-                }
-                <h4 class="list-invesment-title">@Common.SelectOtherKVRR</h4>
-                <div class="list-invesment">
-                    <div class="list-invesment-main">
-                        @if (Model.KVRROthers != null && Model.KVRROthers.Any())
-                        {
-                            for (int i = 0; i < Model.KVRROthers.Count; i++)
-                            {
-                                <div class="sub-invesment">
-                                    <div class="sub-invesment-content">
-                                        <div class="sub-invesment-avatar">
-                                            <label>
-                                                <img class="sub-invesment-avatar-cover" src="@Constants.KVRRImageFolder.Path@Model.KVRROthers[i].KVRRImagePath">
-                                                <input class="sub-innvesment-cheked" type="radio" name="SelectedKVRRId" value="@Model.KVRROthers[i].Id"><span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="sub-invesment-main">
-                                            <h4 class="name-sub-invesment">@Model.KVRROthers[i].Name</h4>
-                                            <p class="sub-invesment-sort-description">@Model.KVRROthers[i].Detail</p>
-                                        </div>
-                                    </div>
-                                    <input asp-for="@Model.KVRROthers[i].Id" type="hidden" />
-                                    <input asp-for="@Model.KVRROthers[i].Name" type="hidden" />
-                                </div>
-                            }
-                        }
+                        <div class="g-brd-primary g-mt-30">
 
 
-                    </div>
-                    <div class="block-button">
-                        <button class="btn btn-submit" id="btnAnswer" type="submit" @disabled>
-                            @Common.ConfirmKVRR
-                        </button>
-                        <a asp-controller="Account" asp-action="DefindKVRR" class="btn back-question">@Common.AnswerAgain</a>
-                    </div>
+                            <button class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15" type="submit" id="btnAnswer">@Common.ConfirmKVRR</button>
+                            <a asp-controller="Account" asp-action="DefindKVRR" class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15" id="btnAnswerAgain">@Common.AnswerAgain</a>
+                        </div>
+                    </form>
+
                 </div>
-            </form>
+            </div>
         </div>
-        <div id="pageloader">
-            <img src="/assets/images/loader-large.gif" alt="processing..." />
+        <!-- Demo modal window -->
+        <!-- An toan modal window -->
+        <div id="modalAntoan" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">An toàn</span></h2>
+            <p>
+                Danh mục đầu tư dành cho các khách hàng có khẩu vị rủi ro rất thấp và mong muốn đạt lợi nhuận ổn định.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-borderless u-table--v1">
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">7.95%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">9.07%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">6.84%</td></tr>
+                </table>
+            </div>
+            <div id="cAntoan" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
         </div>
-    </div>
+        <!-- End toan modal window -->
+        <!-- Can trong modal window -->
+        <div id="modalCantrong" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cẩn trọng</span></h2>
+            <p>
+                Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro thấp và mong muốn bảo vệ nguồn vốn khỏi tác động của lạm phát.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-borderless u-table--v1">
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">8.38%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">13.35%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.42%</td></tr>
+                </table>
+            </div>
+            <div id="cCantrong" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+        </div>
+        <!-- End Can trong modal window -->
+        <!-- An toan modal window -->
+        <div id="modalCanbang" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cân bằng</span></h2>
+            <p>
+                Danh mục đầu tư dành cho khách hàng mong muốn khoản đầu tư có tiềm năng tăng trưởng.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-borderless u-table--v1">
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">10.52%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">19.41%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">1.63%</td></tr>
+                </table>
+            </div>
+            <div id="cCanbang" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+        </div>
+        <!-- End toan modal window -->
+        <!-- An toan modal window -->
+        <div id="modalMaohiem" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Mạo hiểm</span></h2>
+            <p>
+                Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro cao, chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về cao hơn đáng kể so với mức lạm phát.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-borderless u-table--v1">
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.32%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.21%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">2.43%</td></tr>
+                </table>
+            </div>
+            <div id="cMaohiem" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+        </div>
+        <!-- End toan modal window -->
+        <!-- An toan modal window -->
+        <div id="modalDauco" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Đầu cơ</span></h2>
+            <p>
+                Danh mục dành cho khách hàng chấp nhận khẩu vị rủi ro rất cao,chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về rất lớn.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-borderless u-table--v1">
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.99%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.88%</td></tr>
+                    <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.10%</td></tr>
+                </table>
+            </div>
+            <div id="cDauco" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+        </div>  
+        <!-- End toan modal window -->
+
+        <script src="/assets/vendor/highcharts/code/highcharts.js"></script>
+        <script src="/assets/vendor/highcharts/code/modules/exporting.js"></script>
+        <script src="/assets/vendor/highcharts/code/modules/export-data.js"></script>
+        <script type="text/javascript">
+            Highcharts.setOptions({
+                chart: {
+                    style: {
+                        fontFamily: 'Quicksand'
+                    }
+                }
+            });
+            // Build the chart
+            Highcharts.chart('cAntoan', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Tỷ lệ',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Quỹ đầu tư trái phiếu',
+                        y: 100,
+                        sliced: false,
+                        selected: true
+                    }, {
+                        name: 'Quỹ đầu tư hỗn hợp',
+                        y: 0
+                    }, {
+                        name: 'Quỹ đầu tư cổ phiếu',
+                        y: 0
+                    }]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+
+
+            // Build the chart Can trong
+            Highcharts.chart('cCantrong', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Tỷ lệ',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Quỹ đầu tư trái phiếu',
+                        y: 56,
+                        sliced: false,
+                        selected: true
+                    }, {
+                        name: 'Quỹ đầu tư hỗn hợp',
+                        y: 24
+                    }, {
+                        name: 'Quỹ đầu tư cổ phiếu',
+                        y: 20
+                    }]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+
+            // Build the chart Can trong
+            Highcharts.chart('cCanbang', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Tỷ lệ',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Quỹ đầu tư trái phiếu',
+                        y: 30,
+                        sliced: false,
+                        selected: true
+                    }, {
+                        name: 'Quỹ đầu tư hỗn hợp',
+                        y: 30
+                    }, {
+                        name: 'Quỹ đầu tư cổ phiếu',
+                        y: 40
+                    }]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+
+            // Build the chart Can trong
+            Highcharts.chart('cMaohiem', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Tỷ lệ',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Quỹ đầu tư trái phiếu',
+                        y: 15,
+                        sliced: false,
+                        selected: true
+                    }, {
+                        name: 'Quỹ đầu tư hỗn hợp',
+                        y: 15
+                    }, {
+                        name: 'Quỹ đầu tư cổ phiếu',
+                        y: 70
+                    }]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+
+            // Build the chart Can trong
+            Highcharts.chart('cDauco', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Tỷ lệ',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Quỹ đầu tư trái phiếu',
+                        y: 5,
+                        sliced: false,
+                        selected: true
+                    }, {
+                        name: 'Quỹ đầu tư hỗn hợp',
+                        y: 5
+                    }, {
+                        name: 'Quỹ đầu tư cổ phiếu',
+                        y: 90
+                    }]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+        </script>
+    </section>
 }

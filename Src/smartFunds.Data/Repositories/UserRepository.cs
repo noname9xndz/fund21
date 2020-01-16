@@ -32,7 +32,7 @@ namespace smartFunds.Data.Repositories
         {
             var newUser = user;
             newUser.InitialInvestmentAmount = 0;
-            newUser.CurrentInvestmentAmount = 0;
+            newUser.CurrentInvestmentAmount = -0.00001m;
             newUser.AdjustmentFactor = 1;
             newUser.CurrentAccountAmount = 0;
             newUser.Created = DateTime.Now;

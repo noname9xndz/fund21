@@ -1,0 +1,36 @@
+﻿@using smartFunds.Model.Common;
+@model CateNewsModel
+@{
+    ViewData["Title"] = "Chi tiết chuyên mục";
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+
+            <h4>@ViewData["Title"]</h4>
+
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.CateNewsName)</td>
+                    <td>@Html.DisplayFor(model => model.CateNewsName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Contents)</td>
+                    <td>@Html.Raw(Model.Contents)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.CateNewsOrder)</td>
+                    <td>@Html.DisplayFor(model => model.CateNewsOrder)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DateLastUpdated)</td>
+                    <td>@Html.DisplayFor(model => model.DateLastUpdated)</td>
+                </tr>
+            </table>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a asp-action="List">List</a>
+        </section>
+    </div>
+</div>

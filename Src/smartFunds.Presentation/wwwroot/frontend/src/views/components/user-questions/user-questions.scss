@@ -28,7 +28,7 @@
 
                 .quizmain-container {
                     background: #fff;
-                    padding: 20px 13px 20px 20px;
+                    padding: 20px 15px;
                     margin-top: 20px;
                     border-radius: 3px;
 
@@ -83,6 +83,19 @@
                                 margin-top: 5px;
                                 line-height: 150%;
                             }
+                        }
+
+                    }
+
+                    .question-image {
+                        position: relative;
+                        width: 100%;
+                        display: block;
+                        margin-bottom: 30px;
+
+                        img {
+                            width: 100%;
+                            max-width: 100%;
                         }
                     }
 

@@ -15,5 +15,11 @@ namespace smartFunds.Data.Models
         public bool IsInvestmentTarget { get; set; }
         public string CheckSum { get; set; }
         public bool IsSuccess { get; set; }
+        public bool IsVerify { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public string CreatedBy { set; get; }
+        public string UpdatedBy { set; get; }
+
     }
 }

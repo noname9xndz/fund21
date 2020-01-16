@@ -1,18 +1,48 @@
 ﻿@using smartFunds.Presentation.Models.Client
 
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = "Kết quả giao dịch";
 }
 
-    <section class="emptyManageRisk body-content-endUser">
-        <div class="container-fluid">
-            <div class="emptyManageRisk__Content">
-                <h5>Giao dịch của bạn đã hoàn thành!</h5>
-                <div class="emptyManageRisk__Button">
-                    <a asp-controller="Account" asp-action="MyWallet" class="btn-select">Về tài khoản</a>
+@*<section class="emptyManageRisk body-content-endUser">
+    <div class="container-fluid">
+        <div class="emptyManageRisk__Content">
+            <h5>Giao dịch của bạn đã hoàn thành!</h5>
+            <div class="emptyManageRisk__Button">
+                <a asp-controller="Account" asp-action="MyWallet" class="btn-select">Về tài khoản</a>
+            </div>
+        </div>
+    </div>
+</section>*@
+
+
+<!-- Section 3 Hoat dong -->
+<section class="g-py-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md">
+                <div class="align-self-center mr-3 btn-block text-center">
+                    <span class="u-icon-v2 g-color-white g-bg-green rounded-circle">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </div>
+                <div class="g-brd-primary g-mb-30 ">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">
+                        Đầu tư
+                        <span class="g-color-deeporange g-ml-5">thành công</span>.
+                        Phí đầu tư do các quỹ thu, tham khảo biểu phí <a asp-controller="Page" asp-action="FeeTable">tại đây</a>, chi tiết tại
+                        <a asp-controller="ClientTransactionHistory" asp-action="Index">LSGD</a>
+                    </h2>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="row">
+            <div class="col-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 g-font-size-14 g-width-200" asp-controller="Account" asp-action="MyWallet">Về tài khoản</a>
+            </div>
 
-
+        </div>
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->

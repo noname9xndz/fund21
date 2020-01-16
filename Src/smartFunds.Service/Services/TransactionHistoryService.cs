@@ -14,6 +14,7 @@ namespace smartFunds.Service.Services
     public interface ITransactionHistoryService
     {
         Task<TransactionHistoryModel> GetTransactionHistory(int? id);
+        Task<List<TransactionHistoryModel>> GetAllTransactionHistory(string userId, SearchTransactionHistory searchTransactionHistory = null);
         Task<ListTransactionHistoryModel> GetListTransactionHistory(int pageSize, int pageIndex, string userId = null, SearchTransactionHistory searchTransactionHistory = null);
         Task<ListTransactionHistoryModel> GetListTransactionHistoryForTask(int pageSize, int pageIndex, SearchTransactionHistory searchTransactionHistory = null);
         Task<int> GetCountTransactionHistory();
@@ -47,20 +48,23 @@ namespace smartFunds.Service.Services
         {
             var listTransactionHistoryModel = new ListTransactionHistoryModel();
             var listTransactionHistory = await _transactionHistoryManager.GetListTransactionHistory(pageSize, pageIndex, userId, searchTransactionHistory);
-            var allTransactionHistory = await _transactionHistoryManager.GetAllTransactionHistory(userId, searchTransactionHistory);
+            var allTransactionHistory = await _transactionHistoryManager.GetTotalTransactionHistory(userId, searchTransactionHistory);
             listTransactionHistoryModel.ListTransactionHistory = _mapper.Map<List<TransactionHistory>, List<TransactionHistoryModel>>(listTransactionHistory);
-            listTransactionHistoryModel.TotalCount = allTransactionHistory.Count;
+            listTransactionHistoryModel.TotalCount = allTransactionHistory;
             return listTransactionHistoryModel;
+        }
+
+        public async Task<List<TransactionHistoryModel>> GetAllTransactionHistory(string userId, SearchTransactionHistory searchTransactionHistory = null)
+        {
+            var allTransactionHistory = await _transactionHistoryManager.GetAllTransactionHistory(userId, searchTransactionHistory);
+            return _mapper.Map<List<TransactionHistory>, List<TransactionHistoryModel>>(allTransactionHistory);
         }
 
         public async Task<int> GetCountTransactionHistory()
         {
-            var allTransactionHistory = await _transactionHistoryManager.GetAllTransactionHistory();
-            if(allTransactionHistory != null)
-            {
-                return allTransactionHistory.Count;
-            }
-            return 0;
+            var allTransactionHistory = await _transactionHistoryManager.GetTotalTransactionHistory();
+            
+            return allTransactionHistory;
         }
 
         public async Task<ListTransactionHistoryModel> GetListTransactionHistoryForTask(int pageSize, int pageIndex, SearchTransactionHistory searchTransactionHistory = null)

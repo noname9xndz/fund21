@@ -2,36 +2,174 @@
 @model GenericIntroducingSettingModel
 @{
     ViewData["Title"] = "Về Chúng Tôi";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-<div class="body-content-endUser body-content-about-page">
-    <section class="about-us-section">
-        <div class="about-content">
-            <div class="about-content__breadcrumb">
-                <div class="about-content__breadcrumb__image">
-                    <picture>
-                        @if (Model.MobileBanner != null)
-                        {
-                            <source media="(max-width: 767px)" srcset="@IntroducingPageFolder.Path@(Model.MobileBanner)">
-                        }
+@*<div class="body-content-endUser body-content-about-page">
+        <section class="about-us-section">
+            <div class="about-content">
+                <div class="about-content__breadcrumb">
+                    <div class="about-content__breadcrumb__image">
+                        <picture>
+                            @if (Model.MobileBanner != null)
+                            {
+                                <source media="(max-width: 767px)" srcset="@IntroducingPageFolder.Path@(Model.MobileBanner)">
+                            }
 
-                        @if (Model.Banner != null)
-                        {
-                            <img src="@IntroducingPageFolder.Path@(Model.Banner)" alt="">
-                        }
+                            @if (Model.Banner != null)
+                            {
+                                <img src="@IntroducingPageFolder.Path@(Model.Banner)" alt="">
+                            }
 
-                    </picture>
+                        </picture>
+                    </div>
                 </div>
-            </div>
-            <div class="about-content__human">
-                <div class="container-fluid">
-                    <div class="about-content__human__content">
-                        @Html.Raw(@Model.Description)
+                <div class="about-content__human">
+                    <div class="container-fluid">
+                        <div class="about-content__human__content">
+                            @Html.Raw(@Model.Description)
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
+    </div>*@
+
+
+<!-- Section 3 Hoat dong -->
+<section class="g-py-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md">
+                <div class="mb-4 text-center">
+                    <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                        <span class="u-icon-v6-inner">
+                            <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/chung-toi.png" alt="Image Description">
+                        </span>
+                    </span>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Về <span class="g-color-deeporange g-ml-5">Chúng tôi</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">
+                            <span class="g-color-deeporange g-ml-5">SAVENOW</span> là một ứng dụng đầu tư hướng tới số đông người Việt, được sáng lập bởi chính những người Việt có kinh nghiệm thực tiễn, lâu năm trên thị trường tài chính.
+                            </br>Bắt đầu từ những ý tưởng đơn giản: chúng ta có tiền nhưng không có nhiều thời gian tìm hiểu để đầu tư sinh lãi, chúng ta cần một nơi để tiền tin tưởng có thể sinh lãi với rủi ro thấp nhất, chúng ta muốn đầu tư minh bạch với thủ tục đơn giản nhất và rút tiền bất cứ lúc nào chúng ta muốn.
+                        </h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Tất cả những <span class="g-color-deeporange g-ml-5">Ý tưởng</span> trên đưa chúng ta <span class="g-color-deeporange g-ml-5">Đến với SAVENOW</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-chuyen-gia.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Chuyên gia <span class="g-color-deeporange g-ml-5">giỏi nhất</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">Chúng tôi có những chuyên gia giỏi nhất trong lĩnh vực tài chính cùng các công nghệ AI phân tích thị trường để đưa ra “danh mục đầu tư tối ưu” cho khoản đầu tư của bạn</h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <!-- End Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-ccq.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Chứng chỉ quỹ(CCQ)</h2>
+                </div>
+                <!-- Icon Blocks -->
+
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">Chúng tôi mua nhiều chứng chỉ quỹ (CCQ) của các quỹ mở uy tín, quyền sở hữu tài sản của bạn được xác định rõ ràng bằng số lượng CCQ và định giá của CCQ mà bạn đã đầu tư. Hãy yên tâm, định giá của CCQ đối với các quỹ mở theo thực tế thị trường được mua từ bên thứ 3 có uy tín, không ai có thể tự thay đổi giá trị của CCQ.</h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <!-- End Icon Blocks -->
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-to-uu.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Đầu tư <span class="g-color-deeporange g-ml-5">tối ưu</span></h2>
+                </div>
+
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">Chúng tôi đã đầu tư sẵn vào các quỹ mở uy tín theo các danh mục đầu tư tối ưu để có lợi nhuận tốt hơn. Bạn không cần phải tự mở tài khoản riêng để bắt đầu với số tiền lớn hàng trăm triệu đầu tư vào các quỹ. Hãy tham gia cùng chúng tôi ngay từ bây giờ.</h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <!-- End Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-nguoi-mua.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Đừng lo lắng</span> về người mua</h2>
+                </div>
+                <!-- Icon Blocks -->
+
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">Chúng tôi bán CCQ của bạn sở hữu khi bạn muốn rút tiền, đừng lo lắng về người mua bởi luật quy định các quỹ mở bắt buộc phải mua lại CCQ của mình.</h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <!-- End Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-bao-ve.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Đảm bảo</span> bởi ngân hàng <span class="g-color-deeporange g-ml-5">Uy tín</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">
+                            Chúng tôi được đảm bảo bởi ngân hàng uy tín bằng hợp đồng tài khoản chuyên dụng, nơi mà tiền của bạn được đầu tư một cách minh bạch với điểm đầu từ bạn và điểm cuối chỉ là các quỹ mở đã được công bố theo danh mục đầu tư;
+                            Ngân hàng không cấp phép cho bất cứ cá nhân/tổ chức nào, kể cả SaveNow, được rút tiền mặt hay chuyển khoản ngoài danh mục  từ tài khoản chuyên dung; Không ai rút được tiền đầu tư của bạn từ ngân hàng, trừ chính bạn
+                        </h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+                <!-- End Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-center">
+                        <img src="/assets-new/img/content/chung-toi-tich-luy.png" class="g-max-with-400 img-fluid g-mb-0" />
+                    </div>
+                </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Tích tiểu <span class="g-color-deeporange g-ml-5">Thành đại</span></h2>
+                </div>
+                <!-- Icon Blocks -->
+
+                <div class="g-transition-0_3 g-cursor-pointer">
+                    <div class="mb-4 text-justify">
+                        <h3 class="h5 g-color-black g-font-weight-200 mb-3">Tích tiểu thành đại, khi chúng ta bắt đầu - Bạn sẽ không muốn dừng lại. <br />Hãy tập trung thời gian cho công việc bạn kiếm được nhiều tiền nhất, việc tích lũy hãy để những chuyên gia giỏi nhất của chúng tôi thực hiện.</h3>
+                    </div>
+                </div>
+                <!-- End Icon Blocks -->
+            </div>
         </div>
-    </section>
-</div>
-
-
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->

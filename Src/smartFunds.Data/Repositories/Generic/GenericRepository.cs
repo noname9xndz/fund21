@@ -84,19 +84,19 @@ namespace smartFunds.Data.Repositories.Generic
             return await Task.FromResult(query.Where(predicate).FirstOrDefault());
         }
 
-        public virtual async Task<ICollection<T>> GetAllAsync(string include = "")
+        public virtual async Task<IQueryable<T>> GetAllAsync(string include = "")
         {
             var query = _context.Set<T>().AsQueryable<T>().AsNoTracking();
             query = BuildIncludeQuery(query, include).AsExpandable();
-            return await query.ToListAsync();
+            return query;
         }
 
-        public virtual async Task<ICollection<T>> FindByAsync(Expression<Func<T, bool>> predicate, string include = "")
+        public virtual async Task<IQueryable<T>> FindByAsync(Expression<Func<T, bool>> predicate, string include = "")
         {
             var query = _context.Set<T>().Where(predicate).AsQueryable<T>().AsNoTracking();
             query = BuildIncludeQuery(query, include).AsExpandable();
 
-            return await query.ToListAsync();
+            return query;
 
         }
 
@@ -108,7 +108,7 @@ namespace smartFunds.Data.Repositories.Generic
 
                 if (interfaces.Any(x => x.ToLower().Contains("iautocomplete")))
                 {
-                    var allItems = await GetAllAsync();
+                    var allItems = (await GetAllAsync()).ToList();
 
                     if (allItems != null && allItems.Count > 0)
                     {
@@ -136,6 +136,13 @@ namespace smartFunds.Data.Repositories.Generic
 
             return query;
         }
+
+        public async Task ExecuteSql(string statement)
+        {
+            await _context.Database.ExecuteSqlCommandAsync(statement);
+        }
+
+       
     }
 }
 

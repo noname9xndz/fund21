@@ -82,7 +82,7 @@ namespace smartFunds.Presentation.Controllers
                 if (listFundsUpdateNav.Count <= 0) return RedirectToAction("List");
                 var result = await _fundService.Updates(listFundsUpdateNav);
                 // Send mail
-                var listAdmins = _userService.GetAdminUsers().Result;
+                var listAdmins = await _userService.GetAdminUsers();
 
                 if (listAdmins != null && listAdmins.Count > 0)
                 {
@@ -90,7 +90,7 @@ namespace smartFunds.Presentation.Controllers
                     {
                         if (!string.IsNullOrEmpty(admin.Email))
                         {
-                            var sender = _userService.GetCurrentUser().Result;
+                            var sender = await _userService.GetCurrentUser();
                             var contentEmail = _configuration.GetValue<string>("EmailBody:RequestApproved").Replace("[FullName]", admin.FullName).Replace("[Sender]", sender.FullName).Replace("[SenderEmail]", sender.Email).Replace("[TaskType]", Model.Resources.Common.RequestNav);
 
                             var mailConfig = SetMailConfig(sender.Email, admin.Email, _configuration.GetValue<string>("EmailSubject:RequestApproved"), contentEmail);

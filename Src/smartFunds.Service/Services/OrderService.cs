@@ -15,6 +15,7 @@ namespace smartFunds.Service.Services
         Task<OrderModel> GetOrder(int? orderId);
         Task<OrderModel> SaveOrder(OrderModel order);
         Task UpdateOrder(OrderModel order);
+        Task DeleteOrder(OrderModel order);
     }
     public class OrderService : IOrderService
     {
@@ -50,6 +51,12 @@ namespace smartFunds.Service.Services
         {
             Order newOrder = _mapper.Map<Order>(order);
             await _orderManager.UpdateOrder(newOrder);
+        }
+
+        public async Task DeleteOrder(OrderModel order)
+        {
+            Order deleteOrder = _mapper.Map<Order>(order);
+            await _orderManager.DeleteOrder(deleteOrder);
         }
     }
 }

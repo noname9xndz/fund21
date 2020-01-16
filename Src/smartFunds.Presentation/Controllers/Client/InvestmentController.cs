@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using smartFunds.Common;
 
 namespace smartFunds.Presentation.Controllers.Client
 {
@@ -25,8 +26,11 @@ namespace smartFunds.Presentation.Controllers.Client
         private readonly ISMSGateway _smsGateway;
         private readonly ITransactionHistoryService _transactionHistoryService;
         private readonly IOrderService _orderService;
+        private readonly IGlobalConfigurationService _globalConfigurationService;
 
-        public InvestmentController(IUserService userService, IFundTransactionHistoryService fundTransactionHistoryService, InvestmentTargetService investmentTargetService, IConfiguration configuration, ISMSGateway smsGateway, ITransactionHistoryService transactionHistoryService, IOrderService orderService)
+        public InvestmentController(IUserService userService, IFundTransactionHistoryService fundTransactionHistoryService,
+            InvestmentTargetService investmentTargetService, IConfiguration configuration, ISMSGateway smsGateway, 
+            ITransactionHistoryService transactionHistoryService, IOrderService orderService, IGlobalConfigurationService globalConfigurationService)
         {
             _userService = userService;
             _fundTransactionHistoryService = fundTransactionHistoryService;
@@ -35,6 +39,7 @@ namespace smartFunds.Presentation.Controllers.Client
             _smsGateway = smsGateway;
             _transactionHistoryService = transactionHistoryService;
             _orderService = orderService;
+            _globalConfigurationService = globalConfigurationService;
         }
 
         [Route("")]
@@ -44,6 +49,11 @@ namespace smartFunds.Presentation.Controllers.Client
             if (!_userService.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
             }
 
             var currentUser = await _userService.GetCurrentUser();
@@ -63,6 +73,11 @@ namespace smartFunds.Presentation.Controllers.Client
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
 
             var currentUser = await _userService.GetCurrentUser();
 
@@ -81,7 +96,6 @@ namespace smartFunds.Presentation.Controllers.Client
                 ModelState.AddModelError("TargetAmount", ValidationMessages.InvestInvalid);
                 return View(model);
             }
-
             var orderModel = new OrderModel()
             {
                 Desc = "Đầu tư Savenow",
@@ -93,24 +107,28 @@ namespace smartFunds.Presentation.Controllers.Client
 
             var order = await _orderService.SaveOrder(orderModel);
 
-            var check_sum = Helpers.CreateCheckSum(_configuration.GetValue<string>("PaymentSecurity:AccessCode"), _configuration.GetValue<string>("PaymentSecurity:SecretKey"),
-                order.Id.ToString(), _configuration.GetValue<string>("PaymentParam:command"), order.MerchantCode, order.Id.ToString(), order.TransAmount, order.Version);
+            if (!_configuration.GetValue<bool>("PaymentSecurity:DisableVTP"))
+            {
+                var check_sum = Helpers.CreateCheckSum(_configuration.GetValue<string>("PaymentSecurity:AccessCode"), _configuration.GetValue<string>("PaymentSecurity:SecretKey"),
+                    order.Id.ToString(), _configuration.GetValue<string>("PaymentParam:command"), order.MerchantCode, order.Id.ToString(), order.TransAmount, order.Version);
 
-            var paymentLink = _configuration.GetValue<bool>("PaymentLink:IsLive") ? _configuration.GetValue<string>("PaymentLink:Live") : _configuration.GetValue<string>("PaymentLink:Test");
+                var paymentLink = _configuration.GetValue<bool>("PaymentLink:IsLive") ? _configuration.GetValue<string>("PaymentLink:Live") : _configuration.GetValue<string>("PaymentLink:Test");
 
-            var paymentParameters = string.Format("billcode={0}&command={1}&desc={2}&merchant_code={3}&sender_msisdn={4}&order_id={5}&return_url={6}&cancel_url={7}&trans_amount={8}&version={9}&check_sum={10}",
-                order.Id.ToString(), _configuration.GetValue<string>("PaymentParam:command"), "Dau tu SmartFunds", _configuration.GetValue<string>("PaymentParam:merchant_code"), currentUser.PhoneNumber,
-                order.Id.ToString(), Url.Action(action: nameof(InvestmentController.DoPayment), controller: "Investment", values: null, protocol: Request.Scheme), Url.Action(action: nameof(InvestmentController.CancelPayment), controller: "Investment", values: null, protocol: Request.Scheme),
-                model.TargetAmount, _configuration.GetValue<string>("PaymentParam:version"), check_sum);
+                var paymentParameters = string.Format("billcode={0}&command={1}&desc={2}&merchant_code={3}&sender_msisdn={4}&order_id={5}&return_url={6}&cancel_url={7}&trans_amount={8}&version={9}&check_sum={10}",
+                    order.Id.ToString(), _configuration.GetValue<string>("PaymentParam:command"), "Dau tu SmartFunds", _configuration.GetValue<string>("PaymentParam:merchant_code"), currentUser.PhoneNumber,
+                    order.Id.ToString(), Url.Action(action: nameof(InvestmentController.DoPayment), controller: "Investment", values: null, protocol: Request.Scheme), Url.Action(action: nameof(InvestmentController.CancelPayment), controller: "Investment", values: null, protocol: Request.Scheme),
+                    model.TargetAmount, _configuration.GetValue<string>("PaymentParam:version"), check_sum);
 
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            logger.Info("Investment with ViettelPay: Call payment link: "+ paymentLink + paymentParameters);
+                var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+                logger.Info("Investment with ViettelPay: Call payment link: " + paymentLink + paymentParameters);
 
-            return Redirect(paymentLink + paymentParameters);
-
-            //var investmentModel = new InvestmentViewModel() { Amount = model.TargetAmount, SenderMsisdn = currentUser.PhoneNumber, IsInvestTarget = false, Success = true };
-
-            //return RedirectToAction(nameof(InvestmentController.DoPayment), "Investment", investmentModel);
+                return Redirect(paymentLink + paymentParameters);
+            }
+            else
+            {
+                await _fundTransactionHistoryService.Investment(decimal.Parse(order.TransAmount), currentUser.UserName, order.Id.ToString());
+                return RedirectToAction(nameof(AccountController.PaymentResult), "Account");
+            }
         }
 
         [Route("doPayment")]
@@ -174,10 +192,9 @@ namespace smartFunds.Presentation.Controllers.Client
             }
 
             var order = await _orderService.GetOrder(orderId);
-            if (order != null && !order.IsSuccess)
+            if (order != null && !order.IsSuccess && !order.IsVerify)
             {
-                order.IsSuccess = true;
-                await _orderService.UpdateOrder(order);
+                await _orderService.DeleteOrder(order);
             }
 
             return RedirectToAction(nameof(AccountController.MyWallet), "Account");

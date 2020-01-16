@@ -19,7 +19,7 @@ namespace smartFunds.Model.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Common {
@@ -394,11 +394,56 @@ namespace smartFunds.Model.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mô tả.
+        /// </summary>
+        public static string CateDescript {
+            get {
+                return ResourceManager.GetString("CateDescript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danh mục.
         /// </summary>
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình ảnh.
+        /// </summary>
+        public static string CateImg {
+            get {
+                return ResourceManager.GetString("CateImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chuyên mục.
+        /// </summary>
+        public static string CateNews {
+            get {
+                return ResourceManager.GetString("CateNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số thứ tự.
+        /// </summary>
+        public static string CateOrder {
+            get {
+                return ResourceManager.GetString("CateOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên chuyên mục.
+        /// </summary>
+        public static string CateTitle {
+            get {
+                return ResourceManager.GetString("CateTitle", resourceCulture);
             }
         }
         
@@ -498,6 +543,15 @@ namespace smartFunds.Model.Resources {
         public static string ContentMessage {
             get {
                 return ResourceManager.GetString("ContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản tin nội bộ.
+        /// </summary>
+        public static string ContentNews {
+            get {
+                return ResourceManager.GetString("ContentNews", resourceCulture);
             }
         }
         
@@ -714,6 +768,15 @@ namespace smartFunds.Model.Resources {
         public static string EditFund {
             get {
                 return ResourceManager.GetString("EditFund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉnh sửa ảnh câu hỏi xác định khẩu vị rủi ro.
+        /// </summary>
+        public static string EditImageDefinedKVRR {
+            get {
+                return ResourceManager.GetString("EditImageDefinedKVRR", resourceCulture);
             }
         }
         
@@ -1069,6 +1132,15 @@ namespace smartFunds.Model.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh mục đầu tư.
+        /// </summary>
+        public static string InvestmentFund {
+            get {
+                return ResourceManager.GetString("InvestmentFund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quản lý đầu tư.
         /// </summary>
         public static string InvestmentManager {
@@ -1407,6 +1479,51 @@ namespace smartFunds.Model.Resources {
         public static string NewPasswordConfirm {
             get {
                 return ResourceManager.GetString("NewPasswordConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nội dung tin.
+        /// </summary>
+        public static string NewsContent {
+            get {
+                return ResourceManager.GetString("NewsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mô tả tin.
+        /// </summary>
+        public static string NewsDescript {
+            get {
+                return ResourceManager.GetString("NewsDescript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ảnh đại diện.
+        /// </summary>
+        public static string NewsImg {
+            get {
+                return ResourceManager.GetString("NewsImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày đăng.
+        /// </summary>
+        public static string NewsPostDate {
+            get {
+                return ResourceManager.GetString("NewsPostDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiêu đề.
+        /// </summary>
+        public static string NewsTitle {
+            get {
+                return ResourceManager.GetString("NewsTitle", resourceCulture);
             }
         }
         
@@ -2064,6 +2181,24 @@ namespace smartFunds.Model.Resources {
         public static string WithdrawalFee {
             get {
                 return ResourceManager.GetString("WithdrawalFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quý khách đã gửi yêu cầu rút tiền thành công, số tiền sẽ được trả về tài khoản sau vài phút.
+        /// </summary>
+        public static string WithdrawalQuickResult {
+            get {
+                return ResourceManager.GetString("WithdrawalQuickResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quý khách đã gửi yêu cầu rút tiền thông thường thành công, số tiền sẽ được trả về tài khoản Viettel Pay sau 1 tuần.
+        /// </summary>
+        public static string WithdrawalResult {
+            get {
+                return ResourceManager.GetString("WithdrawalResult", resourceCulture);
             }
         }
         

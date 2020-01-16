@@ -1,0 +1,28 @@
+﻿@model LstNewsModel
+@{
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+}
+
+    <ul class="paging-relation list-unstyled save-job">
+        @if (Model != null && Model.LstNews.Any())
+        {
+            <div class="">
+                <h4>
+                    Các Tin mới
+                </h4>
+                <div class="media-body">
+
+                    @for (int i = 0; i < Model.LstNews.Count; i++)
+                    {
+                        <li class="pt5 g-color-black">
+                            <i class="fa fa-caret-right color-blue g-color-black"></i><a asp-action="Detail" asp-route-id="@Model.LstNews[i].Id" title="@Html.Raw(Model.LstNews[i].Title)" class="g-color-black">
+                                @Html.Raw(Model.LstNews[i].Title)
+                            </a> <span style="color: #6D6D6D; font-size: 12px;">(@Html.Raw(Model.LstNews[i].PostDate.ToString("dd/MM/yyyy")))</span>
+                        </li>
+                    }
+
+
+                </div>
+            </div>
+        }
+    </ul>

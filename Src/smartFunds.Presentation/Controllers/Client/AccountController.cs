@@ -34,8 +34,13 @@ namespace smartFunds.Presentation.Controllers
         private readonly IKVRRService _kvrrService;
         private readonly IKVRRQuestionAnswerService _kVRRQuestionAnswerService;
         private readonly IFundTransactionHistoryService _fundTransactionHistoryService;
-
-        public AccountController(IUserService userService, IEmailSender emailSender, IConfiguration configuration, ISMSGateway smsGateway, IKVRRService kvrrService, IKVRRQuestionAnswerService kVRRQuestionAnswerService, IFundTransactionHistoryService fundTransactionHistoryService)
+        private readonly ITransactionHistoryService _transactionHistoryService;
+        private readonly IGlobalConfigurationService _globalConfigurationService;
+        private readonly IContentNewsService _newsService;
+        public AccountController(IUserService userService, IEmailSender emailSender, 
+            IConfiguration configuration, ISMSGateway smsGateway, IKVRRService kvrrService,
+            IKVRRQuestionAnswerService kVRRQuestionAnswerService, IFundTransactionHistoryService fundTransactionHistoryService
+            , IContentNewsService newsService, ITransactionHistoryService transactionHistoryService, IGlobalConfigurationService globalConfigurationService)
         {
             _userService = userService;
             _emailSender = emailSender;
@@ -44,6 +49,9 @@ namespace smartFunds.Presentation.Controllers
             _kvrrService = kvrrService;
             _kVRRQuestionAnswerService = kVRRQuestionAnswerService;
             _fundTransactionHistoryService = fundTransactionHistoryService;
+            _transactionHistoryService = transactionHistoryService;
+            _globalConfigurationService = globalConfigurationService;
+            _newsService = newsService;
         }
 
         //[HttpGet]
@@ -205,15 +213,18 @@ namespace smartFunds.Presentation.Controllers
                 return RedirectToAction(nameof(ErrorController.Error404), "Error");
             }
 
-            var checkSum = Helpers.CreateCheckSumSHA256(_configuration.GetValue<string>("PaymentSecurity:AppKey"),
-                   _configuration.GetValue<string>("PaymentParam:vt_merchant_code"), msisdn, time);
-            var currentCheckSum = check_sum.Replace("-", "").ToLower();
-            if (checkSum != currentCheckSum)
+            if(!_configuration.GetValue<bool>("PaymentSecurity:DisableVTP"))
             {
-                var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-                logger.Error("Login By ViettelPay: merchant_code: " + merchant_code + ", msisdn: " + msisdn + ", time: " + time + ", check_sum: " + check_sum + ", error_msg: check_sum Invalid");
+                var checkSum = Helpers.CreateCheckSumSHA256(_configuration.GetValue<string>("PaymentSecurity:AppKey"),
+                   _configuration.GetValue<string>("PaymentParam:vt_merchant_code"), msisdn, time);
+                var currentCheckSum = check_sum.Replace("-", "").ToLower();
+                if (checkSum != currentCheckSum)
+                {
+                    var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+                    logger.Error("Login By ViettelPay: merchant_code: " + merchant_code + ", msisdn: " + msisdn + ", time: " + time + ", check_sum: " + check_sum + ", error_msg: check_sum Invalid");
 
-                return RedirectToAction(nameof(ErrorController.Error404), "Error");
+                    return RedirectToAction(nameof(ErrorController.Error404), "Error");
+                }
             }
 
             var user = await _userService.GetUserByEmailOrPhone(msisdn);
@@ -231,6 +242,8 @@ namespace smartFunds.Presentation.Controllers
                         await _userService.LogoutUser();
                     }
                 }
+
+                await _userService.UpdateSecurityStamp(user.UserName);
 
                 await _userService.Login(user.UserName);
                 return RedirectToAction(nameof(AccountController.MyPortfolio), "Account");
@@ -355,7 +368,7 @@ namespace smartFunds.Presentation.Controllers
 
             await _userService.UpdateUser(currentUser);
 
-            return RedirectToAction(nameof(AccountController.DefindKVRR), "Account");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         //[HttpGet]
@@ -494,6 +507,21 @@ namespace smartFunds.Presentation.Controllers
 
             UserModel model = new UserModel();
             model = await _userService.GetCurrentUser();
+
+            var totalAmountInvest = model.InitialInvestmentAmount;
+            var totalAmountWithdrawl = 0m;
+            var totalFee = 0m;
+
+            var listTransactionHistory = await _transactionHistoryService.GetAllTransactionHistory(model.Id);
+
+            if (listTransactionHistory != null)
+            {
+                totalAmountWithdrawl = listTransactionHistory.Where(i => i.TransactionType == TransactionType.Withdrawal).Sum(i => i.Amount); ;
+                totalFee = listTransactionHistory.Where(i => i.TransactionType == TransactionType.FundPurchaseFee || i.TransactionType == TransactionType.FundSellFee || i.TransactionType == TransactionType.WithdrawalFee).Sum(i => i.Amount);
+            }
+
+            ViewBag.PercentageGrowth = model.InitialInvestmentAmount == 0 ? 0 : ((model.CurrentAccountAmount + totalFee + totalAmountWithdrawl) / totalAmountInvest - 1) * 100;
+
             return View(model);
         }
 
@@ -546,19 +574,66 @@ namespace smartFunds.Presentation.Controllers
             }
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> KVRRRecommendation(KVRRModel kvrrModel)
+        //{
+        //    if (!_userService.IsSignedIn(User))
+        //    {
+        //        return RedirectToAction(nameof(HomeController.Index), "Home");
+        //    }
+
+        //    var currentUser = await _userService.GetCurrentUser();
+
+        //    UserModel model = new UserModel();
+        //    model = await _userService.GetUserRelateData();
+        //    if (currentUser.KVRR != null && kvrrModel != null && currentUser.KVRR.Id == kvrrModel.Id)
+        //    {
+        //        model.KVRR = new KVRRModel()
+        //        {
+        //            Id = 0
+        //        };
+        //    }
+        //    else
+        //    {
+        //        model.KVRR = kvrrModel;
+        //    }
+        //    var kvrrs = await _kvrrService.GetAllKVRR();
+        //    if (currentUser.KVRR != null)
+        //    {
+        //        model.KVRROthers = kvrrs?.Where(x => model.KVRR != null && x.Id != model.KVRR.Id && x.Id != currentUser.KVRR.Id)?.ToList() ?? throw new NotFoundException();
+        //    }
+        //    else
+        //    {
+        //        model.KVRROthers = kvrrs?.Where(x => model.KVRR != null && x.Id != model.KVRR.Id)?.ToList() ?? throw new NotFoundException();
+        //    }
+
+        //    return View(model);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> KVRRRecommendation(KVRRModel kvrrModel)
+        public async Task<IActionResult> KVRRRecommendation(int questionGroup, int totalScore)
         {
             if (!_userService.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
+            }
+
             var currentUser = await _userService.GetCurrentUser();
 
             UserModel model = new UserModel();
             model = await _userService.GetUserRelateData();
-            if (currentUser.KVRR != null && kvrrModel != null && currentUser.KVRR.Id == kvrrModel.Id)
+            var kvrrs = await _kvrrService.GetAllKVRR();
+            var kvrrModel = new KVRRModel()
+            {
+                Id = 0
+            };
+            if (currentUser.KVRR != null)
             {
                 model.KVRR = new KVRRModel()
                 {
@@ -567,9 +642,36 @@ namespace smartFunds.Presentation.Controllers
             }
             else
             {
+                if(questionGroup == 1)
+                {
+                    if(totalScore <= 9)
+                    {
+                        kvrrModel = kvrrs?.Where(i => i.Name == "An toàn")?.FirstOrDefault();
+                    }
+                    else
+                    {
+                        kvrrModel = kvrrs?.Where(i => i.Name == "Cẩn trọng")?.FirstOrDefault();
+                    }
+                }
+                else
+                {
+                    if (totalScore <= 8)
+                    {
+                        kvrrModel = kvrrs?.Where(i => i.Name == "Cân bằng")?.FirstOrDefault();
+                    }
+                    else if (totalScore > 11)
+                    {
+                        kvrrModel = kvrrs?.Where(i => i.Name == "Đầu cơ")?.FirstOrDefault();
+                    }
+                    else
+                    {
+                        kvrrModel = kvrrs?.Where(i => i.Name == "Mạo hiểm")?.FirstOrDefault();
+                    }
+                }
+                
                 model.KVRR = kvrrModel;
             }
-            var kvrrs = await _kvrrService.GetAllKVRR();
+            
             if (currentUser.KVRR != null)
             {
                 model.KVRROthers = kvrrs?.Where(x => model.KVRR != null && x.Id != model.KVRR.Id && x.Id != currentUser.KVRR.Id)?.ToList() ?? throw new NotFoundException();
@@ -587,6 +689,12 @@ namespace smartFunds.Presentation.Controllers
         {
             try
             {
+                var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+                if (config.Contains("true"))
+                {
+                    return View("~/Views/Lock.cshtml");
+                }
+
                 if (SelectedKVRRId == null || !SelectedKVRRId.Any()) throw new InvalidParameterException();
 
                 var id = SelectedKVRRId.FirstOrDefault(x => !string.IsNullOrEmpty(x));
@@ -606,6 +714,12 @@ namespace smartFunds.Presentation.Controllers
             if (!_userService.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var config = await _globalConfigurationService.GetValueConfig(Constants.Configuration.ProgramLocked);
+            if (config.Contains("true"))
+            {
+                return View("~/Views/Lock.cshtml");
             }
 
             var currentUser = await _userService.GetCurrentUser();
@@ -632,7 +746,11 @@ namespace smartFunds.Presentation.Controllers
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
-
+            if (_userService.IsSignedIn(User))
+            {
+                Task<LstNewsModel> lstnew = _newsService.GetListContentNewsisHome(5, 1);
+                ViewBag.LstNewsHomeViewModel = lstnew.Result;
+            }
             UserPorfolioModel model = new UserPorfolioModel();
             List<UserPorfolio> userPorfolios = await _userService.GetUserPorfolio();
 
@@ -644,6 +762,13 @@ namespace smartFunds.Presentation.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult PaymentResult()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult WithdrawalResult()
         {
             return View();
         }
@@ -667,22 +792,22 @@ namespace smartFunds.Presentation.Controllers
             }
         }
 
-        private MailConfig SetMailConfig(string to, string subject, string body)
-        {
-            return new MailConfig()
-            {
-                EmailFrom = _configuration.GetValue<string>("EmailConfig:EmailFrom"),
-                EnableSsl = _configuration.GetValue<bool>("EmailConfig:EnableSsl"),
-                Port = _configuration.GetValue<int>("EmailConfig:Port"),
-                Host = _configuration.GetValue<string>("EmailConfig:Host"),
-                Username = _configuration.GetValue<string>("EmailConfig:Username"),
-                Password = _configuration.GetValue<string>("EmailConfig:Password"),
-                EmailSenderName = _configuration.GetValue<string>("EmailConfig:EmailSenderName"),
-                EmailSubject = subject,
-                MailTo = to,
-                EmailBody = body
-            };
-        }
+        //private MailConfig SetMailConfig(string to, string subject, string body)
+        //{
+        //    return new MailConfig()
+        //    {
+        //        EmailFrom = _configuration.GetValue<string>("EmailConfig:EmailFrom"),
+        //        EnableSsl = _configuration.GetValue<bool>("EmailConfig:EnableSsl"),
+        //        Port = _configuration.GetValue<int>("EmailConfig:Port"),
+        //        Host = _configuration.GetValue<string>("EmailConfig:Host"),
+        //        Username = _configuration.GetValue<string>("EmailConfig:Username"),
+        //        Password = _configuration.GetValue<string>("EmailConfig:Password"),
+        //        EmailSenderName = _configuration.GetValue<string>("EmailConfig:EmailSenderName"),
+        //        EmailSubject = subject,
+        //        MailTo = to,
+        //        EmailBody = body
+        //    };
+        //}
         //private async Task<bool> SendEmailConfirmLink(UserModel userModel)
         //{
         //    var user = await _userService.GetUserByName(userModel.UserName);

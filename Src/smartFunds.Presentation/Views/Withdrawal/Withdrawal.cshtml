@@ -1,49 +1,224 @@
 ﻿@model WithdrawalViewModel
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.Withdrawal;
+    var currentUser = await UserService.GetCurrentUser();
+    var captchaKey = Configuration.GetSection("GoogleReCaptcha")["ClientKey"];
+    var checkWithdrawal = true;
+    if (Configuration.GetSection("ViewClient")["Withdrawal"] != null)
+    {
+        checkWithdrawal = bool.Parse(Configuration.GetSection("ViewClient")["Withdrawal"]);
+    }
+
 }
 
-<div class="body-content-endUser">
-    <div class="user-withdrawal-invest px-15">
-        <input class="get-cost-withdrawal" type="hidden" value="/withdrawal/GetWithdrawalFee">
-        <h1 class="section-title-endUser">@Common.Withdrawal</h1>
-        <form class="user-form-group p-15" id="user-withdrawal" method="post">
-            @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
-            {
-                <span class="warning-message" style="margin-top: 0px; margin-bottom: 20px">
-                    @ViewBag.Error
-                </span>
-            }
+@*<div class="body-content-endUser">
+        <div class="user-withdrawal-invest px-15">
+            <input class="get-cost-withdrawal" type="hidden" value="/withdrawal/GetWithdrawalFee">
+            <input id="get-all-money" type="hidden" value="/withdrawal/WithdrawalAll">
+            <h1 class="section-title-endUser">@Common.Withdrawal</h1>
+            <form class="user-form-group p-15" id="user-withdrawal" method="post">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+                {
+                    <span class="warning-message" style="margin-top: 0px; margin-bottom: 20px">
+                        @ViewBag.Error
+                    </span>
+                }
 
-            <div class="user-form-control user-expected-money-amount">
-                <span class="user-form-control__title">
-                    Nhập số tiền muốn rút
+                <div class="user-form-control user-form-control-modified">
+                    <span class="user-form-control__title">
+                        Rút tất cả
+                    </span>
+                    <label class="container">
+                        <input class="input-form-control input-form-checkbox" type="checkbox" name="withdrawalAll" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="user-form-control user-expected-money-amount">
+                    <span class="user-form-control__title">
+                        Nhập số tiền muốn rút
+                    </span>
+                    <input class="input-form-control form-control-number" type="text" asp-for="WithdrawalAmount">
+                    <span class="warning-message" asp-validation-for="WithdrawalAmount">@ViewData["Message"]</span><span class="currency">đ</span>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">@Common.WithdrawalType</span>
+                    <select class="type-withdrawal" asp-for="WithdrawalType" asp-items="Html.GetEnumSelectList<WithdrawalType>()"></select>
+                </div>
+                <div class="user-form-control">
+                    <span class="user-form-control__title">@Common.WithdrawalFee</span><input class="input-form-control cost-withdrawal" type="text" asp-for="WithdrawalFee" readonly><span class="currency">đ</span>
+                </div>
+                <span class="warning-message" id="message-withdrawal-fast">
+                    Khi sử dụng hình thức Rút nhanh, bạn chỉ có thể rút được tối đa 90% (@((Decimal.Round(currentUser.CurrentAccountAmount * 90 / 100, 0)).ToString("N0")) VND) tài sản
                 </span>
-                <input class="input-form-control form-control-number" type="text" asp-for="WithdrawalAmount">
-                <span class="warning-message" asp-validation-for="WithdrawalAmount">@ViewData["Message"]</span><span class="currency">đ</span>
+                <span class="warning-message d-none" id="message-withdrawal-slow">
+                    Bạn sẽ nhận được tiền trong vòng 1 tuần
+                </span>
+                <div class="user-withdrawal-invest__action">
+                    <a class="btn btn-actions is-destroy" asp-action="MyWallet" asp-controller="Account">
+                        Hủy
+                    </a>
+                    <button class="btn btn-actions" type="submit" @(!string.IsNullOrWhiteSpace(ViewBag.Error) ? "disabled" : "")>Đồng ý</button>
+                </div>
+            </form>
+            <div id="pageloader">
+                <img src="/assets/images/loader-large.gif" alt="processing..." />
             </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">@Common.WithdrawalType</span>
-                <select class="type-withdrawal" asp-for="WithdrawalType" asp-items="Html.GetEnumSelectList<WithdrawalType>()"></select>
-            </div>
-            <div class="user-form-control">
-                <span class="user-form-control__title">@Common.WithdrawalFee</span><input class="input-form-control cost-withdrawal" type="text" asp-for="WithdrawalFee" readonly><span class="currency">đ</span>
-            </div>
-            <span class="warning-message" id="message-withdrawal-fast">
-                Khi sử dụng hình thức Rút nhanh, bạn chỉ có thể rút được tối đa 90% tài sản
-            </span>
-            <span class="warning-message d-none" id="message-withdrawal-slow">
-                Bạn sẽ nhận được tiền trong vòng 1 tuần
-            </span>
-            <div class="user-withdrawal-invest__action">
-                <a class="btn btn-actions is-destroy" asp-action="MyWallet" asp-controller="Account">
-                    Hủy
-                </a>
-                <button class="btn btn-actions" type="submit" @(!string.IsNullOrWhiteSpace(ViewBag.Error)?"disabled":"")>Đồng ý</button>
-            </div>
-        </form>
-        <div id="pageloader">
-            <img src="/assets/images/loader-large.gif" alt="processing..." />
         </div>
+    </div>*@
+
+@section Head{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+}
+
+<!-- Section 4 Danh muc dau tu-->
+<section class="g-py-30 user-withdrawal-main">
+    <input class="get-cost-withdrawal" type="hidden" value="/withdrawal/GetWithdrawalFee">
+    <input id="get-all-money" type="hidden" value="/withdrawal/WithdrawalAll">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="media g-mb-15 text-cente">
+                    <img class="img-fluid g-width-100x g-mb-0 rounded-circle" src="/assets-new/img/content/rut-tien.png" alt="Image Description">
+                </div>
+                <!-- Example Button -->
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Rút tiền</span> trong tài khoản</h2>
+
+                </div>
+                <!-- Icon Blocks -->
+                <div class="g-transition-0_3 g-cursor-pointer g-py-10 ">
+                    <div class="g-px-10 g-pt-0 g-pb-20 text-center ">
+                        <div class="u-shadow-v11 u-shadow-v1-3 g-rounded-15 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5">
+                            <form id="user-withdrawal" method="post" class="form-withdrawal">
+                                @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+                                {
+                                    <div class="form-group g-mb-20">
+                                        <span class="form-control-feedback">@ViewBag.Error</span>
+                                    </div>
+                                }
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x">Tài sản hiện có</label>
+                                    </div>
+                                    <div class="input-group g-brd-primary--focus ">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                            <input class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 number-mask g-brd-primary--hover" data-decimal="," data-thousands="," value="@currentUser.CurrentAccountAmount.ToString("N0")" readonly>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">VNĐ</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group g-mb-10 input-form-checkbox">
+                                    <label class="u-check g-pl-25">
+                                        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" name="withdrawalAll">
+                                        <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+                                            <i class="fa" data-check-icon=""></i>
+                                        </div>
+                                        Rút tất cả
+                                    </label>
+                                </div>
+                                <div class="form-group g-mb-20 ">
+
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x">Nhập số tiền muốn rút</label>
+                                    </div>
+                                    <div class="input-group g-brd-primary--focus">
+                                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30 user-expected-money-amount">
+                                            <input class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 number-mask g-brd-primary--hover " data-decimal="," data-thousands="," asp-for="WithdrawalAmount">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">VNĐ</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <span class="form-control-feedback" asp-validation-for="WithdrawalAmount">@ViewData["Message"]</span>
+                                </div>
+
+                                <div class="form-group g-mb-20">
+
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x">Hình thức rút</label>
+                                    </div>
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                        @if (checkWithdrawal)
+                                        {
+                                            <select class="custom-select rounded-0 border-0 type-withdrawal" asp-for="WithdrawalType" asp-items="Html.GetEnumSelectList<WithdrawalType>()"></select>
+                                        }
+                                        else
+                                        {
+                                            <select class="custom-select rounded-0 border-0 type-withdrawal" asp-for="WithdrawalType">
+                                                <option value="1">Rút thông thường</option>
+                                            </select>
+                                        }
+
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group g-mb-20">
+                                    <div class="text-left g-width-100x">
+                                        <label class="g-mb-10 g-width-100x">Phí rút tiền</label>
+                                    </div>
+                                    <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                                        <input class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 number-mask g-brd-primary--hover cost-withdrawal" data-decimal="," data-thousands="," asp-for="WithdrawalFee" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1">VNĐ</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group g-mb-20">
+                                    <div class="g-recaptcha" data-sitekey="@captchaKey"></div>
+                                    <span class="form-control-feedback" id="captcha-valid-message">@ViewData["CaptchaInvalidMessage"]</span>
+                                </div>
+
+                                <span class="warning-message" id="message-withdrawal-fast">
+                                    Khi sử dụng hình thức Rút nhanh, bạn chỉ có thể rút được tối đa 90% (@((Decimal.Round(currentUser.CurrentAccountAmount * 90 / 100, 0)).ToString("N0")) VND) tài sản
+                                </span>
+                                <span class="warning-message" id="message-withdrawal-slow">
+                                    Bạn sẽ nhận được tiền trong vòng 1 tuần
+                                </span>
+
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-6 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                        <a class="btn btn-md u-btn-darkgray g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-action="MyWallet" asp-controller="Account"><i class="fa fa-close"></i> Hủy</a>
+                                    </div>
+                                    <div class="col-md-3 col-xs-6 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                                        <button class="btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 btn-actions" type="submit" @(!string.IsNullOrWhiteSpace(ViewBag.Error) ? "disabled" : "")>Đồng ý</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Article Content -->
+                        <!-- End Article -->
+                        <!-- End Icon Blocks -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+    <div id="pageloader">
+        <img src="/assets-new/img/preloaders/loader-large.gif" alt="loading" />
+    </div>
+</section>
+<!-- End Section 3  Hoạt dong-->
+
+@section Scripts {
+    <script src="/assets-new/vendor/numbermask/jquery.masknumber.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.number-mask').maskNumber({ integer: true });
+            $('[name=currency-default]').maskNumber();
+        });
+    </script>
+}

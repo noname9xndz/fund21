@@ -21,9 +21,11 @@ namespace smartFunds.Service.Services
     {
         Task<List<KVRRQuestion>> GetKVRRQuestions();
         Task<KVRRQuestion> GetKVRRQuestionById(int id);
+        Task<KVRRQuestion> GetKVRRQuestionNoAnswerById(int id);
         Task<KVRRQuestion> GetKVRRQuestionByNo(int no);
         Task Save(KVRRQuestion question);
         Task Update(KVRRQuestion question);
+        Task UpdateOnlyQuestion(KVRRQuestion question);
         Task UpdateQuestionOrder(KVRRQuestion question);
         Task DeleteAnswer(List<int> ids);
         Task DeleteQuestion(int id);
@@ -56,6 +58,13 @@ namespace smartFunds.Service.Services
             return _mapper.Map<KVRRQuestion>(question);
         }
 
+        public async Task<KVRRQuestion> GetKVRRQuestionNoAnswerById(int id)
+        {
+            var question = await _kvrrQAManager.GetKVRRQuestionNoAnswerById(id);
+            if (question == null) throw new NotFoundException();
+            return _mapper.Map<KVRRQuestion>(question);
+        }
+
         public async Task<KVRRQuestion> GetKVRRQuestionByNo(int no)
         {
             var question = await _kvrrQAManager.GetKVRRQuestionByNo(no);
@@ -82,6 +91,19 @@ namespace smartFunds.Service.Services
             {
                 var model = _mapper.Map<Data.Models.KVRRQuestion>(question);
                 await _kvrrQAManager.Update(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task UpdateOnlyQuestion(KVRRQuestion question)
+        {
+            try
+            {
+                var model = _mapper.Map<Data.Models.KVRRQuestion>(question);
+                await _kvrrQAManager.UpdateOnlyQuestion(model);
             }
             catch (Exception ex)
             {

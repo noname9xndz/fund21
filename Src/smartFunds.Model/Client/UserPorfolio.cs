@@ -12,6 +12,8 @@ namespace smartFunds.Model.Client
 
         public decimal? CertificateValue { get; set; }
 
+        public decimal? OldCertificateValue { get; set; }
+
         public decimal? NoOfCertificates { get; set; }
         
         public EditStatus Status { get; set; }

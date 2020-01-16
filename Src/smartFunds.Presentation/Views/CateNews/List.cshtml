@@ -1,0 +1,145 @@
+﻿@using smartFunds.Model.Common;
+@model CateNewssModel
+@{
+    ViewData["Title"] = "Quản lý chuyên mục tin";
+    Layout = "_AdminLayout";
+    var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.InvestmentManager).Result;
+}
+
+<section class="manager-risk__questions">
+    <div class="content">
+        <h1 class="section-title">QUẢN LÝ CHUYÊN MỤC TIN</h1>
+        <div class="top-action-page">
+            <div class="top-action-page__part">
+                <a class="btn btn-action @( checkRule ? "":"disabled-button" )" asp-action="New">THÊM CHUYÊN MỤC TIN</a>
+            </div>
+            @*<div class="top-action-page__part">
+                <div class="top-action-page__part__actions">
+                    <form asp-controller="FAQ" asp-action="ImportList" enctype="multipart/form-data" method="post">
+                        @if (TempData["Error"] != null)
+                        {
+                            <span class="text-danger field-validation-error"><span>@TempData["Error"]</span></span>
+                        }
+                        <span class="name-file" id="file-name">
+                            @if (TempData["Error"] == null)
+                            {
+                                if (TempData["import_ok"] != null)
+                                {
+                                    <span style="color: green;">@ValidationMessages.ImportSuccessful</span>
+                                }
+                                else
+                                {
+                                    <span>@ValidationMessages.NoFile</span>
+                                }
+                            }
+                        </span>
+                      
+                    </form>
+                </div>
+            </div>*@
+        </div>
+        <div class="manage-question">
+           
+                    @if (Model != null && Model.CateNewss.Any())
+                    {
+                        
+            <div class="manager-risk__questions__list-questions flex-container">
+                <table  width="100%" class="dataTable no-footer" role="grid" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th width="80%">@Common.CateNews</th>
+
+                            <th>@Common.Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var questionIndex = 1;
+                        }
+                        @for (int i = 0; i < Model.CateNewss.Count; i++)
+                        {
+                            <tr>
+
+                                <td>@questionIndex</td>
+                                <td>@Html.Raw(Model.CateNewss[i].CateNewsName)</td>
+                                <td>
+                                    <div class="manager-risk__questions__list-questions__item" data-index="@questionIndex">
+                                        <form form asp-controller="CateNews" asp-action="Delete" method="post" class="collapse-part" style="width: 100%">
+                                            <div class="manager-risk__questions__list-questions__item__title">
+
+                                                <div class="item-option">
+                                                    <a asp-action="Edit" asp-route-id="@Model.CateNewss[i].Id" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" data-micromodal-trigger="delete-item-@questionIndex" class="@( checkRule ? "":"disabled-icon" )"><i class="fa fa-window-close"></i></a>
+                                                    <div class="modal micromodal-slide" id="delete-item-@questionIndex" aria-hidden="true">
+                                                        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+                                                            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="delete-item-3-title">
+                                                                <header class="modal__header">
+                                                                    <h2 class="modal__title" id="delete-item-3-title">@Common.DeleteMessage</h2>
+                                                                </header>
+                                                                <footer class="modal__footer">
+                                                                    <button class="modal__btn modal__btn-primary" asp-action="Delete" asp-route-id="@Model.CateNewss[i].Id">@Common.Yes</button>
+                                                                    <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">
+                                                                        @Common.No
+                                                                    </button>
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input class="questionId" type="hidden" value="1" />
+                                                </div>
+                                            </div>
+                                            <div class="manager-risk__questions__list-questions__item__content collapse-content">
+                                                <div class="form-group">
+                                                    <div class="content-detail style-text-editor">@Html.Raw(Model.CateNewss[i].Contents)</div>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            questionIndex++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+                            }
+</div>
+    </div>
+
+</section>
+<input id="updateIndexQues" type="hidden" value="/admin/kvrrquestionanswer/UpdateQuestionOrder" />
+<input id="updateIndexQues" type="hidden" value="0" />
+<div class="modal modal-top-up modal-nomal" id="confirm-modal">
+    <a class="btn-close-modal" href="#" rel="modal:close">
+        <img src="/assets/images/x-icon@2x.png" />
+    </a>
+    <div class="modal-title">
+        <span>Xác nhận</span>
+    </div>
+    <div class="modal-body">
+        <div class="text-center">
+            <button class="btn btn-action" type="button">Đồng ý</button>
+            <button class="btn btn-action" type="button">Không</button>
+        </div>
+    </div>
+</div>
+<a id="btn-alert-mess" data-micromodal-trigger="alert-mess" href="#" style="display: none;">open</a>
+<div class="modal micromodal-slide" id="alert-mess" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="alert-mess-title">
+            <header class="modal__header">
+                <h2 class="modal__title" id="alert-mess-title">Bạn có chắc chắn muốn xóa không?</h2>
+            </header>
+            <footer class="modal__footer">
+                <button class="modal__btn modal__btn-primary">Tiếp tục</button>
+                <button class="modal__btn" data-micromodal-close="" aria-label="Close this dialog window">Hủy bỏ</button>
+            </footer>
+        </div>
+    </div>
+</div>
+
+

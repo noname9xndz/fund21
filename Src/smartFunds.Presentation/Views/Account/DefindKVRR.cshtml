@@ -1,63 +1,416 @@
 ﻿@model List<smartFunds.Model.Common.KVRRQuestion>
 
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.KVRRDefinition;
 }
 
-@if (Model != null)
-{
-    <div class="body-content-endUser">
-        <section class="user-answers-question">
-            <div class="container-fluid user-quizmain">
-                <div class="row">
-                    <div class="quizmain-title">
-                        <h4 class="text-title">@Common.KVRRDefinition</h4>
-                    </div>
-                    <div class="form-user-quizmain">
-                        <form class="user-quizform" id="user-quizform" method="post" asp-controller="Account" asp-action="ConfirmDefindKVRR">
-                            @for (int k = 0; k < Model.Count; k++)
-                            {
-                                <input asp-for="@Model[k].Id" value="@Model[k].Id" type="hidden" />
-                                <input asp-for="@Model[k].Content" value="@Model[k].Content" type="hidden" />
+@*@if (Model != null)
+    {
+        <div class="body-content-endUser">
+            <section class="user-answers-question">
+                <div class="container-fluid user-quizmain">
+                    <div class="row">
+                        <div class="quizmain-title">
+                            <h4 class="text-title">@Common.KVRRDefinition</h4>
+                        </div>
+                        <div class="form-user-quizmain">
+                            <form class="user-quizform" id="user-quizform" method="post" asp-controller="Account" asp-action="ConfirmDefindKVRR">
+                                @for (int k = 0; k < Model.Count; k++)
+                                {
+                                    <input asp-for="@Model[k].Id" value="@Model[k].Id" type="hidden" />
+                                    <input asp-for="@Model[k].Content" value="@Model[k].Content" type="hidden" />
 
-                                <h3>abc</h3>
-                                <div class="quizmain-container">
-                                    <div class="quizmain-header">
-                                        <div class="question-order">
-                                            <span class="quiz-order">@(k + 1)</span><span class="slash">/</span><span class="quiz-total">@Model.Count</span>
+                                    <h3>abc</h3>
+                                    <div class="quizmain-container">
+
+                                        @if (!string.IsNullOrWhiteSpace(Model[k].ImageDesktop) || !string.IsNullOrWhiteSpace(Model[k].ImageMobile))
+                                        {
+                                            var desktopImage = !string.IsNullOrWhiteSpace(Model[k].ImageDesktop) ? Model[k].ImageDesktop : Model[k].ImageMobile;
+                                            var mobileImage = !string.IsNullOrWhiteSpace(Model[k].ImageMobile) ? Model[k].ImageMobile : Model[k].ImageDesktop;
+
+                                            <div class="question-image">
+                                                <picture>
+                                                    <source media="(max-width: 768px)"
+                                                            srcset="@mobileImage">
+                                                    <img src="@desktopImage">
+                                                </picture>
+                                            </div>
+                                        }
+
+                                        <div class="quizmain-header">
+                                            <div class="question-order">
+                                                <span class="quiz-order">@(k + 1)</span><span class="slash">/</span><span class="quiz-total">@Model.Count</span>
+                                            </div>
+
+
+                                            <div class="question-main">
+                                                <span class="question-title"> @Model[k].KVRRQuestionCategories.GetDisplayName()</span>
+                                                <p class="question-content">
+                                                    @Model[k].Content
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="question-main">
-                                            <span class="question-title"> @Model[k].KVRRQuestionCategories.GetDisplayName()</span>
-                                            <p class="question-content">
-                                                @Model[k].Content
-                                            </p>
-                                        </div>
+                                        @if (Model[k].KVRRAnswers.Count > 0)
+                                        {
+                                            <div class="choose-answers">
+                                                @for (int i = 0; i < Model[k].KVRRAnswers.Count; i++)
+                                                {
+                                                    <input asp-for="@Model[k].KVRRAnswers[i].Id" type="hidden" />
+                                                    <input asp-for="@Model[k].KVRRAnswers[i].Content" type="hidden" />
+                                                    <div class="choose-answers-detail">
+                                                        <label class="radio-answers-container">
+                                                            @Model[k].KVRRAnswers[i].Content
+                                                            <input asp-for="@Model[k].AnswerSelected" value="@Model[k].KVRRAnswers[i].Id" class="user-select-radio user-select-radio required" type="radio"><span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                     </div>
-                                    @if (Model[k].KVRRAnswers.Count > 0)
-                                    {
-                                        <div class="choose-answers">
-                                            @for (int i = 0; i < Model[k].KVRRAnswers.Count; i++)
-                                            {
-                                                <input asp-for="@Model[k].KVRRAnswers[i].Id" type="hidden" />
-                                                <input asp-for="@Model[k].KVRRAnswers[i].Content" type="hidden" />
-                                                <div class="choose-answers-detail">
-                                                    <label class="radio-answers-container">
-                                                        @Model[k].KVRRAnswers[i].Content
-                                                        <input asp-for="@Model[k].AnswerSelected" value="@Model[k].KVRRAnswers[i].Id" class="user-select-radio user-select-radio required" type="radio"><span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                            }
+                                }
 
-                        </form>
-                    </div><a class="user-checkout-quizmain" asp-controller="Account" asp-action="KVRRSelection">
-                        Bỏ qua
-                    </a>
+                            </form>
+                        </div><a class="user-checkout-quizmain" asp-controller="Account" asp-action="KVRRSelection">
+                            Bỏ qua
+                        </a>
+                    </div>
                 </div>
+            </section>
+        </div>
+    }*@
+
+
+
+
+
+<!-- Section 3 Hoat dong -->
+<section class="g-py-20 defind-kvrr-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md">
+                @* <div class="mb-4 text-center"> *@
+                @*     <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0"> *@
+                @*         <span class="u-icon-v6-inner"> *@
+                @*             <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/kvrr.png" alt="Image Description"> *@
+                @*         </span> *@
+                @*     </span> *@
+                @* </div> *@
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="hoatdong" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Câu hỏi <span class="g-color-deeporange g-ml-5">xác định khẩu vị rủi ro</span></h2>
+                    <p class="text-center">Hãy trả lời  5 câu hỏi xác định KVRR để chúng tôi tư vấn danh mục đầu tư phù hợp cho bạn</p>
+                </div>
+                <!-- Icon Blocks -->
+
+                <div class="row mb-4 text-center">
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-1 define-kvrr-question-item" data-question-index="1">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">1/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Độ tuổi của bạn</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Bạn đang ở độ tuổi?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Trên 40 tuổi</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Dưới 40 tuổi</span>
+                                </label>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-2 define-kvrr-question-item" data-question-index="2">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">2/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Hiểu biết về các rủi ro</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Bạn đã có kiến thức và kinh nghiệm về đầu tư chưa?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Không có kiến thức kinh nghiệm trong lĩnh vực này</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Có ít kiến thức, kinh nghiệm nhưng còn hạn chế trong khả năng quyết định đầu tư</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Am hiểu và có kinh nghiệm đầu tư, có khả năng tự ra quyết định đầu tư</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-3 define-kvrr-question-item" question-group="1" data-question-index="3">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">3/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Đầu tư</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Mục tiêu chính khi đầu tư của bạn là gì?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Bảo toàn giá trị tài sản, nhận mức sinh lời ổn định, giảm thiểu rủi ro mức thấp nhất</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Gia tăng giá trị tài sản ở mức sinh lời cao hơn tiền gửi ngân hàng, rủi ro ở mức vừa phải</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Đạt được lợi nhuận tăng cao, đồng thời chấp nhận mức độ rủi ro ở mức tương ứng</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-4 define-kvrr-question-item" question-group="1" data-question-index="4">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">4/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Đầu tư</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Nếu có 1 khoản tiền nhàn rỗi 500 triệu, bạn sẽ đầu tư vào:</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Tiền gửi ngân hàng/vàng/ngoại tệ</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Bất động sản/góp vốn vào doanh nghiệp tư nhân</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Cổ phiếu</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-5 define-kvrr-question-item" question-group="1" data-question-index="5">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">5/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Biến động giá</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Nếu khoản đầu tư bị lỗ 20% giá trị vì biến động thị trường, bạn sẽ:</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Bán toàn bộ khoản đầu tư ngay lập tức</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Bán 1 phần khoản đầu tư để chuyển sang kênh đầu tư khác</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Giữ nguyên khoản đầu tư, không làm gì cả</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-3 define-kvrr-question-item" question-group="2" data-question-index="3">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">3/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Hiểu biết về các rủi ro</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Nếu tham gia một chương trình gameshow TV, bạn chiến thắng và được chọn 1 trong những phần thưởng sau, bạn sẽ chọn:</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Nhận ngay 200 triệu đồng</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Rút thăm trúng thưởng 50% cơ hội nhận 600 triệu đồng hoặc không được gì</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Rút thăm trúng thưởng 10% cơ hội nhận 2 tỷ đồng hoặc không nhận được gì</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-4 define-kvrr-question-item" question-group="2" data-question-index="4">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">4/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Đầu tư</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Hàng tháng, bạn dành bao nhiêu % thu nhập cho việc tiết kiệm dài hạn?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">50%</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">20%</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Đầu tư 100%</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row g-mx-minus-5 u-shadow-v1-3 g-rounded-15 define-kvrr-step-5 define-kvrr-question-item" question-group="2" data-question-index="5">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="media g-mb-15">
+                                <div class="d-flex align-self-center mr-3">
+                                    <span class="u-icon-v2 u-icon-size--lg g-brd-3 g-bg-deeporange g-color-white g-rounded-50x g-mb-0 flex-sm-row">
+                                        <i class="g-font-style-normal">5/5</i>
+                                    </span>
+                                </div>
+                                <div class="media-body align-self-center text-left">
+                                    <h3 class="h3 g-color-black mb-0">Biến động giá</h3>
+                                    <span class="d-block g-color-gray-dark-v5">Nếu khoản đầu tư bị lỗ 20% giá trị vì biến động thị trường, bạn sẽ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group justified-content btn-block">
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="" score="1">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-rounded-50">Bán toàn bộ khoản đầu tư ngay lập tức</span>
+                                </label>
+
+                                <label class="u-check float-right g-width-45x">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="2">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50">Bán 1 phần khoản đầu tư để chuyển sang kênh đầu tư khác</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <label class="u-check float-left g-width-45x g-mr-5">
+                                    <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" score="3">
+                                    <span class="btn btn-md btn-block u-btn-bluegray g-color-white--checked g-bg-primary--checked g-brd-left-none--md g-rounded-50 g-border">Giữ nguyên khoản đầu tư, không làm gì cả</span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                        <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 g-width-40x float-left button-prev"><i class="icon-arrow-left"></i> Quay lại</a>
+                        &nbsp;
+                        <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 btn-block g-font-size-14 g-width-40x float-right button-next">Kế tiếp<i class="icon-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                        <a class="u-shadow-v1-1 btn btn-md u-btn-darkgray g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 g-width-40x float-left" asp-controller="Account" asp-action="KVRRSelection"><i class="fa fa-close"></i> Bỏ qua</a>
+                        &nbsp;
+                        <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 btn-block g-font-size-14 g-width-40x float-right button-accept" href="#">Đồng ý</a>
+                    </div>
+                </div>
+
             </div>
-        </section>
+        </div>
     </div>
-}
+</section>
+<!-- End Section 3  Hoạt dong-->

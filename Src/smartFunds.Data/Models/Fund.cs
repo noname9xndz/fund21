@@ -24,11 +24,13 @@ namespace smartFunds.Data.Models
         public string LastUpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
         public string DeletedAt { get; set; }
+        public decimal NAVOld { get; set; }
         public decimal NAV { get; set; }        
         public decimal NAVNew { get; set; }
         public DateTime DateLastApproved { get; set; }
         public EditStatus EditStatus { get; set; }
         public virtual List<PortfolioFund> PortfolioFunds  { get; set; }
         public virtual List<UserFund> UserFunds { get; set; }
+        public bool IsBalancing { get; set; }
     }
 }

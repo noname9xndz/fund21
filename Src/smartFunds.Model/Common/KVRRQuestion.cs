@@ -16,6 +16,8 @@ namespace smartFunds.Model.Common
         public int Id { get; set; }
         [Required]
         public string Content { get; set; }
+        public string ImageDesktop { get; set; }
+        public string ImageMobile { get; set; }
         public List<KVRRAnswer> KVRRAnswers { get; set; }
         public int No { get; set; }
         [Display(Name = "Category", ResourceType = typeof(Resources.Common))]

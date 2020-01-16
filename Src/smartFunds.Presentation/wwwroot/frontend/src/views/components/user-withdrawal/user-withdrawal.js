@@ -1,5 +1,6 @@
 import Global from '../global/global';
 
+const checkboxGetAll = $('.user-withdrawal-invest .input-form-checkbox');
 let isSubmitted = false;
 const numeral = require('numeraljs');
 
@@ -37,9 +38,11 @@ const userWithDrawal = {
           type: type ? type.value : ''
         };
         const apiGetTransaction = `${apiHolder.value}?amount=${amountMoney ? numeral(amountMoney.value).value() : ''}&type=${type ? type.value : ''}`;
-        Global.getDataFromUrlPost(apiGetTransaction, model).then((data) => {
-          costWithdrawal.value = numeral(data).format('0,0');
-        });
+        if (!checkboxGetAll.is(':checked')) {
+          Global.getDataFromUrlPost(apiGetTransaction, model).then((data) => {
+            costWithdrawal.value = numeral(data).format('0,0');
+          });
+        }
       }
     }
   },
@@ -56,12 +59,51 @@ const userWithDrawal = {
             imgLoad.css('display', 'none');
           } else {
             imgLoad.css('display', 'block');
+            setTimeout(() => {
+              imgLoad.css('display', 'none');
+            }, 2000);
             isSubmitted = true;
             e.currentTarget.submit();
           }
         }
       });
     }
+  },
+
+  checkBoxClick: () => {
+    const apiGetAllMoney = $('#get-all-money').val();
+    const amountMoney = $('.user-expected-money-amount input');
+    const costWithdrawal = $('.user-withdrawal-invest .cost-withdrawal');
+    const type = $('.user-withdrawal-invest .type-withdrawal');
+    const selectWidthdrawalType = $('.user-withdrawal-invest .type-withdrawal');
+    selectWidthdrawalType.on('selectmenuchange', (event, ui) => {
+      if (checkboxGetAll.is(':checked')) {
+        Global.getDataFromUrlPost(`${apiGetAllMoney}?type=${type.val()}`).then((res) => {
+          const { amount, fee } = JSON.parse(res);
+          amountMoney.val(numeral(amount).format('0,0'));
+          costWithdrawal.val(numeral(fee).format('0,0'));
+        }).catch(err => new Error(err));
+      }
+    });
+
+    checkboxGetAll.change((event) => {
+      const $this = event.currentTarget;
+      if ($($this).is(':checked')) {
+        Global.getDataFromUrlPost(`${apiGetAllMoney}?type=${type.val()}`).then((res) => {
+          const { amount, fee } = JSON.parse(res);
+          amountMoney.val(numeral(amount).format('0,0'));
+          costWithdrawal.val(numeral(fee).format('0,0'));
+          amountMoney.css('pointer-events', 'none');
+          costWithdrawal.css('pointer-events', 'none');
+        }).catch(err => new Error(err));
+      } else {
+        amountMoney.val('');
+        costWithdrawal.val('');
+        amountMoney.css('pointer-events', 'initial');
+        costWithdrawal.css('pointer-events', 'initial');
+      }
+    });
   }
+
 };
 export default userWithDrawal;

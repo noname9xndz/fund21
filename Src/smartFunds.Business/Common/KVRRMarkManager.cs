@@ -98,7 +98,7 @@ namespace smartFunds.Business
 
                 var marks = await _unitOfWork.KVRRMarkRepository.FindByAsync(a => ids.Contains(a.Id));
                 if(marks == null || !marks.Any()) throw new NotFoundException();
-                _unitOfWork.KVRRMarkRepository.BulkDelete(marks);
+                _unitOfWork.KVRRMarkRepository.BulkDelete(marks.ToList());
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -113,7 +113,7 @@ namespace smartFunds.Business
             if (marks == null || !marks.Any()) return true;
 
             if (currentMark.EntityState == FormState.Edit)
-                marks = marks.Where(x => x.Id != currentMark.Id).ToList();
+                marks = marks.Where(x => x.Id != currentMark.Id);//.ToList();
 
             var existMark = marks.Where(x => (currentMark.MarkFrom >= x.MarkFrom && currentMark.MarkTo <= x.MarkTo)
                              || (currentMark.MarkFrom >= x.MarkFrom && currentMark.MarkFrom <= x.MarkTo && currentMark.MarkTo > x.MarkTo)

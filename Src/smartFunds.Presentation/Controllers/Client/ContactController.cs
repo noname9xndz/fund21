@@ -51,6 +51,11 @@ namespace smartFunds.Presentation.Controllers.Client
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("~/Views/Support/Contact.cshtml", model);
+                }
+
                 var _contact = _contactCMSService.GetContactConfiguration();
                 var contentEmail = string.Empty;
                 contentEmail += "Người gửi: " + model.FullName;

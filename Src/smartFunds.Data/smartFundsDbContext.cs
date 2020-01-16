@@ -45,7 +45,10 @@ namespace smartFunds.Data
         public DbSet<Investment> Investment { get; set; }
         public DbSet<TaskCompleted> TasksCompleted { get; set; }
         public DbSet<WithdrawalFee> WithdrawalFees { get; set; }
+        public DbSet<GlobalConfiguration> GlobalConfiguration { get; set; }
 
+        public DbSet<CateNews> CateNews { get; set; }
+        public DbSet<ContentNews> ContentNews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {                        
 
@@ -85,7 +88,10 @@ namespace smartFunds.Data
             modelBuilder.Entity<UserFund>().HasKey(x => new { x.UserId, x.FundId });
             modelBuilder.Entity<UserFund>().HasOne(x => x.Fund).WithMany(m => m.UserFunds).HasForeignKey(x => x.FundId);
             modelBuilder.Entity<UserFund>().HasOne(x => x.User).WithMany(m => m.UserFunds).HasForeignKey(x => x.UserId);
+            modelBuilder.Entity<CateNews>().HasKey(x => x.Id);
+            modelBuilder.Entity<ContentNews>().HasKey(x => x.Id);
 
+            modelBuilder.Entity<ContentNews>().Property(e => e.Contents).HasColumnType("NTEXT");
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,0 +1,36 @@
+﻿@model LstNewsModel
+@{
+    ViewData["Title"] = Common.ContentNews;
+    Layout = "_AdminLayout";
+       var checkNoRule = UserService.IsUnInRole(UserService.GetCurrentUser().Result, RoleName.CustomerManager).Result;
+    var checkRule = UserService.IsInRole(UserService.GetCurrentUser().Result, RoleName.Accountant, RoleName.InvestmentManager).Result;
+
+}
+
+<section class="transaction-history">
+    <div class="content">
+        <input id="manageTransactionInputHidden" type="hidden" value="List">
+        <h1 class="section-title">@Common.ContentNews</h1>
+        <div class="top-action-page">
+            <div class="top-action-page__part">
+                <a class="btn btn-action @( checkRule ? "":"disabled-button" )" asp-action="New">THÊM BẢN TIN</a>
+            </div>
+
+        </div>
+
+
+        <div class="transaction-history__table">
+            <div class="transaction-history__table__overlay hide">
+                <div class="transaction-history__table__overlay__spinner rotating"></div>
+            </div>
+            <form form asp-controller="ContentNews" asp-action="Delete" method="post" id="manage-customer-form" class="collapse-part" style="width: 100%">
+
+                <div class="transaction-history__table--wrapper">
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+

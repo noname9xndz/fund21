@@ -66,7 +66,8 @@ namespace smartFunds.Business
         {
             try
             {
-                return await _unitOfWork.FundRepository.FindByAsync(m => m.EditStatus == status && m.IsDeleted == false && m.NAVNew != 0 && m.NAVNew != m.NAV);
+                var res = await _unitOfWork.FundRepository.FindByAsync(m => m.EditStatus == status && m.IsDeleted == false && m.NAVNew != 0 && m.NAVNew != m.NAV);
+                return res.ToList();
             }
             catch (Exception ex)
             {
@@ -149,7 +150,7 @@ namespace smartFunds.Business
                         await _unitOfWork.SaveChangesAsync();
                     }
                 }
-               
+
                 return funds;
             }
             catch (Exception ex)
@@ -251,64 +252,81 @@ namespace smartFunds.Business
         {
             try
             {
-                var listFundUpdate = _unitOfWork.FundRepository.GetAllFund().Where(f => f.EditStatus == EditStatus.Updating && f.NAVNew != 0 && f.NAVNew != f.NAV).ToList();
-                var listCustomer = (await _customerManager.GetAllCustomer()).Where(x => x.CurrentAccountAmount > 0);
-                foreach (var fund in listFundUpdate)
+                using (var dbContextTransaction = _unitOfWork.GetCurrentContext().Database.BeginTransaction())
                 {
+                    var listFundUpdate = (await _unitOfWork.FundRepository.FindByAsync(f => f.EditStatus == EditStatus.Updating && f.NAVNew != 0 && f.NAVNew != f.NAV)).ToList();
+                    var listCustomer = (await _customerManager.GetAllCustomer()).Where(x => x.CurrentAccountAmount > 0).ToList();
+                    foreach (var fund in listFundUpdate)
+                    {
+                        if (isApproved)
+                        {
+                            fund.NAVOld = fund.NAV;
+                            fund.NAV = fund.NAVNew;
+                            fund.DateLastApproved = DateTime.Now;
+                            await _unitOfWork.FundRepository.ExecuteSql($"Update Fund Set NAVOld = {fund.NAVOld}, NAV= {fund.NAV}, DateLastApproved = GETDATE(), EditStatus={(int)EditStatus.Success} WHERE Id = {fund.Id} ");
+                        }
+                        else
+                        {
+                            fund.NAVNew = fund.NAV;
+                            await _unitOfWork.FundRepository.ExecuteSql($"Update Fund Set NAVOld = {fund.NAVOld}, NAV= {fund.NAV}, DateLastApproved = GETDATE(), EditStatus={(int)EditStatus.Success} WHERE Id = {fund.Id} ");
+                        }
+ 
+                    }
+
                     if (isApproved)
                     {
-                        fund.NAV = fund.NAVNew;
-                        fund.DateLastApproved = DateTime.Now;
-                    }
-                    else
-                    {
-                        fund.NAVNew = fund.NAV;
-                    }
-                    fund.EditStatus = EditStatus.Success;
-                }
-                _unitOfWork.FundRepository.BulkUpdate(listFundUpdate);
-                await _unitOfWork.SaveChangesAsync();
-
-                if (isApproved)
-                {
-                    var allFund = await _unitOfWork.FundRepository.GetAllAsync();
-                    foreach (var custom in listCustomer)
-                    {
-                        var currentAccountAmount = custom.CurrentAccountAmount;
-                        decimal newAccountAmount = 0;
-                        foreach (var fund in allFund)
+                        var allFund = (await _unitOfWork.FundRepository.GetAllAsync()).ToList();
+                        var allUserFund = (await _unitOfWork.UserFundRepository.GetAllAsync("Fund")).ToList();
+                        var sbd = new StringBuilder();
+                        var i = 0;
+                        foreach (var custom in listCustomer)
                         {
-                            var userFund = await _unitOfWork.UserFundRepository.GetAsync(x => x.UserId == custom.Id && x.FundId == fund.Id);
-                            if (userFund != null)
-                                newAccountAmount += (decimal)userFund.NoOfCertificates * fund.NAV;
+                            i++;
+                            var currentAccountAmount = custom.CurrentAccountAmount;
+                            decimal newAccountAmount  = allUserFund.Where(x => x.UserId == custom.Id).Sum(x=> (decimal)x.NoOfCertificates * x.Fund.NAV);
+
+
+                            sbd.AppendLine($"UPDATE AspNetUsers SET CurrentAccountAmount = {newAccountAmount} WHERE UserName='{custom.UserName}';");
+
+                            //var transactionHistory = new TransactionHistory();
+                            //transactionHistory.UserId = custom.Id;
+                            //transactionHistory.CurrentAccountAmount = newAccountAmount;
+                            //transactionHistory.Amount = Math.Abs(newAccountAmount - currentAccountAmount);
+                            //transactionHistory.TransactionType = TransactionType.None;
+                            //transactionHistory.Status = TransactionStatus.Success;
+                            //transactionHistory.TransactionDate = DateTime.Now;
+
+                            sbd.AppendLine($"INSERT INTO [dbo].[TransactionHistory]  ([UserId],[Amount],[Status],[TransactionDate],[CurrentAccountAmount],[TransactionType],[TotalWithdrawal],[RemittanceStatus],[WithdrawalType],[Description]) VALUES (N'{custom.Id}'," +
+                                           $"{ Math.Abs(newAccountAmount - currentAccountAmount)},{ (int)TransactionStatus.Success},GETDATE(),{ newAccountAmount},{ (int)TransactionType.None},{ 0 },NULL,NULL,N'Cập Nhật NAV');");
+
+
+                            if (newAccountAmount > currentAccountAmount)
+                            {
+                                var investment = new Investment();
+                                investment.Amount = newAccountAmount - currentAccountAmount;
+                                investment.RemainAmount = newAccountAmount - currentAccountAmount;
+                                investment.UserId = custom.Id;
+                                investment.DateInvestment = DateTime.Now;
+                                sbd.AppendLine($"INSERT INTO [dbo].[Investment] ([UserId], [Amount],[RemainAmount],[DateInvestment])     VALUES     ('{investment.UserId}',{investment.Amount},{investment.RemainAmount},GETDATE());");// Add(investment);
+
+                            }
+
+                            if (i==100)
+                            {
+                                await _unitOfWork.FundRepository.ExecuteSql(sbd.ToString());
+                                sbd.Clear();
+                                i = 0;
+                            }
+                            //await _unitOfWork.SaveChangesAsync();
                         }
 
-                        var user = await _unitOfWork.UserRepository.GetAsync(u => u.UserName == custom.UserName && !u.IsDeleted);
-                        user.CurrentAccountAmount = newAccountAmount;
-                        user.KVRRId = custom.KVRR.Id;
-                        await _userManager.UpdateUser(user);
-
-                        var transactionHistory = new TransactionHistory();
-                        transactionHistory.UserId = custom.Id;
-                        transactionHistory.CurrentAccountAmount = newAccountAmount;
-                        transactionHistory.Amount = Math.Abs(newAccountAmount - currentAccountAmount);
-                        transactionHistory.TransactionType = TransactionType.None;
-                        transactionHistory.Status = TransactionStatus.Success;
-                        transactionHistory.TransactionDate = DateTime.Now;
-                        _unitOfWork.TransactionHistoryRepository.Add(transactionHistory);
-
-                        if (newAccountAmount > currentAccountAmount)
+                        if (sbd.ToString()!="")
                         {
-                            var investment = new Investment();
-                            investment.Amount = newAccountAmount - currentAccountAmount;
-                            investment.RemainAmount = newAccountAmount - currentAccountAmount;
-                            investment.UserId = custom.Id;
-                            investment.DateInvestment = DateTime.Now;
-                            _unitOfWork.InvestmentRepository.Add(investment);
+                            await _unitOfWork.FundRepository.ExecuteSql(sbd.ToString());
                         }
-
-                        await _unitOfWork.SaveChangesAsync();
+                        
                     }
+                    dbContextTransaction.Commit();
                 }
                 return true;
             }

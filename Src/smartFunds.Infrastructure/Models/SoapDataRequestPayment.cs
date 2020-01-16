@@ -4,12 +4,8 @@ using System.Text;
 
 namespace smartFunds.Infrastructure.Models
 {
-    public class SoapDataRequestPayment
+    public class SoapDataRequestPayment : SoapData
     {
-        public string username { get; set; }
-        public string password { get; set; }
-        public string serviceCode { get; set; }
-        public string orderId { get; set; }
         public string totalAmount { get; set; }
         public string totalTrans { get; set; }
         public string transContent { get; set; }

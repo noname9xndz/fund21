@@ -417,7 +417,16 @@
   <data name="VTPInvalidAccount2" xml:space="preserve">
     <value>Số điện thoại chưa đăng ký ViettelPay hoặc tên đầy đủ không đúng với tài khoản ViettelPay.</value>
   </data>
+  <data name="FileInvalid" xml:space="preserve">
+    <value>File đã chọn không phù hợp</value>
+  </data>
   <data name="WithdrawalError" xml:space="preserve">
     <value>Tài khoản của bạn đang trong quá trình rút tiền. Xin vui lòng đợi khi giao dịch hoàn tất.</value>
+  </data>
+  <data name="ApproveInprogress" xml:space="preserve">
+    <value>Hệ thống đang phê duyệt</value>
+  </data>
+  <data name="CaptchaInvalidMessage" xml:space="preserve">
+    <value>Captcha sai. Vui lòng nhập lại</value>
   </data>
 </root>

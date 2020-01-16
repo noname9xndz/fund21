@@ -91,7 +91,18 @@ namespace smartFunds.Common
         {
             public const string Path = "\\images\\";
         }
-
+        public static class KVRRQuestionAnswerFolder
+        {
+            public const string Path = "\\images\\KVRRQuestionAnswer\\";
+        }
+        public static class KVRRQuestionAnswerImageUrl
+        {
+            public const string Path = "/images/KVRRQuestionAnswer/";
+        }
+        public static class NewsImageFolder
+        {
+            public const string Path = "\\images\\news\\";
+        }
         public static class FAQsCategory
         {
             public const string All = "Tất cả";
@@ -111,6 +122,12 @@ namespace smartFunds.Common
             public const string PriceFluctuations = "Biến động giá";
             public const string RiskVersusProfit = "Rủi ro so với lợi nhuận";
             public const string UnderstandingTheRisks = "Hiểu biết về các rủi ro";
+        }
+
+        public static class Configuration
+        {
+            public const string ProgramLocked = "ProgramLocked";
+            public const string IsAdminApproving = "IsAdminApproving";
         }
 
         public static class FastWithdrawFee

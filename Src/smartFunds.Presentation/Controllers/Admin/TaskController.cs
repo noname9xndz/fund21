@@ -18,6 +18,8 @@ using smartFunds.Service.Services;
 using static smartFunds.Common.Constants;
 using Newtonsoft.Json;
 using smartFunds.Business.Common;
+using Hangfire;
+using System.Threading;
 
 namespace smartFunds.Presentation.Controllers.Admin
 {
@@ -35,8 +37,11 @@ namespace smartFunds.Presentation.Controllers.Admin
         private readonly IPortfolioService _portfolio;
         private readonly IViettelPay _viettelPay;
         private readonly IOrderRequestService _orderRequestService;
+        private readonly IGlobalConfigurationService _globalConfigurationService;
 
-        public TaskController(ITaskService taskService, IConfiguration configuration, IFundService fundService, IFundTransactionHistoryService fundTransactionHistoryService, IEmailSender emailSender, IUserService userService, ITransactionHistoryService transactionHistoryService, ITaskCompletedService taskCompletedService, IPortfolioService portfolio, IViettelPay viettelPay, IOrderRequestService orderRequestService)
+        public TaskController(ITaskService taskService, IConfiguration configuration, IFundService fundService, IFundTransactionHistoryService fundTransactionHistoryService,
+            IEmailSender emailSender, IUserService userService, ITransactionHistoryService transactionHistoryService, ITaskCompletedService taskCompletedService,
+            IPortfolioService portfolio, IViettelPay viettelPay, IOrderRequestService orderRequestService, IGlobalConfigurationService globalConfigurationService)
         {
             _taskService = taskService;
             _configuration = configuration;
@@ -49,6 +54,7 @@ namespace smartFunds.Presentation.Controllers.Admin
             _portfolio = portfolio;
             _viettelPay = viettelPay;
             _orderRequestService = orderRequestService;
+            _globalConfigurationService = globalConfigurationService;
         }
 
         #region Task for admin
@@ -57,6 +63,8 @@ namespace smartFunds.Presentation.Controllers.Admin
         public async Task<IActionResult> ApproveList(int pageSize = 0, int pageIndex = 0)
         {
             TasksApproveModel model = new TasksApproveModel();
+            var config = await _globalConfigurationService.GetConfig(Constants.Configuration.IsAdminApproving);
+            ViewBag.IsAdminApproving = bool.Parse(config.Value);
             model.Tasks = await _taskService.GetTasksForAdmin(pageSize, pageIndex);
             return View(model);
         }
@@ -66,29 +74,31 @@ namespace smartFunds.Presentation.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> ApprovedTask(int idTask, TaskApproveAdmin typeTask)
         {
-            var isApproved = false;
-            // update data status & value
-            if (typeTask == TaskApproveAdmin.Portfolio)
-            {
-                isApproved= await _fundTransactionHistoryService.ApproveFundPercent(idTask);
-            }
-            else if (typeTask == TaskApproveAdmin.Nav)
-            {
-                isApproved = await _fundService.UpdateApprovedFunds();
-            }
-
-            if (isApproved)
-            {
-                TempData["Message"] = Model.Resources.ValidationMessages.ApprovedSuccess;
-            }
-            else
-            {
-                TempData["Message"] = Model.Resources.ValidationMessages.ApprovedError;
-            }
-
+            await _globalConfigurationService.SetValueConfig(Constants.Configuration.IsAdminApproving, "true");
+            BackgroundJob.Schedule(() => this.DoApprovedTask(idTask, typeTask), TimeSpan.FromSeconds(1));
+            //TempData["Message"] = Model.Resources.ValidationMessages.ApproveInprogress;
             return Json(new { success = true });
         }
 
+        public async Task DoApprovedTask(int idTask, TaskApproveAdmin typeTask)
+        {
+            try
+            {
+                if (typeTask == TaskApproveAdmin.Portfolio)
+                {
+                    await _fundTransactionHistoryService.ApproveFundPercent(idTask);
+                }
+                else if (typeTask == TaskApproveAdmin.Nav)
+                {
+                    await _fundService.UpdateApprovedFunds();
+                }
+            }
+            finally
+            {
+                await _globalConfigurationService.SetValueConfig(Constants.Configuration.IsAdminApproving, "false");
+            }
+
+        }
         [Authorize(Policy = "OnlyAdminAccess")]
         [Route("rejected/{idTask}")]
         [HttpGet]
@@ -223,78 +233,82 @@ namespace smartFunds.Presentation.Controllers.Admin
             var user = await _userService.GetUserById(userID);
             var objectName = user.FullName;
 
-            var newOrder = new OrderRequestModel()
+            if (!_configuration.GetValue<bool>("PaymentSecurity:DisableVTP"))
             {
-                PhoneNumber = "84" + user.PhoneNumber.Remove(0, 1),
-                FullName = user.FullName
-            };
-            var order = await _orderRequestService.SaveOrder(newOrder);
+                var newOrder = new OrderRequestModel()
+                {
+                    PhoneNumber = "84" + user.PhoneNumber.Remove(0, 1),
+                    FullName = user.FullName,
+                    Amount = transactionAmount
+                };
+                var order = await _orderRequestService.SaveOrder(newOrder);
 
-            var viettelPayApi = _configuration.GetValue<bool>("RequestPaymentLink:IsLive") ? _configuration.GetValue<string>("RequestPaymentLink:Live") : _configuration.GetValue<string>("RequestPaymentLink:Test");
-            var cmd = _configuration.GetValue<string>("RequestPaymentParam:cmdRequest");
-            var cmdCheckAccount = _configuration.GetValue<string>("RequestPaymentParam:cmdCheckAccount");
-            var rsaPublicKey = _configuration.GetValue<string>("RSAKey:public");
-            var rsaPrivateKey = _configuration.GetValue<string>("RSAKey:private");
-            var rsaPublicKeyVTP = _configuration.GetValue<string>("RSAKey:VTPpublic");
+                var viettelPayApi = _configuration.GetValue<bool>("RequestPaymentLink:IsLive") ? _configuration.GetValue<string>("RequestPaymentLink:Live") : _configuration.GetValue<string>("RequestPaymentLink:Test");
+                var cmd = _configuration.GetValue<string>("RequestPaymentParam:cmdRequest");
+                var cmdCheckAccount = _configuration.GetValue<string>("RequestPaymentParam:cmdCheckAccount");
+                var rsaPublicKey = _configuration.GetValue<string>("RSAKey:public");
+                var rsaPrivateKey = _configuration.GetValue<string>("RSAKey:private");
+                var rsaPublicKeyVTP = _configuration.GetValue<string>("RSAKey:VTPpublic");
 
-            var rsa = new RSAHelper(RSAType.RSA, Encoding.UTF8, rsaPrivateKey, rsaPublicKeyVTP);
-            var passwordEncrypt = rsa.Encrypt(_configuration.GetValue<string>("RequestPaymentParam:password"));
+                var rsa = new RSAHelper(RSAType.RSA, Encoding.UTF8, rsaPrivateKey, rsaPublicKeyVTP);
+                var passwordEncrypt = rsa.Encrypt(_configuration.GetValue<string>("RequestPaymentParam:password"));
 
-            var dataCheckAccount = new DataCheckAccount()
-            {
-                msisdn = "84" + user.PhoneNumber.Remove(0, 1),
-                customerName = user.FullName
-            };
+                var dataCheckAccount = new DataCheckAccount()
+                {
+                    msisdn = "84" + user.PhoneNumber.Remove(0, 1),
+                    customerName = user.FullName
+                };
 
-            var soapDataCheckAccount = new SoapDataCheckAccount()
-            {
-                username = _configuration.GetValue<string>("RequestPaymentParam:username"),
-                password = passwordEncrypt,
-                serviceCode = _configuration.GetValue<string>("RequestPaymentParam:serviceCode"),
-                orderId = order.Id.ToString()
-            };
+                var soapDataCheckAccount = new SoapDataCheckAccount()
+                {
+                    username = _configuration.GetValue<string>("RequestPaymentParam:username"),
+                    password = passwordEncrypt,
+                    serviceCode = _configuration.GetValue<string>("RequestPaymentParam:serviceCode"),
+                    orderId = order.Id.ToString()
+                };
 
-            var codeCheckAccount = _viettelPay.CheckAccount(viettelPayApi, cmdCheckAccount, rsaPublicKey, rsaPrivateKey, rsaPublicKeyVTP, dataCheckAccount, soapDataCheckAccount);
+                var codeCheckAccount = await _viettelPay.CheckAccount(viettelPayApi, cmdCheckAccount, rsaPublicKey, rsaPrivateKey, rsaPublicKeyVTP, dataCheckAccount, soapDataCheckAccount);
 
-            if (!string.IsNullOrWhiteSpace(codeCheckAccount) && codeCheckAccount == "10")
-            {
-                return Json(new { success = false, message = ValidationMessages.VTPInvalidAccount2 });
-            }
-            else if (codeCheckAccount != "00")
-            {
-                return Json(new { success = false, message = ValidationMessages.VTPError });
-            }
+                if (!string.IsNullOrWhiteSpace(codeCheckAccount) && codeCheckAccount == "10")
+                {
+                    return Json(new { success = false, message = ValidationMessages.VTPInvalidAccount2 });
+                }
+                else if (codeCheckAccount != "00")
+                {
+                    return Json(new { success = false, message = ValidationMessages.VTPError });
+                }
 
-            var dataRequestPayment = new DataRequestPayment()
-            {
-                msisdn = "84" + user.PhoneNumber.Remove(0, 1),
-                customerName = user.FullName,
-                transId = order.Id.ToString(),
-                amount = transactionAmount.ToString("0"),
-                smsContent = _configuration.GetValue<string>("RequestPaymentParam:smsContent"),
-                note = "Rut tien tu Savenow"
-            };
+                var dataRequestPayment = new DataRequestPayment()
+                {
+                    msisdn = "84" + user.PhoneNumber.Remove(0, 1),
+                    customerName = user.FullName,
+                    transId = order.Id.ToString(),
+                    amount = transactionAmount.ToString("0"),
+                    smsContent = _configuration.GetValue<string>("RequestPaymentParam:smsContent"),
+                    note = "Rut tien tu Savenow"
+                };
 
-            var soapDataRequestPayment = new SoapDataRequestPayment()
-            {
-                username = _configuration.GetValue<string>("RequestPaymentParam:username"),
-                password = passwordEncrypt,
-                serviceCode = _configuration.GetValue<string>("RequestPaymentParam:serviceCode"),
-                orderId = order.Id.ToString(),
-                totalTrans = "1",
-                totalAmount = transactionAmount.ToString("0"),
-                transContent = _configuration.GetValue<string>("RequestPaymentParam:smsContent")
-            };
+                var soapDataRequestPayment = new SoapDataRequestPayment()
+                {
+                    username = _configuration.GetValue<string>("RequestPaymentParam:username"),
+                    password = passwordEncrypt,
+                    serviceCode = _configuration.GetValue<string>("RequestPaymentParam:serviceCode"),
+                    orderId = order.Id.ToString(),
+                    totalTrans = "1",
+                    totalAmount = transactionAmount.ToString("0"),
+                    transContent = _configuration.GetValue<string>("RequestPaymentParam:smsContent")
+                };
 
-            var code = _viettelPay.Request(viettelPayApi, cmd, rsaPublicKey, rsaPrivateKey, rsaPublicKeyVTP, dataRequestPayment, soapDataRequestPayment);
+                var code = await _viettelPay.Request(viettelPayApi, cmd, rsaPublicKey, rsaPrivateKey, rsaPublicKeyVTP, dataRequestPayment, soapDataRequestPayment);
 
-            if (!string.IsNullOrWhiteSpace(code) && code == "10")
-            {
-                return Json(new { success = false, message = ValidationMessages.VTPInvalidAccount });
-            }
-            else if (code != "00")
-            {
-                return Json(new { success = false, message = ValidationMessages.VTPError });
+                if (!string.IsNullOrWhiteSpace(code) && code == "10")
+                {
+                    return Json(new { success = false, message = ValidationMessages.VTPInvalidAccount });
+                }
+                else if (code != "00")
+                {
+                    return Json(new { success = false, message = ValidationMessages.VTPError });
+                }
             }
 
             await _transactionHistoryService.UpdateStatusTransactionHistory(objectID, TransactionStatus.Success);
@@ -354,13 +368,61 @@ namespace smartFunds.Presentation.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> UpdateDealFund(int objectID, decimal transactionAmount)
         {
-            var objectName = _fundService.GetFundById(objectID)?.Title;
-            await _fundTransactionHistoryService.ApproveBalanceFund(objectID);
-            await _taskCompletedService.SaveTaskCompleted(new TaskCompletedModel() { ObjectID = objectID, ObjectName = objectName, TaskType = transactionAmount>0? TaskTypeAccountant.Buy: TaskTypeAccountant.Sell, TransactionAmount = transactionAmount });
-
+            await _fundTransactionHistoryService.StartBalancing(objectID);
+            BackgroundJob.Schedule(() => this.updateDealFun(objectID, transactionAmount), TimeSpan.FromSeconds(0));
+            //updateDealFun(objectID, transactionAmount);
             return Json(new { success = true });
         }
-        #endregion 
+
+        public async Task updateDealFun(int objectID, decimal transactionAmount)
+        {
+            
+            try
+            {
+                await _globalConfigurationService.SetValueConfig(Constants.Configuration.ProgramLocked, "true");
+                Thread.Sleep(30 * 1000);
+
+                var objectName = _fundService.GetFundById(objectID)?.Title;
+                await _fundTransactionHistoryService.ApproveBalanceFund(objectID);
+                await _taskCompletedService.SaveTaskCompleted(
+                    new TaskCompletedModel()
+                    {
+                        ObjectID = objectID,
+                        ObjectName = objectName,
+                        TaskType = transactionAmount > 0 ? TaskTypeAccountant.Buy : TaskTypeAccountant.Sell,
+                        TransactionAmount = transactionAmount
+                    });
+                SendMailAdmin(objectName, objectName + " : " + transactionAmount.ToString("N0"));
+            }
+            finally
+            {
+               await _globalConfigurationService.SetValueConfig(Constants.Configuration.ProgramLocked, "false");
+
+            }
+
+
+        }
+
+        public async Task BatchUpdateDealFund()
+        {
+            try
+            {
+                await _globalConfigurationService.SetValueConfig(Constants.Configuration.ProgramLocked, "true");
+                var fundList = (await _fundTransactionHistoryService.GetListBalanceFund(EditStatus.Updating));
+                var funds = fundList.Where(h => Math.Abs((h.TotalInvestNoOfCertificates - h.TotalWithdrawnNoOfCertificates) * h.Fund.NAV) > 3000000).ToList();
+
+                foreach (var fund in funds)
+                {
+                    var transactionAmount = (fund.TotalInvestNoOfCertificates - fund.TotalWithdrawnNoOfCertificates) * fund.Fund.NAV;
+                    await updateDealFun(fund.Fund.Id, transactionAmount);
+                }
+            }
+            finally
+            {
+                await _globalConfigurationService.SetValueConfig(Constants.Configuration.ProgramLocked, "false");
+            }
+        }
+        #endregion
 
         #region Completed Tasks
 
@@ -439,5 +501,16 @@ namespace smartFunds.Presentation.Controllers.Admin
                 EmailBody = body
             };
         }
+
+        private void SendMailAdmin(string subjectBalance, string infoFunBalance)
+        {
+            var mailAdmin = _configuration.GetValue<string>("EmailConfig:AdminMail");
+            var mailFrom = _configuration.GetValue<string>("EmailConfig:EmailFrom");
+            var bodyValue = _configuration.GetValue<string>("EmailBody:BalanceNotice");
+            var subject = _configuration.GetValue<string>("EmailBody:BalanceSubject");
+            var mailConfig = SetMailConfig(mailFrom, mailAdmin, subject + subjectBalance, bodyValue + infoFunBalance + "đ");
+            _emailSender.SendEmail(mailConfig);
+        }
+
     }
 }

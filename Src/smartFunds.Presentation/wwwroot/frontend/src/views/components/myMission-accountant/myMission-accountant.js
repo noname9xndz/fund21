@@ -99,14 +99,18 @@ const myMissionAccountant = {
       updatePart.forEach((popup) => {
         const btnUpdate = popup.querySelector('button[type="button"]');
         const updateLink = popup.querySelector('input[type="hidden"]');
+        var firstTime = true;
         btnUpdate.addEventListener('click', () => {
-          Global.getDataFromAjaxCall(updateLink.value).then((data) => {
-            if (data.success) {
-              myMissionAccountant.initTable();
-            } else {
-              alert(data.message);
-            }
-          });
+          if (firstTime) {
+            firstTime = false;
+            Global.getDataFromAjaxCall(updateLink.value).then((data) => {
+              if (data.success) {
+                myMissionAccountant.initTable();
+              } else {
+                alert(data.message);
+              }
+            });
+          }
         });
       });
     }

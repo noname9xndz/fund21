@@ -10,6 +10,8 @@ namespace smartFunds.Presentation
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        public static bool Locked = false;
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options =>

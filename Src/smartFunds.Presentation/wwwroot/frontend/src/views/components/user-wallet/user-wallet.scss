@@ -69,7 +69,8 @@
                         position: relative;
                         margin-top: 0;
 
-                        span {
+                        a {
+                            text-decoration: none;
                             font-size: 25px;
                             line-height: 0.85;
                             display: inline-block;
@@ -111,8 +112,8 @@
                     .user-wallet-growth-rate-content {
                         line-height: 1;
 
-                        span {
-
+                        a {
+                            text-decoration: none;
                             font-size: 25px;
                             line-height: 0.85;
                             display: inline-block;

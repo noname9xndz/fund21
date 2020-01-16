@@ -124,6 +124,24 @@ namespace smartFunds.Model.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hệ thống đang phê duyệt.
+        /// </summary>
+        public static string ApproveInprogress {
+            get {
+                return ResourceManager.GetString("ApproveInprogress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Captcha sai. Vui lòng nhập lại.
+        /// </summary>
+        public static string CaptchaInvalidMessage {
+            get {
+                return ResourceManager.GetString("CaptchaInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danh mục đang để trống.
         /// </summary>
         public static string CategoryIsEmpty {
@@ -336,6 +354,15 @@ namespace smartFunds.Model.Resources {
         public static string FieldFormat {
             get {
                 return ResourceManager.GetString("FieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File đã chọn không phù hợp.
+        /// </summary>
+        public static string FileInvalid {
+            get {
+                return ResourceManager.GetString("FileInvalid", resourceCulture);
             }
         }
         

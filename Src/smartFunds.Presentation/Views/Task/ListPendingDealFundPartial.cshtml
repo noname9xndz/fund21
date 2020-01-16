@@ -28,7 +28,14 @@
             <td>@(Math.Abs(noOfCertificates).ToString("0.##"))</td>
             <td>@((noOfCertificates * item.Fund.NAV).ToString("N0"))</td>
             <td class="confirm-popup">
+                @if (item.Fund.IsBalancing)
+                {
+                    <i>Đang cân bằng</i>
+                }
+                else
+                {
                 <a href="javascript:void(0)" data-micromodal-trigger="fund-update-popup-@index"> Cập nhật </a>
+                }
                 <div class="modal micromodal-slide" id="fund-update-popup-@index" aria-hidden="true">
                     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
                         <div class="modal__container" role="dialog" aria-modal="true"
@@ -47,7 +54,7 @@
                     </div>
                 </div>
                 <input type="hidden" value="/admin/task/update-deal-fund?objectID=@item.Fund.Id&transactionAmount=@((item.TotalInvestNoOfCertificates - item.TotalWithdrawnNoOfCertificates) * item.Fund.NAV)" />
-
+                
             </td>
         </tr>
             index++;

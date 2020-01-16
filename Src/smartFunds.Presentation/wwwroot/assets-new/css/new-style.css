@@ -1,0 +1,109 @@
+﻿/*STYLE FOR MOBILE*/
+/*style button kvrr*/
+@media screen and (max-width: 767px) {
+    .kvrr-select-main #btnAnswer {
+        width: 80%
+    }
+
+    .kvrr-select-main #btnAnswerAgain {
+        width: 80%
+    }
+}
+
+/*style table transaction history*/
+.transaction-history-main .transaction-table-response table thead tr {
+    background: #333 !important;
+}
+
+@media screen and (max-width: 767px) {
+    .transaction-history-main .transaction-table-response table .g-width-70x {
+        width: 31.5% !important;
+    }
+}
+
+/*stye kvrr question*/
+@media screen and (max-width: 767px) {
+    .defind-kvrr-main .define-kvrr-question-item {
+        margin: 0 15px;
+        padding: 15px 0;
+    }
+
+    .defind-kvrr-main .define-kvrr-question-item .float-left,
+    .defind-kvrr-main .define-kvrr-question-item .float-right {
+        float: none !important;
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/*stye for button portfolio (mobile+desktop)*/
+.change-portfolio-main .user-existing-assets {
+    border-radius: 50px !important;
+}
+
+.change-portfolio-main .user-existing-assets .g-rounded-15 {
+    border-radius: 50px !important;
+}
+
+/*stye for button change info  (mobile+desktop)*/
+.user-profile .user-info-content {
+    margin-bottom: 30px !important;
+}
+
+.user-profile .user-info-content .user-info-content-item {
+    margin-bottom: 20px !important;
+}
+
+/*stye for footer  (mobile+desktop)*/
+.footer-contacts-client-new.g-bg-black-opacity-0_9 {
+    background-color: #fff !important;
+    box-shadow: 0 0 3px #b5b5b5;
+}
+
+.footer-contacts-client-new .navbar-nav .g-color-white {
+    color: #333 !important;
+}
+
+.footer-contacts-client-new .list-inline-item .g-color-white-opacity-0_5 {
+    color: rgba(51, 51, 51, 0.8) !important;
+}
+
+.footer-contacts-client-new .list-inline-item .g-color-white--hover:hover {
+    color: rgba(51, 51, 51, 1) !important;
+}
+
+.footer-copyright-client-new.g-bg-gray-dark-v1 {
+    background-color: #fff !important;
+    /*box-shadow: 0 0 3px #b5b5b5;*/
+    border-top: 1px solid rgb(181, 181, 181, 0.5);
+}
+
+.footer-copyright-client-new.g-color-white-opacity-0_8 {
+    color: #333 !important;
+}
+
+/*style for background readonly*/
+.user-withdrawal-main .form-withdrawal input {
+    background-color: #fff;
+}
+
+.invesment-target-main input {
+    background-color: #fff;
+}
+
+/*Style none hightchart credits*/
+text.highcharts-credits {
+    display: none;
+}
+
+/*Captcha*/
+#g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    margin: -78px 0 0 0 !important;
+    width: 302px !important;
+    height: 76px !important;
+    z-index: -999999;
+    opacity: 0;
+}

@@ -1,0 +1,183 @@
+﻿@{
+    var appId = Configuration.GetSection("PushNotification")["AppId"];
+    var safariWebId = Configuration.GetSection("PushNotification")["SafariWebId"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title -->
+    <title>@ViewData["Title"]</title>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/assets-new/vendor/bootstrap/bootstrap.min.css">
+    <!-- CSS Global Icons -->
+    <link rel="stylesheet" href="/assets-new/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets-new/vendor/icon-line/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets-new/vendor/icon-etlinefont/style.css">
+    <link rel="stylesheet" href="/assets-new/vendor/icon-line-pro/style.css">
+    <link rel="stylesheet" href="/assets-new/vendor/icon-hs/style.css">
+    <link rel="stylesheet" href="/assets-new/vendor/icon-material/material-icons.css">
+    <link rel="stylesheet" href="/assets-new/vendor/animate.css">
+    <link rel="stylesheet" href="/assets-new/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets-new/vendor/hamburgers/hamburgers.min.css">
+
+    <link rel="stylesheet" href="/assets-new/vendor/slick-carousel/slick/slick.css">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets-new/vendor/animate.css">
+    <link rel="stylesheet" href="/assets-new/vendor/custombox/custombox.min.css">
+    <link rel="stylesheet" href="/assets-new/vendor/jquery-ui/themes/base/jquery-ui.min.css">
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="/assets-new/css/unify-core.css">
+    <link rel="stylesheet" href="/assets-new/css/unify-components.css">
+    <link rel="stylesheet" href="/assets-new/css/unify-globals.css">
+    <link rel="stylesheet" href="/admin-template/assets/css/unify-admin.css" />
+    <link rel="stylesheet" href="/admin-template/assets/vendor/chartist-js/chartist.min.css">
+    <link rel="stylesheet" href="/admin-template/assets/vendor/chartist-js-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="/admin-template/assets/vendor/hs-admin-icons/hs-admin-icons.css">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/assets-new/css/custom.css">
+    <link rel="stylesheet" href="/assets-new/css/new-style.css" asp-append-version="true">
+
+    @RenderSection("Head", required: false)
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "@appId",
+                safari_web_id: "@safariWebId",
+                notifyButton: {
+                    enable: true,
+                },
+                welcomeNotification: {
+                    disable: true
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151541799-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151541799-1');
+    </script>
+
+    <main>
+        <partial name="_NewHeaderPartial" />
+
+
+        @RenderBody()
+
+        <partial name="_NewFooterPartial" />
+
+        <a class="js-go-to u-go-to-v1" href="#" data-type="fixed" data-position='{
+     "bottom": 15,
+     "right": 15
+   }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
+            <i class="hs-icon hs-icon-arrow-top"></i>
+        </a>
+    </main>
+    <div class="u-outer-spaces-helper"></div>
+
+    <!-- JS Global Compulsory -->
+    <script src="/assets-new/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets-new/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets-new/vendor/popper.js/popper.min.js"></script>
+    <script src="/assets-new/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="/admin-template/assets/vendor/chartist-js/chartist.min.js"></script>
+    <script src="/admin-template/assets/vendor/chartist-js-tooltip/chartist-plugin-tooltip.js"></script>
+
+
+    <!-- JS Implementing Plugins -->
+    <script src="/assets-new/vendor/appear.js"></script>
+    <script src="/assets-new/vendor/hs-megamenu/src/hs.megamenu.js"></script>
+    <script src="/assets-new/vendor/custombox/custombox.min.js"></script>
+
+    <!-- jQuery UI Widgets -->
+    <script src="/assets-new/vendor/jquery-ui/ui/widget.js"></script>
+    <script src="/assets-new/vendor/jquery-ui/ui/widgets/datepicker.js"></script>
+
+    <script src="/assets-new/vendor/slick-carousel/slick/slick.min.js"></script>
+
+    <!-- JS Unify -->
+
+    <script src="/assets-new/js/hs.core.js"></script>
+    <script src="/assets-new/js/components/hs.header.js"></script>
+    <script src="/assets-new/js/helpers/hs.hamburgers.js"></script>
+    <script src="/assets-new/js/components/hs.tabs.js"></script>
+    <script src="/assets-new/js/components/hs.onscroll-animation.js"></script>
+    <script src="/assets-new/js/components/hs.carousel.js"></script>
+    <script src="/assets-new/js/components/hs.go-to.js"></script>
+    <script src="/assets-new/js/components/hs.modal-window.js"></script>
+    <script src="/admin-template/assets/js/components/hs.pie-chart.js"></script>.
+    <script src="/assets-new/js/components/hs.count-qty.js"></script>
+    <script src="/assets-new/js/components/hs.datepicker.js"></script>
+
+    <!-- JS Customization -->
+    <script src="/assets-new/js/components/numeral.js"></script>
+    <script src="/assets-new/js/custom.js"></script>
+    <script src="/assets-new/js/investment-target.js"></script>
+    <script src="/assets-new/js/withdrawal.js" asp-append-version="true"></script>
+    <script src="/assets-new/js/transaction-history.js"></script>
+    <script src="/assets-new/js/kvrr-selection.js"></script>
+    <script src="~/assets-new/js/defind-kvrr.js"></script>
+    <!-- JS Plugins Init. -->
+    <script>
+
+        $(document).on('ready', function () {
+            // initialization of carousel
+            $.HSCore.components.HSCarousel.init('.js-carousel');
+            // initialization of tabs
+            $.HSCore.components.HSTabs.init('[role="tablist"]');
+
+            // initialization of scroll animation
+            $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+
+            // initialization of go to
+            $.HSCore.components.HSGoTo.init('.js-go-to');
+            $.HSCore.components.HSModalWindow.init('[data-modal-target]');
+            $.HSCore.components.HSPieChart.init('.js-pie-chart');
+        });
+
+        $(window).on('load', function () {
+            // initialization of header
+            $.HSCore.components.HSHeader.init($('#js-header'));
+            $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+            // initialization of HSMegaMenu component
+            $('.js-mega-menu').HSMegaMenu({
+                event: 'hover',
+                pageContainer: $('.container'),
+                breakpoint: 991
+            });
+
+
+        });
+
+        $(window).on('resize', function () {
+            setTimeout(function () {
+                $.HSCore.components.HSTabs.init('[role="tablist"]');
+            }, 200);
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

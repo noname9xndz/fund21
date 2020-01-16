@@ -14,6 +14,8 @@ namespace smartFunds.Data.Models
         public int Id { get; set; }
         public string Content { get; set; }
         public int No { get; set; }
+        public string ImageDesktop { get; set; }
+        public string ImageMobile { get; set; }
         public ICollection<KVRRAnswer> KVRRAnswers { get; set; }
         public KVRRQuestionCategories KVRRQuestionCategories { get; set; }
     }

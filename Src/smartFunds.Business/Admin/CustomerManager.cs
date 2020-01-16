@@ -150,11 +150,17 @@ namespace smartFunds.Business.Admin
         public async Task<List<User>> GetAllCustomer(SearchCustomer searchCustomer = null)
         {
             var predicate = SetPredicate(searchCustomer);
-
-            var listCustomer = (await _unitOfWork.UserRepository.FindByAsync(u => !u.IsDeleted && _appUserManager.IsInRoleAsync(u, RoleName.Customer).Result, "KVRR"))
-                                .Where(predicate).OrderByDescending(u => u.Created)
-                                .ToList();
-            return listCustomer;
+            var listCustomer = (await _appUserManager.GetUsersInRoleAsync(RoleName.Customer)).Where(u => !u.IsDeleted).Where(predicate).ToList();
+            //Get all KVRR
+            var kvrr = _unitOfWork.KVRRRepository.GetAllKVRR();
+            foreach (var customer in listCustomer)
+            {
+                customer.KVRR = kvrr.FirstOrDefault(h => h.Id == customer.KVRRId);
+            }
+            //var listCustomer = (await _unitOfWork.UserRepository.FindByAsync(u => !u.IsDeleted && u., "KVRR"))
+            //                    .Where(predicate).OrderByDescending(u => u.Created)
+            //                    .ToList().Where(u=> _appUserManager.IsInRoleAsync(u, RoleName.Customer).Result).ToList();
+            return listCustomer.ToList();
         }
 
         public async Task<List<User>> GetListCustomer(int pageSize, int pageIndex, SearchCustomer searchCustomer = null)
@@ -297,7 +303,7 @@ namespace smartFunds.Business.Admin
             
             if (listCustomer != null && listCustomer.Any())
             {
-                _unitOfWork.UserRepository.BulkDelete(listCustomer);
+                _unitOfWork.UserRepository.BulkDelete(listCustomer.ToList());
                 await _unitOfWork.SaveChangesAsync();
                 return true;
             }

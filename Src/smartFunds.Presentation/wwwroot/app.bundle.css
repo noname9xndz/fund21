@@ -10344,19 +10344,20 @@ section.edit-customer {
           line-height: 1;
           position: relative;
           margin-top: 0; }
-.body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content span {
+.body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content a {
+            text-decoration: none;
             font-size: 25px;
             line-height: 0.85;
             display: inline-block;
             color: #F77314; }
 @media screen and (min-width: 375px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content a {
                 font-size: 30px; } }
 @media (min-width: 768px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content a {
                 font-size: 33px; } }
 @media (min-width: 992px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content a {
                 font-size: 45px; } }
 .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-account-balance .user-wallet-account-balance-content span.item-price {
             position: absolute;
@@ -10375,19 +10376,20 @@ section.edit-customer {
           font-weight: 700; }
 .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content {
           line-height: 1; }
-.body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content span {
+.body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content a {
+            text-decoration: none;
             font-size: 25px;
             line-height: 0.85;
             display: inline-block;
             color: #0F0E30; }
 @media screen and (min-width: 375px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content a {
                 font-size: 30px; } }
 @media (min-width: 768px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content a {
                 font-size: 33px; } }
 @media (min-width: 992px) {
-              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content span {
+              .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block.user-wallet-growth-rate .user-wallet-growth-rate-content a {
                 font-size: 45px; } }
 .body-content-endUser .user-wallet .user-wallet-content .user-wallet-block .block-icon {
         width: 30px;
@@ -10878,7 +10880,7 @@ section.edit-customer {
         width: 100%; }
 .user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container {
           background: #fff;
-          padding: 20px 13px 20px 20px;
+          padding: 20px 15px;
           margin-top: 20px;
           border-radius: 3px; }
 @media (min-width: 768px) {
@@ -10936,6 +10938,14 @@ section.edit-customer {
               color: #0F0E30;
               margin-top: 5px;
               line-height: 150%; }
+.user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .question-image {
+            position: relative;
+            width: 100%;
+            display: block;
+            margin-bottom: 30px; }
+.user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .question-image img {
+              width: 100%;
+              max-width: 100%; }
 .user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .choose-answers {
             margin-top: 20px; }
 @media (min-width: 768px) {
@@ -11995,7 +12005,7 @@ section.edit-customer {
         width: 100%; }
 .user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container {
           background: #fff;
-          padding: 20px 13px 20px 20px;
+          padding: 20px 15px;
           margin-top: 20px;
           border-radius: 3px; }
 @media (min-width: 768px) {
@@ -12053,6 +12063,14 @@ section.edit-customer {
               color: #0F0E30;
               margin-top: 5px;
               line-height: 150%; }
+.user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .question-image {
+            position: relative;
+            width: 100%;
+            display: block;
+            margin-bottom: 30px; }
+.user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .question-image img {
+              width: 100%;
+              max-width: 100%; }
 .user-answers-question .user-quizmain .form-user-quizmain .user-quizform .quizmain-container .choose-answers {
             margin-top: 20px; }
 @media (min-width: 768px) {
@@ -13379,25 +13397,20 @@ section.edit-customer {
 @media (min-width: 768px) {
               .user-chart-section .user-chart-content__detail_date-range .date-range-input .btn-search {
                 margin-left: 18px; } }
-.user-chart-section .user-chart-content__container {
-      overflow: auto; }
 .user-chart-section .user-chart-content__container .chart {
-        width: 968px; }
-@media (min-width: 992px) {
-          .user-chart-section .user-chart-content__container .chart {
-            width: 100%; } }
+      width: 100%; }
 .user-chart-section .user-chart-content__container .chart span {
-          display: none;
-          position: absolute;
-          color: #E43C3D;
-          font-size: 14px;
-          bottom: 15px;
-          left: 50%;
-          transform: translateX(-50%);
-          -moz-transform: translateX(-50%);
-          -webkit-transform: translateX(-50%);
-          -o-transform: translateX(-50%);
-          -ms-transform: translateX(-50%); }
+        display: none;
+        position: absolute;
+        color: #E43C3D;
+        font-size: 14px;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        -ms-transform: translateX(-50%); }
 .user-data-management-section {
   background: #e5e5e5;
   padding: 60px 0; }
@@ -14550,6 +14563,12 @@ section.edit-customer {
   font-weight: 700; }
 .user-invesment-target button {
   margin-top: 20px; }
+.user-withdrawal-invest .user-form-control.user-form-control-modified {
+  display: block;
+  margin-bottom: 15px; }
+@media (min-width: 768px) {
+    .user-withdrawal-invest .user-form-control.user-form-control-modified {
+      margin-bottom: 10px; } }
 .user-withdrawal-invest .user-form-control .input-form-control {
   min-height: 50px;
   font-size: 14px; }
@@ -14603,6 +14622,49 @@ section.edit-customer {
     cursor: default; }
 .user-withdrawal-invest #user-invest-money .user-withdrawal-invest__action {
   margin-top: 40px; }
+.user-withdrawal-invest label.container {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  margin-left: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+@media (min-width: 768px) {
+    .user-withdrawal-invest label.container {
+      margin-left: 0; } }
+.user-withdrawal-invest label.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    min-height: 25px; }
+.user-withdrawal-invest label.container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px; }
+.user-withdrawal-invest .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+.user-withdrawal-invest label.container input:checked ~ .checkmark:after {
+  display: block; }
+.user-withdrawal-invest label.container .checkmark:after {
+  left: 7px;
+  top: 0px;
+  width: 7px;
+  height: 14px;
+  border: solid #F77314;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg); }
 #pageloader {
   background: rgba(229, 229, 229, .6);
   display: none;

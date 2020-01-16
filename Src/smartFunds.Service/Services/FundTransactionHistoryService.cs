@@ -26,11 +26,13 @@ namespace smartFunds.Service.Services
         Task<int> GetCountUserFund(int fundId);
         Task<decimal> GetTotalAmountInvestFund(int fundId);
         Task<InvestmentFunds> GetInvestmentFunds();
-        Task Investment(decimal amount, string customerUserName = null);
-        Task Withdrawal(string userName, decimal amount, decimal fee, WithdrawalType? type);
+        Task Investment(decimal amount, string customerUserName = null, string objectId = null);
+        Task Withdrawal(string userName, decimal amount, decimal fee, WithdrawalType? type, bool withdrawalAll = false, string objectId = null);
         Task ChangeKVRR(int newKVRRId);
         Task ApproveBalanceFund(int fundId);
+        Task StartBalancing(int fundId);
         Task<bool> ApproveFundPercent(int portfolioId);
+        Task WithdrawRollback(decimal amount, string customerUserName);
     }
     public class FundTransactionHistoryService : IFundTransactionHistoryService
     {
@@ -85,7 +87,7 @@ namespace smartFunds.Service.Services
         public async Task<List<FundTransactionHistoryModel>> GetListBalanceFund(smartFunds.Common.EditStatus status)
         {
             var allFundTransactionHistory = await _fundTransactionHistoryManager.GetListBalanceFund(status);
-            return _mapper.Map<List<FundTransactionHistory>, List<FundTransactionHistoryModel>>(allFundTransactionHistory);
+            return _mapper.Map<List<FundTransactionHistory>, List<FundTransactionHistoryModel>>(allFundTransactionHistory.ToList());
         }
 
         public async Task<FundTransactionHistoryModel> GetListBalanceFund(int fundId, smartFunds.Common.EditStatus status)
@@ -119,14 +121,14 @@ namespace smartFunds.Service.Services
             return await _fundTransactionHistoryManager.GetInvestmentFunds();
         }
 
-        public async Task Investment(decimal amount, string customerUserName = null)
+        public async Task Investment(decimal amount, string customerUserName = null, string objectId = null)
         {
-            await _fundTransactionHistoryManager.Investment(amount, customerUserName);
+            await _fundTransactionHistoryManager.Investment(amount, customerUserName, objectId);
         }
 
-        public async Task Withdrawal(string userName, decimal amount, decimal fee, WithdrawalType? type)
+        public async Task Withdrawal(string userName, decimal amount, decimal fee, WithdrawalType? type, bool withdrawalAll = false, string objectId = null)
         {
-            await _fundTransactionHistoryManager.Withdrawal(userName, amount, fee, type);
+            await _fundTransactionHistoryManager.Withdrawal(userName, amount, fee, type, withdrawalAll,objectId);
         }
 
         public async Task ChangeKVRR(int newKVRRId)
@@ -139,9 +141,19 @@ namespace smartFunds.Service.Services
             await _fundTransactionHistoryManager.ApproveBalanceFund(fundId);
         }
 
+        public async Task StartBalancing(int fundId)
+        {
+            await _fundTransactionHistoryManager.StartBalancing(fundId);
+        }
+
         public async Task<bool> ApproveFundPercent(int portfolioId)
         {
           return  await _fundTransactionHistoryManager.ApproveFundPercent(portfolioId);
+        }
+
+        public async Task WithdrawRollback(decimal amount, string customerUserName)
+        {
+           await  _fundTransactionHistoryManager.WithdrawRollback(amount,  customerUserName);
         }
     }
 }

@@ -1,0 +1,98 @@
+﻿@using smartFunds.Model.Common;
+@model LstNewsModel
+
+@{
+    Layout = "_NewLayout";
+    ViewData["Title"] = Common.ContentNews;
+    var mobileImages = @HomepageCMSService.GetAll().Where(x => x.Category == "1" && x.ImageName.Contains("mobile_"));
+    var desktopImages = @HomepageCMSService.GetAll().Where(x => Int32.Parse(x.Category) == 1 && !x.ImageName.Contains("mobile_"));
+}
+
+<section class="g-py-20">
+    <div class="container">
+        <div class="text-left g-mb-20">
+            <h2 class="text-uppercase g-line-height-1 g-font-weight-600 g-font-size-20 g-mt-20  g-mb-10">
+                @Common.ContentNews
+
+            </h2>
+        </div>
+        <div class="blog-page page_list">
+            <div class="row  mb10">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!--Blog Post-->
+                    <!-- Blog Minimal Blocks -->
+                    @if (Model != null && Model.LstNews.Any())
+                    {
+                        @for (int i = 0; i < Model.LstNews.Count; i++)
+                        {
+                            <div class='row g-mb-10'>
+                                <div class='col-md-12 col-lg-12 col-sm-12 col-xs-12 mb5'>
+                                    <h5 class="h5 g-color-black  g-font-weight-600 mt-2">
+                                        <i class="fa fa-calendar"></i>  @Html.Raw(@Model.LstNews[i].PostDate.ToString("dd/MM/yyyy")) :   <a asp-action="Detail" asp-route-id="@Model.LstNews[i].Id" class="g-color-black" title="@Html.Raw(Model.LstNews[i].Title)">
+                                            @Html.Raw(Model.LstNews[i].Title)
+                                        </a> 
+                                    </h5>
+
+                                </div>
+
+                                @*<div class='col-lg-5'>
+                                    <div id='shortcode2'>
+                                        <div class='shortcode-html'>
+
+                                            <div class='g-mb-30'>
+                                                <a asp-action="Detail" asp-route-id="@Model.LstNews[i].Id" class="g-color-black" title="@Html.Raw(Model.LstNews[i].Title)">
+                                                    @if (!String.IsNullOrEmpty(@Model.LstNews[i].ImageThumb))
+                                                    {
+                                                        <img src="@Constants.NewsImageFolder.Path@Model.LstNews[i].ImageThumb" class='img-responsive img-fluid w-100' />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/images/empty-photo.jpg" class='img-responsive img-fluid w-100' />
+                                                    }
+                                                    </a>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>*@
+
+                                <div class='col-lg-12'>
+
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li></li>
+                                    </ul>
+                                    @if (!String.IsNullOrEmpty(Model.LstNews[i].ShortDescribe))
+                                    {
+                                        <p>
+                                            @Html.Raw(@Model.LstNews[i].ShortDescribe)
+
+                                        </p>
+
+                                    }
+                                </div>
+                            </div>
+
+
+                        }
+                    }
+                    <!--End Blog Post-->
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row  mb10">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="box-pages pull-right mr20 mb15">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

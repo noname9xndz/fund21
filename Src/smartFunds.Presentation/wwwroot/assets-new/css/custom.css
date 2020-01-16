@@ -1,0 +1,228 @@
+/* Add here all your css styles (customizations) */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:200,300,400,700');
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/*.u-btn-outline-primary {
+  color: white;
+  border-color: #039be5;
+  background-image: linear-gradient(to right, #00BDA0, #007DDD);
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  padding: 10px 36px !important;
+}
+.u-btn-primary {
+  color: white;
+  background-image: linear-gradient(to right, #00BDA0, #007DDD);
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}*/
+
+.u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .open > .nav-link, .u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .active > .nav-link, .u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .nav-link.open, .u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .nav-link.active, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .open > .nav-link, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .active > .nav-link, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .nav-link.open, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .nav-link.active {
+  color: #FE541E;
+}
+
+.g-brd-primary {
+  border-color: #FE541E !important;
+}
+input[type="checkbox"]:checked + .g-bg-primary--checked, input[type="radio"]:checked + .g-bg-primary--checked, input[type="checkbox"]:checked + * .g-bg-primary--checked, input[type="radio"]:checked + * .g-bg-primary--checked {
+  background-color: #fe541e !important;
+}
+div#rev_slider_26_1_forcefullwidth, div#rev_slider_26_1_wrapper, .fullwidthbanner-container .fullwidthabanner {
+    height: 507px !Important;
+    overflow: hidden;
+}
+
+/*------------------------------------
+  Carousel indicators v1c
+------------------------------------*/
+.u-carousel-indicators-v1c,
+.u-carousel-indicators-v1c--white {
+  
+}
+
+.u-carousel-indicators-v1c li,
+.u-carousel-indicators-v1c--white li {
+  margin: 0 5px;
+}
+
+  .u-carousel-indicators-v1c li.slick-active span,
+  .u-carousel-indicators-v1c--white li.slick-active span {
+    background-color: #FE541E;
+  }
+
+.u-carousel-indicators-v1c span,
+.u-carousel-indicators-v1c--white span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #777;
+  opacity: 1;
+}
+
+.u-carousel-indicators-v1c span {
+  background-color: #777;
+}
+
+.u-carousel-indicators-v1c--white li.slick-active span {
+  background-color: #fff;
+}
+
+[class*="u-carousel-indicators"] {
+    display: block;
+    position: absolute;
+    padding-left: 0;
+    margin-bottom: 36px;
+}
+/*
+  Timeline
+*/
+
+.u-timeline-v1
+{
+  border:none;
+}
+.u-timeline-v1-wrap:not([class*="--horizontal"])::before {
+  left: 50%;
+  margin-left: 10px;
+}
+
+.u-timeline-v1-wrap::before { 
+  border-right: 0 none white !important;
+}
+
+.bg-adv img {
+    width: 100%;
+    height: auto;
+}
+.g-color-gray-dark-v1 {  
+  text-align: justify;
+}
+.u-timeline-v1-wrap::before {
+   
+    width: 0px;    
+}
+/*Hoat dong*/
+.u-icon-v6 {
+  width: 150px;
+  height: 150px;
+}
+
+.u-icon-v6-inner {
+  width: 150px;
+  height: 150px;
+}
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+  .d-content-mobile-none {
+    display: none;
+  }
+}
+
+
+
+/*.rev_slider .tp-bgimg.defaultimg {
+  width: 100% !important;
+  height: auto !important;
+}*/
+
+.slick-slide  img
+{
+  display:inherit !important;
+}
+.form-control-feedback {
+  color: #f00;
+}
+
+
+a {
+  color: #fe541e;
+  outline: none;
+}
+
+  a:focus,
+  a:hover {
+    color: #fe541e;
+  }
+
+
+
+/*
+    kvrr selection style slick dots
+*/
+.kvrr-select-main .slick-dots {
+    display: flex !important;
+    justify-content: center;
+}
+
+.kvrr-select-main .slick-dots li {
+    width: 30px;
+    text-align: center;
+}
+
+.kvrr-select-main .slick-dots li button {
+    display: none;
+}
+
+/*.kvrr-select-main .slick-dots li::marker {
+    color: #777;
+}*/
+
+/*.kvrr-select-main .slick-dots li.slick-active::marker {
+    color: #FE541E;
+}*/
+
+.kvrr-select-main .slick-dots li {
+    color: #777;
+}
+
+.kvrr-select-main .slick-dots li.slick-active {
+    color: #FE541E;
+}
+
+/*loading subbmit form*/
+.user-withdrawal-invest #pageloader {
+    display: none;
+}
+
+.user-profile .message-chart {
+    display: none;
+    width: 100%;
+}
+
+.user-profile .message-chart p {
+    text-align: center;
+    color: #f00;
+}
+
+/*style image loading*/ 
+#pageloader {
+    background: rgba(229, 229, 229, .6);
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#pageloader img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+
+.content-detail img {
+    width: 100% !important;
+}
+
+

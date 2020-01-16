@@ -1,4 +1,5 @@
-﻿using smartFunds.Model.Common;
+﻿using smartFunds.Model.Client;
+using smartFunds.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,5 +17,7 @@ namespace smartFunds.Presentation.Models
         public PropertyFluctuations PropertyFluctuations { get; set; }
 
         public InvestmentTargetModel InvestmentTarget { get; set; }
+
+        public List<UserPorfolio> UserPortfolios { get; set; }
     }
 }

@@ -1,63 +1,440 @@
 ﻿@model UserModel
 @{
+    Layout = "_NewLayout";
     ViewData["Title"] = Common.Account;
 }
 
-<div class="body-content-endUser">
-    <section class="user-wallet">
-        <div class="user-wallet-title"> <span class="text-content">@Common.Account</span></div>
-        <div class="user-wallet-content">
-            <div class="user-wallet-block user-wallet-account-balance money-record">
-                <div class="block-icon">
-                    <img class="icon-wallet" src="/images/icons/wallet.png" alt="Account-balance">
+
+<section class="g-py-30">
+    <div class="container">
+        <div class="row g-ma-0">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-0">
+                <div class="mb-4 text-center">
+                    <span class="u-icon-v6 u-icon-v4-rounded-50x g-mr-15 g-mb-0">
+                        <span class="u-icon-v6-inner">
+                            <img class="g-max-with-400 img-fluid g-mb-0" src="/assets-new/img/content/tai-khoan.png" alt="Image Description">
+                        </span>
+                    </span>
                 </div>
-                <div class="user-wallet-block-content user-wallet-account-balance-inside money-record__detail">
-                    <div class="user-wallet-account-balance-title money-record__title">
-                        @*<span class="text">
-                                @Html.DisplayNameFor(m => m.CurrentAccountAmount)
-                            </span>*@
-                    </div>
-                    <div class="user-wallet-account-balance-content money-record__info">
-                        <span class="amount">@Model.CurrentAccountAmount.ToString("N0")</span><span class="item-price">VND</span>
-                    </div>
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Tài khoản</span> của Bạn</h2>
                 </div>
-            </div>
-            <div class="user-wallet-block user-wallet-growth-rate">
-                <div class="block-icon">
-                    <img class="icon-arrow-increase"
-                         src="/images/icons/arrow-increase.png" alt="Account-balance">
-                </div>
-                <div class="user-wallet-block-content user-wallet-growth-rate-inside">
-                    <div class="user-wallet-growth-rate-title">@*<span class="text">@Common.PercentageGrowth</span>*@</div>
-                    @{
-                        //decimal percentageGrowth = Model.InitialInvestmentAmount - Model.AmountWithdrawn == 0 ? 0 : ((Model.CurrentAccountAmount / (Model.InitialInvestmentAmount - Model.AmountWithdrawn)) * 100) - 100;
-                        decimal percentageGrowth = Model.CurrentInvestmentAmount == 0 ? 0 : (((Model.CurrentAccountAmount / Model.CurrentInvestmentAmount) - 1)* Model.AdjustmentFactor)*100;
+                <!-- Icon Blocks -->
+
+                @{ 
+                    var modal = "#modalAntoan";
+                    var image = "/assets-new/img/content/an-toan.png";
+                    if(Model.KVRR != null)
+                    {
+                        if (Model.KVRR.Name.Contains("Cẩn trọng"))
+                        {
+                            modal = "#modalCantrong";
+                            image = "/assets-new/img/content/can-trong.png";
+                        }
+                        else if (Model.KVRR.Name.Contains("Cân bằng"))
+                        {
+                            modal = "#modalCanbang";
+                            image = "/assets-new/img/content/can-bang.png";
+                        }
+                        else if (Model.KVRR.Name.Contains("Mạo hiểm"))
+                        {
+                            modal = "#modalMaohiem";
+                            image = "/assets-new/img/content/mao-hiem.png";
+                        }
+                        else if (Model.KVRR.Name.Contains("Đầu cơ"))
+                        {
+                            modal = "#modalDauco";
+                            image = "/assets-new/img/content/dau-co.png";
+                        }
                     }
-                    <div class="user-wallet-growth-rate-content"><span class="amount">@(percentageGrowth.ToString("0.##"))%</span></div>
+
+                }
+
+                <div class="g-px-0 g-pt-0 g-pb-20">
+                    @if (Model.KVRR != null)
+                    {
+                        <div class="media g-mb-15">
+                            <div class="align-self-center mr-3 g-width-50x text-right">
+                                <a href="@modal" data-modal-target="@modal" data-modal-effect="scale"> <img class="img-fluid g-width-100 g-height-100 g-mb-0 rounded-circle" src="@image" alt="Image Description"></a>
+                            </div>
+                            <div class="media-body align-self-center g-width-50x text-left">
+                                <a href="@modal" data-modal-target="@modal" data-modal-effect="scale"><h3 class="h5 g-color-black mb-0">@Model.KVRR.Name</h3></a>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Example Button -->
+
+                    <a asp-controller="ClientTransactionHistory" asp-action="Index" class="u-shadow-v1-1 btn-block btn btn-xl u-btn-deeporange u-btn-hover-v1-4 g-letter-spacing-0_5  g-rounded-15 g-px-30 g-mr-10 g-rounded-0--bottom-left g-rounded-0--bottom-right">
+                        <i class="fa fa-briefcase float-left g-font-size-42 g-ml-15"></i>&nbsp;&nbsp;&nbsp;
+                        <span class="pull-right float-right text-left">
+                            <span class="d-block g-font-size-30 text-uppercase">@Model.CurrentAccountAmount.ToString("N0")<sup style="text-transform:lowercase">đ</sup></span>
+                        </span>
+                    </a>
+
+                    <a asp-controller="Profile" asp-action="Detail" class="u-shadow-v1-1 g-mt-0 btn-block btn btn-xl u-btn-orange u-btn-hover-v1-4 g-letter-spacing-0_5 text-uppercase g-rounded-15 g-px-30 g-mr-10 g-mb-15 g-rounded-0--top-left g-rounded-0--top-right">
+                        <i class="fa fa-line-chart float-left g-font-size-42 g-ml-15"></i>&nbsp;&nbsp;&nbsp;
+                        <span class="pull-right float-right text-left">
+                            <span class="d-block g-font-size-30">@(ViewBag.PercentageGrowth.ToString("0.##"))<sup>%</sup></span>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="link-widget-wallet">
-            <a class="withdraw" asp-action="Withdrawal" asp-controller="Withdrawal">@Common.Withdrawal</a>
-            @if (Model.CurrentAccountAmount > 0)
-            {
-                <a class="invest-more" asp-controller="Investment" asp-action="Invest">
-                    <img src="/images/icons/payment-method.png" alt="Invest more"><span>
-                        @Common.Investment
-                    </span>
-                </a>
-            }
-            else
-            {
-                <a class="invest-more link-show-popup">
-                    <img src="/images/icons/payment-method.png" alt="Invest more"><span>
-                        @Common.Investment
-                    </span>
-                </a>
-            }
+        <div class="row">
+            <div class="col-md-4 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="InvestmentTarget" asp-action="Detail">Đầu tư theo mục tiêu</a>
+            </div>
+            <div class="col-md-4 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-controller="Investment" asp-action="Invest">Đầu tư</a>
+            </div>
+            <div class="col-md-4 col-xs-12 align-self-center g-mb-50--md g-mb-0--md  text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-outline-deeporange g-color-white--hover u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14" asp-action="Withdrawal" asp-controller="Withdrawal">Rút tiền</a>
+            </div>
         </div>
 
+    </div>
+
+    <!-- An toan modal window -->
+    <div id="modalAntoan" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">An toàn</span></h2>
+        <p>
+            Danh mục đầu tư dành cho các khách hàng có khẩu vị rủi ro rất thấp và mong muốn đạt lợi nhuận ổn định.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-borderless u-table--v1">
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">7.95%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">9.07%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">6.84%</td></tr>
+            </table>
+        </div>
+        <div id="cAntoan" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    </div>
+    <!-- End toan modal window -->
+    <!-- Can trong modal window -->
+    <div id="modalCantrong" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cẩn trọng</span></h2>
+        <p>
+            Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro thấp và mong muốn bảo vệ nguồn vốn khỏi tác động của lạm phát.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-borderless u-table--v1">
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">8.38%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">13.35%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.42%</td></tr>
+            </table>
+        </div>
+        <div id="cCantrong" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    </div>
+    <!-- End Can trong modal window -->
+    <!-- An toan modal window -->
+    <div id="modalCanbang" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Cân bằng</span></h2>
+        <p>
+            Danh mục đầu tư dành cho khách hàng mong muốn khoản đầu tư có tiềm năng tăng trưởng.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-borderless u-table--v1">
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">10.52%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">19.41%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">1.63%</td></tr>
+            </table>
+        </div>
+        <div id="cCanbang" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    </div>
+    <!-- End toan modal window -->
+    <!-- An toan modal window -->
+    <div id="modalMaohiem" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Mạo hiểm</span></h2>
+        <p>
+            Danh mục đầu tư dành cho khách hàng có khẩu vị rủi ro cao, chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về cao hơn đáng kể so với mức lạm phát.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-borderless u-table--v1">
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.32%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.21%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">2.43%</td></tr>
+            </table>
+        </div>
+        <div id="cMaohiem" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    </div>
+    <!-- End toan modal window -->
+    <!-- An toan modal window -->
+    <div id="modalDauco" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <h2 id="tieuderuttien" class="h3 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Danh mục đầu tư<span class="g-color-deeporange g-ml-5">Đầu cơ</span></h2>
+        <p>
+            Danh mục dành cho khách hàng chấp nhận khẩu vị rủi ro rất cao, chịu được các biến động trong ngắn hạn, trung hạn và dài hạn đổi lại khoản lợi nhuận có thể thu về rất lớn.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-borderless u-table--v1">
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận trung bình</td><td class="g-width-20x text-right">11.99%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận cao nhất</td><td class="g-width-20x text-right">20.88%</td></tr>
+                <tr><td class="g-width-80x g-pl-0">Lợi nhuận thấp nhất</td><td class="g-width-20x text-right">3.10%</td></tr>
+            </table>
+        </div>
+        <div id="cDauco" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    </div>
+    <!-- End toan modal window -->
+
+    <script src="/assets/vendor/highcharts/code/highcharts.js"></script>
+    <script src="/assets/vendor/highcharts/code/modules/exporting.js"></script>
+    <script src="/assets/vendor/highcharts/code/modules/export-data.js"></script>
+    <script type="text/javascript">
+        // Build the chart
+        Highcharts.chart('cAntoan', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Tỷ lệ',
+                colorByPoint: true,
+                data: [{
+                    name: 'Quỹ đầu tư trái phiếu',
+                    y: 100,
+                    sliced: false,
+                    selected: true
+                }, {
+                    name: 'Quỹ đầu tư hỗn hợp',
+                    y: 0
+                }, {
+                    name: 'Quỹ đầu tư cổ phiếu',
+                    y: 0
+                }]
+            }],
+            exporting:
+            {
+                enabled: false
+            }
+        });
 
 
-    </section>
-</div>
+        // Build the chart Can trong
+        Highcharts.chart('cCantrong', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Tỷ lệ',
+                colorByPoint: true,
+                data: [{
+                    name: 'Quỹ đầu tư trái phiếu',
+                    y: 56,
+                    sliced: false,
+                    selected: true
+                }, {
+                    name: 'Quỹ đầu tư hỗn hợp',
+                    y: 24
+                }, {
+                    name: 'Quỹ đầu tư cổ phiếu',
+                    y: 20
+                }]
+            }],
+            exporting:
+            {
+                enabled: false
+            }
+        });
+
+        // Build the chart Can trong
+        Highcharts.chart('cCanbang', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Tỷ lệ',
+                colorByPoint: true,
+                data: [{
+                    name: 'Quỹ đầu tư trái phiếu',
+                    y: 30,
+                    sliced: false,
+                    selected: true
+                }, {
+                    name: 'Quỹ đầu tư hỗn hợp',
+                    y: 30
+                }, {
+                    name: 'Quỹ đầu tư cổ phiếu',
+                    y: 40
+                }]
+            }],
+            exporting:
+            {
+                enabled: false
+            }
+        });
+
+        // Build the chart Can trong
+        Highcharts.chart('cMaohiem', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Tỷ lệ',
+                colorByPoint: true,
+                data: [{
+                    name: 'Quỹ đầu tư trái phiếu',
+                    y: 15,
+                    sliced: false,
+                    selected: true
+                }, {
+                    name: 'Quỹ đầu tư hỗn hợp',
+                    y: 15
+                }, {
+                    name: 'Quỹ đầu tư cổ phiếu',
+                    y: 70
+                }]
+            }],
+            exporting:
+            {
+                enabled: false
+            }
+        });
+
+        // Build the chart Can trong
+        Highcharts.chart('cDauco', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Tỷ lệ',
+                colorByPoint: true,
+                data: [{
+                    name: 'Quỹ đầu tư trái phiếu',
+                    y: 5,
+                    sliced: false,
+                    selected: true
+                }, {
+                    name: 'Quỹ đầu tư hỗn hợp',
+                    y: 5
+                }, {
+                    name: 'Quỹ đầu tư cổ phiếu',
+                    y: 90
+                }]
+            }],
+            exporting:
+            {
+                enabled: false
+            }
+        });
+    </script>
+
+</section>

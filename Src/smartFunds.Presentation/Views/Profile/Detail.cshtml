@@ -1,149 +1,299 @@
 ﻿@model DetailCustomerViewModel
 @{
     ViewData["Title"] = Common.MyProfile;
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
-<section class="user-info-section">
-    <div class="container-fluid">
-        <div class="user-info-content">
-            <h2 class="user-info-content__title">@Common.MyProfile</h2>
-            <div class="user-info-content__detail">
-                <div class="user-info-content__detail__items">
-                    <div class="info-details">
-                        <div class="info-details__account">
-                            <p><span>@Html.DisplayNameFor(model => model.Customer.FullName)</span><span class="username">@Html.DisplayFor(model => model.Customer.FullName)</span></p>
-                            <p><span>@Common.PhoneNumber</span><span>@Html.DisplayFor(model => model.Customer.PhoneNumber)</span></p>
-                        </div>
-                    </div>
+<section class="g-py-30 user-profile">
+    <input type="hidden" id="editProfileDataApiUrl"
+           value="/profile/edit">
+    <input type="hidden" id="profileDataApiUrl"
+           value="/profile/PropertyFluctuations">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Thông tin</span> cá nhân</h2>
                 </div>
-                <div class="user-info-content__detail__items">
-                    <div class="change-info">
-                        <div class="change-info__link">
-                            <a class="link-show">
-                                <img src="/images/icon-change-info.png" alt=""><span>
-                                    Thay đổi thông tin cá nhân
-                                </span>
-                            </a>
-                        </div>
-                        <div class="change-info__modal">
-                            <div class="modal micromodal-slide" id="modal-change-info" aria-hidden="true">
-                                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-                                </div>
-                                <div class="modal__container" role="dialog" aria-modal="true"
-                                        aria-labelledby="modal-1-title">
-                                    <header class="modal__header">
-                                        <h2 class="modal__title" id="modal-1-title">
-                                            Thay đổi thông tin cá nhân
-                                        </h2><button class="modal__close" aria-label="Close modal"
-                                                        data-micromodal-close></button>
-                                    </header>
-                                    <div class="modal__content" id="modal-1-content">
-                                        <form id="form_login">
-                                            <div class="form-row">
-                                                <input class="user-input" id="your_name"
-                                                        type="text" name="your_name" required autocomplete="on"
-                                                        value="@Model.Customer.FullName">
-                                                <p class="placeholder"><span>@Html.DisplayNameFor(model => model.Customer.FullName)</span></p>
-                                            </div>
-                                            <div class="form-row">
-                                                <input class="user-input your_phone"
-                                                        id="your_phone" type="number" name="your_phone" required
-                                                        autocomplete="on" value="@Model.Customer.PhoneNumber" readonly="readonly">
-                                                <p class="placeholder"><span>@Common.PhoneNumber</span></p>
-                                            </div>
-                                            <div class="form-row">
-                                                <input class="user-input user-input--update" type="submit"
-                                                        value="Cập nhật" name="Cập nhật">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+            </div>
+        </div>
+
+        <div class="d-block u-shadow-v1-1 u-shadow-v1-3 g-rounded-15 g-bg-white g-mr-5 g-ml-5 g-pa-10 user-info-content">
+            <!-- Icon Blocks -->
+            <div class="row user-info-content-item">
+                <div class="col-6 align-self-center g-mb-50--md g-mb-0--md">
+                    <span class="g-mb-10 g-width-100x g-font-weight-700">Họ và tên: </span>
+                </div>
+                <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left username">
+                    @Html.DisplayFor(model => model.Customer.FullName)
+                </div>
+            </div>
+            <div class="row user-info-content-item">
+                <div class="col-6 align-self-center g-mb-50--md g-mb-0--md">
+                    <span class="g-mb-10 g-width-100x g-font-weight-700">Số điện thoại: </span>
+                </div>
+                <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left phone-number">
+                    @Html.DisplayFor(model => model.Customer.PhoneNumber)
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 g-font-size-14 g-min-width-220" href="#" data-modal-target="#modalcanhan" data-modal-effect="scale">Thay đổi thông tin cá nhân</a>
+            </div>
+        </div>
+        <!-- End Icon Blocks -->
+        <div class="row">
+
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Biến động tài sản</span> của Bạn</h2>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <div class="form-group g-mb-20">
+                    <div class="input-group g-brd-primary--focus ">
+                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                            <input id="datepickerFrom" class="form-control form-control-md  border-0 u-datepicker-v1 g-brd-right-none rounded-0 g-pa-0 user-profile-start-date" type="text" placeholder="dd/mm/yyyy">
+                            <b class="tooltip tooltip-top-right u-tooltip--v1">Nhập Từ ngày</b>
+                            <div class="input-group-append">
+                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1"><i class="icon-calendar"></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div><input type="hidden" id="editProfileDataApiUrl"
-                 value="/profile/edit">
-</section>
-<section class="user-chart-section">
-    <div class="container-fluid">
-        <h2>@Common.PropertyFluctuation</h2>
-        <div class="user-chart-content">
-            <div class="user-chart-content__detail">
-                <div class="user-chart-content__detail_date-range">
-                    <h3>@Common.TimeAction</h3>
-                    <div class="date-range-input">
-                        <div class="date-range-input__items">
-                            <span>Từ ngày</span><input class="user_asset_from"
-                                                       id="user_asset_from" type="text" name="user_asset_from" placeholder="dd/MM/yyyy"
-                                                       autocomplete="off">
+
+            <div class="col-6">
+                <div class="form-group g-mb-20">
+                    <div class="input-group g-brd-primary--focus">
+                        <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                            <input id="datepickerTo" class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 user-profile-end-date" type="text" placeholder="dd/mm/yyyy">
+                            <b class="tooltip tooltip-top-right u-tooltip--v1">Nhập đến ngày</b>
+                            <div class="input-group-append">
+                                <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1"><i class="fa fa-calendar"></i></span>
+                            </div>
                         </div>
-                        <div class="date-range-input__items">
-                            <span>Đến ngày</span><input class="user_asset_to"
-                                                        id="user_asset_to" type="text" name="user_asset_to" placeholder="dd/MM/yyyy"
-                                                        autocomplete="off">
-                        </div>
-                        <button class="btn-search">
-                            <img src="/images/icon-search.png" alt="">
-                        </button>
                     </div>
                 </div>
             </div>
-            <div class="user-chart-content__container">
-                <div class="chart"> <canvas class="chart-profile" id="chart-profile"></canvas><span>Không có dữ liệu</span></div>
+            <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 g-font-size-14 g-min-width-220 button-search-chart" href="#">Tìm</a>
             </div>
-        </div>
-    </div><input type="hidden" id="profileDataApiUrl"
-                 value="/profile/PropertyFluctuations">
-</section>
-@if (Model.InvestmentTarget != null)
-{
-    <section class="user-investment-section">
-        <div class="container-fluid">
-            <div class="user-invesment-target is-active">
-                <h1 class="section-title-endUser">@Common.InvestmentTarget</h1>
-                <div class="user-form-group p-15">
-                    <h3>@Common.Target</h3>
-                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.ExpectedAmount)</span><span>@Model.InvestmentTarget.ExpectedAmount?.ToString("N0") đ</span></div>
-                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.Duration)</span><span>@Model.InvestmentTarget.Duration.GetDisplayName()</span></div>
-                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.Frequency)</span><span>@Model.InvestmentTarget.Frequency.GetDisplayName()</span></div>
-                    <div class="user-form-control"><span>@Common.OneTimeAmount</span><span>@Model.InvestmentTarget.OneTimeAmount.ToString("N0") đ</span></div>
-                    <div class="user-form-control"><span>@Common.InvestmentMethod</span><span>@Model.InvestmentTarget.InvestmentMethod.GetDisplayName()</span></div>
-                </div>
+            <div class="message-chart">
+                <p>Không có dữ liệu</p>
             </div>
+            <div class="col-md-12" id="container"></div>
 
-            <div class="user-invesment-target is-active">
-                <div class="user-form-group p-15">
-                    <h3>Đã thực hiện</h3>
-                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentAmount)</span><span>@Model.InvestmentTarget.InvestmentAmount.ToString("N0") đ</span></div>
-                    <div class="user-form-control"><span>@Html.DisplayNameFor(model => model.InvestmentTarget.InvestmentDuration)</span><span>@Model.InvestmentTarget.InvestmentDuration @(Model.InvestmentTarget.Frequency == Frequency.OneMonth ? "tháng" : "tuần")</span></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 align-self-center g-mb-50--md g-mb-0--md text-center g-px-10">
+                <div class="g-brd-primary g-mb-30">
+                    <h2 id="danhmucdautu" class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700"><span class="g-color-deeporange g-ml-5">Mục tiêu</span> đầu tư</h2>
                 </div>
             </div>
         </div>
-    </section>
+        @if (Model.InvestmentTarget != null)
+        {
+            <div class="u-shadow-v1-1 u-shadow-v1-3 g-rounded-15 g-bg-white g-mr-5 g-ml-5 g-pa-10">
+                <!-- Icon Blocks -->
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md">
+                        <span class="g-mb-10 g-width-100x g-font-weight-700">Số tiền kỳ vọng: </span>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.InvestmentTarget.ExpectedAmount?.ToString("N0") đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tài sản hiện có: </label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.Customer.CurrentAccountAmount.ToString("N0") đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Thời hạn đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.InvestmentTarget.Duration.GetDisplayName()
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Tần suất đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.InvestmentTarget.Frequency.GetDisplayName()
+                    </div>
+                </div> <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Số tiền trong 1 lần đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        @Model.InvestmentTarget.OneTimeAmount.ToString("N0") đ
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left">
+                        <label class="g-mb-10 g-width-100x g-font-weight-700">Hình thức đầu tư:</label>
+                    </div>
+                    <div class="col-6 align-self-center g-mb-50--md g-mb-0--md text-left g-mb-10">
+                        @Model.InvestmentTarget.InvestmentMethod.GetDisplayName()
+                    </div>
+                </div>
 
-}
-<section class="user-data-management-section">
-    <div class="container-fluid">
-        <div class="user-data-management">
-            <h2>Quản lý dữ liệu</h2>
-            <div class="user-data-management__detail">
-                <div class="user-data-management__detail__items">
-                    <img src="/images/icon-pdf.png"
-                         alt=""><span>Qt1_Report.pdf</span><a href="#">
-                        <img src="/images/icon-download.png" alt="">
-                    </a>
+            </div>
+            <!-- End Icon Blocks -->
+        }
+
+    </div>
+
+    <!-- Dau tu modal window -->
+    <div id="modalcanhan" class="text-left u-shadow-v1-3 g-rounded-15 g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20 g-mr-5 g-ml-5 btn-block" style="display: none;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+
+        <h2 class="h2 u-heading-v2__title g-color-gray-dark-v2 text-center g-font-weight-700">Cập nhật<span class="g-color-deeporange g-ml-5">thông tin cá nhân</span></h2>
+        <div class="form-group g-mb-20">
+            <!--<div class="text-left g-width-100x">
+                <label class="g-mb-10 g-width-100x g-font-weight-700">Nhập số tiền đầu tư</label>
+            </div>-->
+            <div class="input-group g-brd-primary--focus ">
+                <div class="form-control form-control-md input-group g-brd-primary--focus g-rounded-30">
+                    <input class="form-control form-control-md  border-0 rounded-15 pr-0 g-pa-0 username-input" type="text" value="@Model.Customer.FullName">
+                    <b class="tooltip tooltip-top-right u-tooltip--v1">Nhập Họ và tên</b>
+                    <div class="input-group-append">
+                        <span class="input-group-text rounded-0  border-0 g-bg-white g-color-gray-light-v1"></span>
+                    </div>
                 </div>
-                <div class="user-data-management__detail__items">
-                    <img src="/images/icon-docx.png"
-                         alt=""><span>Qt1_Report.docx</span><a href="#">
-                        <img src="/images/icon-download.png" alt="">
-                    </a>
-                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 align-self-center g-mb-50--md g-mb-0--md text-center">
+                <a class="u-shadow-v1-1 btn btn-md u-btn-darkgray g-color-white u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-py-15 btn-block g-font-size-14 g-width-40x float-left" onclick="Custombox.modal.close();"><i class="fa fa-close"></i> Hủy</a>
+                &nbsp;
+                <a class="u-shadow-v1-1 btn btn-md u-btn-deeporange u-btn-hover-v1-1 g-rounded-50 g-mb-15 g-mt-0 g-py-15 btn-block g-font-size-14 g-width-40x float-right button-change-user-name" href="">Cập nhật</a>
             </div>
         </div>
     </div>
+    <!-- End Dau tu modal window -->
 </section>
+
+@section Scripts {
+    <script>
+        $(window).on('load', function () {
+            // initialization of forms
+            $.HSCore.components.HSDatepicker.init('#datepickerFrom, #datepickerTo');
+        }
+        );
+    </script>
+
+    <script src="/assets-new/vendor/highcharts/code/highcharts.js"></script>
+    <script src="/assets-new/vendor/highcharts/code/modules/exporting.js"></script>
+    <script src="/assets-new/vendor/highcharts/code/modules/export-data.js"></script>
+    <script src="/assets-new/js/user-profile.js"></script>
+    <script type="text/javascript">
+            Highcharts.setOptions({
+                chart: {
+                    style: {
+                        fontFamily: 'Quicksand',
+                        fontSize: '16px'
+                    }
+                }
+            });
+
+
+            Highcharts.chart('container', {
+                chart: {
+                    zoomType: 'x'
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                        '' : ''
+                },
+                xAxis: {
+                    type: 'datetime',
+                    labels: {
+                        formatter() {
+                            //console.log(this.value)
+                            return Highcharts.dateFormat('%e - %m - %y', this.value)
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Tổng tài sản(1000đ)'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                        },
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+
+                series: [{
+                    type: 'area',
+                    name: 'Tài khoản',
+                    data: [
+                        [
+                            Date.UTC(2019, 02, 1),
+                            0.7537
+                        ],
+                        [
+                            Date.UTC(2019, 02, 3),
+                            0.7537
+                        ],
+                        [
+                            Date.UTC(2019, 02, 5),
+                            0.7559
+                        ],
+                        [
+                            Date.UTC(2019, 02, 12),
+                            0.7631
+                        ],
+                        [
+                            Date.UTC(2019, 02, 16),
+                            0.7644
+                        ]
+                    ]
+                }],
+                exporting:
+                {
+                    enabled: false
+                }
+            });
+
+        </script>
+}
